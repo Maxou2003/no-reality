@@ -1,0 +1,5 @@
+#This file securise the content of /config 
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^ - [F,L]
+</IfModule>
