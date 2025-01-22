@@ -6,7 +6,7 @@ class TestController
 {
     public function index()
     {
-        echo "Hello World";
+        require(__DIR__ . '/../View/home.php');
     }
     public function testmethod()
     {
