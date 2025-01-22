@@ -8,12 +8,13 @@ error_reporting(E_ALL);
 require_once '../app/Lib/autoloader.php';
 
 // Parse the URL to determine the controller and action
-$url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'test/index';
+$url = isset($_GET['p']) ? rtrim($_GET['p'], '/') : 'test/index';
 $urlParts = explode('/', $url);
 
 
 $controllerName = ucfirst($urlParts[0]) . 'Controller'; // Example: "TestController"
 $actionName = isset($urlParts[1]) ? $urlParts[1] : 'index'; // Default action: "index"
+
 
 // Full path to the controller file
 $controllerPath = '../app/Controller/' . $controllerName . '.php';
