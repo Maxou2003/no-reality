@@ -60,7 +60,7 @@
                         <div class="profile_img">
                             <img src="img/pc160005.jpg" alt="Image">
                         </div>
-                        <span>User</span>
+                        <span><?= $posts[0]->user_username ?></span>
                     </div>
                     <div class="options">
                         <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>
