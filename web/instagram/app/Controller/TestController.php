@@ -8,4 +8,8 @@ class TestController
     {
         echo "Hello World";
     }
+    public function testmethod()
+    {
+        echo "This is test method";
+    }
 }
