@@ -4,5 +4,5 @@
     # Redirect all requests to index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^testmethod/?$ index.php?p=test/testmethod
+    RewriteRule ^home/?$ index.php?p=home/home
 </IfModule>
