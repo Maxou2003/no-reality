@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 15 jan. 2025 à 17:38
+-- Généré le : jeu. 23 jan. 2025 à 13:58
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `nr_source`
 --
+CREATE DATABASE IF NOT EXISTS `nr_source` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `nr_source`;
 
 -- --------------------------------------------------------
 
@@ -31,7 +33,7 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `user_lastname` varchar(50) NOT NULL,
   `user_firstname` varchar(50) NOT NULL,
-  `user_pp` blob NOT NULL,
+  `user_pp_path` text NOT NULL,
   `user_age` int(11) NOT NULL,
   `user_gender` int(11) NOT NULL,
   `user_ethnicity` int(11) NOT NULL,

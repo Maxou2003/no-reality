@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 22 jan. 2025 à 14:41
+-- Généré le : jeu. 23 jan. 2025 à 13:56
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `nr_instagram`
 --
+CREATE DATABASE IF NOT EXISTS `nr_instagram` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `nr_instagram`;
 
 -- --------------------------------------------------------
 
@@ -49,6 +51,13 @@ CREATE TABLE `instance` (
   `subject` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `instance`
+--
+
+INSERT INTO `instance` (`instance_id`, `average_age`, `gender_prop`, `population`, `subject`) VALUES
+(1, 34, 1, 1, 'l\'eau chaude');
+
 -- --------------------------------------------------------
 
 --
@@ -62,11 +71,18 @@ CREATE TABLE `posts` (
   `nb_likes` int(11) NOT NULL DEFAULT 0,
   `nb_views` int(11) NOT NULL DEFAULT 0,
   `time_stamp` datetime NOT NULL,
-  `post_picture` blob NOT NULL,
+  `post_picture_path` text NOT NULL,
   `post_description` varchar(500) NOT NULL,
   `post_location` varchar(50) NOT NULL,
   `nb_comments` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `posts`
+--
+
+INSERT INTO `posts` (`post_id`, `user_id`, `instance_id`, `nb_likes`, `nb_views`, `time_stamp`, `post_picture_path`, `post_description`, `post_location`, `nb_comments`) VALUES
+(1, 1, 1, 30, 45, '2025-01-23 13:30:47', '\\no-reality\\web\\instagram\\public\\img\\post_img\\pexels-clement-proust-363898785-14606642.jpg', 'Un super semestre à l\'étranger !', 'Finlande, Helsinki', 3);
 
 -- --------------------------------------------------------
 
@@ -106,6 +122,13 @@ CREATE TABLE `userlinkinstance` (
   `instance_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `userlinkinstance`
+--
+
+INSERT INTO `userlinkinstance` (`link_id`, `user_id`, `instance_id`) VALUES
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -117,9 +140,16 @@ CREATE TABLE `users` (
   `user_username` varchar(50) NOT NULL,
   `user_firstname` varchar(50) NOT NULL,
   `user_lastname` varchar(50) NOT NULL,
-  `user_pp` blob DEFAULT NULL,
+  `user_pp_path` text DEFAULT NULL,
   `user_description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_username`, `user_firstname`, `user_lastname`, `user_pp_path`, `user_description`) VALUES
+(1, 'MaxLambert', 'Maxime', 'Lambert', '\\no-reality\\web\\instagram\\public\\img\\profile_picture\\maxime_lambert.jpg', 'Hey, je suis Maxime Lambert !');
 
 --
 -- Index pour les tables déchargées
@@ -168,7 +198,8 @@ ALTER TABLE `subscriptions`
 --
 ALTER TABLE `userlinkinstance`
   ADD PRIMARY KEY (`link_id`),
-  ADD UNIQUE KEY `user_id` (`user_id`,`instance_id`);
+  ADD UNIQUE KEY `user_id` (`user_id`,`instance_id`),
+  ADD KEY `FK_UserLinkInstanceInstanceId` (`instance_id`);
 
 --
 -- Index pour la table `users`
@@ -191,13 +222,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `instance`
 --
 ALTER TABLE `instance`
-  MODIFY `instance_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `instance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `response`
@@ -221,7 +252,7 @@ ALTER TABLE `userlinkinstance`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
@@ -259,6 +290,7 @@ ALTER TABLE `subscriptions`
 -- Contraintes pour la table `userlinkinstance`
 --
 ALTER TABLE `userlinkinstance`
+  ADD CONSTRAINT `FK_UserLinkInstanceInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instance` (`instance_id`),
   ADD CONSTRAINT `FK_UserLinkInstanceUserid` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
