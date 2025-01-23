@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <link rel="icon" href="/no-reality/web/instagram/public/img/favicon.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
@@ -58,7 +59,7 @@
                 <div class="post_header">
                     <div class="profile_info">
                         <div class="profile_img">
-                            <img src="img/pc160005.jpg" alt="Image">
+                            <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
                         </div>
                         <span><?= $posts[0]->user_username ?></span>
                     </div>
@@ -67,7 +68,7 @@
                     </div>
                 </div>
                 <div class="post_img">
-                    <img src="img/pc160005.jpg" alt="Image">
+                    <img src=<?= $posts[0]->post_picture_path ?> alt="Image">
                 </div>
                 <div class="post_body">
                     <div class="post_actions">
@@ -76,20 +77,20 @@
                         <span><ion-icon name="paper-plane-outline"></ion-icon></span>
                         <span><ion-icon name="bookmark-outline"></ion-icon></span>
                     </div>
-                    <div class="post_info">1,8M likes</div>
+                    <div class="post_info"><?= $posts[0]->nb_likes ?> likes</div>
                     <div class="post_title">
-                        <span class="username">User</span>
-                        <span class="title">Lovely face</span>
+                        <span class="username"><?= $posts[0]->user_username ?></span>
+                        <span class="title"><?= $posts[0]->post_description ?></span>
                     </div>
                     <div class="post_comments">
-                        <span>View all 213K comments </span>
+                        <span>View all <?= $posts[0]->nb_comments ?> comments </span>
                         <div class="comment">
                             <span class="comment_username">User</span>
                             <span class="comment_text">Trop choupinou</span>
                             <span class="heart_icon"><ion-icon name="heart-outline"></ion-icon></span>
                         </div>
                     </div>
-                    <div class="post_timestamp">2 hours ago</div>
+                    <div class="post_timestamp"><?= $posts[0]->time_stamp->format('Y-m-d H:i') ?></div>
                 </div>
                 <div class="input_box">
                     <div class="emoji"><ion-icon name="happy-outline"></ion-icon></div>
