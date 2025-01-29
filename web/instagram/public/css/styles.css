@@ -90,7 +90,7 @@ body {
 .profile_img {
     width: 42px;
     height: 42px;
-    /* background: linear-gradient(to top right, orange, purple); */
+    /*background: linear-gradient(to top right, orange, purple);*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,16 +105,6 @@ body {
     object-fit: cover;
     border: 3px solid white;
     box-sizing: content-box;
-}
-
-.user span {
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.profile_info span {
-    font-weight: bold;
-    cursor: pointer;
 }
 
 .options span {

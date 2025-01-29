@@ -17,4 +17,5 @@ class Post
     public string $post_picture_path;
     public string $post_description;
     public string $post_location;
+    public int $post_id;
 }
