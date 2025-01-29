@@ -59,7 +59,7 @@
         <div class="profile-container">
             <div class="profile-header">
                 <div class="profile-picture">
-                    <img src="<?= URL ?>img/profile_picture/pc160005.jpg " alt="Profile Picture">
+                    <img src="<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> " alt="Profile Picture">
                 </div>
                 <div class="profile-info">
                     <div class="profile-username">
@@ -80,10 +80,10 @@
             </div>
             <!-- Post gallery-->
             <div class="profile-posts">
-                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-kaboompics-6256.jpg')"><img
-                        src="<?= URL ?>img/post_img/pexels-kaboompics-6256.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-mikebirdy-211762.jpg')"><img
-                        src="<?= URL ?>img/post_img/pexels-mikebirdy-211762.jpg" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= $posts[0]->post_picture_path ?>')"><img
+                        src="<?= $posts[0]->post_picture_path ?>" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= POST_IMG_PATH . $posts[1]->post_picture_path ?>')"><img 
+                    src="<?= POST_IMG_PATH . $posts[1]->post_picture_path ?>" alt="Post"></div>
                 <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-muratak-30326892.jpg')"><img
                         src="<?= URL ?>img/post_img/pexels-muratak-30326892.jpg" alt="Post"></div>
                 <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-ps-photography-14694-67184.jpg')"><img
@@ -107,7 +107,7 @@
                 <div class="custom-modal-post-header">
                     <div class="custom-modal-profile-info">
                         <div class="custom-modal-profile-img">
-                            <img src="<?= URL ?>img/profile_picture/pc160005.jpg" alt="Image">
+                            <img src="<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?>" alt="Image">
                         </div>
                         <a class="nav-link" href="<?= URL ?>profile"><span>User</span></a>
                     </div>
