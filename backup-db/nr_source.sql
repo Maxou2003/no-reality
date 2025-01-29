@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 23 jan. 2025 à 13:58
+-- Généré le : mer. 29 jan. 2025 à 22:02
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -36,8 +36,7 @@ CREATE TABLE `users` (
   `user_pp_path` text NOT NULL,
   `user_age` int(11) NOT NULL,
   `user_gender` int(11) NOT NULL,
-  `user_ethnicity` int(11) NOT NULL,
-  `user_blob_hash` varchar(32) NOT NULL
+  `user_ethnicity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -49,7 +48,7 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_blob_hash` (`user_blob_hash`);
+  ADD UNIQUE KEY `user_pp_path` (`user_pp_path`) USING HASH;
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
