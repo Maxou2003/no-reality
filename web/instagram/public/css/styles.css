@@ -63,6 +63,7 @@ body {
 
 
 .post {
+    margin-bottom: 20px;
     background-color: white;
     width: 470px;
     border: 1px solid var(--border-color);

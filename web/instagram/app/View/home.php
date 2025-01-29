@@ -56,49 +56,52 @@
         <!-- Fil d'actualité -->
         <main class="feed">
             <h1>Fil d'actualité</h1>
-            <div class="post">
-                <div class="post_header">
-                    <div class="profile_info">
-                        <div class="profile_img">
-                            <img src=<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> alt="Image">
+
+            <?php foreach ($posts as $post) { ?>
+                <div class="post">
+                    <div class="post_header">
+                        <div class="profile_info">
+                            <div class="profile_img">
+                                <img src=<?= PROFILE_IMG_PATH . $post->user_pp_path ?> alt="Image">
+                            </div>
+                            <a class="nav-link" href="<?= URL . 'profile/' . $post->user_id ?>"><span><?= $post->user_username ?></span></a>
                         </div>
-                        <a class="nav-link" href="<?= URL . 'profile/' . $posts[0]->user_id ?>"><span><?= $posts[0]->user_username ?></span></a>
+                        <div class="options">
+                            <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>
+                        </div>
                     </div>
-                    <div class="options">
-                        <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>
+                    <div class="post_img">
+                        <img src="<?= POST_IMG_PATH . $post->post_picture_path ?>" alt="Image">
                     </div>
-                </div>
-                <div class="post_img">
-                    <img src="<?= POST_IMG_PATH . $posts[0]->post_picture_path ?>" alt="Image">
-                </div>
-                <div class="post_body">
-                    <div class="post_actions">
-                        <span class="heart_icon"><ion-icon name="heart-outline"></ion-icon></span>
-                        <span><ion-icon name="chatbubble-outline"></ion-icon></span>
-                        <span><ion-icon name="paper-plane-outline"></ion-icon></span>
-                        <span><ion-icon name="bookmark-outline"></ion-icon></span>
-                    </div>
-                    <div class="post_info"><?= $posts[0]->nb_likes ?> likes</div>
-                    <div class="post_title">
-                        <span class="username"><?= $posts[0]->user_username ?></span>
-                        <span class="title"><?= $posts[0]->post_description ?></span>
-                    </div>
-                    <div class="post_comments">
-                        <span>View all <?= $posts[0]->nb_comments ?> comments </span>
-                        <div class="comment">
-                            <span class="comment_username">User</span>
-                            <span class="comment_text">Trop choupinou</span>
+                    <div class="post_body">
+                        <div class="post_actions">
                             <span class="heart_icon"><ion-icon name="heart-outline"></ion-icon></span>
+                            <span><ion-icon name="chatbubble-outline"></ion-icon></span>
+                            <span><ion-icon name="paper-plane-outline"></ion-icon></span>
+                            <span><ion-icon name="bookmark-outline"></ion-icon></span>
                         </div>
+                        <div class="post_info"><?= $post->nb_likes ?> likes</div>
+                        <div class="post_title">
+                            <span class="username"><?= $post->user_username ?></span>
+                            <span class="title"><?= $post->post_description ?></span>
+                        </div>
+                        <div class="post_comments">
+                            <span>View all <?= $post->nb_comments ?> comments </span>
+                            <div class="comment">
+                                <span class="comment_username">Nom en Dur</span>
+                                <span class="comment_text">Lorem Ipsium</span>
+                                <span class="heart_icon"><ion-icon name="heart-outline"></ion-icon></span>
+                            </div>
+                        </div>
+                        <div class="post_timestamp"><?= $post->time_stamp->format('Y-m-d H:i') ?></div>
                     </div>
-                    <div class="post_timestamp"><?= $posts[0]->time_stamp->format('Y-m-d H:i') ?></div>
+                    <div class="input_box">
+                        <div class="emoji"><ion-icon name="happy-outline"></ion-icon></div>
+                        <input type="text" placeholder="Add a comment...">
+                        <button>Post</button>
+                    </div>
                 </div>
-                <div class="input_box">
-                    <div class="emoji"><ion-icon name="happy-outline"></ion-icon></div>
-                    <input type="text" placeholder="Add a comment...">
-                    <button>Post</button>
-                </div>
-            </div>
+            <?php } ?>
 
         </main>
 
@@ -109,7 +112,7 @@
                 <div class="profile_img">
                     <img src=<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> alt="Image">
                 </div>
-                <a class="nav-link" href="<?= URL ?>profile/1"><span><?= $posts[0]->user_username ?></span></a>
+                <a class="nav-link" href="<?= URL ?>profile/<?= $posts[0]->user_id ?>"><span><?= $posts[0]->user_username ?></span></a>
             </div>
             <div class="user">
                 <div class="profile_img">

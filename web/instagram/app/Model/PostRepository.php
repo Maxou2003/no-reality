@@ -13,7 +13,7 @@ class PostRepository
     public function getPost($nb): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments FROM posts p join users u on p.user_id=u.user_id limit :offset'
+            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments FROM posts p join users u on p.user_id=u.user_id ORDER BY time_stamp DESC limit :offset '
         );
         $statement->bindValue(':offset', $nb, \PDO::PARAM_INT);
         $statement->execute();
