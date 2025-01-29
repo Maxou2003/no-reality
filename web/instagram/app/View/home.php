@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
-    <link rel="stylesheet" href="/no-reality/web/instagram/public/css/styles.css">
-    <link rel="stylesheet" href="/no-reality/web/instagram/public/css/sidebar.css">
+    <link rel="stylesheet" href="<?= URL ?>css/styles.css">
+    <link rel="stylesheet" href="<?= URL ?>css/sidebar.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <link rel="icon" href="/no-reality/web/instagram/public/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?= URL ?>img/favicon.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script src="/no-reality/web/instagram/public/js/script.js" defer></script>
-    <script src="/no-reality/web/instagram/public/js/heart_icons.js" defer></script>
+    <script src="<?= URL ?>js/script.js" defer></script>
+    <script src="<?= URL ?>js/heart_icons.js" defer></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
@@ -24,13 +24,13 @@
     <div class="grid-container ">
         <div class="sidebar">
             <div class="logo">
-                <i class="fab fa-instagram"></i>
-                <span>Instagram</span>
+                <a href="<?= URL ?>" class=" navbar-brand">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
             </div>
-
-            <!-- Navigation Links -->
             <nav class="nav-links">
-                <a href="#" class="nav-item">
+                <a href="<?= URL ?>" class="nav-item">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
@@ -62,7 +62,7 @@
                         <div class="profile_img">
                             <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
                         </div>
-                        <a class="nav-link" href="/no-reality/web/instagram/public/profile/"><span><?= $posts[0]->user_username ?></span></a>
+                        <a class="nav-link" href="<?= URL ?>profile?id=1"><span><?= $posts[0]->user_username ?></span></a>
                     </div>
                     <div class="options">
                         <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>

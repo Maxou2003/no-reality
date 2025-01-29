@@ -4,6 +4,8 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+define('URL', "/no-reality/web/instagram/public/");
+
 // Load configurations and autoloader
 require_once '../app/Lib/autoloader.php';
 

@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
-    <link rel="stylesheet" href="/no-reality/web/instagram/public/css/sidebar.css">
-    <link rel="stylesheet" href="/no-reality/web/instagram/public/css/profile.css">
-    <link rel="stylesheet" href="/no-reality/web/instagram/public/css/custom-modal.css">
+    <link rel="stylesheet" href="<?= URL ?>css/sidebar.css">
+    <link rel="stylesheet" href="<?= URL ?>css/profile.css">
+    <link rel="stylesheet" href="<?= URL ?>css/custom-modal.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="icon" href="/no-reality/web/instagram/public/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?= URL ?>img/favicon.ico" type="image/x-icon">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script src="/no-reality/web/instagram/public/js/post_view.js" defer></script>
-    <script src="/no-reality/web/instagram/public/js/heart_icons.js" defer></script>
+    <script src="<?= URL ?>js/post_view.js" defer></script>
+    <script src="<?= URL ?>js/heart_icons.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -27,13 +27,13 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <a href="index.html" class="navbar-brand">
+                <a href="<?= URL ?>" class=" navbar-brand">
                     <i class="fab fa-instagram"></i>
                     <span>Instagram</span>
                 </a>
             </div>
             <nav class="nav-links">
-                <a href="index.html" class="nav-item">
+                <a href="<?= URL ?>" class="nav-item">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
@@ -59,7 +59,7 @@
         <div class="profile-container">
             <div class="profile-header">
                 <div class="profile-picture">
-                    <img src="/no-reality/web/instagram/public/img/profile_picture/pc160005.jpg " alt="Profile Picture">
+                    <img src="<?= URL ?>img/profile_picture/pc160005.jpg " alt="Profile Picture">
                 </div>
                 <div class="profile-info">
                     <div class="profile-username">
@@ -80,18 +80,18 @@
             </div>
             <!-- Post gallery-->
             <div class="profile-posts">
-                <div class="post" onclick="openModal('/no-reality/web/instagram/public/img/post_img/pexels-kaboompics-6256.jpg')"><img
-                        src="/no-reality/web/instagram/public/img/post_img/pexels-kaboompics-6256.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('/no-reality/web/instagram/public/img/post_img/pexels-mikebirdy-211762.jpg')"><img
-                        src="/no-reality/web/instagram/public/img/post_img/pexels-mikebirdy-211762.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('/no-reality/web/instagram/public/img/post_img/pexels-muratak-30326892.jpg')"><img
-                        src="/no-reality/web/instagram/public/img/post_img/pexels-muratak-30326892.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('/no-reality/web/instagram/public/img/post_img/pexels-ps-photography-14694-67184.jpg')"><img
-                        src="/no-reality/web/instagram/public/img/post_img/pexels-ps-photography-14694-67184.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('/no-reality/web/instagram/public/img/post_img/pexels-steve-861414.jpg')"><img
-                        src="/no-reality/web/instagram/public/img/post_img/pexels-steve-861414.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('/no-reality/web/instagram/public/img/post_img/pexels-gabby-k-6621244.jpg')"><img
-                        src="/no-reality/web/instagram/public/img/post_img/pexels-gabby-k-6621244.jpg" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-kaboompics-6256.jpg')"><img
+                        src="<?= URL ?>img/post_img/pexels-kaboompics-6256.jpg" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-mikebirdy-211762.jpg')"><img
+                        src="<?= URL ?>img/post_img/pexels-mikebirdy-211762.jpg" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-muratak-30326892.jpg')"><img
+                        src="<?= URL ?>img/post_img/pexels-muratak-30326892.jpg" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-ps-photography-14694-67184.jpg')"><img
+                        src="<?= URL ?>img/post_img/pexels-ps-photography-14694-67184.jpg" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-steve-861414.jpg')"><img
+                        src="<?= URL ?>img/post_img/pexels-steve-861414.jpg" alt="Post"></div>
+                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-gabby-k-6621244.jpg')"><img
+                        src="<?= URL ?>img/post_img/pexels-gabby-k-6621244.jpg" alt="Post"></div>
             </div>
 
         </div>
@@ -107,9 +107,9 @@
                 <div class="custom-modal-post-header">
                     <div class="custom-modal-profile-info">
                         <div class="custom-modal-profile-img">
-                            <img src="/no-reality/web/instagram/public/img/profile_picture/pc160005.jpg" alt="Image">
+                            <img src="<?= URL ?>img/profile_picture/pc160005.jpg" alt="Image">
                         </div>
-                        <a class="nav-link" href="profile.html"><span>User</span></a>
+                        <a class="nav-link" href="<?= URL ?>profile"><span>User</span></a>
                     </div>
                     <div class="options">
                         <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>
@@ -119,7 +119,7 @@
                 <div class="comments">
                     <div class="title">
                         <div class="custom-modal-profile-img">
-                            <img src="/no-reality/web/instagram/public/img/profile_picture/pc160005.jpg" alt="Image">
+                            <img src="<?= URL ?>img/profile_picture/pc160005.jpg" alt="Image">
                         </div>
                         <div class="description-content">
                             <span class="username">User</span>
@@ -132,7 +132,7 @@
 
                     <div class="comment">
                         <div class="custom-modal-comment-profile-img">
-                            <img src="/no-reality/web/instagram/public/img/profile_picture/maxime_lambert.jpg" alt="Image">
+                            <img src="<?= URL ?>img/profile_picture/maxime_lambert.jpg" alt="Image">
                         </div>
                         <div class="comment-content">
                             <span class="username">MaxLambert</span>
@@ -147,7 +147,7 @@
 
                     <div class="comment">
                         <div class="custom-modal-comment-profile-img">
-                            <img src="/no-reality/web/instagram/public/img/profile_picture/234363700-portrait-de-tête-de-renard-sur-fond-blanc-retouché-avec-un-effet-réaliste.jpg"
+                            <img src="<?= URL ?>img/profile_picture/234363700-portrait-de-tête-de-renard-sur-fond-blanc-retouché-avec-un-effet-réaliste.jpg"
                                 alt="Image">
                         </div>
                         <div class="comment-content">
