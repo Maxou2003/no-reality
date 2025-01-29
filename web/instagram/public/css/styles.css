@@ -43,69 +43,6 @@ body {
 }
 
 
-.sidebar {
-    height: 100%;
-    width: 280px;
-
-    background-color: #fff;
-    border-right: 1px solid #dbdbdb;
-
-    flex-direction: column;
-    justify-content: space-between;
-
-    grid-column: 1;
-    position: fixed;
-}
-
-/* Logo Section */
-.logo {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #262626;
-    cursor: pointer;
-}
-
-.logo i {
-    margin-right: 10px;
-    color: #d6249f;
-    /* Instagram gradient color */
-}
-
-/* Navigation Links */
-.nav-links {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    /* Add some spacing from the top */
-    flex-grow: 1;
-    /* Push other elements (like footer) down */
-    justify-content: flex-start;
-    /* Align items to the top */
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    color: #262626;
-    text-decoration: none;
-    font-size: 18px;
-    transition: background-color 0.3s;
-}
-
-.nav-item i {
-    margin-right: 15px;
-}
-
-.nav-item:hover {
-    background-color: #f2f2f2;
-    border-radius: 10px;
-}
-
-
 
 
 /* Fil d'actualité */

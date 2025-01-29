@@ -7,6 +7,7 @@ use DateTime;
 class Post
 {
     public string $user_username;
+    public int $user_id;
     public int $instance_id;
     public string $user_pp_path;
     public int $nb_likes;

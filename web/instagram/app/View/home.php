@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
     <link rel="stylesheet" href="/no-reality/web/instagram/public/css/styles.css">
+    <link rel="stylesheet" href="/no-reality/web/instagram/public/css/sidebar.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -61,7 +62,7 @@
                         <div class="profile_img">
                             <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
                         </div>
-                        <span><?= $posts[0]->user_username ?></span>
+                        <a class="nav-link" href="/no-reality/web/instagram/public/profile/"><span><?= $posts[0]->user_username ?></span></a>
                     </div>
                     <div class="options">
                         <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>
