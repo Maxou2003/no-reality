@@ -60,7 +60,7 @@
                 <div class="post_header">
                     <div class="profile_info">
                         <div class="profile_img">
-                            <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
+                            <img src=<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> alt="Image">
                         </div>
                         <a class="nav-link" href="<?= URL . 'profile/' . $posts[0]->user_id ?>"><span><?= $posts[0]->user_username ?></span></a>
                     </div>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="post_img">
-                    <img src=<?= $posts[0]->post_picture_path ?> alt="Image">
+                    <img src="<?= POST_IMG_PATH . $posts[0]->post_picture_path ?>" alt="Image">
                 </div>
                 <div class="post_body">
                     <div class="post_actions">
