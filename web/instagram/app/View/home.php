@@ -107,21 +107,21 @@
             <h2>Suggestions</h2>
             <div class="user">
                 <div class="profile_img">
-                      <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
+                    <img src=<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> alt="Image">
                 </div>
-                <a class="nav-link" href="<?= URL ?>profile?id=1"><span><?= $posts[0]->user_username ?></span></a>
+                <a class="nav-link" href="<?= URL ?>profile/1"><span><?= $posts[0]->user_username ?></span></a>
             </div>
             <div class="user">
                 <div class="profile_img">
-                      <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
+                    <img src=<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> alt="Image">
                 </div>
-                <a class="nav-link" href="<?= URL ?>profile?id=1"><span><?= $posts[0]->user_username ?></span></a>
+                <a class="nav-link" href="<?= URL ?>profile/1"><span><?= $posts[0]->user_username ?></span></a>
             </div>
             <div class="user">
                 <div class="profile_img">
-                      <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
+                    <img src=<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> alt="Image">
                 </div>
-                <a class="nav-link" href="<?= URL ?>profile?id=1"><span><?= $posts[0]->user_username ?></span></a>
+                <a class="nav-link" href="<?= URL ?>profile/1"><span><?= $posts[0]->user_username ?></span></a>
             </div>
         </aside>
     </div>

@@ -42,9 +42,6 @@ body {
     /* Centre le conteneur horizontalement */
 }
 
-
-
-
 /* Fil d'actualité */
 .feed {
     grid-column: 2;
