@@ -64,7 +64,7 @@
                             <div class="profile_img">
                                 <img src=<?= PROFILE_IMG_PATH . $post->user_pp_path ?> alt="Image">
                             </div>
-                            <a class="nav-link" href="<?= URL . 'profile/' . $post->user_id ?>"><span><?= $post->user_username ?></span></a>
+                            <a class="nav-link" href="<?= URL . 'profile/' . $post->user_id ?>"><span><strong><?= $post->user_username ?></strong></span></a>
                         </div>
                         <div class="options">
                             <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>

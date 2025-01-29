@@ -59,7 +59,7 @@
         <div class="profile-container">
             <div class="profile-header">
                 <div class="profile-picture">
-                    <img src="<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?> " alt="Profile Picture">
+                    <img src="<?= PROFILE_IMG_PATH . $user->user_pp_path ?> " alt="Profile Picture">
                 </div>
                 <div class="profile-info">
                     <div class="profile-username">
@@ -72,7 +72,9 @@
                         <li><a href="#" class="nav-link"><strong>300</strong> following</li></a>
                     </ul>
                     <div class="profile-bio">
-                        <p><pre><?= $user->user_description ?></pre>  </p> 
+                        <p>
+                        <pre><?= $user->user_description ?></pre>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -80,8 +82,8 @@
             <div class="profile-posts">
                 <?php
                 foreach ($posts as $post) { ?>
-                <div class="post" onclick="openModal('<?= POST_IMG_PATH . $post->post_picture_path ?>')"><img 
-                    src="<?= POST_IMG_PATH . $post->post_picture_path ?>" alt="Post"></div>
+                    <div class="post" onclick="openModal('<?= POST_IMG_PATH . $post->post_picture_path ?>')"><img
+                            src="<?= POST_IMG_PATH . $post->post_picture_path ?>" alt="Post"></div>
                 <?php } ?>
             </div>
 

@@ -13,7 +13,7 @@ class HomeController
         $PostRepository = new PostRepository();
         $PostRepository->connection = $database;
 
-        $posts = $PostRepository->getPost(2);
+        $posts = $PostRepository->getPost(3);
 
         require(__DIR__ . '/../View/home.php');
     }
