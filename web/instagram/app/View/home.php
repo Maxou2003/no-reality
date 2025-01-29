@@ -105,9 +105,24 @@
         <!-- Suggestions -->
         <aside class="suggestions">
             <h2>Suggestions</h2>
-            <div class="user">Utilisateur 1</div>
-            <div class="user">Utilisateur 2</div>
-            <div class="user">Utilisateur 3</div>
+            <div class="user">
+                <div class="profile_img">
+                      <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
+                </div>
+                <a class="nav-link" href="<?= URL ?>profile?id=1"><span><?= $posts[0]->user_username ?></span></a>
+            </div>
+            <div class="user">
+                <div class="profile_img">
+                      <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
+                </div>
+                <a class="nav-link" href="<?= URL ?>profile?id=1"><span><?= $posts[0]->user_username ?></span></a>
+            </div>
+            <div class="user">
+                <div class="profile_img">
+                      <img src=<?= $posts[0]->user_pp_path ?> alt="Image">
+                </div>
+                <a class="nav-link" href="<?= URL ?>profile?id=1"><span><?= $posts[0]->user_username ?></span></a>
+            </div>
         </aside>
     </div>
 
