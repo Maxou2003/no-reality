@@ -62,4 +62,5 @@ class UserRepository
         }
 
         return $userArray;
+    }
 }
