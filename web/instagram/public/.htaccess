@@ -5,5 +5,5 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^home/?$ index.php?p=home/home
-    RewriteRule ^profile/?$ index.php?p=profile/main
+    RewriteRule ^profile/(\d*)$ index.php?p=profile/main&id=$1
 </IfModule>
