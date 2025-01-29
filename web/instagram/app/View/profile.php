@@ -63,7 +63,7 @@
                 </div>
                 <div class="profile-info">
                     <div class="profile-username">
-                        <h2>LeMaxou</h2>
+                        <h2><?= $user->user_username ?></h2>
                         <button class="follow-btn">Follow</button>
                     </div>
                     <ul class="profile-stats">
@@ -72,26 +72,17 @@
                         <li><a href="#" class="nav-link"><strong>300</strong> following</li></a>
                     </ul>
                     <div class="profile-bio">
-                        <p>Maxence Martin</p>
-                        <p>Ma bio est trop cool 🌟</p>
-                        <p>📍 Angers, France</p>
+                        <p><pre><?= $user->user_description ?></pre>  </p> 
                     </div>
                 </div>
             </div>
             <!-- Post gallery-->
             <div class="profile-posts">
-                <div class="post" onclick="openModal('<?= $posts[0]->post_picture_path ?>')"><img
-                        src="<?= $posts[0]->post_picture_path ?>" alt="Post"></div>
-                <div class="post" onclick="openModal('<?= POST_IMG_PATH . $posts[1]->post_picture_path ?>')"><img 
-                    src="<?= POST_IMG_PATH . $posts[1]->post_picture_path ?>" alt="Post"></div>
-                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-muratak-30326892.jpg')"><img
-                        src="<?= URL ?>img/post_img/pexels-muratak-30326892.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-ps-photography-14694-67184.jpg')"><img
-                        src="<?= URL ?>img/post_img/pexels-ps-photography-14694-67184.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-steve-861414.jpg')"><img
-                        src="<?= URL ?>img/post_img/pexels-steve-861414.jpg" alt="Post"></div>
-                <div class="post" onclick="openModal('<?= URL ?>img/post_img/pexels-gabby-k-6621244.jpg')"><img
-                        src="<?= URL ?>img/post_img/pexels-gabby-k-6621244.jpg" alt="Post"></div>
+                <?php
+                foreach ($posts as $post) { ?>
+                <div class="post" onclick="openModal('<?= POST_IMG_PATH . $post->post_picture_path ?>')"><img 
+                    src="<?= POST_IMG_PATH . $post->post_picture_path ?>" alt="Post"></div>
+                <?php } ?>
             </div>
 
         </div>
@@ -107,7 +98,7 @@
                 <div class="custom-modal-post-header">
                     <div class="custom-modal-profile-info">
                         <div class="custom-modal-profile-img">
-                            <img src="<?= PROFILE_IMG_PATH . $posts[0]->user_pp_path ?>" alt="Image">
+                            <img src="<?= PROFILE_IMG_PATH . $user->user_pp_path ?>" alt="Image">
                         </div>
                         <a class="nav-link" href="<?= URL ?>profile"><span>User</span></a>
                     </div>
