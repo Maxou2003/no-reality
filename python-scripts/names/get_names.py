@@ -2,8 +2,8 @@ import pandas as pd
 import random
 
 # Read the CSV file
-forenames_df = pd.read_csv('names_filtered/filtered_forenames.csv')
-surnames_df = pd.read_csv('names_filtered/filtered_surnames.csv')
+forenames_df = pd.read_csv('python-scripts/names/names_filtered/filtered_forenames.csv')
+surnames_df = pd.read_csv('python-scripts/names/names_filtered/filtered_surnames.csv')
 
 
 
