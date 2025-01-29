@@ -14,7 +14,6 @@ class ProfileController
         $PostRepository->connection = $database;
 
         $user_id = $_GET['id'];
-
         require(__DIR__ . '/../View/profile.php');
     }
 }

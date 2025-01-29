@@ -101,7 +101,6 @@
 .custom-modal-profile-img {
     width: 42px;
     height: 42px;
-    background: linear-gradient(to top right, orange, purple);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,8 +109,8 @@
 }
 
 .custom-modal-profile-img img {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid white;
@@ -153,8 +152,8 @@
 }
 
 .custom-modal-comment-profile-img img {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid white;
