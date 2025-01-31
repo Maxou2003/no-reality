@@ -14,7 +14,7 @@ class UserRepository
     public function getPosts($id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT post_id, user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments FROM posts p join users u on p.user_id=u.user_id  WHERE u.user_id = :id'
+            'SELECT post_id, user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments FROM posts p join users u on p.user_id=u.user_id  WHERE u.user_id = :id ORDER BY time_stamp DESC'
         );
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
         $statement->execute();

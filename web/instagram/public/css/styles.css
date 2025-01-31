@@ -61,6 +61,9 @@ body {
     text-align: center;
 }
 
+.bio {
+    font-family: Helvetica;
+}
 
 .post {
     margin-bottom: 20px;

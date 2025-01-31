@@ -72,9 +72,8 @@
                         <li><a href="#" class="nav-link"><strong>300</strong> following</li></a>
                     </ul>
                     <div class="profile-bio">
-                        <p>
-                        <pre><?= $user->user_description ?></pre>
-                        </p>
+                        <pre class="bio"><?= $user->user_description ?></pre>
+
                     </div>
                 </div>
             </div>
@@ -102,7 +101,7 @@
                         <div class="custom-modal-profile-img">
                             <img src="<?= PROFILE_IMG_PATH . $user->user_pp_path ?>" alt="Image">
                         </div>
-                        <a class="nav-link" href="<?= URL ?>profile"><span>User</span></a>
+                        <a class="nav-link" href="<?= URL ?>profile"><span> <?= $user->user_username ?> </span></a>
                     </div>
                     <div class="options">
                         <span><ion-icon name="ellipsis-horizontal"></ion-icon></span>
