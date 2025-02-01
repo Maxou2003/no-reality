@@ -8,22 +8,15 @@
 			{% block title %}Instagram
 			{% endblock %}
 		</title>
-		{% block head %}
-		{% endblock %}
+		{% block head %}{% endblock %}
 	</head>
 
 	<body>
-		<div class="grid-container">
-			{% include 'sidebar.twig' with {'url': URL} %} 
+		<div class="flex-container">
+			{% include 'sidebar.twig' with {'url': URL} %}
 
-			<main class="feed"> {% block content %}{% endblock %}
-				</main>
+			{% block content %}{% endblock %}
 
-				<aside class="suggestions">
-					<h2>Suggestions</h2>
-					{% block suggestions %}
-					{% endblock %}
-				</aside>
 		</div>
 	</body>
 

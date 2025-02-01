@@ -1,15 +1,34 @@
-.sidebar {
-    height: 100%;
-    width: 280px;
+/* Grid Container */
+.grid-container {
+    display: flex;
+    min-height: 100vh;
+}
 
+/* Sidebar Toggle Button (Hidden by Default) */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+    height: 100vh;
+    width: 220px;
     background-color: #fff;
     border-right: 1px solid #dbdbdb;
-
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    grid-column: 1;
     position: fixed;
+    transition: width 0.3s ease;
 }
 
 /* Logo Section */
@@ -26,7 +45,6 @@
 .logo i {
     margin-right: 10px;
     color: #d6249f;
-    /* Instagram gradient color */
 }
 
 /* Navigation Links */
@@ -34,11 +52,8 @@
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    /* Add some spacing from the top */
     flex-grow: 1;
-    /* Push other elements (like footer) down */
     justify-content: flex-start;
-    /* Align items to the top */
 }
 
 .nav-item {
@@ -58,4 +73,74 @@
 .nav-item:hover {
     background-color: #f2f2f2;
     border-radius: 10px;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 220px;
+    /* Match sidebar width */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease;
+}
+
+/* Responsive Styles */
+@media (max-width: 1000px) {
+
+    /* Show Sidebar Toggle Button */
+    .sidebar-toggle {
+        display: block;
+    }
+
+    /* Collapse Sidebar */
+    .sidebar {
+        width: 80px;
+        /* Collapsed width */
+    }
+
+    .sidebar .logo span,
+    .sidebar .nav-item span {
+        display: none;
+        /* Hide text in collapsed state */
+    }
+
+    .sidebar .logo {
+        justify-content: center;
+    }
+
+    .sidebar .nav-item {
+        justify-content: center;
+    }
+
+    .sidebar .nav-item i {
+        margin-right: 0;
+        /* Center icons */
+    }
+
+    /* Adjust Main Content Margin */
+    .main-content {
+        margin-left: 80px;
+        /* Match collapsed sidebar width */
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Hide Sidebar by Default on Very Small Screens */
+    .sidebar {
+        width: 0;
+        overflow: hidden;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* Show Sidebar When Toggled */
+    .sidebar.active {
+        width: 80px;
+    }
+
+    .main-content.active {
+        margin-left: 80px;
+    }
 }

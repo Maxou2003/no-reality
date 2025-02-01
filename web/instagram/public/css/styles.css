@@ -18,61 +18,54 @@ body {
     margin: 0;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: white;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 280px 1fr 300px;
-    /* Sidebar, Feed, Suggestions */
-    grid-template-rows: auto;
-    /* Ajuste automatiquement la hauteur */
-    row-gap: 10px;
-    /* Espacement entre les lignes */
-    width: 100%;
-    /* Largeur de 100% de la fenêtre */
-    /* Largeur maximale pour limiter la taille */
+/* Flex Container */
+.flex-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    /* Fixed width */
+    background-color: #fff;
+    border-right: 1px solid var(--border-color);
+    position: fixed;
     height: 100vh;
-    /* Pleine hauteur */
-    background-color: white;
-    margin: 0 auto;
-    /* Centre le conteneur horizontalement */
+    transition: width 0.3s ease;
 }
 
-/* Fil d'actualité */
-.feed {
-    grid-column: 2;
-    /* Deuxième colonne */
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    /* Takes up remaining space */
+    margin-left: 220px;
+    /* Offset for sidebar */
     display: flex;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    /* Center the feed */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
 }
 
-.feed h1 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.bio {
-    font-family: Helvetica;
+/* Feed */
+.feed {
+    max-width: 470px;
+    /* Fixed width for feed */
+    width: 100%;
 }
 
 .post {
-    margin-bottom: 20px;
     background-color: white;
     width: 470px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 14px;
     color: var(--text-color);
+    margin-bottom: 20px;
 }
 
 .post_header {
@@ -82,16 +75,16 @@ body {
     justify-content: space-between;
 }
 
-.profile_info {
+.post_header .profile_info {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.profile_img {
+.post_header .profile_info .profile_img {
     width: 42px;
     height: 42px;
-    /*background: linear-gradient(to top right, orange, purple);*/
+    background: linear-gradient(to top right, orange, purple);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,12 +93,17 @@ body {
 }
 
 .profile_img img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid white;
     box-sizing: content-box;
+}
+
+.post_header .profile_info span {
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .options span {
@@ -240,14 +238,14 @@ body {
 }
 
 
-
 /* Suggestions */
 .suggestions {
-    grid-column: 3;
-    /* Troisième colonne */
+    width: 300px;
+    /* Fixed width */
     padding: 20px;
-    border-radius: 5px;
+    border-left: 1px solid var(--border-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 
@@ -264,7 +262,26 @@ body {
     gap: 10px;
 }
 
-.fs-4 {
-    font-family: Instagram;
-    cursor: pointer;
+/* Responsive Design */
+@media (max-width: 1000px) {
+    .suggestions {
+        display: none;
+        /* Hide suggestions on small screens */
+    }
+
+    .main-content {
+        margin-left: 0;
+        /* Remove sidebar offset */
+    }
+
+    .sidebar {
+        width: 80px;
+        /* Collapsed sidebar */
+    }
+
+    .sidebar .logo span,
+    .sidebar .nav-item span {
+        display: none;
+        /* Hide text in collapsed state */
+    }
 }

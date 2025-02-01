@@ -18,7 +18,7 @@ body {
     grid-column: 2;
     max-width: 900px;
     margin: 0 auto;
-    padding: 70px 100px;
+    padding: 30px 0px;
     align-items: center;
     justify-content: center;
 }
