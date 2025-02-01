@@ -84,7 +84,6 @@ body {
 .post_header .profile_info .profile_img {
     width: 42px;
     height: 42px;
-    background: linear-gradient(to top right, orange, purple);
     display: flex;
     justify-content: center;
     align-items: center;
