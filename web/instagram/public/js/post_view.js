@@ -1,7 +1,6 @@
-const PROFILE_IMG_PATH = "/no-reality/web/instagram/public/img/profile_picture/";
-const POST_IMG_PATH = "/no-reality/web/instagram/public/img/post_img/";
-const URL = "/no-reality/web/instagram/public/";
-
+POST_IMG_PATH = '/no-reality/web/instagram/public/img/post_img/';
+PROFILE_IMG_PATH = '/no-reality/web/instagram/public/img/profile_picture/';
+MY_URL = '/no-reality/web/instagram/public/';
 
 function openModal(imageSrc) {
     const modal = document.getElementById('post-modal');
@@ -18,7 +17,6 @@ function openModalFollow() {
 
     const apiUrl = '/no-reality/web/instagram/public/index.php?p=profile/getFollowers&user_id=';
 
-
     fetch(apiUrl + userId)
         .then(response => response.json())
         .then(data => {
@@ -33,7 +31,7 @@ function openModalFollow() {
                             <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
                         </div>
                         <div class="follow-modal-profile-info">
-                            <a class="nav-link" href="${URL}profile/${user.user_id}">
+                            <a class="nav-link" href="${MY_URL}profile/${user.user_id}">
                                 <span class="user-name">${user.username}</span>
                             </a>
                             <span class="user-full-name">${user.firstname} ${user.lastname} </span>
@@ -51,6 +49,11 @@ function openModalFollow() {
 }
 
 function closeModal() {
+    const heartButtons = document.querySelectorAll('.heart_icon');
+    for (let i = 0; i < heartButtons.length; i++) {
+        heartButtons[i].childNodes[1].name = 'heart-outline';
+        heartButtons[i].className = 'heart_icon';
+    }
     const modal = document.getElementById('post-modal');
     modal.style.display = 'none';
     const modal_follow = document.getElementById('post-modal-follow');
