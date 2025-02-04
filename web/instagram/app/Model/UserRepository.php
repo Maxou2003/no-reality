@@ -66,7 +66,7 @@ class UserRepository
     public function fetchFollowers($user_id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT follower_id, user_firstname, user_lastname, user_description, user_username, user_pp_path FROM users u join subscriptions s on u.user_id=s.follower_id where s.followed_id=:user_id'
+            'SELECT user_id,follower_id, user_firstname, user_lastname, user_description, user_username, user_pp_path FROM users u join subscriptions s on u.user_id=s.follower_id where s.followed_id=:user_id'
         );
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
         $statement->execute();
