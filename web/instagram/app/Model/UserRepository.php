@@ -86,4 +86,28 @@ class UserRepository
 
         return $followersArray;
     }
+
+    public function fetchFollowings($user_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT user_id,follower_id, user_firstname, user_lastname, user_description, user_username, user_pp_path FROM users u join subscriptions s on u.user_id=s.followed_id where s.follower_id=:user_id'
+        );
+        $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $followersArray = [];
+        while (($row = $statement->fetch())) {
+            $follower = new User();
+            $follower->user_id = $row['user_id'];
+            $follower->user_username = $row['user_username'];
+            $follower->user_pp_path = $row['user_pp_path'];
+            $follower->user_firstname = $row['user_firstname'];
+            $follower->user_lastname = $row['user_lastname'];
+            $follower->user_description = $row['user_description'];
+
+            $followersArray[] = $follower;
+        }
+
+        return $followersArray;
+    }
 }

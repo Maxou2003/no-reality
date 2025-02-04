@@ -9,13 +9,21 @@ function openModal(imageSrc) {
     modal.style.display = 'flex';
     escapeModal();
 }
-function openModalFollow() {
+
+function openModalFollow(followers) {
     const modal = document.getElementById('post-modal-follow');
     const follow_modal_body = document.querySelector(".follow-modal-body");
     const followersBtn = document.getElementById("follow-btn");
     const userId = followersBtn.getAttribute("data-user-id"); // Get user ID
+    let headerdiv = document.querySelector(".follow-modal-header h2");
 
-    const apiUrl = '/no-reality/web/instagram/public/index.php?p=profile/getFollowers&user_id=';
+    const apiUrl = followers ? '/no-reality/web/instagram/public/index.php?p=profile/getFollowers&user_id=' : '/no-reality/web/instagram/public/index.php?p=profile/getFollowings&user_id=';
+
+    if (!followers) {
+        headerdiv.innerHTML = "Following";
+    } else {
+        headerdiv.innerHTML = "Followers";
+    }
 
     fetch(apiUrl + userId)
         .then(response => response.json())

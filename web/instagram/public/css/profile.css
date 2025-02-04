@@ -105,3 +105,8 @@ body {
     display: block;
     cursor: pointer;
 }
+
+.profile-stats .followers-stat,
+.profile-stats .following-stat {
+    cursor: pointer;
+}

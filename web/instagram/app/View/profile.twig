@@ -34,21 +34,21 @@
 					</div>
 					<ul class="profile-stats">
 						<li>
-							<a href="#" class="nav-link">
+							<span class="nav-link">
 								<strong>150</strong>
-								posts</a>
+								posts</span>
 						</li>
 
 						<li>
-							<a href="#" class="nav-link" id="follow-btn" onclick="openModalFollow()" data-user-id={{user.user_id}}>
+							<span class="nav-link followers-stat" id="follow-btn" onclick="openModalFollow(true)" data-user-id={{user.user_id}}>
 								<strong>2.5k</strong>
-								followers</a>
+								followers</span>
 						</li>
 
 						<li>
-							<a href="#" class="nav-link">
+							<span  class="nav-link following-stat"  onclick="openModalFollow(false)" data-user-id={{user.user_id}}>
 								<strong>300</strong>
-								following</a>
+								following</span>
 						</li>
 
 					</ul>

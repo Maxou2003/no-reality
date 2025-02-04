@@ -50,4 +50,21 @@ class ProfileController
         header('Content-Type: application/json');
         echo json_encode($followers);
     }
+
+    public function getFollowings()
+    {
+        if (!isset($_GET['user_id'])) {
+            echo json_encode(['error' => 'User ID is required']);
+            return;
+        }
+
+        $user_id = intval($_GET['user_id']);
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $followings = $UserRepository->fetchFollowings($user_id);
+        header('Content-Type: application/json');
+        echo json_encode($followings);
+    }
 }
