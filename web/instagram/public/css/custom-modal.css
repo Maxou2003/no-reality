@@ -200,12 +200,13 @@
     flex-direction: column;
 }
 
-.custom-modal-stats span:first-of-type {
+.custom-modal-stats .likes,
+.custom-modal-stats .like-text {
     font-weight: bold;
     font-size: 14px;
 }
 
-.custom-modal-stats span:last-of-type {
+.custom-modal-stats .time_stamp {
     font-size: 10px;
     margin-bottom: 10px;
     font-size: 10px;
