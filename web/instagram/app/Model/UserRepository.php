@@ -62,6 +62,29 @@ class UserRepository
 
         return $user;
     }
+    public function getUserNbPost($user_id)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT count(*) as nbPost FROM posts where user_id=:user_id'
+        );
+        $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $row = $statement->fetch();
+        return $row['nbPost'];
+    }
+
+    public function getUserFollowersStats($user_id)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT followers.nbFollowers, followings.nbFollowings FROM (SELECT COUNT(follower_id) AS nbFollowers FROM subscriptions WHERE followed_id = :user_id) AS followers CROSS JOIN (SELECT COUNT(followed_id) AS nbFollowings FROM subscriptions WHERE follower_id = :user_id) AS followings;'
+        );
+        $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
+        $statement->execute();
+        $row = $statement->fetch();
+        return ['nbFollowers' => $row['nbFollowers'], 'nbFollowings' => $row['nbFollowings']];
+    }
+
 
     public function fetchFollowers($user_id): array
     {

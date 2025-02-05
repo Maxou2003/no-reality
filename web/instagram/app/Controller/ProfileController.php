@@ -25,13 +25,14 @@ class ProfileController
         $user_id = $_GET['id'];
         $user = $UserRepository->getUser($user_id);
         $posts = $UserRepository->getPosts($user_id);
+        $followers_stats = $UserRepository->getUserFollowersStats($user_id);
 
         # require(__DIR__ . '/../View/profile.php');
 
         # Comment the lines below to use the profile.php
         $template = $this->twig->load('profile.twig');
 
-        echo $template->render(['posts' => $posts, 'user' => $user, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render(['posts' => $posts, 'user' => $user, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'followers_stats' => $followers_stats, 'nbPosts' => count($posts)]);
     }
 
     public function getFollowers()
