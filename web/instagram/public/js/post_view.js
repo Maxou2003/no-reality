@@ -87,7 +87,7 @@ function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp)
 							<img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" alt="Image">
 						</div>
                         <div class="comment-content">
-                            <a class="nav-link" href="${MY_URL}profile/${comment.username}">
+                            <a class="nav-link" href="${MY_URL}profile/${comment.user_username}">
                                 <span class="username">${comment.user_username}</span>
                             </a>
                             <span class="comment-content">${comment.comment_text}</span>
