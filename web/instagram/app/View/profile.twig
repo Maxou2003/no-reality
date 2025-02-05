@@ -61,7 +61,7 @@
 			<!-- Post gallery-->
 			<div class="profile-posts">
 				{% for post in posts %}
-					<div class="post" onclick="openModalPost('{{POST_IMG_PATH}}{{post.post_picture_path}}', '{{post.post_id}}')"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post">
+					<div class="post" onclick="openModalPost('{{POST_IMG_PATH}}{{post.post_picture_path}}', '{{post.post_id}}', '{{post.post_description}}', '{{post.nb_likes}}', '{{post.time_stamp.format('Y-m-d H:i')}}')"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post">
 					</div>
 				{% endfor %}
 			</div>
@@ -98,41 +98,13 @@
 							</div>
 							<div class="description-content">
 								<span class="username">{{user.user_username}}</span>
-								<span class="description">{{posts[0].post_description}}</span>
+								<span class="description"></span>
 								<div class="timestamp">
-									<span>{{posts[0].time_stamp.format('Y-m-d H:i')}}</span>
+									<span></span>
 								</div>
 							</div>
 						</div>
 						<div class="comments">
-							<div class="comment">
-								<div class="custom-modal-comment-profile-img">
-									<img src="{{PROFILE_IMG_PATH}}maxime_lambert.jpg" alt="Image">
-								</div>
-								<div class="comment-content">
-									<span class="username">MaxLambert</span>
-									<span class="comment-text">Super la photo !</span>
-									<div class="timestamp">
-										<span>2 hours ago</span>
-									</div>
-									<button class="show-response-btn">View all 12 responses</button>
-								</div>
-							</div>
-
-							<div class="comment">
-								<div class="custom-modal-comment-profile-img">
-									<img src="{{PROFILE_IMG_PATH}}234363700-portrait-de-tête-de-renard-sur-fond-blanc-retouché-avec-un-effet-réaliste.jpg" alt="Image">
-								</div>
-								<div class="comment-content">
-									<span class="username">DirtyRabbit</span>
-									<span class="comment-content">Magnifique 😍</span>
-									<div class="timestamp">
-										<span>6 hours ago</span>
-									</div>
-									<button class="show-response-btn">View all 12 responses</button>
-								</div>
-
-							</div>
 						</div>
 					</div>
 
@@ -152,8 +124,8 @@
 							</span>
 						</div>
 						<div class="custom-modal-stats">
-							<span>1,8M likes</span>
-							<span>2 days ago</span>
+							<span> <span class="likes"></span> likes </span>
+							<span class="time_stamp">2 days ago</span>
 						</div>
 					</div>
 					<div class="add-comment">

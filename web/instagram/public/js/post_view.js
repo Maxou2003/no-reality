@@ -56,11 +56,20 @@ function openModalFollow(followers) {
     escapeModal();
 }
 
-function openModalPost(imageSrc, postId) {
+function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp) {
     const modal = document.getElementById('post-modal');
     const modalImage = document.getElementById('modal-image');
     modalImage.src = imageSrc;
     modal.style.display = 'flex';
+
+    const description = modal.querySelector(".description");
+    description.innerHTML = post_description;
+
+    const likes = modal.querySelector(".likes");
+    likes.innerHTML = nb_likes;
+
+    const time_stamp_div = modal.querySelector(".time_stamp");
+    time_stamp_div.innerHTML = time_stamp;
 
     const apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getComments&post_id=${postId}`;
 
