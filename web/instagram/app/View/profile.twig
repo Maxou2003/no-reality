@@ -35,19 +35,19 @@
 					<ul class="profile-stats">
 						<li>
 							<span class="nav-link">
-								<strong>150</strong>
+								<strong>{{nbPosts}}</strong>
 								posts</span>
 						</li>
 
 						<li>
 							<span class="nav-link followers-stat" id="follow-btn" onclick="openModalFollow(true)" data-user-id={{user.user_id}}>
-								<strong>2.5k</strong>
+								<strong>{{followers_stats['nbFollowers']}}</strong>
 								followers</span>
 						</li>
 
 						<li>
 							<span  class="nav-link following-stat"  onclick="openModalFollow(false)" data-user-id={{user.user_id}}>
-								<strong>300</strong>
+								<strong>{{followers_stats['nbFollowings']}}</strong>
 								following</span>
 						</li>
 
@@ -97,8 +97,8 @@
 								<img src="{{PROFILE_IMG_PATH}}pc160005.jpg" alt="Image">
 							</div>
 							<div class="description-content">
-								<span class="username">User</span>
-								<span class="description">My favorite</span>
+								<span class="username">{{user.user_username}}</span>
+								<span class="description">{{post.post_description}}</span>
 								<div class="timestamp">
 									<span>2 days ago</span>
 								</div>
@@ -183,18 +183,6 @@
 					</div>
 				</div>
 				<div class="follow-modal-body">
-					<div class="follow-modal-profile">
-						<div class="follow-modal-profile-img">
-							<img src="{{PROFILE_IMG_PATH}}maxime_lambert.jpg" alt="Image">
-						</div>
-						<div class="follow-modal-profile-info">
-							<a class="nav-link" href="{{ url }}">
-								<span class="user-name">Ecrit en dur</span>
-							</a>
-							<span class="user-full-name">changez moi</span>
-						</div>
-						<button class="follow-btn">Follow</button>
-					</div>
 				</div>
 			</div>
 		</div>
