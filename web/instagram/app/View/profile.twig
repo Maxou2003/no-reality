@@ -94,13 +94,13 @@
 					<div class="comments">
 						<div class="title">
 							<div class="custom-modal-profile-img">
-								<img src="{{PROFILE_IMG_PATH}}pc160005.jpg" alt="Image">
+								<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Image">
 							</div>
 							<div class="description-content">
 								<span class="username">{{user.user_username}}</span>
-								<span class="description">{{post.post_description}}</span>
+								<span class="description">{{posts[0].post_description}}</span>
 								<div class="timestamp">
-									<span>2 days ago</span>
+									<span>{{posts[0].time_stamp.format('Y-m-d H:i')}}</span>
 								</div>
 							</div>
 						</div>
@@ -176,7 +176,7 @@
 					<div class="row justify-content-center">
 						<div class="col-12">
 							<div class="search-container">
-								<input type="text" class="form-control search-input" placeholder="Search...">
+								<input type="text" class="form-control search-input" onkeyup="search()" placeholder="Search...">
 								<i class="fas fa-search search-icon"></i>
 							</div>
 						</div>
