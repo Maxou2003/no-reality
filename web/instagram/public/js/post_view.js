@@ -163,12 +163,8 @@ function closeModal() {
         heartButtons[i].childNodes[1].name = 'heart-outline';
         heartButtons[i].className = 'heart_icon';
     }
-    const searchBar = document.querySelector('.search-container input');
-    searchBar.value = '';
     const modal = document.getElementById('post-modal');
     modal.style.display = 'none';
-    const modal_follow = document.getElementById('post-modal-follow');
-    modal_follow.style.display = 'none';
 }
 
 function closeModalFollow() {
