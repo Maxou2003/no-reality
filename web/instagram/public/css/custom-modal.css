@@ -61,7 +61,7 @@
 
 }
 
-.comments {
+.comments-title {
     border-top: 1px solid var(--border-color);
     flex: 1;
     overflow-y: auto;

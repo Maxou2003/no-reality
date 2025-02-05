@@ -56,6 +56,48 @@ function openModalFollow(followers) {
     escapeModal();
 }
 
+function openModalPost(imageSrc, postId) {
+    const modal = document.getElementById('post-modal');
+    const modalImage = document.getElementById('modal-image');
+    modalImage.src = imageSrc;
+    modal.style.display = 'flex';
+
+    const apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getComments&post_id=${postId}`;
+
+    const comments = document.querySelector(".comments");
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            comments.innerHTML = "";
+            data.forEach(comment => {
+                const commentElement = document.createElement("div");
+                commentElement.classList.add("comment-item");
+                commentElement.innerHTML = `
+                    <div class="comment">
+						<div class="custom-modal-comment-profile-img">
+							<img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" alt="Image">
+						</div>
+                        <div class="comment-content">
+                            <a class="nav-link" href="${MY_URL}profile/${comment.user_id}">
+                                <span class="username">${comment.user_username}</span>
+                            </a>
+                            <span class="comment-content">${comment.comment_text}</span>
+                            <div class="timestamp">
+                                    <span>${comment.time_stamp}</span>
+                            </div>
+                            <button class="show-response-btn">View all DUR responses</button>
+                        </div>
+
+                    </div>
+                    `;
+                comments.appendChild(commentElement);
+            });
+        }
+
+        )
+    escapeModal();
+}
+
 function search() {
     const searchBar = document.querySelector('.search-container input');
     const follow_modal_body = document.querySelector(".follow-modal-body");

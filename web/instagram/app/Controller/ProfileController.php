@@ -69,6 +69,24 @@ class ProfileController
         echo json_encode($followings);
     }
 
+    public function getComments()
+    {
+        if (!isset($_GET['post_id'])) {
+            echo json_encode(['error' => 'Post ID is required']);
+            return;
+        }
+
+        $post_id = intval($_GET['post_id']);
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $comments = $PostRepository->fetchComments($post_id);
+        header('Content-Type: application/json');
+        echo json_encode($comments);
+    }
+
+
     public function searchInFollowers()
     {
         if (!isset($_GET['user_id'])) {
