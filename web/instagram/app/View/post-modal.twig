@@ -1,70 +1,70 @@
 <div id="post-modal" class="custom-modal">
-			<span class="close" onclick="closeModal()">&times;</span>
-			<div class="custom-modal-content">
-				<div class="custom-modal-left">
-					<img id="modal-image" src="" alt="Post">
+	<span class="close" onclick="closeModal()">&times;</span>
+	<div class="custom-modal-content">
+		<div class="custom-modal-left">
+			<img id="modal-image" src="" alt="Post">
+		</div>
+		<div class="custom-modal-right">
+			<div class="custom-modal-post-header">
+				<div class="custom-modal-profile-info">
+					<div class="custom-modal-profile-img">
+						<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Image">
+					</div>
+					<a class="nav-link" href="{{URL}}profile/{{user.user_id}}">
+						<span>{{user.user_username}}</span>
+					</a>
 				</div>
-				<div class="custom-modal-right">
-					<div class="custom-modal-post-header">
-						<div class="custom-modal-profile-info">
-							<div class="custom-modal-profile-img">
-								<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Image">
-							</div>
-							<a class="nav-link" href="{{URL}}profile/{{user.user_id}}">
-								<span>{{user.user_username}}</span>
-							</a>
-						</div>
-						<div class="options">
-							<span>
-								<ion-icon name="ellipsis-horizontal"></ion-icon>
-							</span>
-						</div>
-					</div>
-
-					<div class="comments-title">
-						<div class="title">
-							<div class="custom-modal-profile-img">
-								<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Image">
-							</div>
-							<div class="description-content">
-								<span class="username">{{user.user_username}}</span>
-								<span class="description"></span>
-								<div class="timestamp">
-									<span></span>
-								</div>
-							</div>
-						</div>
-						<div class="comments">
-						</div>
-					</div>
-
-					<div class="custom-modal-post-info">
-						<div class="custom-modal-actions">
-							<span class="heart_icon">
-								<ion-icon name="heart-outline"></ion-icon>
-							</span>
-							<span>
-								<ion-icon name="chatbubble-outline"></ion-icon>
-							</span>
-							<span>
-								<ion-icon name="paper-plane-outline"></ion-icon>
-							</span>
-							<span>
-								<ion-icon name="bookmark-outline"></ion-icon>
-							</span>
-						</div>
-						<div class="custom-modal-stats">
-							<span><span class="likes"></span> likes</span>
-							<span><span class="time_stamp"></span></span>
-						</div>
-					</div>
-					<div class="add-comment">
-						<div class="emoji">
-							<ion-icon name="happy-outline"></ion-icon>
-						</div>
-						<input type="text" placeholder="Ajouter un commentaire...">
-						<button>Publier</button>
-					</div>
+				<div class="options">
+					<span>
+						<ion-icon name="ellipsis-horizontal"></ion-icon>
+					</span>
 				</div>
 			</div>
+
+			<div class="comments-title">
+				<div class="title">
+					<div class="custom-modal-profile-img">
+						<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Image">
+					</div>
+					<div class="description-content">
+						<span class="username">{{user.user_username}}</span>
+						<span class="description"></span>
+						<div class="timestamp">
+							<span></span>
+						</div>
+					</div>
+				</div>
+				<div class="comments">
+				</div>
+			</div>
+
+			<div class="custom-modal-post-info">
+				<div class="custom-modal-actions">
+					<span class="heart_icon">
+						<ion-icon name="heart-outline"></ion-icon>
+					</span>
+					<span>
+						<ion-icon name="chatbubble-outline"></ion-icon>
+					</span>
+					<span>
+						<ion-icon name="paper-plane-outline"></ion-icon>
+					</span>
+					<span>
+						<ion-icon name="bookmark-outline"></ion-icon>
+					</span>
+				</div>
+				<div class="custom-modal-stats">
+					<span><span class="likes"></span> likes</span>
+					<span><span class="time_stamp"></span></span>
+				</div>
+			</div>
+			<div class="add-comment">
+				<div class="emoji">
+					<ion-icon name="happy-outline"></ion-icon>
+				</div>
+				<input type="text" placeholder="Ajouter un commentaire...">
+				<button>Publier</button>
+			</div>
 		</div>
+	</div>
+</div>
