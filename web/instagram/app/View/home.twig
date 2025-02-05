@@ -24,10 +24,10 @@
 	{{ url }}
 	<div class="main-content">
 		<main class="feed">
-			<h1>Fil d'actualité</h1>
+			<h1>Fil d'actualité </h1>
 
 			{% for post in posts %}
-				<div class="post">
+				<div class="post" user-id="{{post.user_id}}">
 					<div class="post_header">
 						<div class="profile_info">
 							<div class="profile_img">
@@ -46,7 +46,8 @@
 						</div>
 					</div>
 					<div class="post_img">
-						<img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Image">
+					
+						<img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" onclick="openModalPost('{{POST_IMG_PATH}}{{post.post_picture_path}}', '{{post.post_id}}', '{{post.post_description}}', '{{post.nb_likes}}', '{{post.time_stamp.format('Y-m-d H:i')}}')">
 					</div>
 					<div class="post_body">
 						<div class="post_actions">
@@ -54,7 +55,7 @@
 								<ion-icon name="heart-outline"></ion-icon>
 							</span>
 							<span>
-								<ion-icon name="chatbubble-outline" onclick="openModalPost('{{POST_IMG_PATH}}{{post.post_picture_path}}', '{{post.post_id}}')"></ion-icon>
+								<ion-icon name="chatbubble-outline" onclick="openModalPost('{{POST_IMG_PATH}}{{post.post_picture_path}}', '{{post.post_id}}', '{{post.post_description}}', '{{post.nb_likes}}', '{{post.time_stamp.format('Y-m-d H:i')}}')"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}"></ion-icon>
 							</span>
 							<span>
 								<ion-icon name="paper-plane-outline"></ion-icon>

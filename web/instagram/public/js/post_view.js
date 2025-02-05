@@ -72,12 +72,13 @@ function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp)
     time_stamp_div.innerHTML = time_stamp;
 
     const apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getComments&post_id=${postId}`;
-
+    console.log(postId, apiUrl);
     const comments = document.querySelector(".comments");
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             comments.innerHTML = "";
+            console.log(data.length);
             data.forEach(comment => {
                 const commentElement = document.createElement("div");
                 commentElement.classList.add("comment-item");

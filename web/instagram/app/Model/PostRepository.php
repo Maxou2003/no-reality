@@ -14,7 +14,7 @@ class PostRepository
     public function getPost($nb): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments FROM posts p join users u on p.user_id=u.user_id ORDER BY time_stamp DESC limit :offset '
+            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments, post_id FROM posts p join users u on p.user_id=u.user_id ORDER BY time_stamp DESC limit :offset '
         );
         $statement->bindValue(':offset', $nb, \PDO::PARAM_INT);
         $statement->execute();
@@ -22,6 +22,7 @@ class PostRepository
         $postArray = [];
         while (($row = $statement->fetch())) {
             $post = new Post();
+            $post->post_id = $row['post_id'];
             $post->user_username = $row['user_username'];
             $post->user_id = $row['user_id'];
             $post->instance_id = $row['instance_id'];
