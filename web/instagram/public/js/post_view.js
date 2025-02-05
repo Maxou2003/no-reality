@@ -53,7 +53,7 @@ function openModalFollow(followers) {
         })
         .catch(error => console.error("Error fetching followers:", error));
     modal.style.display = 'flex';
-    escapeModal();
+    escapeModalFollow();
 }
 
 function openModalPost(imageSrc, postId) {
@@ -161,10 +161,26 @@ function closeModal() {
     const modal_follow = document.getElementById('post-modal-follow');
     modal_follow.style.display = 'none';
 }
+
+function closeModalFollow() {
+    const searchBar = document.querySelector('.search-container input');
+    searchBar.value = '';
+    const modal_follow = document.getElementById('post-modal-follow');
+    modal_follow.style.display = 'none';
+}
+
 function escapeModal() {
     addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
             closeModal();
+        }
+    });
+}
+
+function escapeModalFollow() {
+    addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeModalFollow();
         }
     });
 }
