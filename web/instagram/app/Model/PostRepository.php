@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Lib\DatabaseConnection;
 use App\Model\Entity\Post;
+use App\Model\Entity\Comment;
 use DateTime;
 
 class PostRepository
@@ -37,5 +38,30 @@ class PostRepository
         }
 
         return $postArray;
+    }
+
+    public function fetchComments($post_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT c.comment_id, c.user_id, c.post_id, c.comment_text, c.time_stamp, u.user_username, u.user_pp_path FROM comments c join users u on c.user_id=u.user_id WHERE c.post_id = :post_id ORDER BY c.time_stamp DESC'
+        );
+        $statement->bindValue(':post_id', $post_id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $commentsArray = [];
+        while (($row = $statement->fetch())) {
+            $comment = new Comment();
+            $comment->comment_id = $row['comment_id'];
+            $comment->user_id = $row['user_id'];
+            $comment->post_id = $row['post_id'];
+            $comment->comment_text = $row['comment_text'];
+            $comment->time_stamp = new DateTime($row['time_stamp']);
+            $comment->user_username = $row['user_username'];
+            $comment->user_pp_path = $row['user_pp_path'];
+
+            $commentsArray[] = $comment;
+        }
+
+        return $commentsArray;
     }
 }
