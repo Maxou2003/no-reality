@@ -47,7 +47,7 @@
 					</div>
 					<div class="post_img">
 					
-						<img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" onclick="openModalPost('{{POST_IMG_PATH}}{{post.post_picture_path}}', '{{post.post_id}}', '{{post.post_description}}', '{{post.nb_likes}}', '{{post.time_stamp.format('Y-m-d H:i')}}')">
+						<img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" onclick="openModalPost(`{{POST_IMG_PATH}}{{post.post_picture_path}}`, `{{post.post_id}}`, `{{post.post_description}}`, `{{post.nb_likes}}`, `{{post.time_stamp.format('Y-m-d H:i')}}`)">
 					</div>
 					<div class="post_body">
 						<div class="post_actions">
@@ -55,7 +55,7 @@
 								<ion-icon name="heart-outline"></ion-icon>
 							</span>
 							<span>
-								<ion-icon name="chatbubble-outline" onclick="openModalPost('{{POST_IMG_PATH}}{{post.post_picture_path}}', '{{post.post_id}}', '{{post.post_description}}', '{{post.nb_likes}}', '{{post.time_stamp.format('Y-m-d H:i')}}')"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}"></ion-icon>
+								<ion-icon name="chatbubble-outline" onclick="openModalPost(`{{POST_IMG_PATH}}{{post.post_picture_path}}`, `{{post.post_id}}`, `{{post.post_description}}`, `{{post.nb_likes}}`, `{{post.time_stamp.format('Y-m-d H:i')}}`)"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}"></ion-icon>
 							</span>
 							<span>
 								<ion-icon name="paper-plane-outline"></ion-icon>
