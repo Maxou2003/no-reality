@@ -117,24 +117,29 @@ function search() {
     let apiUrl = "";
 
     if (headerdiv.innerHTML == "Followers") {
-        apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=1`
+        if (searchBar.value === "") {
+            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getFollowers&user_id=${userId}`;
+        } else {
+            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=1`
+        }
+
     } else {
-        apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=0`;
+        if (searchBar.value === "") {
+            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=0`;
+        } else {
+            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getFollowings&user_id=${userId}`;
+        }
     }
 
-    if (searchBar.value === "") {
-        follow_modal_body.innerHTML = "";
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            follow_modal_body.innerHTML = ""; // Clear previous content
 
-    } else {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                follow_modal_body.innerHTML = ""; // Clear previous content
-
-                data.forEach(user => {
-                    const userElement = document.createElement("div");
-                    userElement.classList.add("follower-item");
-                    userElement.innerHTML = `
+            data.forEach(user => {
+                const userElement = document.createElement("div");
+                userElement.classList.add("follower-item");
+                userElement.innerHTML = `
                     <div class="follow-modal-profile">
                         <div class="follow-modal-profile-img">
                             <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
@@ -148,13 +153,11 @@ function search() {
                         <button class="follow-btn">Follow</button>
                     </div>
                     `;
-                    follow_modal_body.appendChild(userElement);
-                });
+                follow_modal_body.appendChild(userElement);
+            });
 
-            })
-            .catch(error => console.error("Error fetching followers:", error));
-    }
-
+        })
+        .catch(error => console.error("Error fetching followers:", error));
 }
 
 
