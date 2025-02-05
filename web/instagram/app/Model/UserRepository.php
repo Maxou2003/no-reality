@@ -41,6 +41,22 @@ class UserRepository
         return $postArray;
     }
 
+    public function getUserIdByUsername($user_name): int
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT user_id FROM users WHERE user_username = :user_name'
+        );
+        $statement->bindValue(':user_name', $user_name, \PDO::PARAM_STR);
+        $statement->execute();
+
+        $row = $statement->fetch();
+        if ($row === false) {
+            return -1;
+        } else {
+            return $row['user_id'];
+        }
+    }
+
     public function getUser($id): User
     {
         $statement = $this->connection->getConnection()->prepare(
@@ -133,6 +149,4 @@ class UserRepository
 
         return $followersArray;
     }
-
-    
 }

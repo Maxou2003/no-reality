@@ -39,7 +39,7 @@ function openModalFollow(followers) {
                             <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
                         </div>
                         <div class="follow-modal-profile-info">
-                            <a class="nav-link" href="${MY_URL}profile/${user.user_id}">
+                            <a class="nav-link" href="${MY_URL}profile/${user.username}">
                                 <span class="user-name">${user.username}</span>
                             </a>
                             <span class="user-full-name">${user.firstname} ${user.lastname} </span>
@@ -87,7 +87,7 @@ function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp)
 							<img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" alt="Image">
 						</div>
                         <div class="comment-content">
-                            <a class="nav-link" href="${MY_URL}profile/${comment.user_id}">
+                            <a class="nav-link" href="${MY_URL}profile/${comment.username}">
                                 <span class="username">${comment.user_username}</span>
                             </a>
                             <span class="comment-content">${comment.comment_text}</span>
@@ -139,7 +139,7 @@ function search() {
                             <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
                         </div>
                         <div class="follow-modal-profile-info">
-                            <a class="nav-link" href="${MY_URL}profile/${user.user_id}">
+                            <a class="nav-link" href="${MY_URL}profile/${user.user_username}">
                                 <span class="user-name">${user.username}</span>
                             </a>
                             <span class="user-full-name">${user.firstname} ${user.lastname} </span>
