@@ -1,6 +1,7 @@
 POST_IMG_PATH = '/no-reality/web/instagram/public/img/post_img/';
 PROFILE_IMG_PATH = '/no-reality/web/instagram/public/img/profile_picture/';
 MY_URL = '/no-reality/web/instagram/public/';
+API_BASE_URL = `${MY_URL}index.php?p=api/`;
 
 function openModal(imageSrc) {
     const modal = document.getElementById('post-modal');
@@ -17,7 +18,7 @@ function openModalFollow(followers) {
     const userId = followersBtn.getAttribute("data-user-id"); // Get user ID
     let headerdiv = document.querySelector(".follow-modal-header h2");
 
-    const apiUrl = followers ? '/no-reality/web/instagram/public/index.php?p=profile/getFollowers&user_id=' : '/no-reality/web/instagram/public/index.php?p=profile/getFollowings&user_id=';
+    const apiUrl = followers ? `${API_BASE_URL}getFollowers&user_id=${userId}` : `${API_BASE_URL}getFollowings&user_id=${userId}`;
 
     if (!followers) {
         headerdiv.innerHTML = "Following";
@@ -25,7 +26,7 @@ function openModalFollow(followers) {
         headerdiv.innerHTML = "Followers";
     }
 
-    fetch(apiUrl + userId)
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             follow_modal_body.innerHTML = ""; // Clear previous content
@@ -71,8 +72,8 @@ function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp)
     const time_stamp_div = modal.querySelector(".time_stamp");
     time_stamp_div.innerHTML = time_stamp;
 
-    const apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getComments&post_id=${postId}`;
-    console.log(postId, apiUrl);
+    const apiUrl = `${API_BASE_URL}getComments&post_id=${postId}`;
+
     const comments = document.querySelector(".comments");
     fetch(apiUrl)
         .then(response => response.json())
@@ -118,16 +119,16 @@ function search() {
 
     if (headerdiv.innerHTML == "Followers") {
         if (searchBar.value === "") {
-            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getFollowers&user_id=${userId}`;
+            apiUrl = `${API_BASE_URL}getFollowers&user_id=${userId}`;
         } else {
-            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=1`
+            apiUrl = `${API_BASE_URL}searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=1`
         }
 
     } else {
         if (searchBar.value === "") {
-            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=0`;
+            apiUrl = `${API_BASE_URL}getFollowings&user_id=${userId}`;
         } else {
-            apiUrl = `/no-reality/web/instagram/public/index.php?p=profile/getFollowings&user_id=${userId}`;
+            apiUrl = `${API_BASE_URL}searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=0`;
         }
     }
 
@@ -145,7 +146,7 @@ function search() {
                             <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
                         </div>
                         <div class="follow-modal-profile-info">
-                            <a class="nav-link" href="${MY_URL}profile/${user.user_username}">
+                            <a class="nav-link" href="${MY_URL}profile/${user.username}">
                                 <span class="user-name">${user.username}</span>
                             </a>
                             <span class="user-full-name">${user.firstname} ${user.lastname} </span>
