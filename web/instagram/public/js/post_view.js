@@ -110,7 +110,7 @@ function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp)
 }
 
 function search() {
-    const searchBar = document.querySelector('.search-container input');
+    const searchBar = document.querySelector('#follow-search-container input');
     const follow_modal_body = document.querySelector(".follow-modal-body");
     const followersBtn = document.getElementById("follow-btn");
     const userId = followersBtn.getAttribute("data-user-id");

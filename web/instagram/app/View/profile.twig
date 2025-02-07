@@ -16,6 +16,7 @@
 	<script src="{{URL}}js/post_view.js" defer></script>
 	<script src="{{URL}}js/heart_icons.js" defer></script>
 	<script src="{{URL}}js/post_view.js" defer></script>
+	<script src="{{URL}}js/sidebar_search.js" defer></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 {% endblock %}
 
@@ -79,7 +80,7 @@
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<div class="search-container">
+							<div class="search-container" id="follow-search-container">
 								<input type="text" class="form-control search-input" onkeyup="search()" placeholder="Search...">
 								<i class="fas fa-search search-icon"></i>
 							</div>
