@@ -1,8 +1,3 @@
-POST_IMG_PATH = '/no-reality/web/instagram/public/img/post_img/';
-PROFILE_IMG_PATH = '/no-reality/web/instagram/public/img/profile_picture/';
-MY_URL = '/no-reality/web/instagram/public/';
-API_BASE_URL = `${MY_URL}index.php?p=api/`;
-
 function openModal(imageSrc) {
     const modal = document.getElementById('post-modal');
     const modalImage = document.getElementById('modal-image');
@@ -117,6 +112,7 @@ function search() {
     let headerdiv = document.querySelector(".follow-modal-header h2");
     let apiUrl = "";
 
+
     if (headerdiv.innerHTML == "Followers") {
         if (searchBar.value === "") {
             apiUrl = `${API_BASE_URL}getFollowers&user_id=${userId}`;
@@ -131,7 +127,6 @@ function search() {
             apiUrl = `${API_BASE_URL}searchInFollowers&user_id=${userId}&searchContent=${searchBar.value}&follow=0`;
         }
     }
-
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
