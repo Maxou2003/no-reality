@@ -26,7 +26,6 @@ body {
 .profile-header {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #dbdbdb;
     padding-bottom: 20px;
 }
 
@@ -84,13 +83,51 @@ body {
     color: #555;
 }
 
+
+.main-content .content-decider {
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+    background-color: inherit;
+    color: var(--light-text);
+    border-top: 1px solid #dbdbdb;
+
+}
+
+.content-decider button {
+    border: none;
+    background-color: inherit;
+    color: var(--light-text);
+    padding: 0px;
+    height: 40px;
+}
+
+.content-decider .post-choice,
+.content-decider .identification-choice {
+    display: inline-block;
+}
+
+.content-decider ion-icon {
+    vertical-align: -1px;
+}
+
+.content-decider .active {
+    border-top: 1px solid var(--text-color);
+    color: var(--text-color)
+}
+
+
+.content-decider .active button {
+    color: var(--text-color)
+}
+
 .profile-posts {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     /* Ajuste dynamiquement les colonnes */
     gap: 10px;
-    /* Espacement entre les images */
-    margin-top: 20px;
     padding: 10px;
     /* Ajoute un peu de marge intérieure */
     box-sizing: border-box;
