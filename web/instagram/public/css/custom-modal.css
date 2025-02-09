@@ -136,6 +136,10 @@
     padding-top: 5px;
 }
 
+.comment-content .nav-link {
+    display: inline;
+}
+
 .username {
     font-weight: bold;
     cursor: pointer;

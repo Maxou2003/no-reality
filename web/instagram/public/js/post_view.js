@@ -87,7 +87,7 @@ function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp)
                             <a class="nav-link" href="${MY_URL}profile/${comment.user_username}">
                                 <span class="username">${comment.user_username}</span>
                             </a>
-                            <span class="comment-content">${comment.comment_text}</span>
+                            <span class="comment-text">${comment.comment_text}</span>
                             <div class="timestamp">
                                     <span>${comment.time_stamp}</span>
                             </div>

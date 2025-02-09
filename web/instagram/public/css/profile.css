@@ -15,7 +15,6 @@ body {
 
 
 .profile-container {
-    grid-column: 2;
     max-width: 900px;
     margin: 0 auto;
     padding: 30px 0px;
