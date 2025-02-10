@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Lib\DatabaseConnection;
+use App\Model\Entity\ModalPost;
 use App\Model\PostRepository;
 use App\Model\UserRepository;
 
@@ -130,5 +131,28 @@ class ApiController
     {
         $pattern = '/^[a-zA-Z0-9_]+$/';
         return preg_match($pattern, $searchContent);
+    }
+
+    public function getModalPost()
+    {
+        if (!isset($_GET["postId"])) {
+            echo json_encode(['error' => 'User ID is required']);
+            return;
+        }
+        $post_id = intval($_GET["postId"]);
+
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $post = $PostRepository->getPostByPostId($post_id);
+        $comments = $PostRepository->fetchComments($post_id);
+
+        $modalPost = new ModalPost();
+        $modalPost->comments = $comments;
+        $modalPost->post = $post;
+
+        header('Content-Type: application/json');
+        echo json_encode($modalPost);
     }
 }
