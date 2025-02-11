@@ -78,7 +78,7 @@
 			<!-- Post gallery-->
 			<div class="profile-posts">
 				{% for post in posts %}
-					<div class="post" onclick="openModalPost(`{{POST_IMG_PATH}}{{post.post_picture_path}}`, `{{post.post_id}}`, `{{post.post_description}}`, `{{post.nb_likes}}`, `{{post.time_stamp.format("Y-m-d H:i")}}`)"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post">
+					<div class="post" onclick="openModalPost(`{{post.post_id}}`)"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post">
 					</div>
 				{% endfor %}
 			</div>

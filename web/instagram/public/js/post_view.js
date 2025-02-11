@@ -52,30 +52,34 @@ function openModalFollow(followers) {
     escapeModalFollow();
 }
 
-function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp) {
-    const modal = document.getElementById('post-modal');
+function openModalPost(postId) {
     const modalImage = document.getElementById('modal-image');
-    modalImage.src = imageSrc;
-    modal.style.display = 'flex';
-
+    const modal = document.getElementById('post-modal');
     const description = modal.querySelector(".description");
-    description.innerHTML = post_description;
-
     const likes = modal.querySelector(".likes");
-    likes.innerHTML = nb_likes;
-
-    const time_stamp_div = modal.querySelector(".time_stamp");
-    time_stamp_div.innerHTML = time_stamp;
-
-    const apiUrl = `${API_BASE_URL}getComments&post_id=${postId}`;
-
+    const timestamp = modal.querySelectorAll(".timestamp");
+    const username = modal.querySelectorAll(".username");
+    const profile_img = modal.querySelectorAll(".profile-img");
+    
+    modal.style.display = 'flex';
+    
     const comments = document.querySelector(".comments");
+
+    comments.innerHTML = "";
+    const apiUrl = `${API_BASE_URL}getModalPost&postId=${postId}`;
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            comments.innerHTML = "";
-            console.log(data.length);
-            data.forEach(comment => {
+            const post = data.post;
+            modalImage.src =  POST_IMG_PATH+ post.post_picture_path;
+            description.innerHTML = post.post_description;
+            likes.innerHTML = post.nb_likes;
+            for (i=0;i<2;i++) {
+                timestamp[i].innerHTML = post.time_stamp.date;
+                username[i].innerHTML = post.username;
+                profile_img[i].src = PROFILE_IMG_PATH + post.user_pp_path;
+            }
+            data.comments.forEach(comment => {
                 const commentElement = document.createElement("div");
                 commentElement.classList.add("comment-item");
                 commentElement.innerHTML = `
@@ -98,9 +102,9 @@ function openModalPost(imageSrc, postId, post_description, nb_likes, time_stamp)
                     `;
                 comments.appendChild(commentElement);
             });
-        }
 
-        )
+        })
+        .catch(error => console.error("Error fetching post:", error));
     escapeModal();
 }
 

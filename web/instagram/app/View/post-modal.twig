@@ -8,10 +8,10 @@
 					<div class="custom-modal-post-header">
 						<div class="custom-modal-profile-info">
 							<div class="custom-modal-profile-img">
-								<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Image">
+								<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" class="profile-img" alt="Image">
 							</div>
 							<a class="nav-link" href="{{URL}}profile/{{user.user_username}}">
-								<span>{{user.user_username}}</span>
+								<span class="username">{{user.user_username}}</span>
 							</a>
 						</div>
 						<div class="options">
@@ -24,13 +24,13 @@
 					<div class="comments-title">
 						<div class="title">
 							<div class="custom-modal-profile-img">
-								<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Image">
+								<img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" class="profile-img" alt="Image">
 							</div>
 							<div class="description-content">
 								<span class="username">{{user.user_username}}</span>
 								<span class="description"></span>
-								<div class="timestamp">
-									<span></span>
+								<div>
+								<span class="timestamp"></span>
 								</div>
 							</div>
 						</div>
@@ -55,7 +55,7 @@
 						</div>
 						<div class="custom-modal-stats">
 							<span class="like-text"><span class="likes"></span> likes</span>
-							<span><span class="time_stamp"></span></span>
+							<span><span class="timestamp"></span></span>
 						</div>
 					</div>
 					<div class="add-comment">

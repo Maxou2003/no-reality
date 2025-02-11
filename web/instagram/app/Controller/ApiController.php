@@ -136,7 +136,7 @@ class ApiController
     public function getModalPost()
     {
         if (!isset($_GET["postId"])) {
-            echo json_encode(['error' => 'User ID is required']);
+            echo json_encode(['error' => 'Post ID is required']);
             return;
         }
         $post_id = intval($_GET["postId"]);
