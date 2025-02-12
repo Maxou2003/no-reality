@@ -172,4 +172,25 @@ class UserRepository
 
         return $users;
     }
+    public function getSuggestions(): array
+    {
+        $statement = $this->connection->getConnection()->query(
+            'SELECT DISTINCT user_id, user_firstname, user_lastname, user_description, user_username, user_pp_path FROM users LIMIT 0,6'
+        );
+        $statement->execute();
+        $users = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $user->user_username = $row['user_username'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_description = $row['user_description'];
+
+            $users[] = $user;
+        }
+
+        return $users;
+    }
 }

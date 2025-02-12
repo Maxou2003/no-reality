@@ -102,13 +102,13 @@
 	<aside class="suggestions">
 		<h2>Suggestions</h2>
 		<!-- Suggestions -->
-		{% for post in posts %}
+		{% for suggestion in suggestions %}
 			<div class="user">
 				<div class="profile_img">
-					<img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Image">
+					<img src="{{PROFILE_IMG_PATH}}{{suggestion.user_pp_path}}" alt="Image">
 				</div>
-				<a class="nav-link" href="{{URL}}profile/{{post.user_username}}">
-					<span>{{post.user_username}}</span>
+				<a class="nav-link" href="{{URL}}profile/{{suggestion.user_username}}">
+					<span>{{suggestion.user_username}}</span>
 				</a>
 			</div>
 		{% endfor %}
