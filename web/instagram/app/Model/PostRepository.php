@@ -123,10 +123,10 @@ class PostRepository
         $query = '';
         if ($choice == 'identification') {
             
-            $query = 'SELECT p.post_id, p.post_picture_path from identification i join posts p on i.post_id = p.post_id where i.user_id = :user_id;';
+            $query = 'SELECT p.post_id, p.post_picture_path from identification i join posts p on i.post_id = p.post_id where i.user_id = :user_id ORDER BY time_stamp DESC';
         }
         elseif ($choice == 'post') {
-            $query = 'SELECT post_id, post_picture_path from posts where user_id = :user_id ORDER BY time_stamp';
+            $query = 'SELECT post_id, post_picture_path from posts where user_id = :user_id ORDER BY time_stamp DESC';
         }
         else {
             return ['error' => 'Choice undifined'];
