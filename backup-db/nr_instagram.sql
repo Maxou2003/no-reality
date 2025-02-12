@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 12 fév. 2025 à 16:24
+-- Généré le : mer. 12 fév. 2025 à 17:42
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -43,7 +43,10 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
-(1, 2, 1, 'vivcqvceqvqvcqk', '2025-02-05 14:59:13', 0);
+(1, 2, 1, 'vivcqvceqvqvcqk', '2025-02-05 14:59:13', 0),
+(2, 3, 3, 'ça travaille dur en Finlande ?!', '2025-02-12 17:34:01', 1),
+(3, 1, 3, 'Trop nul ! ', '2025-02-12 17:35:11', 1),
+(4, 3, 3, 'Il est pas cool Maxime en vrai, je lui met 0 en OSINT.', '2025-02-12 17:36:28', 2);
 
 -- --------------------------------------------------------
 
@@ -131,6 +134,16 @@ CREATE TABLE `response` (
   `time_stamp` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `response`
+--
+
+INSERT INTO `response` (`response_id`, `comment_id`, `user_id`, `content`, `time_stamp`) VALUES
+(1, 2, 2, 'Oui !', '2025-02-12 17:34:37'),
+(2, 3, 2, 'Aigri/20', '2025-02-12 17:35:41'),
+(3, 4, 1, 'Oh non, je suis désolé, please pas 0.', '2025-02-12 17:36:50'),
+(4, 4, 2, 'Cheh', '2025-02-12 17:37:31');
+
 -- --------------------------------------------------------
 
 --
@@ -190,7 +203,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_username`, `user_firstname`, `user_lastname`, `user_pp_path`, `user_description`) VALUES
 (1, 'MaxLambert', 'Maxime', 'Lambert', 'maxime_lambert.jpg', 'Hey, je suis Maxime Lambert !\nBienvenue sur mon Instagram !\nJ\'aime le handball, et les jeux de sociétés !'),
-(2, 'Siphy666', 'Alexis', 'Paquereau--Gasnier', '1711984249368.jpg', 'Hey la team ! Comment va ?');
+(2, 'Siphy666', 'Alexis', 'Paquereau--Gasnier', '1711984249368.jpg', 'Hey la team ! Comment va ?'),
+(3, 'Algo', 'Alain', 'Godon', 'ID_alain_polytech_NB_max203x270.jpg', 'Otp leona plat sur la faille de l\'invocateur');
 
 --
 -- Index pour les tables déchargées
@@ -266,7 +280,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `identification`
@@ -290,7 +304,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT pour la table `response`
 --
 ALTER TABLE `response`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `subscriptions`
@@ -308,7 +322,7 @@ ALTER TABLE `userlinkinstance`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
