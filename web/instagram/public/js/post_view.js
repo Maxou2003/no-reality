@@ -63,7 +63,7 @@ function openModalPost(postId) {
     const nav_links = modal.querySelectorAll(".nav-link");
     
     modal.style.display = 'flex';
-    
+
     const comments = document.querySelector(".comments");
 
     comments.innerHTML = "";
@@ -72,11 +72,11 @@ function openModalPost(postId) {
         .then(response => response.json())
         .then(data => {
             const post = data.post;
-            modalImage.src =  POST_IMG_PATH+ post.post_picture_path;
+            modalImage.src = POST_IMG_PATH + post.post_picture_path;
             description.innerHTML = post.post_description;
             likes.innerHTML = post.nb_likes;
-            for (i=0;i<2;i++) {
-                timestamp[i].innerHTML = post.time_stamp.date;
+            for (i = 0; i < 2; i++) {
+                timestamp[i].innerHTML = post.time_stamp;
                 username[i].innerHTML = post.username;
                 profile_img[i].src = PROFILE_IMG_PATH + post.user_pp_path;
                 nav_links[i].href = MY_URL + "profile/" + post.username;
