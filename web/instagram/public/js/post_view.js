@@ -1,3 +1,4 @@
+
 function openModal(imageSrc) {
     const modal = document.getElementById('post-modal');
     const modalImage = document.getElementById('modal-image');
@@ -85,7 +86,7 @@ function openModalPost(postId) {
                 const commentElement = document.createElement("div");
                 let showResponseBtn = "";
                 if (comment.nb_responses > 0) {
-                    showResponseBtn = `<button class="show-response-btn"  commentId="${comment.comment_id}">View all ${comment.nb_responses} responses</button>`
+                    showResponseBtn = `<button class="show-response-btn"  commentid="${comment.comment_id}">View all ${comment.nb_responses} responses</button>`
                 }
                 commentElement.classList.add("comment-item");
                 commentElement.innerHTML = `
@@ -104,11 +105,12 @@ function openModalPost(postId) {
                             ${showResponseBtn}
                         </div>
                     </div>
-                    <div class="comment-responses" commentId="${comment.comment_id}"></div>
+                    <div class="comment-responses" commentid="${comment.comment_id}"></div>
                     `;
                 comments.appendChild(commentElement);
-                responses();
+
             });
+            responses();
         })
         .catch(error => console.error("Error fetching post:", error));
     escapeModal();
@@ -220,20 +222,30 @@ function responses() {
 
     for (let i = 0; i < viewResponsesBtn.length; i++) {
         viewResponsesBtn[i].addEventListener("click", () => {
-            commentResponses.forEach(element => {
-                if (element.getAttribute('commentId') === viewResponsesBtn[i].getAttribute('commentId')) {
-                    if (element.style.display === 'flex') {
-                        element.style.display = 'none';
-                        viewResponsesBtn[i].innerHTML = "View all responses";
-                    } else {
-                        if (element.innerHTML == "") {
-                            getResponses(element);
-                        }
-                        element.style.display = 'flex';
-                        viewResponsesBtn[i].innerHTML = "Hide all responses";
+
+            const buttonCommentId = viewResponsesBtn[i].getAttribute('commentid');
+
+            const targetResponse = Array.from(commentResponses).find(element =>
+                element.getAttribute('commentid') === buttonCommentId
+            );
+
+            if (targetResponse) {
+                console.log(`style: ${targetResponse.style.display}, commentid: ${buttonCommentId}, targetResponse: ${targetResponse.getAttribute('commentid')}`);
+
+                if (targetResponse.style.display === 'flex') {
+                    targetResponse.style.display = 'none';
+                    viewResponsesBtn[i].innerHTML = "View all responses";
+                    console.log(`Decision : hide\n`);
+
+                } else {
+                    if (targetResponse.innerHTML == "") {
+                        getResponses(targetResponse);
                     }
+                    targetResponse.style.display = 'flex';
+                    viewResponsesBtn[i].innerHTML = "Hide all responses";
+                    console.log(`Decision : show\n`);
                 }
-            });
+            }
         });
     }
 }
