@@ -4,6 +4,28 @@ function switchActiveBtn(btnTag) {
 
     if (!activeDiv.classList.contains("active")) {
         activeDiv.classList.toggle("active");
-        unactiveDiv.classList.remove("active");
+        user_id = document.querySelector('.profile-info').getAttribute('user-id');
+        unactiveDiv.classList.remove("active");    
+        openModalPostIdentifications(user_id, btnTag);    
     }
+}
+
+function openModalPostIdentifications(user_id, choice) {
+    const profile_posts = document.querySelector(".profile-posts");
+    profile_posts.innerHTML = "";
+    const apiUrl = `${API_BASE_URL}getModalPostIdentifications&userId=${user_id}&choice=${choice}`;
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(post => {
+                const post_identification = document.createElement("div");
+                post_identification.classList.add("post");
+                post_identification.setAttribute('onclick', "openModalPost("+post.post_id+")");
+                post_identification.innerHTML = `
+                    <img src="${POST_IMG_PATH}${post.post_picture_path}" alt="Post">
+                    `;
+                profile_posts.appendChild(post_identification);
+            });
+        })
+        .catch(error => console.error("Error fetching post:", error));
 }

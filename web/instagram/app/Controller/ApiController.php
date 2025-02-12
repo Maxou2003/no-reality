@@ -171,4 +171,26 @@ class ApiController
         header('Content-Type: application/json');
         echo json_encode($responses);
     }
+    public function getModalPostIdentifications()
+    {
+        if (!isset($_GET["userId"])) {
+            echo json_encode(['error' => 'User ID is required']);
+            return;
+        }
+        if (!isset($_GET["choice"])) {
+            echo json_encode(['error' => 'Choice is required']);
+            return;
+        }
+        $userId = intval($_GET["userId"]);
+        $choice = $_GET["choice"];
+
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $post = $PostRepository->getPostIdentifications($userId, $choice);
+
+        header('Content-Type: application/json');
+        echo json_encode($post);
+    }
 }

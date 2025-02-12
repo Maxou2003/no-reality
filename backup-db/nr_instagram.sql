@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 12 fév. 2025 à 15:29
+-- Généré le : mer. 12 fév. 2025 à 16:24
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -43,9 +43,28 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
-(1, 1, 3, 'Trop sympa la photo !', '2025-02-05 14:11:37', 1),
-(2, 2, 2, 'Waw', '2025-02-12 11:06:33', 0),
-(3, 3, 3, 'ça travail dur en Finlande !?', '2025-02-12 15:25:14', 0);
+(1, 2, 1, 'vivcqvceqvqvcqk', '2025-02-05 14:59:13', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `identification`
+--
+
+CREATE TABLE `identification` (
+  `identification_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `instance_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `identification`
+--
+
+INSERT INTO `identification` (`identification_id`, `post_id`, `user_id`, `instance_id`) VALUES
+(1, 1, 2, 1),
+(2, 5, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -94,7 +113,9 @@ CREATE TABLE `posts` (
 INSERT INTO `posts` (`post_id`, `user_id`, `instance_id`, `nb_likes`, `nb_views`, `time_stamp`, `post_picture_path`, `post_description`, `post_location`, `nb_comments`) VALUES
 (1, 1, 1, 30, 45, '2025-01-23 13:30:47', 'pexels-clement-proust-363898785-14606642.jpg', 'Un super semestre à l\'étranger !', 'Finlande, Helsinki', 3),
 (2, 1, 1, 24, 65, '2025-01-29 17:33:30', 'pexels-filatova-1861817299-30427823.jpg', 'Petite photo de zinzin !', 'Finlande, Helsinki (non je dahek)', 12),
-(3, 2, 1, 0, 0, '2025-01-29 17:55:52', 'finlande.jpg', 'mon voyage en Finlande', 'Finlande, Helsinki', 1203);
+(3, 2, 1, 0, 0, '2025-01-29 17:55:52', 'finlande.jpg', 'mon voyage en Finlande', 'Finlande, Helsinki', 1203),
+(4, 2, 1, 43, 67, '2025-02-12 07:51:43', 'pexels-kaboompics-6256.jpg', 'Un evier...', 'France, Angers', 13),
+(5, 1, 1, 4, 53, '2025-02-12 07:53:27', 'pexels-ps-photography-14694-67184.jpg', 'Ce robinet est meilleur !', 'Finlande, Helsinki', 24);
 
 -- --------------------------------------------------------
 
@@ -109,13 +130,6 @@ CREATE TABLE `response` (
   `content` text NOT NULL,
   `time_stamp` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `response`
---
-
-INSERT INTO `response` (`response_id`, `comment_id`, `user_id`, `content`, `time_stamp`) VALUES
-(1, 1, 2, 'Trop gentil <3', '2025-02-12 09:58:46');
 
 -- --------------------------------------------------------
 
@@ -176,8 +190,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_username`, `user_firstname`, `user_lastname`, `user_pp_path`, `user_description`) VALUES
 (1, 'MaxLambert', 'Maxime', 'Lambert', 'maxime_lambert.jpg', 'Hey, je suis Maxime Lambert !\nBienvenue sur mon Instagram !\nJ\'aime le handball, et les jeux de sociétés !'),
-(2, 'Siphy666', 'Alexis', 'Paquereau--Gasnier', '1711984249368.jpg', 'Hey la team ! Comment va ?'),
-(3, 'Algo', 'Alain', 'Godon', 'ID_alain_polytech_NB_max203x270.jpg', 'J\'applique les règles de Crocker !');
+(2, 'Siphy666', 'Alexis', 'Paquereau--Gasnier', '1711984249368.jpg', 'Hey la team ! Comment va ?');
 
 --
 -- Index pour les tables déchargées
@@ -190,6 +203,15 @@ ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`),
   ADD KEY `FK_CommentsUserid` (`user_id`),
   ADD KEY `FK_Postid` (`post_id`);
+
+--
+-- Index pour la table `identification`
+--
+ALTER TABLE `identification`
+  ADD PRIMARY KEY (`identification_id`),
+  ADD KEY `userId_fk` (`user_id`),
+  ADD KEY `postId_fk` (`post_id`),
+  ADD KEY `instanceId_fk` (`instance_id`);
 
 --
 -- Index pour la table `instance`
@@ -244,7 +266,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `identification`
+--
+ALTER TABLE `identification`
+  MODIFY `identification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `instance`
@@ -256,13 +284,13 @@ ALTER TABLE `instance`
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `response`
 --
 ALTER TABLE `response`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `subscriptions`
@@ -280,7 +308,7 @@ ALTER TABLE `userlinkinstance`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
@@ -292,6 +320,14 @@ ALTER TABLE `users`
 ALTER TABLE `comments`
   ADD CONSTRAINT `FK_CommentsUserid` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `FK_Postid` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`);
+
+--
+-- Contraintes pour la table `identification`
+--
+ALTER TABLE `identification`
+  ADD CONSTRAINT `instanceId_fk` FOREIGN KEY (`instance_id`) REFERENCES `instance` (`instance_id`),
+  ADD CONSTRAINT `postId_fk` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`),
+  ADD CONSTRAINT `userId_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `posts`
