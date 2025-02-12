@@ -60,6 +60,7 @@ function openModalPost(postId) {
     const timestamp = modal.querySelectorAll(".timestamp");
     const username = modal.querySelectorAll(".username");
     const profile_img = modal.querySelectorAll(".profile-img");
+    const nav_links = modal.querySelectorAll(".nav-link");
     
     modal.style.display = 'flex';
     
@@ -78,6 +79,7 @@ function openModalPost(postId) {
                 timestamp[i].innerHTML = post.time_stamp.date;
                 username[i].innerHTML = post.username;
                 profile_img[i].src = PROFILE_IMG_PATH + post.user_pp_path;
+                nav_links[i].href = MY_URL + "profile/" + post.username;
             }
             data.comments.forEach(comment => {
                 const commentElement = document.createElement("div");
@@ -169,6 +171,18 @@ function closeModal() {
     }
     const modal = document.getElementById('post-modal');
     modal.style.display = 'none';
+    document.getElementById('modal-image').src = '';
+    modal.querySelectorAll(".profile-img").src = '';
+    modal.querySelector(".description").innerHTML = '';
+    document.querySelector(".comments").innerHTML = '';
+    modal.querySelector(".likes").innerHTML = '';
+    const timestamps = modal.querySelectorAll(".timestamp");
+    const usernames = modal.querySelectorAll(".username");
+    for (i=0;i<2;i++) {
+        timestamps[i].innerHTML = '';
+        usernames[i].innerHTML = '';
+    }
+
 }
 
 function closeModalFollow() {
