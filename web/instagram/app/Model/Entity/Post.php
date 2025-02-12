@@ -32,7 +32,7 @@ class Post implements JsonSerializable
             "nb_likes" => $this->nb_likes,
             "nb_views" => $this->nb_views,
             "nb_comments" => $this->nb_comments,
-            "time_stamp" => $this->time_stamp->format('Y-m-d H:i'), #format('Y-m-d H:i')
+            "time_stamp" => $this->time_stamp->format('Y-m-d H:i'),
             "post_picture_path" => $this->post_picture_path,
             "post_description" => $this->post_description,
             "post_location" => $this->post_location,

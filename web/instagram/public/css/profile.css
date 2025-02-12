@@ -82,6 +82,11 @@ body {
     color: #555;
 }
 
+.profile-bio .full-name {
+    font-weight: bold;
+    padding-top: 10px;
+}
+
 
 .main-content .content-decider {
     display: flex;

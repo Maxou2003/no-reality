@@ -61,7 +61,7 @@ function openModalPost(postId) {
     const username = modal.querySelectorAll(".username");
     const profile_img = modal.querySelectorAll(".profile-img");
     const nav_links = modal.querySelectorAll(".nav-link");
-    
+
     modal.style.display = 'flex';
 
     const comments = document.querySelector(".comments");
@@ -83,6 +83,10 @@ function openModalPost(postId) {
             }
             data.comments.forEach(comment => {
                 const commentElement = document.createElement("div");
+                let showResponseBtn = "";
+                if (comment.nb_responses > 0) {
+                    showResponseBtn = `<button class="show-response-btn"  commentId="${comment.comment_id}">View all ${comment.nb_responses} responses</button>`
+                }
                 commentElement.classList.add("comment-item");
                 commentElement.innerHTML = `
                     <div class="comment">
@@ -97,17 +101,18 @@ function openModalPost(postId) {
                             <div class="timestamp">
                                     <span>${comment.time_stamp}</span>
                             </div>
-                            <button class="show-response-btn">View all DUR responses</button>
+                            ${showResponseBtn}
                         </div>
-
                     </div>
+                    <div class="comment-responses" commentId="${comment.comment_id}"></div>
                     `;
                 comments.appendChild(commentElement);
+                responses();
             });
-
         })
         .catch(error => console.error("Error fetching post:", error));
     escapeModal();
+
 }
 
 function search() {
@@ -178,7 +183,7 @@ function closeModal() {
     modal.querySelector(".likes").innerHTML = '';
     const timestamps = modal.querySelectorAll(".timestamp");
     const usernames = modal.querySelectorAll(".username");
-    for (i=0;i<2;i++) {
+    for (i = 0; i < 2; i++) {
         timestamps[i].innerHTML = '';
         usernames[i].innerHTML = '';
     }
@@ -206,6 +211,63 @@ function escapeModalFollow() {
             closeModalFollow();
         }
     });
+}
+
+function responses() {
+
+    const commentResponses = document.querySelectorAll(".comment-responses");
+    const viewResponsesBtn = document.querySelectorAll(".show-response-btn");
+
+    for (let i = 0; i < viewResponsesBtn.length; i++) {
+        viewResponsesBtn[i].addEventListener("click", () => {
+            commentResponses.forEach(element => {
+                if (element.getAttribute('commentId') === viewResponsesBtn[i].getAttribute('commentId')) {
+                    if (element.style.display === 'flex') {
+                        element.style.display = 'none';
+                        viewResponsesBtn[i].innerHTML = "View all responses";
+                    } else {
+                        if (element.innerHTML == "") {
+                            getResponses(element);
+                        }
+                        element.style.display = 'flex';
+                        viewResponsesBtn[i].innerHTML = "Hide all responses";
+                    }
+                }
+            });
+        });
+    }
+}
+
+function getResponses(commentResponses) {
+
+    apiUrl = `${API_BASE_URL}getResponses&commentId=${commentResponses.getAttribute('commentId')}`;
+
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            commentResponses.innerHTML = ""; // Clear previous content
+
+            data.forEach(response => {
+                const responseElement = document.createElement("div");
+                responseElement.classList.add("response");
+                responseElement.innerHTML = `
+                <div class="custom-modal-comment-profile-img">
+                    <img src="${PROFILE_IMG_PATH}${response.user_profile_picture}" alt="Image">
+                </div>
+                <div class="response-content">
+                    <span class="username">${response.user_username}</span>
+                    <span class="response-text">${response.content}</span>
+                    <div class="timestamp">
+                        <span>${response.time_stamp}</span>
+                    </div>
+                </div>
+                `;
+                commentResponses.appendChild(responseElement);
+            });
+
+        })
+        .catch(error => console.error("Error fetching responses:", error));
 }
 
 

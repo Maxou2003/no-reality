@@ -2,10 +2,11 @@
 
 namespace App\Model;
 
-use App\Lib\DatabaseConnection;
+use DateTime;
 use App\Model\Entity\Post;
 use App\Model\Entity\Comment;
-use DateTime;
+use App\Model\Entity\Response;
+use App\Lib\DatabaseConnection;
 
 class PostRepository
 {
@@ -71,7 +72,7 @@ class PostRepository
     public function fetchComments($post_id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT c.comment_id, c.user_id, c.post_id, c.comment_text, c.time_stamp, u.user_username, u.user_pp_path FROM comments c join users u on c.user_id=u.user_id WHERE c.post_id = :post_id ORDER BY c.time_stamp DESC'
+            'SELECT c.comment_id,c.nb_responses , c.user_id, c.post_id, c.comment_text, c.time_stamp, u.user_username, u.user_pp_path FROM comments c join users u on c.user_id=u.user_id WHERE c.post_id = :post_id ORDER BY c.time_stamp DESC'
         );
         $statement->bindValue(':post_id', $post_id, \PDO::PARAM_INT);
         $statement->execute();
@@ -86,10 +87,35 @@ class PostRepository
             $comment->time_stamp = new DateTime($row['time_stamp']);
             $comment->user_username = $row['user_username'];
             $comment->user_pp_path = $row['user_pp_path'];
+            $comment->nb_responses = $row['nb_responses'];
 
             $commentsArray[] = $comment;
         }
 
         return $commentsArray;
+    }
+    public function fetchResponses($comment_id)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT r.response_id,r.comment_id,r.user_id,r.content,r.time_stamp, u.user_username, u.user_pp_path FROM response r JOIN users u ON u.user_id=r.user_id WHERE comment_id = :comment_id ORDER BY time_stamp DESC'
+        );
+        $statement->bindValue(':comment_id', $comment_id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $responseArray = [];
+        while (($row = $statement->fetch())) {
+            $response = new Response();
+            $response->comment_id = $row['comment_id'];
+            $response->user_id = $row['user_id'];
+            $response->response_id = $row['response_id'];
+            $response->content = $row['content'];
+            $response->time_stamp = new DateTime($row['time_stamp']);
+            $response->user_username = $row['user_username'];
+            $response->user_pp_path = $row['user_pp_path'];
+
+            $responseArray[] = $response;
+        }
+
+        return $responseArray;
     }
 }

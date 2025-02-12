@@ -155,4 +155,20 @@ class ApiController
         header('Content-Type: application/json');
         echo json_encode($modalPost);
     }
+    public function getResponses()
+    {
+        if (!isset($_GET["commentId"])) {
+            echo json_encode(['error' => 'Comment ID is required']);
+            return;
+        }
+        $comment_id = $_GET["commentId"];
+
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $responses = $PostRepository->fetchResponses($comment_id);
+        header('Content-Type: application/json');
+        echo json_encode($responses);
+    }
 }
