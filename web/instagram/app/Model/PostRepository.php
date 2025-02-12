@@ -97,7 +97,7 @@ class PostRepository
     public function fetchResponses($comment_id)
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT r.response_id,r.comment_id,r.user_id,r.content,r.time_stamp, u.user_username, u.user_pp_path FROM response r JOIN users u ON u.user_id=r.user_id WHERE comment_id = :comment_id ORDER BY time_stamp DESC'
+            'SELECT r.response_id,r.comment_id,r.user_id,r.content,r.time_stamp, u.user_username, u.user_pp_path FROM response r JOIN users u ON u.user_id=r.user_id WHERE comment_id = :comment_id ORDER BY time_stamp ASC'
         );
         $statement->bindValue(':comment_id', $comment_id, \PDO::PARAM_INT);
         $statement->execute();
@@ -117,18 +117,16 @@ class PostRepository
         }
 
         return $responseArray;
-    }    
+    }
     public function getPostIdentifications($user_id, $choice): array
     {
         $query = '';
         if ($choice == 'identification') {
-            
+
             $query = 'SELECT p.post_id, p.post_picture_path from identification i join posts p on i.post_id = p.post_id where i.user_id = :user_id ORDER BY time_stamp DESC';
-        }
-        elseif ($choice == 'post') {
+        } elseif ($choice == 'post') {
             $query = 'SELECT post_id, post_picture_path from posts where user_id = :user_id ORDER BY time_stamp DESC';
-        }
-        else {
+        } else {
             return ['error' => 'Choice undifined'];
         }
         $statement = $this->connection->getConnection()->prepare(
