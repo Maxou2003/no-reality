@@ -117,5 +117,31 @@ class PostRepository
         }
 
         return $responseArray;
+    }    
+    public function getPostIdentifications($user_id, $choice): array
+    {
+        $query = '';
+        if ($choice == 'identification') {
+            
+            $query = 'SELECT p.post_id, p.post_picture_path from identification i join posts p on i.post_id = p.post_id where i.user_id = :user_id;';
+        }
+        elseif ($choice == 'post') {
+            $query = 'SELECT post_id, post_picture_path from posts where user_id = :user_id ORDER BY time_stamp';
+        }
+        else {
+            return ['error' => 'Choice undifined'];
+        }
+        $statement = $this->connection->getConnection()->prepare(
+            $query
+        );
+        $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
+        $statement->execute();
+        $postIdentificationArray = [];
+        while (($row = $statement->fetch())) {
+            $tab['post_id'] =  $row['post_id'];
+            $tab['post_picture_path'] =  $row['post_picture_path'];
+            $postIdentificationArray[] = $tab;
+        }
+        return $postIdentificationArray;
     }
 }
