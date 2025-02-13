@@ -218,7 +218,30 @@
     background-color: #f2f2f2;
 }
 
+.logo .navbar-brand .instagram-logo {
+    width: 150px;
+}
 
+
+.logo .navbar-brand .instagram-logo img {
+    display: block;
+    object-fit: fill;
+    width: 150px;
+    height: auto;
+    aspect-ratio: 1/1;
+}
+
+.search-active .logo .navbar-brand .instagram-logo {
+    display: none;
+}
+
+.logo .navbar-brand .instagram-icon {
+    display: none;
+}
+
+.search-active .logo .navbar-brand .instagram-icon {
+    display: block;
+}
 
 /* Responsive Styles */
 @media (max-width: 1000px) {
@@ -238,6 +261,14 @@
     .sidebar .nav-item span {
         display: none;
         /* Hide text in collapsed state */
+    }
+
+    .logo .navbar-brand .instagram-logo {
+        display: none;
+    }
+
+    .logo .navbar-brand .instagram-icon {
+        display: block;
     }
 
     .sidebar .logo {
