@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 12 fév. 2025 à 17:42
+-- Généré le : jeu. 13 fév. 2025 à 14:45
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -43,10 +43,43 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
-(1, 2, 1, 'vivcqvceqvqvcqk', '2025-02-05 14:59:13', 0),
+(1, 2, 1, 'vivcqvceqvqvcqk', '2025-02-05 14:59:13', 1),
 (2, 3, 3, 'ça travaille dur en Finlande ?!', '2025-02-12 17:34:01', 1),
 (3, 1, 3, 'Trop nul ! ', '2025-02-12 17:35:11', 1),
-(4, 3, 3, 'Il est pas cool Maxime en vrai, je lui met 0 en OSINT.', '2025-02-12 17:36:28', 2);
+(4, 3, 3, 'Il est pas cool Maxime en vrai, je lui met 0 en OSINT.', '2025-02-12 17:36:28', 1),
+(7, 2, 1, 'Ok.', '2025-02-13 11:42:06', 0),
+(8, 3, 2, 'Sympa,c\'est où ?', '2025-02-13 11:43:01', 0),
+(9, 2, 5, 'Pas cool man...', '2025-02-13 11:43:43', 0);
+
+--
+-- Déclencheurs `comments`
+--
+DELIMITER $$
+CREATE TRIGGER `after_comment_deletion` AFTER DELETE ON `comments` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM comments
+        WHERE comments.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_comment_insert` AFTER INSERT ON `comments` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM comments
+        WHERE comments.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -114,11 +147,11 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `user_id`, `instance_id`, `nb_likes`, `nb_views`, `time_stamp`, `post_picture_path`, `post_description`, `post_location`, `nb_comments`) VALUES
-(1, 1, 1, 30, 45, '2025-01-23 13:30:47', 'pexels-clement-proust-363898785-14606642.jpg', 'Un super semestre à l\'étranger !', 'Finlande, Helsinki', 3),
-(2, 1, 1, 24, 65, '2025-01-29 17:33:30', 'pexels-filatova-1861817299-30427823.jpg', 'Petite photo de zinzin !', 'Finlande, Helsinki (non je dahek)', 12),
-(3, 2, 1, 0, 0, '2025-01-29 17:55:52', 'finlande.jpg', 'mon voyage en Finlande', 'Finlande, Helsinki', 1203),
-(4, 2, 1, 43, 67, '2025-02-12 07:51:43', 'pexels-kaboompics-6256.jpg', 'Un evier...', 'France, Angers', 13),
-(5, 1, 1, 4, 53, '2025-02-12 07:53:27', 'pexels-ps-photography-14694-67184.jpg', 'Ce robinet est meilleur !', 'Finlande, Helsinki', 24);
+(1, 1, 1, 30, 45, '2025-01-23 13:30:47', 'pexels-clement-proust-363898785-14606642.jpg', 'Un super semestre à l\'étranger !', 'Finlande, Helsinki', 2),
+(2, 1, 1, 24, 65, '2025-01-29 17:33:30', 'pexels-filatova-1861817299-30427823.jpg', 'Petite photo de zinzin !', 'Finlande, Helsinki (non je dahek)', 1),
+(3, 2, 1, 0, 0, '2025-01-29 17:55:52', 'finlande.jpg', 'mon voyage en Finlande', 'Finlande, Helsinki', 3),
+(4, 2, 1, 43, 67, '2025-02-12 07:51:43', 'pexels-kaboompics-6256.jpg', 'Un evier...', 'France, Angers', 0),
+(5, 1, 1, 4, 53, '2025-02-12 07:53:27', 'pexels-ps-photography-14694-67184.jpg', 'Ce robinet est meilleur !', 'Finlande, Helsinki', 1);
 
 -- --------------------------------------------------------
 
@@ -142,7 +175,38 @@ INSERT INTO `response` (`response_id`, `comment_id`, `user_id`, `content`, `time
 (1, 2, 2, 'Oui !', '2025-02-12 17:34:37'),
 (2, 3, 2, 'Aigri/20', '2025-02-12 17:35:41'),
 (3, 4, 1, 'Oh non, je suis désolé, please pas 0.', '2025-02-12 17:36:50'),
-(4, 4, 2, 'Cheh', '2025-02-12 17:37:31');
+(8, 1, 1, 'I beg you pardon ?', '2025-02-13 11:28:18');
+
+--
+-- Déclencheurs `response`
+--
+DELIMITER $$
+CREATE TRIGGER `after_response_deletion` AFTER DELETE ON `response` FOR EACH ROW BEGIN
+    UPDATE Comments
+    SET nb_responses = (
+        SELECT COUNT(DISTINCT response_id)
+        FROM response
+        WHERE response.comment_id = OLD.comment_id
+    )
+    WHERE comment_id = OLD.comment_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_response_insert` AFTER INSERT ON `response` FOR EACH ROW BEGIN
+    -- Update the nb_responses column in the Comments table
+    UPDATE comments
+    SET nb_responses = (
+        SELECT COUNT(DISTINCT response_id)
+        FROM response
+        WHERE response.comment_id = NEW.comment_id
+    )
+    WHERE comment_id = NEW.comment_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -280,7 +344,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `identification`
@@ -304,7 +368,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT pour la table `response`
 --
 ALTER TABLE `response`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `subscriptions`
