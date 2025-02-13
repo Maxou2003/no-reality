@@ -26,7 +26,6 @@ function sidebarSearch() {
 
     let apiUrl = `${API_BASE_URL}searchInUsers&searchContent=${searchBar.value}`;
 
-    console.log(apiUrl);
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {

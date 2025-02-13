@@ -73,9 +73,19 @@ function openModalPost(postId) {
         .then(response => response.json())
         .then(data => {
             const post = data.post;
+            const taggedUsers = data.taggedUsers;
+            let descriptionContent = post.post_description;
+
+            taggedUsers.forEach(taggedUser => {
+                descriptionContent += ` <a href="${MY_URL}profile/${taggedUser}">@${taggedUser}</a>`;
+            });
+
+            description.innerHTML = descriptionContent;
+
             modalImage.src = POST_IMG_PATH + post.post_picture_path;
-            description.innerHTML = post.post_description;
+
             likes.innerHTML = post.nb_likes;
+
             for (i = 0; i < 2; i++) {
                 timestamp[i].innerHTML = post.time_stamp;
                 username[i].innerHTML = post.username;
@@ -230,12 +240,10 @@ function responses() {
             );
 
             if (targetResponse) {
-                console.log(`style: ${targetResponse.style.display}, commentid: ${buttonCommentId}, targetResponse: ${targetResponse.getAttribute('commentid')}`);
 
                 if (targetResponse.style.display === 'flex') {
                     targetResponse.style.display = 'none';
                     viewResponsesBtn[i].innerHTML = "View all responses";
-                    console.log(`Decision : hide\n`);
 
                 } else {
                     if (targetResponse.innerHTML == "") {
@@ -243,7 +251,6 @@ function responses() {
                     }
                     targetResponse.style.display = 'flex';
                     viewResponsesBtn[i].innerHTML = "Hide all responses";
-                    console.log(`Decision : show\n`);
                 }
             }
         });

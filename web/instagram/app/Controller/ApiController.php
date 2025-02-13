@@ -147,10 +147,12 @@ class ApiController
 
         $post = $PostRepository->getPostByPostId($post_id);
         $comments = $PostRepository->fetchComments($post_id);
+        $taggedUsers = $PostRepository->getTaggedUsers($post_id);
 
         $modalPost = new ModalPost();
         $modalPost->comments = $comments;
         $modalPost->post = $post;
+        $modalPost->taggedUsers = $taggedUsers;
 
         header('Content-Type: application/json');
         echo json_encode($modalPost);
@@ -171,7 +173,7 @@ class ApiController
         header('Content-Type: application/json');
         echo json_encode($responses);
     }
-    public function getModalPostIdentifications()
+    public function getIdentifications()
     {
         if (!isset($_GET["userId"])) {
             echo json_encode(['error' => 'User ID is required']);
@@ -182,15 +184,15 @@ class ApiController
             return;
         }
         $userId = intval($_GET["userId"]);
-        $choice = $_GET["choice"];
+        $choice = strval($_GET["choice"]);
 
         $database = new DatabaseConnection();
         $PostRepository = new PostRepository();
         $PostRepository->connection = $database;
 
-        $post = $PostRepository->getPostIdentifications($userId, $choice);
+        $identifications = $PostRepository->getPostIdentifications($userId, $choice);
 
         header('Content-Type: application/json');
-        echo json_encode($post);
+        echo json_encode($identifications);
     }
 }

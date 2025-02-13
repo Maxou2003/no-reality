@@ -17,6 +17,8 @@ class ModalPost implements JsonSerializable
      */
     public array $comments;
 
+    public array $taggedUsers;
+
     public function jsonSerialize(): mixed
     {
         return [
@@ -25,6 +27,7 @@ class ModalPost implements JsonSerializable
                 fn(Comment $comment) => $comment->jsonSerialize(),
                 $this->comments
             ),
+            'taggedUsers' => $this->taggedUsers,
         ];
     }
 }

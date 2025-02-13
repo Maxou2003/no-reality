@@ -129,9 +129,7 @@ class PostRepository
         } else {
             return ['error' => 'Choice undifined'];
         }
-        $statement = $this->connection->getConnection()->prepare(
-            $query
-        );
+        $statement = $this->connection->getConnection()->prepare($query);
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
         $statement->execute();
         $postIdentificationArray = [];
@@ -141,5 +139,18 @@ class PostRepository
             $postIdentificationArray[] = $tab;
         }
         return $postIdentificationArray;
+    }
+    public function getTaggedUsers($post_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT user_username FROM identification i Join users u on i.user_id=u.user_id Where i.post_id=:post_id '
+        );
+        $statement->bindValue(':post_id', $post_id, \PDO::PARAM_INT);
+        $statement->execute();
+        $taggedUsers = [];
+        while (($row = $statement->fetch())) {
+            $taggedUsers[] = $row['user_username'];
+        }
+        return $taggedUsers;
     }
 }
