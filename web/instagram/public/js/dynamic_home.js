@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <div class="profile_img">
                                         <img src="${PROFILE_IMG_PATH}${post.user_pp_path}" alt="Image">
                                     </div>
-                                    <a class="nav-link" href="${MY_URL}profile/${post.user_username}">
-                                        <span>${post.user_username}</span>
+                                    <a class="nav-link" href="${MY_URL}profile/${post.username}">
+                                        <span>${post.username}</span>
                                     </a>
                                 </div>
                                 <div class="options">
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                                 <div class="post_info">${post.nb_likes} likes</div>
                                 <div class="post_title">
-                                    <span class="username">${post.user_username}</span>
+                                    <span class="username">${post.username}</span>
                                     <span class="title">${post.post_description}</span>
                                 </div>
                                 <div class="post_comments">

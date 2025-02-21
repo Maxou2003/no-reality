@@ -204,7 +204,7 @@ class ApiController
         }
 
         $page = intval($_GET['page']);
-        $perPage = 2; // Number of posts to be loaded for each page
+        $perPage = 10; // Number of posts to be loaded for each page
         $offset = ($page - 1) * $perPage;
 
         $database = new DatabaseConnection();
@@ -212,24 +212,7 @@ class ApiController
         $PostRepository->connection = $database;
 
         $posts = $PostRepository->getPost($perPage, $offset);
-        $postsArray = [];
-        foreach ($posts as $post) {
-            $postsArray[] = [
-                'post_id' => $post->post_id,
-                'user_username' => $post->user_username,
-                'user_id' => $post->user_id,
-                'instance_id' => $post->instance_id,
-                'user_pp_path' => $post->user_pp_path,
-                'nb_likes' => $post->nb_likes,
-                'nb_views' => $post->nb_views,
-                'time_stamp' => $post->time_stamp->format('Y-m-d H:i:s'), // Format correct pour le timestamp
-                'post_picture_path' => $post->post_picture_path,
-                'post_description' => $post->post_description,
-                'post_location' => $post->post_location,
-                'nb_comments' => $post->nb_comments,
-            ];
-        }
         header('Content-Type: application/json');
-        echo json_encode($postsArray);
+        echo json_encode($posts);
     }
 }
