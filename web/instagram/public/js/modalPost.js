@@ -68,6 +68,7 @@ function openModalPost(postId) {
             responses();
         })
         .catch(error => console.error("Error fetching post:", error));
+    noScrollOutside();
     escapeModal();
 
 }
@@ -165,9 +166,23 @@ function closeModalPost() {
         timestamps[i].innerHTML = '';
         usernames[i].innerHTML = '';
     }
+    scrollOutside();
 
 }
 
+function noScrollOutside() {
+    const body = document.querySelector('body');
+    if (body) {
+        body.classList.add('no-scroll');
+    }
+}
+
+function scrollOutside() {
+    const body = document.querySelector('body');
+    if (body) {
+        body.classList.remove('no-scroll');
+    }
+}
 
 
 

@@ -273,3 +273,7 @@
     color: var(--text-color);
     padding-top: 5px;
 }
+
+.no-scroll {
+    overflow: hidden;
+}
