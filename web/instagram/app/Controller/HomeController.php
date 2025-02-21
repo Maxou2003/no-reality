@@ -24,7 +24,7 @@ class HomeController
         $PostRepository->connection = $database;
         $UserRepository->connection = $database;
 
-        $posts = $PostRepository->getPost(10);
+        //$posts = $PostRepository->getPost(10);
         $suggestions = $UserRepository->getSuggestions();
 
         # require(__DIR__ . '/../View/home.php');
@@ -32,6 +32,6 @@ class HomeController
         # Comment the lines below to use the home.php
         $template = $this->twig->load('home.twig');
 
-        echo $template->render(['posts' => $posts, 'suggestions' => $suggestions, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render(['suggestions' => $suggestions, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
     }
 }

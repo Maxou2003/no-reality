@@ -150,24 +150,29 @@ function escapeModal() {
 function closeModalPost() {
     const heartButtons = document.querySelectorAll('.heart_icon');
     for (let i = 0; i < heartButtons.length; i++) {
-        heartButtons[i].childNodes[1].name = 'heart-outline';
-        heartButtons[i].className = 'heart_icon';
+        if (heartButtons[i].childNodes[1]) {
+            heartButtons[i].childNodes[1].name = 'heart-outline'; 
+        }
+        heartButtons[i].className = 'heart_icon'; 
     }
+
     const modal = document.getElementById('post-modal');
     modal.style.display = 'none';
     document.getElementById('modal-image').src = '';
-    modal.querySelectorAll(".profile-img").src = '';
+    modal.querySelectorAll(".profile-img").forEach(img => img.src = '');
     modal.querySelector(".description").innerHTML = '';
     document.querySelector(".comments").innerHTML = '';
     modal.querySelector(".likes").innerHTML = '';
     const timestamps = modal.querySelectorAll(".timestamp");
     const usernames = modal.querySelectorAll(".username");
-    for (i = 0; i < 2; i++) {
+    
+    const minLength = Math.min(timestamps.length, usernames.length, 2);
+    for (let i = 0; i < minLength; i++) {
         timestamps[i].innerHTML = '';
         usernames[i].innerHTML = '';
     }
-    scrollOutside();
 
+    scrollOutside(); 
 }
 
 function noScrollOutside() {

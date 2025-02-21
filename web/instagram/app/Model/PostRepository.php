@@ -12,12 +12,13 @@ class PostRepository
 {
     public DatabaseConnection $connection;
 
-    public function getPost($nb): array
+    public function getPost($limit, $offset = 0): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments, post_id FROM posts p join users u on p.user_id=u.user_id ORDER BY time_stamp DESC limit 0,:offset '
+            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments, post_id FROM posts p join users u on p.user_id=u.user_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
         );
-        $statement->bindValue(':offset', $nb, \PDO::PARAM_INT);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
         $statement->execute();
 
         $postArray = [];
@@ -38,7 +39,6 @@ class PostRepository
 
             $postArray[] = $post;
         }
-
         return $postArray;
     }
 

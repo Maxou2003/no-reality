@@ -1,10 +1,9 @@
 {% extends 'base.twig' %}
 
-{% block title %}Instagram
-{% endblock %}
-
 {% block head %}
 	<link rel="stylesheet" href="{{URL}}css/home.css">
+	<script src="{{ URL }}js/dynamic_home.js"></script>
+	<script src="{{URL}}js/modalPost.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -14,67 +13,6 @@
 		<main class="feed">
 			<h1>For you </h1>
 
-			{% for post in posts %}
-				<div class="post" user-id="{{post.user_id}}">
-					<div class="post_header">
-						<div class="profile_info">
-							<div class="profile_img">
-								<img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Image">
-							</div>
-							<a class="nav-link" href="{{URL}}profile/{{post.user_username}}">
-								<span>
-									{{post.user_username}}
-								</span>
-							</a>
-						</div>
-						<div class="options">
-							<span>
-								<ion-icon name="ellipsis-horizontal"></ion-icon>
-							</span>
-						</div>
-					</div>
-					<div class="post_img">
-					
-						<img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" onclick="openModalPost(`{{post.post_id}}`)">
-					</div>
-					<div class="post_body">
-						<div class="post_actions">
-							<span class="heart_icon">
-								<ion-icon name="heart-outline"></ion-icon>
-							</span>
-							<span>
-								<ion-icon name="chatbubble-outline" onclick="openModalPost(`{{post.post_id}}`)"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}"></ion-icon>
-							</span>
-							<span>
-								<ion-icon name="paper-plane-outline"></ion-icon>
-							</span>
-							<span>
-								<ion-icon name="bookmark-outline"></ion-icon>
-							</span>
-						</div>
-						<div class="post_info">{{post.nb_likes}}
-							likes</div>
-						<div class="post_title">
-							<span class="username">{{post.user_username}}</span>
-							<span class="title">{{post.post_description}}</span>
-						</div>
-						<div class="post_comments">
-							<span onclick="openModalPost(`{{post.post_id}}`)">View all
-								{{post.nb_comments}}
-								comments
-							</span>
-						</div>
-						<div class="post_timestamp">{{post.time_stamp.format('Y-m-d H:i')}}</div>
-					</div>
-					<div class="input_box">
-						<div class="emoji">
-							<ion-icon name="happy-outline"></ion-icon>
-						</div>
-						<input type="text" placeholder="Add a comment...">
-						<button>Post</button>
-					</div>
-				</div>
-			{% endfor %}
 		</main>
 		{% include 'post-modal.twig'%}
 	</div>
@@ -93,4 +31,5 @@
 			</div>
 		{% endfor %}
 	</aside>
+
 {% endblock %}

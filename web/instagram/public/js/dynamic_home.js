@@ -1,0 +1,100 @@
+
+document.addEventListener("DOMContentLoaded", function () {
+    let loading = false;
+    let page = 1; // Commence à 2 car la page 1 est déjà chargée
+
+    async function loadMorePosts() {
+        if (loading) return;
+        loading = true;
+
+        //const loader = document.getElementById("loader");
+        //if (loader) loader.style.display = "block";
+
+        try {
+            const response = await fetch(`${API_BASE_URL}getMorePosts&page=${page}`);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+            const newPosts = await response.json();
+            //console.log("Nb posts received :", newPosts.length);
+            //console.log("Posts received :", newPosts);
+
+            if (newPosts.length > 0) {
+                newPosts.forEach(post => {
+                    document.querySelector(".feed").insertAdjacentHTML("beforeend", `
+                        <div class="post" user-id="${post.user_id}">
+                            <div class="post_header">
+                                <div class="profile_info">
+                                    <div class="profile_img">
+                                        <img src="${PROFILE_IMG_PATH}${post.user_pp_path}" alt="Image">
+                                    </div>
+                                    <a class="nav-link" href="${MY_URL}profile/${post.user_username}">
+                                        <span>${post.user_username}</span>
+                                    </a>
+                                </div>
+                                <div class="options">
+                                    <span>
+                                        <ion-icon name="ellipsis-horizontal"></ion-icon>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="post_img">
+                                <img src="${POST_IMG_PATH}${post.post_picture_path}" onclick="openModalPost('${post.post_id}')">
+                            </div>
+                            <div class="post_body">
+                                <div class="post_actions">
+                                    <span class="heart_icon"><ion-icon name="heart-outline"></ion-icon></span>
+                                    <span><ion-icon name="chatbubble-outline" onclick="openModalPost('${post.post_id}')"><img src="${POST_IMG_PATH}${post.post_picture_path}"></ion-icon></span>
+                                    <span><ion-icon name="paper-plane-outline"></ion-icon></span>
+                                    <span><ion-icon name="bookmark-outline"></ion-icon></span>
+                                </div>
+                                <div class="post_info">${post.nb_likes} likes</div>
+                                <div class="post_title">
+                                    <span class="username">${post.user_username}</span>
+                                    <span class="title">${post.post_description}</span>
+                                </div>
+                                <div class="post_comments">
+                                    <span onclick="openModalPost('${post.post_id}')">View all ${post.nb_comments} comments</span>
+                                </div>
+                                <div class="post_timestamp">${post.time_stamp}</div>
+                            </div>
+                            <div class="input_box">
+                                <div class="emoji">
+                                    <ion-icon name="happy-outline"></ion-icon>
+                                </div>
+                                <input type="text" placeholder="Add a comment...">
+                                <button>Post</button>
+                            </div>
+                        </div>
+                    `);
+                });
+                page++;
+            } else {
+                window.removeEventListener("scroll", handleScroll);
+            }
+        } catch (error) {
+            console.error("Error loading posts :", error);
+        } finally {
+            //if (loader) loader.style.display = "none";
+            loading = false;
+        }
+    }
+
+    function handleScroll() {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+            loadMorePosts();
+        }
+    }
+
+    function checkAndLoad() {
+        if (document.documentElement.scrollHeight <= window.innerHeight) {
+            loadMorePosts();
+            setTimeout(checkAndLoad, 500);
+        }
+    }
+
+    loadMorePosts();
+
+    checkAndLoad();
+
+    window.addEventListener("scroll", handleScroll);
+});
