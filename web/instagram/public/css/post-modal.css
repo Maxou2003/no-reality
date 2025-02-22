@@ -265,6 +265,10 @@
     gap: 15px;
 }
 
+.comment-responses .nav-link {
+    display: inline;
+}
+
 .response {
     display: flex;
     flex-direction: row;

@@ -24,7 +24,9 @@ function openModalFollow(followers) {
                 userElement.innerHTML = `
                     <div class="follow-modal-profile">
                         <div class="follow-modal-profile-img">
-                            <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
+                            <a href="${MY_URL}profile/${user.username}">
+                                <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
+                            </a>
                         </div>
                         <div class="follow-modal-profile-info">
                             <a class="nav-link" href="${MY_URL}profile/${user.username}">
@@ -80,7 +82,9 @@ function search() {
                 userElement.innerHTML = `
                     <div class="follow-modal-profile">
                         <div class="follow-modal-profile-img">
-                            <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
+                            <a href="${MY_URL}profile/${user.username}">
+                                <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="Image">
+                            </a>
                         </div>
                         <div class="follow-modal-profile-info">
                             <a class="nav-link" href="${MY_URL}profile/${user.username}">

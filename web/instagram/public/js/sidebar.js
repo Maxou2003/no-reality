@@ -37,7 +37,7 @@ function sidebarSearch() {
                 userElement.innerHTML = `
                 <div class="profile">
                     <div class="profile-img">
-                        <img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="User Avatar">
+                        <a href="${MY_URL}profile/${user.username}"><img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="User Avatar"></a>
                     </div>
                     <div class="profile-info">
                         <a class="nav-link" href="${MY_URL}profile/${user.username}">

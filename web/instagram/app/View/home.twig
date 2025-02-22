@@ -23,7 +23,7 @@
 		{% for suggestion in suggestions %}
 			<div class="user">
 				<div class="profile_img">
-					<img src="{{PROFILE_IMG_PATH}}{{suggestion.user_pp_path}}" alt="Image">
+					<a href="{{URL}}profile/{{suggestion.user_username}}"><img src="{{PROFILE_IMG_PATH}}{{suggestion.user_pp_path}}" alt="Image"> </a>
 				</div>
 				<a class="nav-link" href="{{URL}}profile/{{suggestion.user_username}}">
 					<span>{{suggestion.user_username}}</span>

@@ -7,6 +7,7 @@ function openModalPost(postId) {
     const username = modal.querySelectorAll(".username");
     const profile_img = modal.querySelectorAll(".profile-img");
     const nav_links = modal.querySelectorAll(".nav-link");
+    const pp_links = modal.querySelectorAll(".custom-modal-profile-img a");
 
     modal.style.display = 'flex';
 
@@ -29,6 +30,8 @@ function openModalPost(postId) {
 
             modalImage.src = POST_IMG_PATH + post.post_picture_path;
 
+            pp_links.forEach(link => link.href = MY_URL + "profile/" + post.username);
+
             likes.innerHTML = post.nb_likes;
 
             for (i = 0; i < 2; i++) {
@@ -47,7 +50,7 @@ function openModalPost(postId) {
                 commentElement.innerHTML = `
                     <div class="comment">
 						<div class="custom-modal-comment-profile-img">
-							<img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" alt="Image">
+							<a href="${MY_URL}profile/${comment.user_username}"><img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" alt="Image"></a>
 						</div>
                         <div class="comment-content">
                             <a class="nav-link" href="${MY_URL}profile/${comment.user_username}">
@@ -121,10 +124,14 @@ function getResponses(commentResponses) {
                 responseElement.classList.add("response");
                 responseElement.innerHTML = `
                 <div class="custom-modal-comment-profile-img">
+                <a href="${MY_URL}profile/${response.user_username}">
                     <img src="${PROFILE_IMG_PATH}${response.user_profile_picture}" alt="Image">
+                </a>
                 </div>
                 <div class="response-content">
-                    <span class="username">${response.user_username}</span>
+                    <a class="nav-link" href="${MY_URL}profile/${response.user_username}">
+                        <span class="username">${response.user_username}</span>
+                    </a>
                     <span class="response-text">${response.content}</span>
                     <div class="timestamp">
                         <span>${response.time_stamp}</span>
@@ -151,9 +158,9 @@ function closeModalPost() {
     const heartButtons = document.querySelectorAll('.heart_icon');
     for (let i = 0; i < heartButtons.length; i++) {
         if (heartButtons[i].childNodes[1]) {
-            heartButtons[i].childNodes[1].name = 'heart-outline'; 
+            heartButtons[i].childNodes[1].name = 'heart-outline';
         }
-        heartButtons[i].className = 'heart_icon'; 
+        heartButtons[i].className = 'heart_icon';
     }
 
     const modal = document.getElementById('post-modal');
@@ -165,14 +172,14 @@ function closeModalPost() {
     modal.querySelector(".likes").innerHTML = '';
     const timestamps = modal.querySelectorAll(".timestamp");
     const usernames = modal.querySelectorAll(".username");
-    
+
     const minLength = Math.min(timestamps.length, usernames.length, 2);
     for (let i = 0; i < minLength; i++) {
         timestamps[i].innerHTML = '';
         usernames[i].innerHTML = '';
     }
 
-    scrollOutside(); 
+    scrollOutside();
 }
 
 function noScrollOutside() {

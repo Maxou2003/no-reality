@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="post_header">
                                 <div class="profile_info">
                                     <div class="profile_img">
-                                        <img src="${PROFILE_IMG_PATH}${post.user_pp_path}" alt="Image">
+                                        <a href="${MY_URL}profile/${post.username}"><img src="${PROFILE_IMG_PATH}${post.user_pp_path}" alt="Image"> </a>
                                     </div>
                                     <a class="nav-link" href="${MY_URL}profile/${post.username}">
                                         <span>${post.username}</span>
