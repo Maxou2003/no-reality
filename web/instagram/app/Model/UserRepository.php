@@ -193,4 +193,20 @@ class UserRepository
 
         return $users;
     }
+
+    public function checkInstanceId($instanceId)
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT instance_id FROM instance WHERE instance_id = :instance_id'
+        );
+        $statement->bindValue(':instance_id', $instanceId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $row = $statement->fetch();
+        if ($row === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
