@@ -69,9 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 
                 page++;
-
-                const event = new Event("heartIconsUpdated");
-                document.dispatchEvent(event);
             } else {
                 window.removeEventListener("scroll", handleScroll);
             }
