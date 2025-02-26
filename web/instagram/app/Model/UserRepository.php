@@ -86,8 +86,7 @@ class UserRepository
     public function getUserNbPost($user_id)
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT count(*) as nbPost FROM posts where user_id=:user_id and user_id in(
-                        SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id)'
+            'SELECT count(*) as nbPost FROM posts where user_id=:user_id and instance_id=:instance_id'
         );
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -101,19 +100,13 @@ class UserRepository
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT followers.nbFollowers, followings.nbFollowings 
-            FROM (SELECT COUNT(follower_id) AS nbFollowers 
+            FROM (SELECT COUNT(follower_id) AS nbFollowers,instance_id 
                     FROM subscriptions 
-                    WHERE followed_id = :user_id and followed_id in(
-                        SELECT user_id 
-                        FROM userlinkinstance 
-                        WHERE instance_id=:instance_id)
+                    WHERE followed_id = :user_id and instance_id=:instance_id
                 ) AS followers 
             CROSS JOIN (SELECT COUNT(followed_id) AS nbFollowings 
                         FROM subscriptions 
-                        WHERE follower_id = :user_id and follower_id in(
-                        SELECT user_id 
-                        FROM userlinkinstance 
-                        WHERE instance_id=:instance_id)
+                        WHERE follower_id = :user_id and instance_id=:instance_id
                 ) AS followings;'
         );
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
@@ -127,9 +120,9 @@ class UserRepository
     public function fetchFollowers($user_id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_id,follower_id, user_firstname, user_lastname, user_description, user_username, user_pp_path
+            'SELECT instance_id,user_id,follower_id, user_firstname, user_lastname, user_description, user_username, user_pp_path
              FROM users u join subscriptions s on u.user_id=s.follower_id 
-             where s.followed_id=:user_id and u.user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id)'
+             where s.followed_id=:user_id and instance_id=:instance_id'
         );
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -154,10 +147,10 @@ class UserRepository
     public function fetchFollowings($user_id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_id,follower_id, user_firstname, user_lastname, user_description, user_username, user_pp_path 
+            'SELECT instance_id,user_id,follower_id, user_firstname, user_lastname, user_description, user_username, user_pp_path 
             FROM users u 
             join subscriptions s on u.user_id=s.followed_id 
-            where s.follower_id=:user_id and u.user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id)'
+            where s.follower_id=:user_id and instance_id=:instance_id'
         );
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -233,7 +226,7 @@ class UserRepository
         return $users;
     }
 
-    public function checkInstanceId($instanceId)
+    public function checkInstanceId($instanceId): bool
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT instance_id FROM instance WHERE instance_id = :instance_id'

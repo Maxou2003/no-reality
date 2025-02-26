@@ -15,9 +15,10 @@ class PostRepository
     public function getPost($limit, $offset = 0): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments, post_id FROM posts p join users u on p.user_id=u.user_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
+            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments, post_id FROM posts p join users u on p.user_id=u.user_id Where instance_id=:instance_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
         );
         $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
         $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
         $statement->execute();
 
@@ -45,9 +46,10 @@ class PostRepository
     public function getPostByPostId($post_id): Post
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments, post_id FROM posts p join users u on p.user_id=u.user_id  where p.post_id =:post_id '
+            'SELECT user_username,u.user_id, instance_id,user_pp_path, nb_likes, nb_views, time_stamp, post_picture_path,post_description,post_location,nb_comments, post_id FROM posts p join users u on p.user_id=u.user_id  where p.post_id =:post_id and instance_id=:instance_id'
         );
         $statement->bindValue(':post_id', $post_id, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
         $statement->execute();
 
         $row = $statement->fetch();
@@ -122,15 +124,15 @@ class PostRepository
     {
         $query = '';
         if ($choice == 'identification') {
-
-            $query = 'SELECT p.post_id, p.post_picture_path from identification i join posts p on i.post_id = p.post_id where i.user_id = :user_id ORDER BY time_stamp DESC';
+            $query = 'SELECT p.post_id, p.post_picture_path from identification i join posts p on i.post_id = p.post_id where i.user_id = :user_id  and i.instance_id=:instance_id ORDER BY time_stamp DESC';
         } elseif ($choice == 'post') {
-            $query = 'SELECT post_id, post_picture_path from posts where user_id = :user_id ORDER BY time_stamp DESC';
+            $query = 'SELECT post_id, post_picture_path from posts where user_id = :user_id and instance_id=:instance_id ORDER BY time_stamp DESC';
         } else {
             return ['error' => 'Choice undifined'];
         }
         $statement = $this->connection->getConnection()->prepare($query);
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
         $statement->execute();
         $postIdentificationArray = [];
         while (($row = $statement->fetch())) {
