@@ -202,9 +202,13 @@ class ApiController
             echo json_encode(['error' => 'Page number is required']);
             return;
         }
+        if (!isset($_GET['nbPosts'])) {
+            echo json_encode(['error' => 'Page number is required']);
+            return;
+        }
 
         $page = intval($_GET['page']);
-        $perPage = 10; // Number of posts to be loaded for each page
+        $perPage = intval($_GET['nbPosts']); // Number of posts to be loaded for each page
         $offset = ($page - 1) * $perPage;
 
         $database = new DatabaseConnection();

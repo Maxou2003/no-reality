@@ -21,10 +21,8 @@ class ExploreController
         $PostRepository = new PostRepository();
         $PostRepository->connection = $database;
 
-        $posts = $PostRepository->getPost(10);
-
         $template = $this->twig->load('explore.twig');
 
-        echo $template->render(['posts' => $posts, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render(['URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
     }
 }
