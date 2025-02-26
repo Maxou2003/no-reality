@@ -1,22 +1,19 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     let loading = false;
-    let page = 1; // Commence à 2 car la page 1 est déjà chargée
+    let page = 1;
+    const nb_home_post = 10;
 
     async function loadMorePosts() {
         if (loading) return;
         loading = true;
 
-        //const loader = document.getElementById("loader");
-        //if (loader) loader.style.display = "block";
 
         try {
-            const response = await fetch(`${API_BASE_URL}getMorePosts&page=${page}`);
+            const response = await fetch(`${API_BASE_URL}getMorePosts&page=${page}&nbPosts=${nb_home_post}`);
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const newPosts = await response.json();
-            //console.log("Nb posts received :", newPosts.length);
-            //console.log("Posts received :", newPosts);
 
             if (newPosts.length > 0) {
                 newPosts.forEach(post => {

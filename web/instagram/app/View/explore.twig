@@ -5,6 +5,7 @@
 
 {% block head %}
 	<link rel="stylesheet" href="{{URL}}css/explore.css">
+	<script src="{{ URL }}js/dynamic_explorer.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -15,10 +16,7 @@
                 <span class="expl-top"> <strong> Uncustomized </strong></span>	
             </div>
 			<div class="explore-posts">
-				{% for post in posts %}
-					<div class="post" onclick="openModalPost(`{{post.post_id}}`)"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post">
-					</div>
-				{% endfor %}
+			
 			</div>
 
 		    {% include 'post-modal.twig'%}
