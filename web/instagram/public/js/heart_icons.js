@@ -1,11 +1,9 @@
-const heartButtons = document.querySelectorAll('.heart_icon');
+document.addEventListener("click", function (event) {
+    const iconButton = event.target.closest(".heart_icon");
+    if (!iconButton) return;
 
-
-heartButtons.forEach(function (iconButton) {
-    iconButton.onclick = function () {
-        const heartIcon = iconButton.querySelector('ion-icon');
-        const isLiked = heartIcon.name === 'heart';
-        heartIcon.name = isLiked ? 'heart-outline' : 'heart';
-        iconButton.className = isLiked ? 'heart_icon' : 'heart_icon heart_icon_fill';
-    }
+    const heartIcon = iconButton.querySelector("ion-icon");
+    const isLiked = heartIcon.name === "heart";
+    heartIcon.name = isLiked ? "heart-outline" : "heart";
+    iconButton.classList.toggle("heart_icon_fill", !isLiked);
 });
