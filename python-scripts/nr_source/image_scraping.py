@@ -100,4 +100,4 @@ def download_images(num_img=100, gender='M', path='downloaded_images'):
         return images_paths
     
 if __name__ == "__main__":
-    download_images(num_img=100, gender=0)
+    download_images(num_img=29, gender=1, path='web/instagram/public/img/profile_picture')
