@@ -9,11 +9,11 @@ def create_json(json_file, person_list):
     client = Mistral(api_key=api_key)
 
 
-    goal = f'Écris un fichier json avec les descriptions instagram de chacune des personnes suivantes : {person_list}. Écris les descriptions à la première personne du singuler'
+    goal = f'Écris un fichier json avec les pseudos et descriptions instagram de chacune des personnes suivantes : {person_list}. Écris les descriptions à la première personne du singuler'
     
-    format_instructions =  'Suis exactement ce format: {"descriptions": {"prenom_nom_age":"La description de la personne"}, {"prenom_nom_age": "La description de la personne"}, ...}'
+    format_instructions =  'Suis exactement ce format: {"descriptions": {"pseudo":"La description de la personne"}, {"pseudo": "La description de la personne"}, ...}'
 
-    warnings = 'Ne répond que par le json sous forme de string, pas de markdown pour indiqué que c est un json ni de phrases. Sois original dans chaque description. Ne copie pas les descriptions des autres personnes. N oublier aucune personne.'
+    warnings = 'Ne répond que par le json sous forme de string, pas de markdown pour indiqué que c est un json ni de phrases. Sois original dans chaque description. Ne copie pas les descriptions des autres personnes. Pas d emoji. N oublie aucune personne. Ne mets pas d underscore dans les pseudos.'
 
 
     final_prompt = f'{goal}\n\n{format_instructions}\n\n{warnings}'
