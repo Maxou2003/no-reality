@@ -208,7 +208,7 @@
     font-size: 18px;
     transition: background-color 0.3s;
     border-right: 1px solid var(--border-color);
-    ;
+
 }
 
 .search-active .search-item {
@@ -246,23 +246,16 @@
 /* Responsive Styles */
 @media (max-width: 1000px) {
 
-    /* Show Sidebar Toggle Button */
     .sidebar-toggle {
         display: block;
     }
 
-    /* Collapse Sidebar */
     .sidebar {
         width: 80px;
-        /* Collapsed width */
     }
 
     .sidebar .logo span,
-    .sidebar .nav-item span {
-        display: none;
-        /* Hide text in collapsed state */
-    }
-
+    .sidebar .nav-item span,
     .logo .navbar-brand .instagram-logo {
         display: none;
     }
@@ -271,44 +264,67 @@
         display: block;
     }
 
-    .sidebar .logo {
-        justify-content: center;
-    }
-
+    .sidebar .logo,
     .sidebar .nav-item {
         justify-content: center;
     }
 
     .sidebar .nav-item i {
         margin-right: 0;
-        /* Center icons */
     }
 
-    /* Adjust Main Content Margin */
     .main-content {
         margin-left: 80px;
-        /* Match collapsed sidebar width */
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 
-    /* Hide Sidebar by Default on Very Small Screens */
+    .sidebar-toggle {
+        display: none;
+    }
+
+
     .sidebar {
-        width: 0;
-        overflow: hidden;
+        height: 7vh;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        flex-direction: row;
+        align-items: center;
+        border-right: none;
+        border-top: 1px solid #dbdbdb;
+        background-color: #fff;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-redirection {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        margin-top: 0;
+        /* flex-grow: 0; */
+        justify-content: space-between;
+        padding-inline: 2vh;
+    }
+
+    .nav-item {
+        padding: 10px;
+    }
+
+    .nav-item span,
+    .logo {
+        display: none;
     }
 
     .main-content {
         margin-left: 0;
-    }
-
-    /* Show Sidebar When Toggled */
-    .sidebar.active {
-        width: 80px;
-    }
-
-    .main-content.active {
-        margin-left: 80px;
+        padding-bottom: 60px;
     }
 }

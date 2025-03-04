@@ -281,3 +281,44 @@
 .no-scroll {
     overflow: hidden;
 }
+
+@media (max-width:780px) {
+    .custom-modal-content {
+        position: fixed;
+        width: 80%;
+        height: 60%;
+        bottom: 0;
+        flex-direction: column-reverse;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    .custom-modal-left,
+    .custom-modal-actions,
+    .custom-modal-stats,
+    .custom-modal-post-header .custom-modal-profile-img,
+    .custom-modal-post-header .username,
+    .custom-modal-post-header .options span ion-icon {
+
+        display: none;
+    }
+
+    .custom-modal-post-header .options span {
+        visibility: hidden;
+    }
+
+    .custom-modal-post-header .options span:after {
+        content: "Comments";
+        visibility: visible;
+    }
+
+    .custom-modal-post-header {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-modal-content {
+        /* flex-direction: column; */
+        width: 100%;
+    }
+}

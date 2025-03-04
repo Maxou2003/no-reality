@@ -27,17 +27,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 220px;
-    /* Fixed width */
-    background-color: #fff;
-    border-right: 1px solid var(--border-color);
-    position: fixed;
-    height: 100vh;
-    transition: width 0.3s ease;
-}
-
 /* Main Content */
 .main-content {
     flex-grow: 1;
@@ -51,45 +40,59 @@ body {
     transition: margin-left 0.3s ease;
 }
 
-/* Feed */
 .feed {
-    max-width: 470px;
-    /* Fixed width for feed */
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2vh;
     width: 100%;
+    padding: 2vh 0;
 }
 
 .feed h1 {
     font-weight: bold;
     font-size: 1.5em;
     margin-bottom: 20px;
+    width: 100%;
+    padding-left: 5vh;
 }
 
 .post {
     background-color: white;
-    width: 470px;
+    width: 90%;
+    /* Use percentage for width to adapt to screen size */
+    max-width: 470px;
+    /* Set a maximum width for larger screens */
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 14px;
     color: var(--text-color);
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
+    /* Use viewport height for margin */
 }
 
 .post_header {
     display: flex;
     align-items: center;
-    padding: 3px 12px;
+    padding: 1vh 1vw;
+    /* Use viewport units for padding */
     justify-content: space-between;
 }
 
 .post_header .profile_info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 1vw;
+    /* Use viewport width for gap */
 }
 
 .post_header .profile_info .profile_img {
-    width: 42px;
-    height: 42px;
+    width: 6vh;
+    /* Use viewport height for width */
+    height: 6vh;
+    /* Use viewport height for height */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,22 +101,27 @@ body {
 }
 
 .profile_img img {
-    width: 32px;
-    height: 32px;
+    width: 80%;
+    /* Use percentage for width */
+    height: 80%;
+    /* Use percentage for height */
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid white;
     box-sizing: content-box;
 }
 
 .post_header .profile_info span {
     font-weight: bold;
     cursor: pointer;
+    font-size: 2vh;
+    /* Use viewport height for font size */
 }
 
 .options span {
-    font-size: 16px;
-    padding: 4px;
+    font-size: 2.5vh;
+    /* Use viewport height for font size */
+    padding: 0.5vh;
+    /* Use viewport height for padding */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,6 +131,7 @@ body {
 .post_img {
     width: 100%;
     aspect-ratio: 1;
+    /* Maintain aspect ratio */
     cursor: pointer;
 }
 
@@ -133,25 +142,30 @@ body {
 }
 
 .post_body {
-    padding: 0 16px;
+    padding: 0 1vw;
+    /* Use viewport width for padding */
 }
 
 .post_actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 1vw;
+    /* Use viewport width for gap */
     width: 100%;
-    padding: 10px 0;
+    padding: 1.5vh 0;
+    /* Use viewport height for padding */
 }
 
 .post_actions span {
     display: flex;
-    font-size: 24px;
+    font-size: 3vh;
+    /* Use viewport height for font size */
     cursor: pointer;
 }
 
 .post_actions span:first-of-type {
-    font-size: 28px;
+    font-size: 3.5vh;
+    /* Use viewport height for font size */
 }
 
 .post_actions span:last-of-type {
@@ -159,13 +173,19 @@ body {
 }
 
 .post_info {
-    margin-bottom: 8px;
+    margin-bottom: 1vh;
+    /* Use viewport height for margin */
     font-weight: bold;
     cursor: pointer;
+    font-size: 2vh;
+    /* Use viewport height for font size */
 }
 
 .post_title {
-    margin-bottom: 8px;
+    margin-bottom: 1vh;
+    /* Use viewport height for margin */
+    font-size: 2vh;
+    /* Use viewport height for font size */
 }
 
 .post_title .username {
@@ -174,13 +194,17 @@ body {
 }
 
 .post_comments {
-    margin-bottom: 10px;
+    margin-bottom: 1.5vh;
+    /* Use viewport height for margin */
+    font-size: 1.8vh;
+    /* Use viewport height for font size */
 }
 
 .post_comments>span {
     display: block;
     color: var(--light-text);
-    margin-bottom: 4px;
+    margin-bottom: 0.5vh;
+    /* Use viewport height for margin */
     cursor: pointer;
 }
 
@@ -191,7 +215,8 @@ body {
 .post_comments .comment .comment_username {
     font-weight: bold;
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 1vw;
+    /* Use viewport width for margin */
 }
 
 .post_comments .comment .heart_icon {
@@ -203,30 +228,37 @@ body {
 }
 
 .post_timestamp {
-    margin-bottom: 10px;
-    font-size: 10px;
+    margin-bottom: 1.5vh;
+    /* Use viewport height for margin */
+    font-size: 1.5vh;
+    /* Use viewport height for font size */
     text-transform: uppercase;
-    color: var(--light-text)
+    color: var(--light-text);
 }
 
 .input_box {
-    padding: 10px 16px;
+    padding: 1vh 2vw;
+    /* Use viewport units for padding */
     display: flex;
     align-items: center;
     border-top: 1px solid var(--border-color);
 }
 
 .input_box .emoji {
-    font-size: 24px;
+    font-size: 3vh;
+    /* Use viewport height for font size */
     cursor: pointer;
 }
 
 .input_box input {
-    margin: 0 12px;
+    margin: 0 2vw;
+    /* Use viewport width for margin */
     border: none;
     outline: none;
     color: var(--light-text);
     width: 100%;
+    font-size: 1.8vh;
+    /* Use viewport height for font size */
 }
 
 .input_box button {
@@ -236,6 +268,8 @@ body {
     color: var(--btn-color);
     cursor: pointer;
     font-weight: bold;
+    font-size: 1.8vh;
+    /* Use viewport height for font size */
 }
 
 .heart_icon_fill {
@@ -246,7 +280,6 @@ body {
 /* Suggestions */
 .suggestions {
     width: 300px;
-    /* Fixed width */
     padding: 20px;
     border-left: 1px solid var(--border-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -260,6 +293,19 @@ body {
     font-weight: bold;
 }
 
+.suggestions .profile_img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.suggestions .profile_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .user {
     padding: 10px;
     margin-bottom: 10px;
@@ -268,27 +314,33 @@ body {
     gap: 10px;
 }
 
+.user span {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+
 
 /* Responsive Design */
 @media (max-width: 1000px) {
     .suggestions {
         display: none;
-        /* Hide suggestions on small screens */
     }
 
     .main-content {
         margin-left: 0;
-        /* Remove sidebar offset */
     }
 
     .sidebar {
         width: 80px;
-        /* Collapsed sidebar */
     }
 
     .sidebar .logo span,
     .sidebar .nav-item span {
         display: none;
-        /* Hide text in collapsed state */
+    }
+
+    .feed h1 {
+        padding-left: 2vh;
     }
 }

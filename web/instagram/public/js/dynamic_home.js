@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     `);
                 });
-                
+
                 page++;
             } else {
                 window.removeEventListener("scroll", handleScroll);
