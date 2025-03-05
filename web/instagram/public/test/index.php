@@ -16,17 +16,14 @@ $uri = explode('/', $_SERVER['REQUEST_URI'])[5];
 
 define('URL', "/no-reality/web/instagram/public/" . $uri . "/");
 define('POST_IMG_PATH', "/no-reality/web/instagram/public/" . $uri . "/img/post_img/");
-define('PROFILE_IMG_PATH', "/no-reality/web/instagram/public/" . $uri . "/img/profile_picture/");
+define('PROFILE_IMG_PATH', "/no-reality/web/profile_pictures/");
 
-// var_dump($uri);
 
-// Check if the instanceId is valid
 $_SESSION['instanceId'] = get_instanceId($uri);
 
 
-// if (isset($_SESSION['instanceId'])) {
-$controllerName = ucfirst($urlParts[0]) . 'Controller'; // Example: "TestController"
-$actionName = isset($urlParts[1]) ? $urlParts[1] : 'home'; // Default action: "index"
+$controllerName = ucfirst($urlParts[0]) . 'Controller';
+$actionName = isset($urlParts[1]) ? $urlParts[1] : 'home';
 
 
 // Full path to the controller file
