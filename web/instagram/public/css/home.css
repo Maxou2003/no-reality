@@ -30,18 +30,15 @@ body {
 /* Main Content */
 .main-content {
     flex-grow: 1;
-    /* Takes up remaining space */
     margin-left: 220px;
-    /* Offset for sidebar */
     display: flex;
     justify-content: center;
-    /* Center the feed */
     padding: 20px;
     transition: margin-left 0.3s ease;
 }
 
 .feed {
-    max-width: 540px;
+    max-width: 520px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,37 +59,30 @@ body {
 .post {
     background-color: white;
     width: 90%;
-    /* Use percentage for width to adapt to screen size */
-    max-width: 470px;
-    /* Set a maximum width for larger screens */
+    max-width: 520px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 14px;
     color: var(--text-color);
     margin-bottom: 2vh;
-    /* Use viewport height for margin */
 }
 
 .post_header {
     display: flex;
     align-items: center;
     padding: 1vh 1vw;
-    /* Use viewport units for padding */
     justify-content: space-between;
 }
 
 .post_header .profile_info {
     display: flex;
     align-items: center;
-    gap: 1vw;
-    /* Use viewport width for gap */
+    gap: 0.5vw;
 }
 
 .post_header .profile_info .profile_img {
     width: 6vh;
-    /* Use viewport height for width */
     height: 6vh;
-    /* Use viewport height for height */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,9 +92,7 @@ body {
 
 .profile_img img {
     width: 80%;
-    /* Use percentage for width */
     height: 80%;
-    /* Use percentage for height */
     border-radius: 50%;
     object-fit: cover;
     box-sizing: content-box;
@@ -114,14 +102,11 @@ body {
     font-weight: bold;
     cursor: pointer;
     font-size: 2vh;
-    /* Use viewport height for font size */
 }
 
 .options span {
     font-size: 2.5vh;
-    /* Use viewport height for font size */
     padding: 0.5vh;
-    /* Use viewport height for padding */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,7 +116,6 @@ body {
 .post_img {
     width: 100%;
     aspect-ratio: 1;
-    /* Maintain aspect ratio */
     cursor: pointer;
 }
 
@@ -143,29 +127,24 @@ body {
 
 .post_body {
     padding: 0 1vw;
-    /* Use viewport width for padding */
 }
 
 .post_actions {
     display: flex;
     align-items: center;
     gap: 1vw;
-    /* Use viewport width for gap */
     width: 100%;
     padding: 1.5vh 0;
-    /* Use viewport height for padding */
 }
 
 .post_actions span {
     display: flex;
     font-size: 3vh;
-    /* Use viewport height for font size */
     cursor: pointer;
 }
 
 .post_actions span:first-of-type {
     font-size: 3.5vh;
-    /* Use viewport height for font size */
 }
 
 .post_actions span:last-of-type {
@@ -174,18 +153,14 @@ body {
 
 .post_info {
     margin-bottom: 1vh;
-    /* Use viewport height for margin */
     font-weight: bold;
     cursor: pointer;
     font-size: 2vh;
-    /* Use viewport height for font size */
 }
 
 .post_title {
     margin-bottom: 1vh;
-    /* Use viewport height for margin */
     font-size: 2vh;
-    /* Use viewport height for font size */
 }
 
 .post_title .username {
@@ -195,16 +170,13 @@ body {
 
 .post_comments {
     margin-bottom: 1.5vh;
-    /* Use viewport height for margin */
     font-size: 1.8vh;
-    /* Use viewport height for font size */
 }
 
 .post_comments>span {
     display: block;
     color: var(--light-text);
     margin-bottom: 0.5vh;
-    /* Use viewport height for margin */
     cursor: pointer;
 }
 
@@ -216,7 +188,6 @@ body {
     font-weight: bold;
     cursor: pointer;
     margin-right: 1vw;
-    /* Use viewport width for margin */
 }
 
 .post_comments .comment .heart_icon {
@@ -229,16 +200,13 @@ body {
 
 .post_timestamp {
     margin-bottom: 1.5vh;
-    /* Use viewport height for margin */
     font-size: 1.5vh;
-    /* Use viewport height for font size */
     text-transform: uppercase;
     color: var(--light-text);
 }
 
 .input_box {
     padding: 1vh 2vw;
-    /* Use viewport units for padding */
     display: flex;
     align-items: center;
     border-top: 1px solid var(--border-color);
@@ -246,19 +214,16 @@ body {
 
 .input_box .emoji {
     font-size: 3vh;
-    /* Use viewport height for font size */
     cursor: pointer;
 }
 
 .input_box input {
     margin: 0 2vw;
-    /* Use viewport width for margin */
     border: none;
     outline: none;
     color: var(--light-text);
     width: 100%;
     font-size: 1.8vh;
-    /* Use viewport height for font size */
 }
 
 .input_box button {
@@ -269,7 +234,6 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 1.8vh;
-    /* Use viewport height for font size */
 }
 
 .heart_icon_fill {

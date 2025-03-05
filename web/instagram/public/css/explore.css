@@ -1,7 +1,7 @@
 .explore-container {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
@@ -9,8 +9,14 @@
 }
 
 .explorer-header {
-    width: 100%;
+    width: 60%;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2vh;
+    padding: 2vh 0;
 }
 
 .expl-top {
@@ -22,7 +28,7 @@
 .explore-posts {
     display: grid;
     /* 3 posts par ligne */
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     width: 100%;
     justify-content: center;
@@ -47,7 +53,9 @@
 
 @media (max-width: 480px) {
     .explorer-header {
-        text-align: left; /* Aligner à gauche */
-        margin-left: 80px; /* Décalage vers la droite */
+        text-align: left;
+        /* Aligner à gauche */
+        margin-left: 80px;
+        /* Décalage vers la droite */
     }
 }

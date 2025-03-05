@@ -157,8 +157,9 @@ function escapeModal() {
 function closeModalPost() {
     const heartButtons = document.querySelectorAll('.heart_icon');
     for (let i = 0; i < heartButtons.length; i++) {
-        if (heartButtons[i].childNodes[1]) {
-            heartButtons[i].childNodes[1].name = 'heart-outline';
+        const heartIcon = heartButtons[i].querySelector("ion-icon");
+        if (heartIcon.name === "heart") {
+            heartIcon.name = 'heart-outline';
         }
         heartButtons[i].className = 'heart_icon';
     }
