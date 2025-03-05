@@ -25,7 +25,7 @@ class Comment implements JsonSerializable
             'user_profile_picture' => $this->user_pp_path,
             'post_id' => $this->post_id,
             'comment_text' => $this->comment_text,
-            'time_stamp' => $this->time_stamp->format('Y-m-d H:i:s'),
+            'time_stamp' => $this->time_stamp->format('Y-m-d H:i'),
             'nb_responses' => $this->nb_responses,
         ];
     }
