@@ -1,9 +1,10 @@
 import requests
 import urllib.request
 
-pexel_api_key= "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn";
+pexel_api_key = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
 
-def download_images_with_api(searchContent, api_key,max):
+
+def download_images_with_api(searchContent, api_key, max, pictures_dir):
     total_downloaded = 0
     per_page = 10
     page = 1
@@ -32,7 +33,7 @@ def download_images_with_api(searchContent, api_key,max):
                 img_headers = {"User-Agent": "Mozilla/5.0"}
                 img_response = requests.get(image_url, headers=img_headers)
                 if img_response.status_code == 200:
-                    with open(f"img/{searchContent}_{page}_{i}.jpg", 'wb') as f:
+                    with open(f"{pictures_dir}/{searchContent}_{page}_{i}.jpg", 'wb') as f:
                         f.write(img_response.content)
                     total_downloaded += 1
                 else:
@@ -51,7 +52,7 @@ def download_images_with_api(searchContent, api_key,max):
     
     return total_downloaded
 
-#print(f"{download_images_with_api('japan', pexel_api_key,1000)} images téléchargées")
+# print(f"{download_images_with_api('japan', pexel_api_key,1000)} images téléchargées")
 
 
 
