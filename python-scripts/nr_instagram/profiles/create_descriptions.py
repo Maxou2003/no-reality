@@ -13,7 +13,7 @@ def create_json(json_file, person_list):
     
     format_instructions =  'Suis exactement ce format: {"descriptions": {"pseudo":"La description de la personne"}, {"pseudo": "La description de la personne"}, ...}'
 
-    warnings = 'Ne répond que par le json sous forme de string, pas de markdown pour indiqué que c est un json ni de phrases. Sois original dans chaque description. Ne copie pas les descriptions des autres personnes. Pas d emoji. N oublie aucune personne. Ne mets pas d underscore dans les pseudos.'
+    warnings = 'Ne répond que par le json sous forme de string, pas de markdown pour indiqué que c est un json ni de phrases. Sois original dans chaque description. Ne copie pas les descriptions des autres personnes. Pas d emoji. N oublie aucune personne. Format URL, pas d accent ou d underscore.'
 
 
     final_prompt = f'{goal}\n\n{format_instructions}\n\n{warnings}'

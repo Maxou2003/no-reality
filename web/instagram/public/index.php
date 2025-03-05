@@ -7,7 +7,7 @@ session_start();
 
 define('URL', "/no-reality/web/instagram/public/");
 define('POST_IMG_PATH', "/no-reality/web/instagram/public/img/post_img/");
-define('PROFILE_IMG_PATH', "/no-reality/web/instagram/public/img/profile_picture/");
+define('PROFILE_IMG_PATH', "/no-reality/web/profile_pictures/");
 
 // Load configurations and autoloader
 require_once '../app/Lib/autoloader.php';

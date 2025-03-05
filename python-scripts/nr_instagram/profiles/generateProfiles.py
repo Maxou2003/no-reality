@@ -22,6 +22,9 @@ def create_table():
     ''')
 
 def get_all_info():
+    """
+    Get all the informations from nr_source.users
+    """
     try:
         conn = mysql.connector.connect(
             host="localhost",
@@ -40,6 +43,11 @@ def get_all_info():
 
 
 def descriptions_from_json(json_file):
+    """
+    Load the json file and return the values
+    returns: a list of the values
+    format: [[username, description], [username, description], ...]
+    """
     with open(json_file, 'r') as f:
         data = json.load(f)
     values = []
@@ -50,6 +58,10 @@ def descriptions_from_json(json_file):
 
 
 def fill_table(users):
+    """
+    Fill the table nr_instagram.users with the users informations
+    returns: a list of the user ids generated
+    """
     conn = mysql.connector.connect(
         host="localhost",
         user = "root",
@@ -70,7 +82,7 @@ def fill_table(users):
     for i in range(len(users)):
         forename = users[i][0]
         surname = users[i][1]
-        age = users[i][2]
+        age = users[i][2]   #We don't use it on Instagram
         image = users[i][3]
         username = users[i][4]
         description = users[i][5]
@@ -105,6 +117,11 @@ def fill_instance(instance, users):
     conn.close()
 
 def main(nb_users, instance, json_file_path):
+    """
+    Get all infos from nr_source, create a json file with the usernames and descriptions, fill the table nr_instagram.users with the users informations\n
+    returns: a list of the user name, surmane, pp_path, username, description\n
+    format: [[forename, surname, age, image_path, username, description], [forename, surname, image_path, username, description], ...]
+    """
     users_all_infos = get_all_info()[0:nb_users]
     users = []
     for i in range(len(users_all_infos)):
