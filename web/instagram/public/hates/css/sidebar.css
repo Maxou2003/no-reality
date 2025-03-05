@@ -276,6 +276,7 @@
     .main-content {
         margin-left: 80px;
     }
+
 }
 
 @media (max-width: 768px) {
@@ -318,13 +319,27 @@
         padding: 10px;
     }
 
+
     .nav-item span,
-    .logo {
+    .logo,
+    .sidebar.search-active .search-section {
         display: none;
     }
 
     .main-content {
         margin-left: 0;
         padding-bottom: 60px;
+    }
+
+    .nav-item:hover {
+        background-color: transparent;
+    }
+
+    .search-active .search-item {
+        border: none;
+    }
+
+    .sidebar-redirection .search-item {
+        display: none;
     }
 }

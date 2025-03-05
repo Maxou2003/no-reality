@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                                 <div class="post_info">${post.nb_likes} likes</div>
                                 <div class="post_title">
-                                    <span class="username">${post.username}</span>
+                                    <a class="nav-link"  href="${MY_URL}profile/${post.username}"><span class="username">${post.username}</span></a>
                                     <span class="title">${post.post_description}</span>
                                 </div>
                                 <div class="post_comments">
@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.error("Error loading posts :", error);
         } finally {
-            //if (loader) loader.style.display = "none";
             loading = false;
         }
     }

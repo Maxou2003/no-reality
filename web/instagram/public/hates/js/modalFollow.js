@@ -44,9 +44,17 @@ function openModalFollow(followers) {
         .catch(error => console.error("Error fetching followers:", error));
     modal.style.display = 'flex';
     escapeModalFollow();
+    document.addEventListener('click', closeModalFollowOnClickOutside);
 }
 
+function closeModalFollowOnClickOutside(event) {
+    const modal = document.querySelector('.follow-modal-content');
 
+    if (!modal.contains(event.target) && !event.target.matches(".following-stat") && !event.target.matches(".followers-stat")) {
+        document.removeEventListener('click', closeModalFollowOnClickOutside);
+        closeModalFollow();
+    }
+}
 
 function search() {
     const searchBar = document.querySelector('#follow-search-container input');

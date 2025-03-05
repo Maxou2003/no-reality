@@ -60,3 +60,24 @@ function toggleSidebar() {
     sidebar.classList.toggle("active");
     mainContent.classList.toggle("active");
 }
+
+function navItemManagement() {
+    const explorer = document.querySelector('.explorer-icon');
+
+    if (window.innerWidth <= 768) {
+        if (explorer.classList.contains('fa-compass')) {
+            explorer.classList.remove('fa-compass');
+            explorer.classList.add('fa-search');
+        }
+    } else {
+        if (explorer.classList.contains('fa-search')) {
+            explorer.classList.remove('fa-search');
+            explorer.classList.add('fa-compass');
+        }
+    }
+}
+
+navItemManagement();
+window.addEventListener('resize', () => {
+    navItemManagement();
+});

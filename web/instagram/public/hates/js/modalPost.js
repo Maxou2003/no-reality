@@ -73,15 +73,14 @@ function openModalPost(postId) {
         .catch(error => console.error("Error fetching post:", error));
     noScrollOutside();
     escapeModal();
-    document.addEventListener('click', closeModalOnClickOutside);
+    document.addEventListener('click', closeModalPostOnClickOutside);
 }
 
-function closeModalOnClickOutside(event) {
+function closeModalPostOnClickOutside(event) {
 
     const modal = document.querySelector('.custom-modal-content');
-    console.log(event.target.matches(".post_img img"));
 
-    if (!modal.contains(event.target) && !event.target.matches(".post_img img")) {
+    if (!modal.contains(event.target) && !event.target.matches(".post img")) {
         document.removeEventListener('click', closeModalOnClickOutside);
         closeModalPost();
     }

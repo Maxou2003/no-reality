@@ -5,7 +5,7 @@
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    padding: 30px 10px;
+    padding: 0px 10px;
 }
 
 .explorer-header {
@@ -55,7 +55,5 @@
     .explorer-header {
         text-align: left;
         /* Aligner à gauche */
-        margin-left: 80px;
-        /* Décalage vers la droite */
     }
 }

@@ -297,7 +297,8 @@
     .custom-modal-stats,
     .custom-modal-post-header .custom-modal-profile-img,
     .custom-modal-post-header .username,
-    .custom-modal-post-header .options span ion-icon {
+    .custom-modal-post-header .options span ion-icon,
+    .close {
 
         display: none;
     }
@@ -314,6 +315,7 @@
     .custom-modal-post-header {
         justify-content: center;
     }
+
 }
 
 @media (max-width: 480px) {

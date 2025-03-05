@@ -29,11 +29,11 @@ body {
 }
 
 .profile-picture img {
-    width: 150px;
-    height: 150px;
+    width: 18vh;
+    height: 18vh;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 30px;
+    margin-right: 1vh;
 }
 
 .profile-info {

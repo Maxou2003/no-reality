@@ -283,6 +283,9 @@ body {
     cursor: pointer;
 }
 
+.post_title .nav-link {
+    display: inline;
+}
 
 
 /* Responsive Design */
