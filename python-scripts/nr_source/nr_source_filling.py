@@ -62,7 +62,6 @@ def create_persons(nb, binary_gender, ethnicity, path):
     else:
         gender = 'F'
     names = get_names(nb+1, country_code_forename, country_code_surname, gender)
-    path =  f'{path}/{gender}/{ethnicity}'
     images_paths = download_images(nb, gender, path)
     
     create_table()
@@ -74,10 +73,11 @@ def create_persons(nb, binary_gender, ethnicity, path):
         age = objs[0]["age"]
         forename = names[i]['forename']
         surname = names[i]['lastname']
-        execute_sql_insert(forename, surname, age, images_paths[i], binary_gender, ethnicity)
+        print(images_paths[i][len(path)::])
+        execute_sql_insert(forename, surname, age, images_paths[i][len(path)+1::], binary_gender, ethnicity)
         print(f"{forename} {surname} is {age} years old and he/she looks like {images_paths[i]}")
     
 
 
 if __name__ == '__main__':
-    create_persons(20, 1, 0, "profile_pictures")
+    create_persons(50, 0, 0, "web/profile_pictures")

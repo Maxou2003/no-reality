@@ -9,6 +9,9 @@ import requests
 import os
 
 def download_images(num_img=100, gender='M', path='downloaded_images'):
+    """
+    returns: a list of the paths of the downloaded images
+    """
     # Configure Firefox options
     firefox_options = Options()
     # firefox_options.add_argument("--headless")  # Uncomment for headless mode
@@ -100,4 +103,4 @@ def download_images(num_img=100, gender='M', path='downloaded_images'):
         return images_paths
     
 if __name__ == "__main__":
-    download_images(num_img=100, gender=0)
+    download_images(num_img=29, gender=1, path='web/instagram/public/img/profile_picture')
