@@ -80,4 +80,4 @@ def create_persons(nb, binary_gender, ethnicity, path):
 
 
 if __name__ == '__main__':
-    create_persons(10, 0, 0, "web/profile_pictures")
+    create_persons(50, 0, 0, "web/profile_pictures")
