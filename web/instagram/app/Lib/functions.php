@@ -1,13 +1,24 @@
 <?php
 
 use App\Lib\DatabaseConnection;
-use App\Model\UserRepository;
+use App\Model\InstanceRepository;
 
 function instance_exist($instanceId)
 {
-    $UserRepository = new UserRepository();
+    $InstanceRepository = new InstanceRepository();
     $database = new DatabaseConnection();
-    $UserRepository->connection = $database;
+    $InstanceRepository->connection = $database;
 
-    return $UserRepository->checkInstanceId($instanceId);
+    return $InstanceRepository->checkInstanceId($instanceId);
+}
+
+function get_instanceId($instance_name)
+{
+    $InstanceRepository = new InstanceRepository();
+    $database = new DatabaseConnection();
+    $InstanceRepository->connection = $database;
+
+    $instanceId = $InstanceRepository->getInstanceIdByName($instance_name);
+
+    return $instanceId;
 }
