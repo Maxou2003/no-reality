@@ -81,7 +81,7 @@ function closeModalPostOnClickOutside(event) {
     const modal = document.querySelector('.custom-modal-content');
 
     if (!modal.contains(event.target) && !event.target.matches(".post img")) {
-        document.removeEventListener('click', closeModalOnClickOutside);
+        document.removeEventListener('click', closeModalPostOnClickOutside);
         closeModalPost();
     }
 }

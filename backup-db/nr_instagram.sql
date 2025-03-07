@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 26 fév. 2025 à 17:25
+-- Généré le : ven. 07 mars 2025 à 18:39
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -115,16 +115,16 @@ CREATE TABLE `instance` (
   `average_age` int(11) NOT NULL,
   `gender_prop` int(11) NOT NULL,
   `population` int(11) NOT NULL,
-  `subject` varchar(50) NOT NULL
+  `instance_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `instance`
 --
 
-INSERT INTO `instance` (`instance_id`, `average_age`, `gender_prop`, `population`, `subject`) VALUES
-(1, 34, 1, 1, 'test'),
-(2, 34, 1, 1, 'test2');
+INSERT INTO `instance` (`instance_id`, `average_age`, `gender_prop`, `population`, `instance_name`) VALUES
+(1, 34, 1, 1, 'hates'),
+(2, 34, 1, 1, 'test');
 
 -- --------------------------------------------------------
 
