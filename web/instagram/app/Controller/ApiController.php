@@ -129,7 +129,7 @@ class ApiController
 
     private function checkSearch($searchContent)
     {
-        $pattern = '/^[a-zA-Z0-9_]+$/';
+        $pattern = '/^[a-zA-Z0-9_]*$/';
         return preg_match($pattern, $searchContent);
     }
 
@@ -218,5 +218,56 @@ class ApiController
         $posts = $PostRepository->getPost($perPage, $offset);
         header('Content-Type: application/json');
         echo json_encode($posts);
+    }
+    public function getLikes()
+    {
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        if (!isset($_GET["postId"])) {
+            echo json_encode(['error' => 'Post ID is required']);
+            return;
+        }
+        $post_id = intval($_GET["postId"]);
+
+        $likes = $PostRepository->fetchLikes($post_id);
+        header('Content-Type: application/json');
+        echo json_encode($likes);
+    }
+
+    public function searchInLikes()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post ID is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+        $searchContent = strval($_GET['searchContent']);
+
+        if (!$this->checkSearch($searchContent)) {
+            echo json_encode(['error' => 'Invalid search content']);
+            return;
+        }
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $likes = $PostRepository->fetchLikes($post_id);
+
+        if ($searchContent === '') {
+            header('Content-Type: application/json');
+            echo json_encode($likes);
+            return;
+        } else {
+            $filteredLikes = array_filter($likes, function ($like) use ($searchContent) {
+                return (strpos(strtolower($like->user_username), strtolower($searchContent)) !== false) ||
+                    (strpos(strtolower($like->user_firstname), strtolower($searchContent)) !== false) ||
+                    (strpos(strtolower($like->user_lastname), strtolower($searchContent)) !== false);
+            });
+            header('Content-Type: application/json');
+            $filteredLikes = array_values($filteredLikes);
+            echo json_encode($filteredLikes);
+        }
     }
 }

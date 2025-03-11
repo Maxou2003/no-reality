@@ -22,7 +22,7 @@ def download_images_with_api(searchContent, api_key, max, pictures_dir):
         photos = data.get('photos', [])
         print(f"{len(photos)} photos availabe")
     
-        print(f"total downloaded :{total_downloaded}, page= {page} ")
+        print(f"total downloaded: {total_downloaded}, page: {page}")
         if not photos:
             print("no photo left")
             break  # No more photos available

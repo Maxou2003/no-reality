@@ -3,6 +3,7 @@ function openModalPost(postId) {
     const modal = document.getElementById('post-modal');
     const description = modal.querySelector(".description");
     const likes = modal.querySelector(".likes");
+    const liketext = modal.querySelector(".like-text");
     const timestamp = modal.querySelectorAll(".timestamp");
     const username = modal.querySelectorAll(".username");
     const profile_img = modal.querySelectorAll(".profile-img");
@@ -10,6 +11,8 @@ function openModalPost(postId) {
     const pp_links = modal.querySelectorAll(".custom-modal-profile-img a");
 
     modal.style.display = 'flex';
+
+    liketext.setAttribute('onclick', `openModalLikes(${postId})`);
 
     const comments = document.querySelector(".comments");
 

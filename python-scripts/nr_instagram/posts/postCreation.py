@@ -1,4 +1,4 @@
-import json
+
 from datetime import datetime, timedelta
 from random import randint, shuffle, choice
 
@@ -6,27 +6,19 @@ from database import Database
 
 
 class PostGenerator:
-    def __init__(self, database_name, instance_id, theme, pexel_api_key, post_file):
+    def __init__(self, database_name, instance_id, theme, pexel_api_key, posts):
         self.db = Database(database_name)
         self.instance_id = instance_id
         self.theme = theme
         self.pexel_api_key = pexel_api_key
         self.user_ids = self.get_user_ids()
-        self.posts = self.load_posts(post_file)
+        self.posts = posts
         self.nb_posts = len(self.posts)
 
     def get_user_ids(self):
         query = "SELECT user_id FROM userlinkinstance WHERE instance_id = %s"
         rows = self.db.fetch_all(query, [self.instance_id])
         return [row[0] for row in rows]
-
-    @staticmethod
-    def load_posts(post_file):
-        with open(post_file, "r") as file:
-            data = json.load(file)
-            posts = data.get("posts", [])
-            print(f"{len(posts)} posts trouvés dans le fichier JSON.")
-        return posts
 
     @staticmethod
     def random_timestamp(start, end):
@@ -55,11 +47,11 @@ class PostGenerator:
 
     def add_post(self, post):
         query = '''
-            INSERT INTO posts (user_id, instance_id, nb_likes, nb_views, time_stamp, 
+            INSERT INTO posts (user_id, instance_id, nb_views, time_stamp, 
                               post_picture_path, post_description, post_location, nb_comments)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'''
         return self.db.execute(query, (
-            post['user_id'], post['instance_id'], post['nb_likes'], post['nb_views'],
+            post['user_id'], post['instance_id'], post['nb_views'],
             post['timestamp'], post['post_picture_path'], post['post_description'],
             post['post_location'], post['nb_comments']
         ))
@@ -68,10 +60,25 @@ class PostGenerator:
         query = '''
             INSERT INTO comments (user_id, post_id, comment_text, time_stamp, nb_responses)
             VALUES (%s, %s, %s, %s, %s)'''
-        self.db.execute(query, (
+        return self.db.execute(query, (
             comment['user_id'], comment['post_id'], comment['comment_text'],
             comment['time_stamp'], comment['nb_responses']
         ))
+
+    def add_reponse(self, reponse):
+        query = '''
+            INSERT INTO response (comment_id, user_id, content, time_stamp)
+            VALUES (%s, %s, %s, %s)'''
+        return self.db.execute(query, (
+            reponse['comment_id'], reponse['user_id'],
+            reponse['content'], reponse['time_stamp']
+        ))
+
+    def add_likes(self, user_id, post_id):
+        query = '''
+            INSERT INTO likes (user_id, post_id)
+            VALUES (%s, %s)'''
+        return self.db.execute(query, (user_id, post_id))
 
     def generate_posts(self, post_per_person=30, location='Angers'):
         start_date = datetime(2025, 1, 1)
@@ -79,6 +86,7 @@ class PostGenerator:
 
         post_id = 0
         cnt = 0
+
         while cnt < post_per_person:
             for user_id in self.user_ids:
                 if post_id >= self.nb_posts:
@@ -87,7 +95,6 @@ class PostGenerator:
                 post = {
                     'user_id': user_id,
                     'instance_id': self.instance_id,
-                    'nb_likes': randint(0, 100),
                     'nb_views': randint(0, 100),
                     'timestamp': self.random_timestamp(start_date, end_date),
                     'post_picture_path': post_picture_path,
@@ -96,16 +103,31 @@ class PostGenerator:
                     'nb_comments': len(self.posts[post_id].get('comments', []))
                 }
                 post_id = self.add_post(post)
+                
+                shuffle(self.user_ids)
+                for _id in range(randint(0, len(self.user_ids))):
+                    self.add_likes(self.user_ids[_id], post_id)
 
                 for comment in self.posts[post_id].get('comments', []):
+                    comment_ts = self.random_timestamp(post['timestamp'], end_date)
+                    comment_uid = self.random_exclude(self.user_ids, user_id)
                     comment_data = {
-                        'user_id': self.random_exclude(self.user_ids, user_id),
+                        'user_id': comment_uid,
                         'post_id': post_id,
                         'comment_text': comment.get('content'),
-                        'time_stamp': self.random_timestamp(post['timestamp'], end_date),
-                        'nb_responses': 0
+                        'time_stamp': comment_ts,
+                        'nb_responses': len(comment.get('responses'))
                     }
-                    self.add_comment(comment_data)
+                    comment_id = self.add_comment(comment_data)
+
+                    for reponse in comment.get('responses'):
+                        reponse_data = {
+                            'user_id': self.random_exclude(self.user_ids, comment_uid),
+                            'comment_id': comment_id,
+                            'content': reponse.get('response'),
+                            'time_stamp': self.random_timestamp(comment_ts, end_date)
+                        }
+                        reponse_id = self.add_reponse(reponse_data)
 
                 post_id += 1
             cnt += 1
