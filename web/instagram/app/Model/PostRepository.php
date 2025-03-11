@@ -7,6 +7,7 @@ use App\Model\Entity\Post;
 use App\Model\Entity\Comment;
 use App\Model\Entity\Response;
 use App\Lib\DatabaseConnection;
+use App\Model\Entity\User;
 
 class PostRepository
 {
@@ -154,5 +155,26 @@ class PostRepository
             $taggedUsers[] = $row['user_username'];
         }
         return $taggedUsers;
+    }
+
+    public function fetchLikes($post_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT * FROM users where user_id in (SELECT user_id FROM likes WHERE post_id=:post_id)'
+        );
+        $statement->bindValue(':post_id', $post_id, \PDO::PARAM_INT);
+        $statement->execute();
+        $likes = [];
+        while (($row = $statement->fetch())) {
+            $like = new User();
+            $like->user_id = $row['user_id'];
+            $like->user_username = $row['user_username'];
+            $like->user_firstname = $row['user_firstname'];
+            $like->user_lastname = $row['user_lastname'];
+            $like->user_description = $row['user_description'];
+            $like->user_pp_path = $row['user_pp_path'];
+            $likes[] = $like;
+        }
+        return $likes;
     }
 }

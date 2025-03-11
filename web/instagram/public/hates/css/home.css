@@ -151,11 +151,18 @@ body {
     margin-left: auto;
 }
 
-.post_info {
+.like-text {
     margin-bottom: 1vh;
     font-weight: bold;
     cursor: pointer;
     font-size: 2vh;
+    display: inline;
+}
+
+.like-text .likes {
+    font-weight: bold;
+    cursor: pointer;
+    display: inline;
 }
 
 .post_title {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 07 mars 2025 à 18:39
+-- Généré le : mar. 11 mars 2025 à 22:17
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -129,6 +129,62 @@ INSERT INTO `instance` (`instance_id`, `average_age`, `gender_prop`, `population
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `likes`
+--
+
+CREATE TABLE `likes` (
+  `like_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `likes`
+--
+
+INSERT INTO `likes` (`like_id`, `user_id`, `post_id`) VALUES
+(1, 1, 3),
+(3, 3, 1),
+(4, 3, 2),
+(2, 3, 3),
+(6, 3, 4),
+(7, 3, 5),
+(9, 4, 6),
+(8, 5, 7);
+
+--
+-- Déclencheurs `likes`
+--
+DELIMITER $$
+CREATE TRIGGER `after_like_deletion` AFTER DELETE ON `likes` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_like_insert` AFTER INSERT ON `likes` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `posts`
 --
 
@@ -150,13 +206,13 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `user_id`, `instance_id`, `nb_likes`, `nb_views`, `time_stamp`, `post_picture_path`, `post_description`, `post_location`, `nb_comments`) VALUES
-(1, 1, 1, 30, 45, '2025-01-23 13:30:47', 'pexels-clement-proust-363898785-14606642.jpg', 'Un super semestre à l\'étranger !', 'Finlande, Helsinki', 2),
-(2, 1, 1, 24, 65, '2025-01-29 17:33:30', 'pexels-filatova-1861817299-30427823.jpg', 'Petite photo de zinzin !', 'Finlande, Helsinki (non je dahek)', 1),
-(3, 2, 1, 0, 0, '2025-01-29 17:55:52', 'finlande.jpg', 'mon voyage en Finlande', 'Finlande, Helsinki', 3),
-(4, 2, 1, 43, 67, '2025-02-12 07:51:43', 'pexels-kaboompics-6256.jpg', 'Un evier...', 'France, Angers', 0),
-(5, 1, 1, 4, 53, '2025-02-12 07:53:27', 'pexels-ps-photography-14694-67184.jpg', 'Ce robinet est meilleur !', 'Finlande, Helsinki', 1),
-(6, 5, 2, 140, 0, '2025-02-26 16:26:00', 'japan_1_0.jpg', 'Mes vacances au Japon, trop une dingz ! ', 'Japon', 0),
-(7, 4, 2, 2000000, 0, '2025-02-26 16:59:32', 'japan_1_4.jpg', 'I love Japan ! ', 'Japon', 0);
+(1, 1, 1, 1, 45, '2025-01-23 13:30:47', 'pexels-clement-proust-363898785-14606642.jpg', 'Un super semestre à l\'étranger !', 'Finlande, Helsinki', 2),
+(2, 1, 1, 1, 65, '2025-01-29 17:33:30', 'pexels-filatova-1861817299-30427823.jpg', 'Petite photo de zinzin !', 'Finlande, Helsinki (non je dahek)', 1),
+(3, 2, 1, 2, 0, '2025-01-29 17:55:52', 'finlande.jpg', 'mon voyage en Finlande', 'Finlande, Helsinki', 3),
+(4, 2, 1, 1, 67, '2025-02-12 07:51:43', 'pexels-kaboompics-6256.jpg', 'Un evier...', 'France, Angers', 0),
+(5, 1, 1, 1, 53, '2025-02-12 07:53:27', 'pexels-ps-photography-14694-67184.jpg', 'Ce robinet est meilleur !', 'Finlande, Helsinki', 1),
+(6, 5, 2, 1, 0, '2025-02-26 16:26:00', 'japan_1_0.jpg', 'Mes vacances au Japon, trop une dingz ! ', 'Japon', 0),
+(7, 4, 2, 1, 0, '2025-02-26 16:59:32', 'japan_1_4.jpg', 'I love Japan ! ', 'Japon', 0);
 
 -- --------------------------------------------------------
 
@@ -312,6 +368,14 @@ ALTER TABLE `instance`
   ADD PRIMARY KEY (`instance_id`);
 
 --
+-- Index pour la table `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`like_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`post_id`),
+  ADD KEY `FK_PostIdLikes` (`post_id`);
+
+--
 -- Index pour la table `posts`
 --
 ALTER TABLE `posts`
@@ -374,6 +438,12 @@ ALTER TABLE `instance`
   MODIFY `instance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT pour la table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
@@ -421,6 +491,13 @@ ALTER TABLE `identification`
   ADD CONSTRAINT `instanceId_fk` FOREIGN KEY (`instance_id`) REFERENCES `instance` (`instance_id`),
   ADD CONSTRAINT `postId_fk` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`),
   ADD CONSTRAINT `userId_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `FK_PostIdLikes` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`),
+  ADD CONSTRAINT `FK_UserIdLikes` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `posts`
