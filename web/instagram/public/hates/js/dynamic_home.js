@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <span><ion-icon name="bookmark-outline"></ion-icon></span>
                                 </div>
                                 <span class="like-text" onclick="openModalLikes('${post.post_id}')">
-                                    <span class="likes">${post.nb_likes}</span> likes
-                                </span>
+                                    <span class="likes">${post.nb_likes}</span>
+                                     likes</span>
                                 <div class="post_title">
                                     <a class="nav-link" href="${MY_URL}profile/${post.username}"><span class="username">${post.username}</span></a>
                                     <span class="title">${post.post_description}</span>
