@@ -25,9 +25,7 @@
     flex-direction: row;
     background: white;
     width: 80%;
-    /* max-width: 1800px; */
     height: 90%;
-    /* max-height: 1000px; */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -284,38 +282,72 @@
 }
 
 @media (max-width:780px) {
-    .custom-modal-content {
-        position: fixed;
-        width: 80%;
-        height: 60%;
-        bottom: 0;
-        flex-direction: column-reverse;
-        border-radius: 10px 10px 0px 0px;
-    }
 
-    .custom-modal-left,
-    .custom-modal-actions,
-    .custom-modal-stats,
-    .custom-modal-post-header .custom-modal-profile-img,
-    .custom-modal-post-header .username,
-    .custom-modal-post-header .options span ion-icon,
-    .close {
-
+    .comments,
+    .custom-modal-right .custom-modal-post-header,
+    .add-comment,
+    .custom-modal-right .custom-modal-profile-img,
+    .custom-modal-stats .timestamp,
+    .custom-modal-stats {
         display: none;
     }
 
-    .custom-modal-post-header .options span {
-        visibility: hidden;
+    .mobile-header-redirection {
+        /* justify-content: center; */
+        align-items: center;
+        display: flex;
     }
 
-    .custom-modal-post-header .options span:after {
-        content: "Comments";
-        visibility: visible;
+    .mobile-header-redirection h2 {
+        display: inline;
+        margin-left: 3vh;
     }
 
-    .custom-modal-post-header {
-        justify-content: center;
+    .mobile-header-redirection .arrow {
+        margin-left: 3vh;
+        font-size: 30px;
+        width: 30px;
+        height: 30px;
     }
+
+    .mobile-header {
+        margin-top: 2vh;
+    }
+
+    .comments-title,
+    .custom-modal-actions {
+        padding: 0px;
+    }
+
+    .custom-modal-actions,
+    .comments-title {
+        border: none;
+    }
+
+    .custom-modal-right {
+        flex: none;
+    }
+
+    .custom-modal-actions {
+        font-weight: bold;
+    }
+
+    .custom-modal-content {
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+
+    }
+
+    .custom-modal-right {
+        flex-direction: column-reverse;
+    }
+
+    .custom-modal {
+        z-index: 1000;
+    }
+
 
 }
 

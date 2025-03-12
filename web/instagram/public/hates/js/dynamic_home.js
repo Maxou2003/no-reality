@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="post_body">
                                 <div class="post_actions">
                                     <span class="heart_icon"><ion-icon name="heart-outline"></ion-icon></span>
-                                    <span><ion-icon name="chatbubble-outline" onclick="openModalPost('${post.post_id}')"></ion-icon></span>
+                                    <span><ion-icon name="chatbubble-outline" onclick="(window.innerWidth <= 768) ? openModalComments('${post.post_id}') : openModalPost('${post.post_id}');"></ion-icon></span>
                                     <span><ion-icon name="paper-plane-outline"></ion-icon></span>
                                     <span><ion-icon name="bookmark-outline"></ion-icon></span>
                                 </div>
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <span class="title">${post.post_description}</span>
                                 </div>
                                 <div class="post_comments">
-                                    <span onclick="openModalPost('${post.post_id}')">View all ${post.nb_comments} comments</span>
+                                    <span onclick="(window.innerWidth <= 768) ? openModalComments('${post.post_id}') : openModalPost('${post.post_id}');">View all ${post.nb_comments} comments</span>
                                 </div>
                                 <div class="post_timestamp">${post.time_stamp}</div>
                             </div>

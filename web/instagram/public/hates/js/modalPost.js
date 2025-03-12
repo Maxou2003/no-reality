@@ -14,6 +14,7 @@ function openModalPost(postId) {
 
     liketext.setAttribute('onclick', `openModalLikes(${postId})`);
 
+
     const comments = document.querySelector(".comments");
 
     comments.innerHTML = "";
@@ -43,6 +44,47 @@ function openModalPost(postId) {
                 profile_img[i].src = PROFILE_IMG_PATH + post.user_pp_path;
                 nav_links[i].href = MY_URL + "profile/" + post.username;
             }
+
+            // Mobile Version 
+            if (window.innerWidth <= 768) {
+                const modalContent = document.querySelector('.custom-modal-content');
+                const mobileHeader = document.createElement('div');
+                const chatbubble = document.querySelector('.custom-modal-right ion-icon[name="chatbubble-outline"]');
+                const actions = document.querySelector('.custom-modal-actions');
+                mobileHeader.classList.add('mobile-header');
+                mobileHeader.innerHTML = `
+                    <div class="mobile-header-redirection">
+                        <ion-icon name="arrow-back-outline"class="arrow" onclick="closeModalPost()"></ion-icon>
+                        <h2>Post</h2>       
+                    </div>
+                    <div class="custom-modal-post-header">
+                        <div class="custom-modal-profile-info">
+                            <div class="custom-modal-profile-img">
+                                <a href="${MY_URL}profile/${post.username}"><img src="${PROFILE_IMG_PATH + post.user_pp_path}" class="profile-img" alt="Image"></a>
+                            </div>
+                            <a class="nav-link" href="${MY_URL}profile/${post.username}">
+                                <span class="username">${post.username}</span>
+                            </a>
+                        </div>
+                        <div class="options">
+                            <span>
+                                <ion-icon name="ellipsis-vertical"></ion-icon>
+                            </span>
+                        </div>
+                    </div>
+                `;
+                chatbubble.setAttribute('onclick', `openModalComments('${postId}')`);
+                modalContent.insertBefore(mobileHeader, modalContent.firstChild);
+                const like_text = document.createElement('div');
+                like_text.classList.add('like-text');
+                like_text.innerHTML = `
+                    <span class="likes">${post.nb_likes}</span>
+                `;
+                actions.insertBefore(like_text, modal.querySelector('.chat_icon'));
+
+            }
+
+
             data.comments.forEach(comment => {
                 const commentElement = document.createElement("div");
                 let showResponseBtn = "";
@@ -83,7 +125,7 @@ function closeModalPostOnClickOutside(event) {
 
     const modal = document.querySelector('.custom-modal-content');
 
-    if (!modal.contains(event.target) && !event.target.matches(".post img") && !event.target.matches('ion-icon[name="chatbubble-outline"] ') && !event.target.matches(".post_comments span") && !event.target.matches(".likes-modal-content")) {
+    if (!modal.contains(event.target) && !event.target.matches(".post img") && !event.target.matches('ion-icon[name="chatbubble-outline"] ') && !event.target.matches(".post_comments span") && !event.target.matches(".likes-modal-content") && !event.target.matches(".likes-modal-content span") && !event.target.matches(".likes-modal-content img") && !event.target.matches(".comments-modal-content")) {
         document.removeEventListener('click', closeModalPostOnClickOutside);
         (event.target);
         closeModalPost();
@@ -169,11 +211,10 @@ function escapeModal() {
 }
 
 function closeModalPost() {
-    if (document.getElementById('post-modal-likes').style.display === 'flex') {
+    if (document.getElementById('post-modal-likes').style.display === 'flex' || document.getElementById('post-modal-comments').style.display === 'flex') {
         document.addEventListener('click', closeModalPostOnClickOutside);
         return;
     }
-    (document.getElementById('post-modal-likes').style.display);
     const heartButtons = document.querySelectorAll('.heart_icon');
     for (let i = 0; i < heartButtons.length; i++) {
         const heartIcon = heartButtons[i].querySelector("ion-icon");
@@ -181,6 +222,12 @@ function closeModalPost() {
             heartIcon.name = 'heart-outline';
         }
         heartButtons[i].className = 'heart_icon';
+    }
+    if (window.innerWidth <= 768) {
+        const mobile_header = document.querySelector('.mobile-header');
+        const like_text = document.querySelector(".custom-modal-actions .like-text");
+        like_text ? like_text.remove() : '';
+        mobile_header.innerHTML = '';
     }
 
     const modal = document.getElementById('post-modal');

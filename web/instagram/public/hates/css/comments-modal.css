@@ -1,0 +1,116 @@
+:root {
+    --bg-color: #fafafa;
+    --text-color: #262626;
+    --light-text: #8e8e8e;
+    --border-color: #dbdbdb;
+    --btn-color: #b3dbff;
+}
+
+.comments-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(0px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.comments-modal .comments-modal-content {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 80%;
+    height: 60%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    border-radius: 10px 10px 0px 0px;
+    bottom: 0;
+}
+
+.comments-modal .comments-modal-content .comments-modal-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    gap: 5px;
+}
+
+.comments-modal .comments-modal-content .comments-modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+
+.comments-modal .comments-modal-content .comments-modal-header h2 {
+    padding: 10px;
+    color: var(--text-color);
+    margin: 0;
+    font-size: 2.5vh;
+    font-weight: bold;
+}
+
+.comments-modal .comments-modal-content .comments-modal-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.comments-modal .comments-modal-content .add-comment {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.comments-modal .comments-modal-content .add-comment input {
+    margin: 0 12px;
+    border: none;
+    outline: none;
+    color: var(--light-text);
+    background-color: inherit;
+    width: 100%;
+}
+
+.comments-modal .comments-modal-content .add-comment button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--btn-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.comments-modal .comments-modal-content .add-comment .emoji {
+    font-size: 24px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.comments-modal .comments-modal-content .comments {
+    overflow: auto;
+}
+
+.comments-modal .comments-modal-content .comments-title {
+    border-top: 1px solid var(--border-color);
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-top: 10px;
+    gap: 15px;
+}
+
+@media (max-width: 480px) {
+    .comments-modal .comments-modal-content {
+        width: 100%;
+    }
+}
