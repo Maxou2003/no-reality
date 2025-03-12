@@ -128,7 +128,7 @@ def main(nb_users, instance, gender, ethnicity, json_file_path):
     users_all_infos = get_all_info(gender, ethnicity)[0:nb_users]
     print(users_all_infos, len(users_all_infos))
     if len(users_all_infos) < nb_users:
-        print(f"Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés.")
+        print(f" !!!! Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés.")
     users = []
     for i in range(len(users_all_infos)):
         users.append(users_all_infos[i][0:3])
@@ -147,5 +147,9 @@ def main(nb_users, instance, gender, ethnicity, json_file_path):
 
 
 if __name__ == '__main__':
-    main(nb_users=50, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
+    main(nb_users=40, instance=1, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    main(nb_users=40, instance=1, gender=1, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    main(nb_users=40, instance=1, gender=0, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
+    main(nb_users=40, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
+    main(nb_users=40, instance=1, gender=0, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
     #descriptions_from_json('python-scripts/nr_source/descriptions.json')

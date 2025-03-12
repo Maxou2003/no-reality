@@ -21,7 +21,7 @@ def url_maker(gender,ethnicity):
         url_ethnicity = 'asian'
     elif ethnicity == 3:
         url_ethnicity= 'latino'
-    return f'https://generated.photos/faces/adult/{url_ethnicity}-race/{url_gender}'
+    return f'https://generated.photos/faces/young-adult/{url_ethnicity}-race/{url_gender}'
 
 def get_last_index(path):
     existing_files = [f for f in os.listdir(path) if f.startswith("image_") and f.endswith(".jpg")]

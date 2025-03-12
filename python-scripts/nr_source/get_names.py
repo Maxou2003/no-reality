@@ -45,5 +45,5 @@ if __name__ == '__main__':
     elif choice_sexe==2:
         gender = 'F'"""
 
-    names = get_names(20,"FR", "FR", "M")
+    names = get_names(3,"FR", "FR", "M")
     print(names)

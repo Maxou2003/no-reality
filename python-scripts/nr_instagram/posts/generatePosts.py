@@ -8,12 +8,12 @@ import os
 DATABASE_NAME = "nr_instagram"
 INSTANCE_ID = 1
 INSTANCE_NAME = "hates"
-THEME = "art"
-ENGLISH_THEME = "art"
+THEME = "chien"
+ENGLISH_THEME = "dog"
 PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
 POST_FILE = "art_posts.json"
 
-NUMBER_POSTS = 50
+NUMBER_POSTS = 15
 
 PRECISIONS = ""
 

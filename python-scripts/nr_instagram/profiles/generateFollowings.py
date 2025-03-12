@@ -81,4 +81,4 @@ def main(instance_id, follow_chance, follow_back_chance):
     fillTable(follow_list)
 
 if __name__ == "__main__":
-    main(1, follow_chance=0.5, follow_back_chance=0.9)
+    main(1, follow_chance=0.3, follow_back_chance=0.9)
