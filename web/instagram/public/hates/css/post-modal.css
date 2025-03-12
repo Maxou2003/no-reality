@@ -319,6 +319,17 @@
         padding: 0px;
     }
 
+    .custom-modal-actions .like-text {
+        margin-bottom: 0px;
+    }
+
+    .custom-modal-actions .like-text .likes {
+        font-weight: normal;
+        font-size: 1em;
+        margin-left: -1.2vh;
+
+    }
+
     .custom-modal-actions,
     .comments-title {
         border: none;

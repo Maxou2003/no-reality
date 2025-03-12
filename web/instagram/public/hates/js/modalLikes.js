@@ -45,7 +45,7 @@ function openModalLikes(postId) {
 function closeModalLikesOnClickOutside(event) {
     const modal = document.querySelector('.likes-modal-content');
 
-    if (!modal.contains(event.target) && !event.target.matches(".like-text")) {
+    if (!modal.contains(event.target) && !event.target.matches(".like-text") && !event.target.matches(".likes")) {
         document.removeEventListener('click', closeModalLikesOnClickOutside);
         closeModalLikes();
     }

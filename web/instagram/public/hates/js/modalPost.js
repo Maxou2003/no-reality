@@ -14,7 +14,6 @@ function openModalPost(postId) {
 
     liketext.setAttribute('onclick', `openModalLikes(${postId})`);
 
-
     const comments = document.querySelector(".comments");
 
     comments.innerHTML = "";
@@ -80,6 +79,7 @@ function openModalPost(postId) {
                 like_text.innerHTML = `
                     <span class="likes">${post.nb_likes}</span>
                 `;
+                like_text.setAttribute('onclick', `openModalLikes('${postId}')`);
                 actions.insertBefore(like_text, modal.querySelector('.chat_icon'));
 
             }

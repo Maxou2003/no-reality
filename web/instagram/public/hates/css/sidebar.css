@@ -82,6 +82,8 @@
 .sidebar.search-active {
     width: 350px;
     flex-direction: row;
+    max-width: 430px;
+    width: auto;
 }
 
 .search-active .nav-item span,
