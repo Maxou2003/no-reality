@@ -21,7 +21,7 @@ def create_table():
         user_description text NOT NULL
     ''')
 
-def get_all_info():
+def get_all_info(gender, ethnicity):
     """
     Get all the informations from nr_source.users
     """
@@ -32,10 +32,13 @@ def get_all_info():
             password="",
             database="nr_source"
         )
+        sql = '''
+                SELECT user_firstname, user_lastname, user_age, user_pp_path FROM users
+                WHERE user_gender = %s AND user_ethnicity = %s
+            '''
+
         cursor = conn.cursor()
-        cursor.execute('''
-            SELECT user_firstname, user_lastname, user_age, user_pp_path FROM users
-        ''')
+        cursor.execute(sql, (gender, ethnicity))
     except mysql.connector.Error as e:
         print(f"Erreur lors de l'accès à la base de données : {e}")
     finally:
@@ -116,13 +119,16 @@ def fill_instance(instance, users):
     conn.commit()
     conn.close()
 
-def main(nb_users, instance, json_file_path):
+def main(nb_users, instance, gender, ethnicity, json_file_path):
     """
     Get all infos from nr_source, create a json file with the usernames and descriptions, fill the table nr_instagram.users with the users informations\n
     returns: a list of the user name, surmane, pp_path, username, description\n
     format: [[forename, surname, age, image_path, username, description], [forename, surname, image_path, username, description], ...]
     """
-    users_all_infos = get_all_info()[0:nb_users]
+    users_all_infos = get_all_info(gender, ethnicity)[0:nb_users]
+    print(users_all_infos, len(users_all_infos))
+    if len(users_all_infos) < nb_users:
+        print(f"Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés.")
     users = []
     for i in range(len(users_all_infos)):
         users.append(users_all_infos[i][0:3])
@@ -141,5 +147,5 @@ def main(nb_users, instance, json_file_path):
 
 
 if __name__ == '__main__':
-    main(10, 1, 'python-scripts/nr_source/descriptions.json')
+    main(nb_users=100, instance=1, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
     #descriptions_from_json('python-scripts/nr_source/descriptions.json')
