@@ -147,5 +147,5 @@ def main(nb_users, instance, gender, ethnicity, json_file_path):
 
 
 if __name__ == '__main__':
-    main(nb_users=100, instance=1, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    main(nb_users=10, instance=1, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
     #descriptions_from_json('python-scripts/nr_source/descriptions.json')
