@@ -8,7 +8,30 @@ import time
 import requests
 import os
 
-def download_images(num_img=100, gender='M', path='downloaded_images'):
+def url_maker(gender,ethnicity):
+    if gender == 'M':
+        url_gender = 'male'
+    else:
+        url_gender = 'female'
+    if ethnicity == 0:
+        url_ethnicity = 'white'
+    elif ethnicity == 1:
+        url_ethnicity = 'black'
+    elif ethnicity == 2:
+        url_ethnicity = 'asian'
+    elif ethnicity == 3:
+        url_ethnicity= 'latino'
+    return f'https://generated.photos/faces/adult/{url_ethnicity}-race/{url_gender}'
+
+def get_last_index(path):
+    existing_files = [f for f in os.listdir(path) if f.startswith("image_") and f.endswith(".jpg")]
+    if existing_files:
+        max_index = max([int(f.split("_")[1].split(".")[0]) for f in existing_files])
+    else:
+        max_index = -1  # Start from 0 if no files exist
+    return max_index
+
+def download_images(num_img=100, gender='M', ethnicity=0, path='web/profile_pictures'):
     """
     returns: a list of the paths of the downloaded images
     """
@@ -22,10 +45,7 @@ def download_images(num_img=100, gender='M', path='downloaded_images'):
     
     try:
         print("Loading website...")
-        if gender == 'M':
-            url = "https://generated.photos/faces/adult/white-race/male"
-        else:
-            url = "https://generated.photos/faces/adult/white-race/female"
+        url = url_maker(gender, ethnicity)
         driver.get(url)
         
         # Check for cookies popup
@@ -70,6 +90,9 @@ def download_images(num_img=100, gender='M', path='downloaded_images'):
         image_elements = driver.find_elements(By.CSS_SELECTOR, "div.grid-photos img")
         print(f"Found {len(image_elements)} images")
         
+
+        max_index = get_last_index(path)
+
         # Download each image
         images_paths = []
         i = 0;
@@ -79,7 +102,7 @@ def download_images(num_img=100, gender='M', path='downloaded_images'):
                 try:
                     response = requests.get(img_url, stream=True, timeout=10)
                     if response.status_code == 200:
-                        file_path = f"{path}/image_{idx}.jpg"
+                        file_path = f"{path}/image_{max_index + idx + 1}.jpg"
                         with open(file_path, 'wb') as f:
                             f.write(response.content)
                             images_paths.append(file_path)
@@ -90,7 +113,7 @@ def download_images(num_img=100, gender='M', path='downloaded_images'):
                 break
             i+=1
         
-        print(f"Total images downloaded: {len(image_elements)}")
+        print(f"Total images downloaded: {i}")
         
     except Exception as e:
         print(f"Unexpected error: {e}")
@@ -103,4 +126,4 @@ def download_images(num_img=100, gender='M', path='downloaded_images'):
         return images_paths
     
 if __name__ == "__main__":
-    download_images(num_img=29, gender=1, path='web/instagram/public/img/profile_picture')
+    download_images(num_img=29, gender='M', ethnicity=2, path='web/instagram/public/img/profile_picture')
