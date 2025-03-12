@@ -68,17 +68,17 @@ def fillTable(follow_list):
     cursor.close()
     conn.close()
 
-def main(instance_id, follow_chance, self_follow_chance):
+def main(instance_id, follow_chance, follow_back_chance):
     users = get_users(instance_id)
     follow_list = []
     for i in range(len(users)):
         for j in range(i + 1, len(users)):  # Start j after i to avoid self-follows
             if random.random() < follow_chance:  # 20% chance i follows j
                 follow_list.append([users[i], users[j], instance_id])
-                if random.random() < self_follow_chance:  # 90% chance j follows i back
+                if random.random() < follow_back_chance:  # 90% chance j follows i back
                     follow_list.append([users[j], users[i], instance_id])
 
     fillTable(follow_list)
 
 if __name__ == "__main__":
-    main(1, follow_chance=0.5, self_follow_chance=0.9)
+    main(1, follow_chance=0.5, follow_back_chance=0.9)

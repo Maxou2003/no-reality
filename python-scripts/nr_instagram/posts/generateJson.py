@@ -16,7 +16,7 @@ def create_json(theme, number_posts, min_comments, max_comments,file, precisions
 
     final_prompt = f'{prompt} \n{description_instructions} \n{comments_instructions} \n{format_instructions} \n{warnings} \n{precisions}'
     print(final_prompt)
-
+    print('Generating...')
     chat_response = client.chat.complete(
         model= model,
         messages = [

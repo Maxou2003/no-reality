@@ -83,7 +83,7 @@ class PostGenerator:
     def generate_posts(self, post_per_person=30, location='Angers'):
         start_date = datetime(2025, 1, 1)
         end_date = datetime(2025, 12, 1)
-
+        print(self.posts)
         post_id = 0
         cnt = 0
 
@@ -102,18 +102,18 @@ class PostGenerator:
                     'post_location': location,
                     'nb_comments': len(self.posts[post_id].get('comments', []))
                 }
-                post_id = self.add_post(post)
+                post_id_added = self.add_post(post)
                 
                 shuffle(self.user_ids)
                 for _id in range(randint(0, len(self.user_ids))):
-                    self.add_likes(self.user_ids[_id], post_id)
+                    self.add_likes(self.user_ids[_id], post_id_added)
 
                 for comment in self.posts[post_id].get('comments', []):
                     comment_ts = self.random_timestamp(post['timestamp'], end_date)
                     comment_uid = self.random_exclude(self.user_ids, user_id)
                     comment_data = {
                         'user_id': comment_uid,
-                        'post_id': post_id,
+                        'post_id': post_id_added,
                         'comment_text': comment.get('content'),
                         'time_stamp': comment_ts,
                         'nb_responses': len(comment.get('responses'))

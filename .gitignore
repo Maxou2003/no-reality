@@ -1,7 +1,9 @@
 # Ignore everything in the profile_pictures directory
 web/profile_pictures/*
+web/instagram/public/hates/img/*
 
 python-scripts/nr_instagram/posts/test.json
+python-scripts/nr_source/descriptions.json
 mon_fichier.json
 art_posts.json
 posts.json
