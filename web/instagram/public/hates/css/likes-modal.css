@@ -138,4 +138,20 @@
     .close {
         display: none;
     }
+
+    .likes-modal .likes-modal-content {
+        position: fixed;
+        width: 80%;
+        height: 60%;
+        bottom: 0;
+        flex-direction: column;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .likes-modal .likes-modal-content {
+        width: 100%;
+    }
 }

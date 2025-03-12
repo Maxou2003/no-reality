@@ -83,8 +83,9 @@ function closeModalPostOnClickOutside(event) {
 
     const modal = document.querySelector('.custom-modal-content');
 
-    if (!modal.contains(event.target) && !event.target.matches(".post img")) {
+    if (!modal.contains(event.target) && !event.target.matches(".post img") && !event.target.matches('ion-icon[name="chatbubble-outline"] ') && !event.target.matches(".post_comments span") && !event.target.matches(".likes-modal-content")) {
         document.removeEventListener('click', closeModalPostOnClickOutside);
+        (event.target);
         closeModalPost();
     }
 }
@@ -168,6 +169,11 @@ function escapeModal() {
 }
 
 function closeModalPost() {
+    if (document.getElementById('post-modal-likes').style.display === 'flex') {
+        document.addEventListener('click', closeModalPostOnClickOutside);
+        return;
+    }
+    (document.getElementById('post-modal-likes').style.display);
     const heartButtons = document.querySelectorAll('.heart_icon');
     for (let i = 0; i < heartButtons.length; i++) {
         const heartIcon = heartButtons[i].querySelector("ion-icon");
