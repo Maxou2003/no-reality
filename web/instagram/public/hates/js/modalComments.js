@@ -9,7 +9,6 @@ function openModalComments(postId) {
         const pp_link = modal.querySelector(".custom-modal-profile-img a");
 
         modal.style.display = 'flex';
-        console.log("openModalComments");
 
         const comments = modal.querySelector(".comments");
 
@@ -173,7 +172,6 @@ function closeModalComments() {
 
     timestamp.innerHTML = '';
     username.innerHTML = '';
-    console.log("CloseModalComments");
 
     scrollOutsideComments();
 }

@@ -15,14 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const newPosts = await response.json();
 
             if (newPosts.length > 0) {
-                // newPosts.forEach(post => {
-                //     document.querySelector(".explore-posts").insertAdjacentHTML("beforeend", `
-                //         <div class="post" onclick="openModalPost('${post.post_id}')">
-                //             <img src="${POST_IMG_PATH}${post.post_picture_path}" alt="Post" loading="lazy">
-                // 	    </div>
-                //     `);
-                // });
-
                 const fragment = document.createDocumentFragment();
                 newPosts.forEach(post => {
                     const postElement = document.createElement('div');
@@ -48,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleScroll() {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
-            console.log("load more");
             loadMorePosts();
         }
     }

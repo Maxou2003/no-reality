@@ -5,7 +5,6 @@ function openModalLikes(postId) {
 
     const apiUrl = `${API_BASE_URL}getLikes&postId=${postId}`;
 
-    console.log("modal likes openned");
     modal.setAttribute('postId', postId);
 
     fetch(apiUrl)
@@ -102,7 +101,6 @@ function escapeModalLikes() {
 }
 
 function closeModalLikes() {
-    console.log("modal likes closed");
     const searchBar = document.querySelector('.search-container input');
     searchBar.value = '';
     const modal_likes = document.getElementById('post-modal-likes');

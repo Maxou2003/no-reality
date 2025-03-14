@@ -10,7 +10,6 @@ const comments = document.querySelector(".comments");
 
 function openModalPost(postId) {
 
-
     const nav_links = modalPost.querySelectorAll(".nav-link");
     const pp_links = modalPost.querySelectorAll(".custom-modal-profile-img a");
     const chat_icon = modalPost.querySelector(".chat_icon");
@@ -33,7 +32,6 @@ function openModalPost(postId) {
             });
 
             description.innerHTML = descriptionContent;
-
             modalImage.src = POST_IMG_PATH + post.post_picture_path;
 
             pp_links.forEach(link => link.href = MY_URL + "profile/" + post.username);
