@@ -2,6 +2,8 @@
 web/profile_pictures/*
 web/instagram/public/hates/img/*
 
+web/profile_pictures.zip
+
 python-scripts/nr_instagram/posts/test.json
 python-scripts/nr_source/descriptions.json
 mon_fichier.json
