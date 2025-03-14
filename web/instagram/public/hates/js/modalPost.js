@@ -13,11 +13,13 @@ function openModalPost(postId) {
 
     const nav_links = modalPost.querySelectorAll(".nav-link");
     const pp_links = modalPost.querySelectorAll(".custom-modal-profile-img a");
+    const chat_icon = modalPost.querySelector(".chat_icon");
 
 
     modalPost.style.display = 'flex';
     comments.innerHTML = "";
     const apiUrl = `${API_BASE_URL}getModalPost&postId=${postId}`;
+    chat_icon.setAttribute("onclick", `openModalComments('${postId}') ;`)
 
     fetch(apiUrl)
         .then(response => response.json())

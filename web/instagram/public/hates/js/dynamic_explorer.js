@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const postElement = document.createElement('div');
                     postElement.classList.add('post');
                     postElement.innerHTML = `
-                        <img srcset="${POST_IMG_PATH}${post.post_picture_path}" alt="Post" loading="lazy">
+                        <img src="${POST_IMG_PATH}${post.post_picture_path}" srcset="${POST_IMG_PATH}${post.post_picture_path}" alt="Post" loading="lazy">
                     `;
                     postElement.addEventListener('click', () => openModalPost(post.post_id));
                     fragment.appendChild(postElement);
