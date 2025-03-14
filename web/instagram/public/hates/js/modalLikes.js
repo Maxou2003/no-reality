@@ -5,6 +5,7 @@ function openModalLikes(postId) {
 
     const apiUrl = `${API_BASE_URL}getLikes&postId=${postId}`;
 
+    console.log("modal likes openned");
     modal.setAttribute('postId', postId);
 
     fetch(apiUrl)
@@ -45,7 +46,7 @@ function openModalLikes(postId) {
 function closeModalLikesOnClickOutside(event) {
     const modal = document.querySelector('.likes-modal-content');
 
-    if (!modal.contains(event.target) && !event.target.matches(".like-text")) {
+    if (!modal.contains(event.target) && !event.target.matches(".like-text") && !event.target.matches(".likes")) {
         document.removeEventListener('click', closeModalLikesOnClickOutside);
         closeModalLikes();
     }
@@ -101,6 +102,7 @@ function escapeModalLikes() {
 }
 
 function closeModalLikes() {
+    console.log("modal likes closed");
     const searchBar = document.querySelector('.search-container input');
     searchBar.value = '';
     const modal_likes = document.getElementById('post-modal-likes');

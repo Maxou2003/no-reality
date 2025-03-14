@@ -1,8 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     let loading = false;
-    let page = 1; 
-    const nb_explorer_post = 9;
+    let page = 1;
+    const nb_explorer_post = 12;
 
     async function loadMorePosts() {
         if (loading) return;
@@ -15,14 +15,26 @@ document.addEventListener("DOMContentLoaded", function () {
             const newPosts = await response.json();
 
             if (newPosts.length > 0) {
+                // newPosts.forEach(post => {
+                //     document.querySelector(".explore-posts").insertAdjacentHTML("beforeend", `
+                //         <div class="post" onclick="openModalPost('${post.post_id}')">
+                //             <img src="${POST_IMG_PATH}${post.post_picture_path}" alt="Post" loading="lazy">
+                // 	    </div>
+                //     `);
+                // });
+
+                const fragment = document.createDocumentFragment();
                 newPosts.forEach(post => {
-                    document.querySelector(".explore-posts").insertAdjacentHTML("beforeend", `
-                        <div class="post" onclick="openModalPost('${post.post_id}')">
-                            <img src="${POST_IMG_PATH}${post.post_picture_path}" alt="Post">
-					    </div>
-                    `);
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('post');
+                    postElement.innerHTML = `
+                        <img srcset="${POST_IMG_PATH}${post.post_picture_path}" alt="Post" loading="lazy">
+                    `;
+                    postElement.addEventListener('click', () => openModalPost(post.post_id));
+                    fragment.appendChild(postElement);
                 });
-                
+                document.querySelector(".explore-posts").appendChild(fragment);
+
                 page++;
             } else {
                 window.removeEventListener("scroll", handleScroll);
@@ -36,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleScroll() {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+            console.log("load more");
             loadMorePosts();
         }
     }

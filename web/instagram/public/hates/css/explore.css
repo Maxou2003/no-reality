@@ -26,22 +26,22 @@
 }
 
 .explore-posts {
-    display: grid;
-    /* 3 posts par ligne */
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     width: 100%;
     justify-content: center;
 }
 
-
-.post {
+.explore-posts .post {
+    flex: 1 1 calc(33.333% - 10px);
+    max-width: calc(33.333% - 10px);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.post img {
+.explore-posts .post img {
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
