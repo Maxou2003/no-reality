@@ -281,6 +281,11 @@
     overflow: hidden;
 }
 
+.mobile-header,
+.custom-modal-actions .like-text {
+    display: none;
+}
+
 @media (max-width:780px) {
 
     .comments,
@@ -290,6 +295,11 @@
     .custom-modal-stats .timestamp,
     .custom-modal-stats {
         display: none;
+    }
+
+    .mobile-header,
+    .custom-modal-actions .like-text {
+        display: inline;
     }
 
     .mobile-header-redirection {
@@ -325,7 +335,7 @@
 
     .custom-modal-actions .like-text .likes {
         font-weight: normal;
-        font-size: 1em;
+        font-size: 20px;
         margin-left: -1.2vh;
 
     }

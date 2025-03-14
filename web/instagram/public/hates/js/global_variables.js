@@ -1,3 +1,4 @@
+
 URI = window.location.href.split('/')[7];
 
 POST_IMG_PATH = `/no-reality/web/instagram/public/${URI}/img/post_img/`;
