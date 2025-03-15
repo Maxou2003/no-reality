@@ -109,6 +109,10 @@
     gap: 15px;
 }
 
+.comments-modal-content .comments {
+    display: block;
+}
+
 @media (max-width: 480px) {
     .comments-modal .comments-modal-content {
         width: 100%;

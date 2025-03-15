@@ -62,7 +62,7 @@ function openModalComments(postId) {
                     comments.appendChild(commentElement);
 
                 });
-                responses();
+                commentResponses();
             })
             .catch(error => console.error("Error fetching post:", error));
         noScrollOutsideComments();
@@ -82,36 +82,28 @@ function closeModalCommentsOnClickOutside(event) {
     }
 }
 
-
 function commentResponses() {
+    const comments = document.querySelector(".comments-modal .comments");
+    comments.addEventListener("click", commentResponsesCallback);
+}
 
-    const commentResponses = document.querySelectorAll(".comment-responses");
-    const viewResponsesBtn = document.querySelectorAll(".show-response-btn");
-
-    for (let i = 0; i < viewResponsesBtn.length; i++) {
-        viewResponsesBtn[i].addEventListener("click", () => {
-
-            const buttonCommentId = viewResponsesBtn[i].getAttribute('commentid');
-
-            const targetResponse = Array.from(commentResponses).find(element =>
-                element.getAttribute('commentid') === buttonCommentId
-            );
-
-            if (targetResponse) {
-
-                if (targetResponse.style.display === 'flex') {
-                    targetResponse.style.display = 'none';
-                    viewResponsesBtn[i].innerHTML = "View all responses";
-
-                } else {
-                    if (targetResponse.innerHTML == "") {
-                        getCommentResponses(targetResponse);
-                    }
-                    targetResponse.style.display = 'flex';
-                    viewResponsesBtn[i].innerHTML = "Hide all responses";
+function commentResponsesCallback(event) {
+    const button = event.target.closest(".show-response-btn");
+    if (button) {
+        const buttonCommentId = button.getAttribute('commentid');
+        const targetResponse = document.querySelector(`.comments-modal .comment-responses[commentid="${buttonCommentId}"]`);
+        if (targetResponse) {
+            if (targetResponse.style.display === 'flex') {
+                targetResponse.style.display = 'none';
+                button.innerHTML = "View all responses";
+            } else {
+                if (targetResponse.innerHTML == "") {
+                    getCommentResponses(targetResponse);
                 }
+                targetResponse.style.display = 'flex';
+                button.innerHTML = "Hide all responses";
             }
-        });
+        }
     }
 }
 
@@ -166,13 +158,13 @@ function closeModalComments() {
     modal.style.display = 'none';
     modal.querySelectorAll(".profile-img").forEach(img => img.src = '');
     modal.querySelector(".description").innerHTML = '';
-    document.querySelector(".comments").innerHTML = '';
     const timestamp = modal.querySelector(".timestamp");
     const username = modal.querySelector(".username");
-
+    const comments = modal.querySelector(".comments");
+    comments.innerHTML = '';
+    comments.addEventListener("click", commentResponsesCallback);
     timestamp.innerHTML = '';
     username.innerHTML = '';
-
     scrollOutsideComments();
 }
 
