@@ -101,7 +101,7 @@ def fillTable(follow_list):
     cursor.close()
     conn.close()
 
-def main(instance_id=1):
+def generate_identifications(instance_id=1):
     posts = get_posts(instance_id)
     print(posts)
     users = get_users(instance_id)
@@ -112,4 +112,4 @@ def main(instance_id=1):
             fillTable([(post_id, user_id, instance_id)])
 
 if __name__ == "__main__": 
-    main(1)
+    generate_identifications(1)
