@@ -68,7 +68,7 @@ def fillTable(follow_list):
     cursor.close()
     conn.close()
 
-def main(instance_id, follow_chance, follow_back_chance):
+def generate_followings(instance_id, follow_chance, follow_back_chance):
     users = get_users(instance_id)
     follow_list = []
     for i in range(len(users)):
@@ -81,4 +81,4 @@ def main(instance_id, follow_chance, follow_back_chance):
     fillTable(follow_list)
 
 if __name__ == "__main__":
-    main(1, follow_chance=0.3, follow_back_chance=0.9)
+    generate_followings(1, follow_chance=0.3, follow_back_chance=0.9)

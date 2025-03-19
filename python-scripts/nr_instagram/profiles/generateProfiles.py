@@ -119,14 +119,14 @@ def fill_instance(instance, users):
     conn.commit()
     conn.close()
 
-def main(nb_users, instance, gender, ethnicity, json_file_path):
+def generate_new_profiles(nb_users, instance, gender, ethnicity, json_file_path):
     """
     Get all infos from nr_source, create a json file with the usernames and descriptions, fill the table nr_instagram.users with the users informations\n
     returns: a list of the user name, surmane, pp_path, username, description\n
     format: [[forename, surname, age, image_path, username, description], [forename, surname, image_path, username, description], ...]
     """
     users_all_infos = get_all_info(gender, ethnicity)[0:nb_users]
-    print(users_all_infos, len(users_all_infos))
+    print(f"All users infos retrieved: {len(users_all_infos)}")
     if len(users_all_infos) < nb_users:
         print(f" !!!! Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés.")
     users = []
@@ -145,11 +145,43 @@ def main(nb_users, instance, gender, ethnicity, json_file_path):
     print(users_ids)
     fill_instance(instance, users_ids)
 
+def generate_profiles(nb_users, instance, gender, ethnicity, json_file_path):
+    # Check if the users already exist in nr_instagram.users
+    conn = mysql.connector.connect(
+        host="localhost",
+        user = "root",
+        password = "",
+        database = "nr_instagram"
+    )
+    cursor = conn.cursor()
+    if gender == 0:
+        name_gender = 'M'
+    else:
+        name_gender = 'F'
+    pp_path = f'{name_gender}/{ethnicity}'
+    print(pp_path)
+    sql = '''
+        SELECT user_id FROM users WHERE user_pp_path LIKE %s;
+    '''
+    cursor.execute(sql, (f"{pp_path}/%",))
+    result = cursor.fetchall()
+    print(result)
+    if len(result) >= nb_users:
+        users_list = []
+        print(f"Enough users in the database")
+        users = result[0:nb_users]
+        for user in users:
+            users_list.append(user[0])
+        fill_instance(instance, users_list)
+    else:
+        print(f"Not enough users in the database, {len(result)} found")
+        print(f"Generating {nb_users - len(result)} new profiles")
+        
 
 if __name__ == '__main__':
-    main(nb_users=40, instance=1, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
-    main(nb_users=40, instance=1, gender=1, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
-    main(nb_users=40, instance=1, gender=0, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
-    main(nb_users=40, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
-    main(nb_users=40, instance=1, gender=0, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
+    generate_profiles(nb_users=20, instance=2, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    # generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
+    # generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
+    # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
     #descriptions_from_json('python-scripts/nr_source/descriptions.json')
