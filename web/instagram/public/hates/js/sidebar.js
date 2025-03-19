@@ -23,46 +23,51 @@ function closeSearchOnClickOutside(event) {
 function sidebarSearch() {
     const searchBar = document.querySelector('#sidebar-search-container input');
     const searchResults = document.querySelector('.search-results');
-    if (searchBar.value.lenght <= 3) {
+    
+    if (searchBar.value.length < 3) {
         searchResults.innerHTML = "";
         return;
     }
-    let apiUrl = `${API_BASE_URL}searchInUsers&searchContent=${searchBar.value}`;
+    else {
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            searchResults.innerHTML = "";
-
-            data.forEach(user => {
-                const userElement = document.createElement("div");
-                userElement.classList.add("user-item");
-                userElement.innerHTML = `
-                <div class="profile">
-                    <div class="profile-img">
-                        <a href="${MY_URL}profile/${user.username}"><img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="User Avatar"></a>
-                    </div>
-                    <div class="profile-info">
-                        <a class="nav-link" href="${MY_URL}profile/${user.username}">
-                            <span class="user-name">${user.username}</span>
-                        </a>
-                        <span class="user-full-name">${user.firstname} ${user.lastname} </span>
-                    </div>
-                    <button class="follow-btn">Follow</button>
-                </div>`;
-                searchResults.appendChild(userElement);
-            });
-
-        })
-        .catch(error => console.error("Error fetching users:", error));
+        let apiUrl = `${API_BASE_URL}searchInUsers&searchContent=${searchBar.value}`;
+    
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                searchResults.innerHTML = "";
+    
+                data.forEach(user => {
+                    const userElement = document.createElement("div");
+                    userElement.classList.add("user-item");
+                    userElement.innerHTML = `
+                    <div class="profile">
+                        <div class="profile-img">
+                            <a href="${MY_URL}profile/${user.username}"><img src="${PROFILE_IMG_PATH}${user.profile_picture}" alt="User Avatar"></a>
+                        </div>
+                        <div class="profile-info">
+                            <a class="nav-link" href="${MY_URL}profile/${user.username}">
+                                <span class="user-name">${user.username}</span>
+                            </a>
+                            <span class="user-full-name">${user.firstname} ${user.lastname} </span>
+                        </div>
+                        <button class="follow-btn">Follow</button>
+                    </div>`;
+                    searchResults.appendChild(userElement);
+                });
+    
+            })
+            .catch(error => console.error("Error fetching users:", error));
+    }
 }
-
+    
 function toggleSidebar() {
     const sidebar = document.querySelector(".sidebar");
     const mainContent = document.querySelector(".main-content");
     sidebar.classList.toggle("active");
     mainContent.classList.toggle("active");
 }
+
 
 function navItemManagement() {
     const explorer = document.querySelector('.explorer-icon');
@@ -79,6 +84,7 @@ function navItemManagement() {
         }
     }
 }
+
 
 navItemManagement();
 window.addEventListener('resize', () => {

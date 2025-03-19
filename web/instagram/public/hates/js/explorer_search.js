@@ -3,6 +3,10 @@ function explorerSearch() {
     const searchResults = document.querySelector('.explore-container .search-results');
 
     let apiUrl = `${API_BASE_URL}searchInUsers&searchContent=${searchBar.value}`;
+    if (searchBar.value.length < 3) {
+        searchResults.innerHTML = "";
+        return;
+    }
 
     fetch(apiUrl)
         .then(response => response.json())

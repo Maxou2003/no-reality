@@ -65,7 +65,7 @@ function search() {
     let headerdiv = document.querySelector(".follow-modal-header h2");
     let apiUrl = "";
     
-    if (searchBar.value.length <= 3) {
+    if (searchBar.value.length < 3) {
         follow_modal_body.innerHTML = "";
         return;
     }

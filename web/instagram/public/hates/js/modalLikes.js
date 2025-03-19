@@ -60,7 +60,7 @@ function likesSearch() {
 
     apiUrl = `${API_BASE_URL}searchInLikes&postId=${postId}&searchContent=${searchBar.value}`;
 
-    if (searchBar.value.length <= 3) {
+    if (searchBar.value.length < 3) {
         likes_modal_body.innerHTML = "";
         return;
     }
