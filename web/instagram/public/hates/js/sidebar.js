@@ -36,7 +36,7 @@ function sidebarSearch() {
 
             data.forEach(user => {
                 const userElement = document.createElement("div");
-                userElement.classList.add("follower-item");
+                userElement.classList.add("user-item");
                 userElement.innerHTML = `
                 <div class="profile">
                     <div class="profile-img">
@@ -54,7 +54,7 @@ function sidebarSearch() {
             });
 
         })
-        .catch(error => console.error("Error fetching followers:", error));
+        .catch(error => console.error("Error fetching users:", error));
 }
 
 function toggleSidebar() {

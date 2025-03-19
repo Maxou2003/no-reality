@@ -28,7 +28,8 @@ def download_images_with_api(searchContent, api_key, max, pictures_dir):
             break  # No more photos available
 
         for i, photo in enumerate(photos):
-            image_url = photo['src']['original']
+            image_url = photo['src']['large2x']
+            print(photo['src'])
             try:
                 img_headers = {"User-Agent": "Mozilla/5.0"}
                 img_response = requests.get(image_url, headers=img_headers)

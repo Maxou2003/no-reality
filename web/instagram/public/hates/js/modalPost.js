@@ -1,23 +1,25 @@
+const modalPost = document.getElementById('post-modal');
+const description = modalPost.querySelector(".description");
+const likes = modalPost.querySelectorAll(".likes");
+const like_text = modalPost.querySelectorAll(".like-text");
+const timestamps = modalPost.querySelectorAll(".timestamp");
+const usernames = modalPost.querySelectorAll(".username");
+const profile_img = modalPost.querySelectorAll(".profile-img");
+const modalImage = document.getElementById('modal-image');
+const comments = document.querySelector(".comments");
+
 function openModalPost(postId) {
-    const modalImage = document.getElementById('modal-image');
-    const modal = document.getElementById('post-modal');
-    const description = modal.querySelector(".description");
-    const likes = modal.querySelector(".likes");
-    const liketext = modal.querySelector(".like-text");
-    const timestamp = modal.querySelectorAll(".timestamp");
-    const username = modal.querySelectorAll(".username");
-    const profile_img = modal.querySelectorAll(".profile-img");
-    const nav_links = modal.querySelectorAll(".nav-link");
-    const pp_links = modal.querySelectorAll(".custom-modal-profile-img a");
 
-    modal.style.display = 'flex';
+    const nav_links = modalPost.querySelectorAll(".nav-link");
+    const pp_links = modalPost.querySelectorAll(".custom-modal-profile-img a");
+    const chat_icon = modalPost.querySelector(".chat_icon");
 
-    liketext.setAttribute('onclick', `openModalLikes(${postId})`);
 
-    const comments = document.querySelector(".comments");
-
+    modalPost.style.display = 'flex';
     comments.innerHTML = "";
     const apiUrl = `${API_BASE_URL}getModalPost&postId=${postId}`;
+    chat_icon.setAttribute("onclick", `openModalComments('${postId}') ;`)
+
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -30,19 +32,25 @@ function openModalPost(postId) {
             });
 
             description.innerHTML = descriptionContent;
-
             modalImage.src = POST_IMG_PATH + post.post_picture_path;
 
             pp_links.forEach(link => link.href = MY_URL + "profile/" + post.username);
 
-            likes.innerHTML = post.nb_likes;
-
-            for (i = 0; i < 2; i++) {
-                timestamp[i].innerHTML = post.time_stamp;
-                username[i].innerHTML = post.username;
+            likes.forEach(like => {
+                like.setAttribute('onclick', `openModalLikes(${postId})`);
+                like.innerHTML = post.nb_likes;
+            });
+            like_text.forEach(liketxt => {
+                liketxt.setAttribute('onclick', `openModalLikes(${postId})`);
+            });
+            for (i = 0; i < 3; i++) {
+                usernames[i].innerHTML = post.username;
                 profile_img[i].src = PROFILE_IMG_PATH + post.user_pp_path;
                 nav_links[i].href = MY_URL + "profile/" + post.username;
             }
+            timestamps.forEach(timestamp => timestamp.innerHTML = post.time_stamp);
+
+            const fragment = document.createDocumentFragment();
             data.comments.forEach(comment => {
                 const commentElement = document.createElement("div");
                 let showResponseBtn = "";
@@ -68,58 +76,48 @@ function openModalPost(postId) {
                     </div>
                     <div class="comment-responses" commentid="${comment.comment_id}"></div>
                     `;
-                comments.appendChild(commentElement);
 
+                fragment.appendChild(commentElement);
             });
+            comments.appendChild(fragment);
             responses();
         })
         .catch(error => console.error("Error fetching post:", error));
     noScrollOutside();
     escapeModal();
     document.addEventListener('click', closeModalPostOnClickOutside);
+
 }
 
 function closeModalPostOnClickOutside(event) {
 
-    const modal = document.querySelector('.custom-modal-content');
+    const modalcontent = document.querySelector('.custom-modal-content');
 
-    if (!modal.contains(event.target) && !event.target.matches(".post img") && !event.target.matches('ion-icon[name="chatbubble-outline"] ') && !event.target.matches(".post_comments span") && !event.target.matches(".likes-modal-content")) {
-        document.removeEventListener('click', closeModalPostOnClickOutside);
-        (event.target);
+    if (!modalcontent.contains(event.target) && !event.target.matches(".post img") && !event.target.matches('ion-icon[name="chatbubble-outline"] ') && !event.target.matches(".post_comments span") && !event.target.matches(".likes-modal-content") && !event.target.matches(".likes-modal-content span") && !event.target.matches(".likes-modal-content img") && !event.target.matches(".comments-modal-content")) {
         closeModalPost();
     }
 }
 
-
 function responses() {
-
-    const commentResponses = document.querySelectorAll(".comment-responses");
-    const viewResponsesBtn = document.querySelectorAll(".show-response-btn");
-
-    for (let i = 0; i < viewResponsesBtn.length; i++) {
-        viewResponsesBtn[i].addEventListener("click", () => {
-
-            const buttonCommentId = viewResponsesBtn[i].getAttribute('commentid');
-
-            const targetResponse = Array.from(commentResponses).find(element =>
-                element.getAttribute('commentid') === buttonCommentId
-            );
-
-            if (targetResponse) {
-
-                if (targetResponse.style.display === 'flex') {
-                    targetResponse.style.display = 'none';
-                    viewResponsesBtn[i].innerHTML = "View all responses";
-
-                } else {
-                    if (targetResponse.innerHTML == "") {
-                        getResponses(targetResponse);
-                    }
-                    targetResponse.style.display = 'flex';
-                    viewResponsesBtn[i].innerHTML = "Hide all responses";
+    comments.addEventListener("click", responsesCallback);
+}
+function responsesCallback(event) {
+    const button = event.target.closest(".show-response-btn");
+    if (button) {
+        const buttonCommentId = button.getAttribute('commentid');
+        const targetResponse = document.querySelector(`.comment-responses[commentid="${buttonCommentId}"]`);
+        if (targetResponse) {
+            if (targetResponse.style.display === 'flex') {
+                targetResponse.style.display = 'none';
+                button.innerHTML = "View all responses";
+            } else {
+                if (targetResponse.innerHTML == "") {
+                    getResponses(targetResponse);
                 }
+                targetResponse.style.display = 'flex';
+                button.innerHTML = "Hide all responses";
             }
-        });
+        }
     }
 }
 
@@ -161,19 +159,18 @@ function getResponses(commentResponses) {
 
 
 function escapeModal() {
-    addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            closeModalPost();
-        }
-    });
+    document.addEventListener('keydown', escapeModalCallBack);
+}
+function escapeModalCallBack(event) {
+    if (event.key === 'Escape') {
+        closeModalPost();
+    }
 }
 
 function closeModalPost() {
-    if (document.getElementById('post-modal-likes').style.display === 'flex') {
-        document.addEventListener('click', closeModalPostOnClickOutside);
+    if (document.getElementById('post-modal-likes').style.display === 'flex' || document.getElementById('post-modal-comments').style.display === 'flex') {
         return;
     }
-    (document.getElementById('post-modal-likes').style.display);
     const heartButtons = document.querySelectorAll('.heart_icon');
     for (let i = 0; i < heartButtons.length; i++) {
         const heartIcon = heartButtons[i].querySelector("ion-icon");
@@ -183,15 +180,13 @@ function closeModalPost() {
         heartButtons[i].className = 'heart_icon';
     }
 
-    const modal = document.getElementById('post-modal');
-    modal.style.display = 'none';
-    document.getElementById('modal-image').src = '';
-    modal.querySelectorAll(".profile-img").forEach(img => img.src = '');
-    modal.querySelector(".description").innerHTML = '';
-    document.querySelector(".comments").innerHTML = '';
-    modal.querySelector(".likes").innerHTML = '';
-    const timestamps = modal.querySelectorAll(".timestamp");
-    const usernames = modal.querySelectorAll(".username");
+    modalPost.style.display = 'none';
+    modalImage.src = '';
+    profile_img.forEach(img => img.src = '');
+    modalPost.querySelector(".description").innerHTML = '';
+
+    comments.innerHTML = '';
+    likes.forEach(like => like.innerHTML = '');
 
     const minLength = Math.min(timestamps.length, usernames.length, 2);
     for (let i = 0; i < minLength; i++) {
@@ -200,6 +195,9 @@ function closeModalPost() {
     }
 
     scrollOutside();
+    document.removeEventListener('click', closeModalPostOnClickOutside);
+    document.removeEventListener('keydown', escapeModalCallBack);
+    comments.removeEventListener("click", responsesCallback);
 }
 
 function noScrollOutside() {

@@ -6,6 +6,7 @@
 {% block head %}
 	<link rel="stylesheet" href="{{URL}}css/explore.css">
 	<script src="{{ URL }}js/dynamic_explorer.js"></script>
+	<script src="{{ URL }}js/explorer_search.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +14,26 @@
 			<!-- Post gallery-->
         <div class="explore-container">
             <div class="explorer-header">
-                <span class="expl-top"> <strong> Uncustomized </strong></span>	
+                <span class="expl-top"> <strong> Not personalized </strong></span>	
+				<div class="search-section">
+					<div class="search-header"> 
+						<div class="container">
+							<div class="row justify-content-center">
+							<ion-icon name="arrow-back-outline"class="arrow" onclick="exitExplorerSearch()"></ion-icon>
+								<div class="col-12">
+									<div class="search-container" id="explorer-search-container">
+										<input type="text" class="form-control search-input"
+											placeholder="Search..." onkeyup="explorerSearch();" onclick="toggleExplorerSearch()" name="explorer-search">
+										<i class="fas fa-search search-icon"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="search-results">
+					</div>
+				</div>
             </div>
 			<div class="explore-posts">
 			
