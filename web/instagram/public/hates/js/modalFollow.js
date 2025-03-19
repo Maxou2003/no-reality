@@ -13,6 +13,7 @@ function openModalFollow(followers) {
         headerdiv.innerHTML = "Followers";
     }
 
+
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -63,7 +64,11 @@ function search() {
     const userId = followersBtn.getAttribute("data-user-id");
     let headerdiv = document.querySelector(".follow-modal-header h2");
     let apiUrl = "";
-
+    
+    if (searchBar.value.length <= 3) {
+        follow_modal_body.innerHTML = "";
+        return;
+    }
 
     if (headerdiv.innerHTML == "Followers") {
         if (searchBar.value === "") {

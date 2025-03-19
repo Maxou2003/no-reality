@@ -23,7 +23,10 @@ function closeSearchOnClickOutside(event) {
 function sidebarSearch() {
     const searchBar = document.querySelector('#sidebar-search-container input');
     const searchResults = document.querySelector('.search-results');
-
+    if (searchBar.value.lenght <= 3) {
+        searchResults.innerHTML = "";
+        return;
+    }
     let apiUrl = `${API_BASE_URL}searchInUsers&searchContent=${searchBar.value}`;
 
     fetch(apiUrl)
