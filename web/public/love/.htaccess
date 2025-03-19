@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect all requests to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^home/?$ index.php?p=home/home
+    RewriteRule ^profile/([a-zA-Z0-9]*)$ index.php?p=profile/main&username=$1
+    RewriteRule ^explore/?$ index.php?p=explore/explore
+</IfModule>
