@@ -13,7 +13,7 @@ class PostRepository
     public function getPosts($limit, $offset): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT post_id, instance_id, user_firstname, user_lastname, post_content, u.user_id, user_pp_path, post_picture_path, time_stamp, nb_comments, nb_likes, nb_shares FROM posts p join users u on p.user_id=u.user_id Where instance_id=:instance_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
+            'SELECT post_id, instance_id, user_firstname, user_lastname, post_content, u.user_id, u.user_slug, user_pp_path, post_picture_path, time_stamp, nb_comments, nb_likes, nb_shares FROM posts p join users u on p.user_id=u.user_id Where instance_id=:instance_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
         );
         $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -27,6 +27,7 @@ class PostRepository
             $post->user_firstname = $row['user_firstname'];
             $post->user_lastname = $row['user_lastname'];
             $post->user_id = $row['user_id'];
+            $post->user_slug = $row['user_slug'];
             $post->instance_id = $row['instance_id'];
             $post->user_pp_path = $row['user_pp_path'];
             $post->nb_likes = $row['nb_likes'];

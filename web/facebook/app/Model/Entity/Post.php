@@ -15,6 +15,7 @@ class Post implements JsonSerializable
     public string $user_firstname;
     public string $user_lastname;
     public string $user_pp_path;
+    public string $user_slug;
     public string $post_picture_path;
     public DateTime $time_stamp;
     public int $nb_comments;
@@ -32,6 +33,7 @@ class Post implements JsonSerializable
             "firstname" => $this->user_firstname,
             "lastname" => $this->user_lastname,
             "user_pp_path" => $this->user_pp_path,
+            "user_slug" => $this->$user_slug,
             "post_picture_path" => $this->post_picture_path,
             "time_stamp" => $this->time_stamp->format('Y-m-d H:i'),
             "nb_comments" => $this->nb_comments,
