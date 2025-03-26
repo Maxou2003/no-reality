@@ -1,0 +1,97 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{url}}css/home.css">
+ 
+   
+
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'url': url} %}
+	
+	<div class="container">
+        <!-- todo: Left SIdeBar Start -->
+        <div class="left_sidebar">
+            <div class="important_link">
+                <a href="#"><img src="images/news.png" alt="news">Latest News</a>
+                <a href="#"><img src="images/friends.png" alt="Friends">Friends</a>
+                <a href="#"><i class='fas fa-users'></i>Group</a>
+                <a href="#"><img src="images/marketplace.png" alt="MarketpLace">MarketpLace</a>
+                <a href="#"><img src="images/watch.png" alt="Watch">Watch</a>
+                <a href="#">See More</a>
+            </div>
+            <div class="shortcut_links">
+                <p>Your Shortcut</p>
+                <a href=""><img src="images/shortcut-1.png">Web Devolopers</a>
+                <a href=""><img src="images/shortcut-2.png">Web Design</a>
+                <a href=""><img src="images/shortcut-3.png">Graphic Desing</a>
+                <a href=""><img src="images/shortcut-4.png">Front End Devloper</a>
+            </div>
+        </div>
+
+        <div class="main_content">
+
+        {%for post in posts %}
+            <div class="post-container">
+                <div class="post-top-row">
+                    <div class="user-profile">
+                        <img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Pro We Are Pro You Now">
+                        <div class="post-data">
+                            <span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span>
+                            <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
+                        </div>
+                    </div>
+                    <div class="post-setting">
+                        <span><i class="fa fa-ellipsis-h"></i></span>
+                        <span class="close">&times;</span>
+                    </div>
+                </div>
+                <p class="post_text">{{post.post_content}}</p>
+                <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                <div class="post-bottom-row">
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{url}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
+                        <span>J'aime</span>
+                    </div>
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{url}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
+                        <span>Commenter</span>
+                    </div>
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{url}}img/svg-icons/people-circle-outline.svg"></ion-icon>
+                        <span>Envoyer</span>
+                    </div>
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{url}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
+                        <span>Partager</span>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+
+        <div class="right-sidebar">
+            <div class="sider_bar_title">
+                <span>Suggestion</span>
+            </div>
+            <div class="online_list">
+                <div class="online_icon">
+                    <img src="images/member-1.png" alt="">
+                </div>
+                <p>Kashan Adnan</p>
+            </div>
+            <div class="online_list">
+                <div class="online_icon">
+                    <img src="images/member-2.png" alt="">
+                </div>
+                <p>Izhan Farhan</p>
+            </div>
+            <div class="online_list">
+                <div class="online_icon">
+                    <img src="images/member-3.png" alt="">
+                </div>
+                <p>Kamran Sheikh</p>
+            </div>
+
+{% endblock %}
