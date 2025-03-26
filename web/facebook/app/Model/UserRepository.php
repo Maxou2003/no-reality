@@ -13,7 +13,7 @@ class UserRepository
     public function getSuggestions(): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT DISTINCT user_id, user_firstname, user_lastname, user_description, user_pp_path, user_location, user_work, user_school, user_banner_picture_path FROM users WHERE user_id in (
+            'SELECT DISTINCT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school, user_banner_picture_path FROM users WHERE user_id in (
             SELECT user_id 
         FROM userlinkinstance 
         WHERE instance_id =:instance_id
@@ -30,6 +30,7 @@ class UserRepository
             $user->user_firstname = $row['user_firstname'];
             $user->user_lastname = $row['user_lastname'];
             $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
             $user->user_location = $row['user_location'];
             $user->user_work = $row['user_work'];
             $user->user_school = $row['user_school'];
@@ -43,7 +44,7 @@ class UserRepository
     public function getPosts($id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT post_id, user_firstname, user_lastname, u.user_id, instance_id, user_pp_path, nb_likes, nb_shares, time_stamp, post_picture_path, post_content, nb_comments FROM posts p join users u on p.user_id=u.user_id  WHERE u.user_id = :id and instance_id=:instance_id ORDER BY time_stamp DESC'
+            'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, nb_shares, time_stamp, post_picture_path, post_content, nb_comments FROM posts p join users u on p.user_id=u.user_id  WHERE u.user_id = :id and instance_id=:instance_id ORDER BY time_stamp DESC'
         );
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -56,6 +57,7 @@ class UserRepository
             $post->user_firstname = $row['user_firstname'];
             $post->user_lastname = $row['user_lastname'];
             $post->user_id = $row['user_id'];
+            $post->user_slug = $row['user_slug'];
             $post->instance_id = $row['instance_id'];
             $post->user_pp_path = $row['user_pp_path'];
             $post->nb_likes = $row['nb_likes'];
@@ -90,7 +92,7 @@ class UserRepository
     public function getUser($id): User
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_id, user_firstname, user_lastname, user_pp_path, user_description, user_banner_picture_path, user_location, user_school, user_work FROM users WHERE user_id = :id  and user_id in(
+            'SELECT user_id, user_firstname, user_lastname, user_pp_path, user_description, user_slug, user_banner_picture_path, user_location, user_school, user_work FROM users WHERE user_id = :id  and user_id in(
                         SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id)'
         );
 
@@ -106,6 +108,7 @@ class UserRepository
         $user->user_lastname = $row['user_lastname'];
         $user->user_pp_path = $row['user_pp_path'];
         $user->user_description = $row['user_description'];
+        $user->user_slug = $row['user_slug'];
         $user->user_banner_picture_path = $row['user_banner_picture_path'];
         $user->user_location = $row['user_location'];
         $user->user_school = $row['user_school'];

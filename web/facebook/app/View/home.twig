@@ -36,9 +36,9 @@
             <div class="post-container">
                 <div class="post-top-row">
                     <div class="user-profile">
-                        <img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Pro We Are Pro You Now">
+                        <a href="{{URL}}profile/{{post.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Avatar"></a>
                         <div class="post-data">
-                            <span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span>
+                            <a href="{{URL}}profile/{{post.user_slug}}"><span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span></a>
                             <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
                         </div>
                     </div>

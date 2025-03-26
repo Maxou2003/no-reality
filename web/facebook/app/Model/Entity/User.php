@@ -11,6 +11,7 @@ class User implements JsonSerializable
     public string $user_lastname;
     public string $user_pp_path;
     public string $user_description;
+    public string $user_slug;
     public string $user_location;
     public string $user_work;
     public string $user_school;
@@ -25,6 +26,7 @@ class User implements JsonSerializable
             'firstname' => $this->user_firstname,
             'lastname' => $this->user_lastname,
             'description' => $this->user_description,
+            'slug' => $this->$user_slug,
             'location' => $this->user_location,
             'work' => $this->user_work,
             'school' => $this->user_school,
