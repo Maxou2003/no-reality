@@ -281,13 +281,14 @@ body {
     width: fit-content;
 }
 
-.important_link a img {
+
+.important_link a :last-child {
+    color: #1876f2;
     width: 25px;
     margin-right: 15px;
-}
-
-.important_link a:last-child {
-    color: #1876f2;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .important_link {
@@ -354,6 +355,8 @@ body {
 .online_list .online_icon img {
     width: 40px;
     border-radius: 50%;
+    aspect-ratio: 1;
+    object-fit: cover;
 }
 
 .online_list .online_icon {
@@ -377,6 +380,8 @@ body {
     width: 45px;
     border-radius: 50%;
     margin-right: 10px;
+    aspect-ratio: 1;
+    object-fit: cover;
 }
 
 

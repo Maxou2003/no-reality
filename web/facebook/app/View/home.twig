@@ -14,11 +14,11 @@
         <!-- todo: Left SIdeBar Start -->
         <div class="left_sidebar">
             <div class="important_link">
-                <a href="#"><img src="images/news.png" alt="news">Latest News</a>
-                <a href="#"><img src="images/friends.png" alt="Friends">Friends</a>
+                <a href="#"><ion-icon src="{{url}}img/svg-icons/newspaper.svg"></ion-icon>Latest News</a>
+                <a href="#"><i class='fas fa-user'></i>Friends</a>
                 <a href="#"><i class='fas fa-users'></i>Group</a>
-                <a href="#"><img src="images/marketplace.png" alt="MarketpLace">MarketpLace</a>
-                <a href="#"><img src="images/watch.png" alt="Watch">Watch</a>
+                <a href="#"><ion-icon src="{{url}}img/svg-icons/business.svg"></ion-icon>MarketpLace</a>
+                <a href="#"><ion-icon src="{{url}}img/svg-icons/tv.svg"></ion-icon>Watch</a> 
                 <a href="#">See More</a>
             </div>
             <div class="shortcut_links">
@@ -68,30 +68,20 @@
                     </div>
                 </div>
             </div>
-            {%endfor%}
+        {%endfor%}
         </div>
 
         <div class="right-sidebar">
             <div class="sider_bar_title">
-                <span>Suggestion</span>
+                <span>Suggestions</span>
             </div>
-            <div class="online_list">
-                <div class="online_icon">
-                    <img src="images/member-1.png" alt="">
+            {%for suggestion in suggestions %}
+                <div class="online_list">
+                    <div class="online_icon">
+                        <img src="{{PROFILE_IMG_PATH}}{{suggestion.user_pp_path}}" alt="">
+                    </div>
+                    <p>{{suggestion.user_firstname}} {{suggestion.user_lastname}}</p>
                 </div>
-                <p>Kashan Adnan</p>
-            </div>
-            <div class="online_list">
-                <div class="online_icon">
-                    <img src="images/member-2.png" alt="">
-                </div>
-                <p>Izhan Farhan</p>
-            </div>
-            <div class="online_list">
-                <div class="online_icon">
-                    <img src="images/member-3.png" alt="">
-                </div>
-                <p>Kamran Sheikh</p>
-            </div>
+            {%endfor%}
 
 {% endblock %}
