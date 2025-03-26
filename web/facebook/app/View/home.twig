@@ -77,10 +77,12 @@
             </div>
             {%for suggestion in suggestions %}
                 <div class="online_list">
-                    <div class="online_icon">
-                        <img src="{{PROFILE_IMG_PATH}}{{suggestion.user_pp_path}}" alt="">
-                    </div>
-                    <p>{{suggestion.user_firstname}} {{suggestion.user_lastname}}</p>
+                    <a href="{{URL}}profile/{{suggestion.user_slug}}" >
+                        <div class="online_icon">
+                            <img src="{{PROFILE_IMG_PATH}}{{suggestion.user_pp_path}}" alt="">
+                        </div>
+                        <p>{{suggestion.user_firstname}} {{suggestion.user_lastname}}</p>
+                    </a>
                 </div>
             {%endfor%}
 

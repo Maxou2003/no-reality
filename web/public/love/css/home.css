@@ -352,6 +352,11 @@ body {
     margin-bottom: 20px;
 }
 
+.online_list a {
+    display: flex;
+    align-items: center;
+}
+
 .online_list .online_icon img {
     width: 40px;
     border-radius: 50%;
