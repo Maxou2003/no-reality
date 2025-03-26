@@ -17,15 +17,18 @@ nav {
 }
 
 .navbar-links {
+    width: 60%;
     text-align: center;
     justify-content: center;
     display: flex;
     flex-direction: row;
+    column-gap: 2px;
 }
 
 .navbar-item {
     display: flex;
     width: 100px;
+    height: 100%;
     align-items: center;
     justify-content: center;
     color: #1876f2;
@@ -33,14 +36,22 @@ nav {
     border-bottom: 3px solid #1876f2;
     cursor: pointer;
     padding-bottom: 12px;
+    padding-top: 10px;
+}
+
+.navbar-item:hover {
+    color: #1876f2;
+    border: 1px solid #efefef;
+    border-bottom: 3px solid #1876f2;
+    background-color: #f1efef;
 }
 
 .navbar-item .fa {
-    font-size: 35px;
+    width: 50px;
 }
 
 .navbar-item .fas {
-    font-size: 35px;
+    width: 50px;
 }
 
 .nav_left,
@@ -63,12 +74,34 @@ nav {
     margin: 0 15px;
 }
 
-.nav_user_icon img {
+.nav_user_icon ion-icon {
     width: 40px;
-    border-radius: 50%;
+    height: 40px;
+    color: #1876f2;
     cursor: pointer;
 }
 
-.nav_user_icon {
-    margin-left: 30px;
+.nav_right .online_icon {
+    position: relative;
 }
+
+.nav_right .online_icon::after {
+    content: ' ';
+    width: 7px;
+    height: 7px;
+    background-color: #41db51;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.nav_right .online_icon::after {
+    top: unset;
+    bottom: 5px;
+}
+
+/* .nav_user_icon {
+    margin-left: 30px;
+} */
