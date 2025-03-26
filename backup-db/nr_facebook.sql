@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 20 mars 2025 à 19:45
+-- Généré le : mer. 26 mars 2025 à 14:39
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -102,6 +102,13 @@ CREATE TABLE `instances` (
   `instance_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `instances`
+--
+
+INSERT INTO `instances` (`instance_id`, `instance_name`) VALUES
+(1, 'love');
+
 -- --------------------------------------------------------
 
 --
@@ -123,7 +130,7 @@ CREATE TABLE `likes` (
 CREATE TABLE `posts` (
   `post_id` int(11) NOT NULL,
   `instance_id` int(11) NOT NULL,
-  `post_description` varchar(500) NOT NULL,
+  `post_content` varchar(500) NOT NULL,
   `user_id` int(11) NOT NULL,
   `post_picture_path` varchar(255) NOT NULL,
   `time_stamp` datetime NOT NULL,
@@ -131,6 +138,13 @@ CREATE TABLE `posts` (
   `nb_likes` int(11) NOT NULL DEFAULT 0,
   `nb_shares` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `posts`
+--
+
+INSERT INTO `posts` (`post_id`, `instance_id`, `post_content`, `user_id`, `post_picture_path`, `time_stamp`, `nb_comments`, `nb_likes`, `nb_shares`) VALUES
+(1, 1, 'Trop de love tue le love', 1, 'art_1_1.jpg', '2025-03-26 11:40:12', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -157,6 +171,13 @@ CREATE TABLE `userlinkinstance` (
   `instance_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `userlinkinstance`
+--
+
+INSERT INTO `userlinkinstance` (`link_id`, `user_id`, `instance_id`) VALUES
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -167,13 +188,20 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `user_firstname` varchar(50) NOT NULL,
   `user_lastname` varchar(50) NOT NULL,
-  `user_pp` varchar(255) NOT NULL,
+  `user_pp_path` varchar(255) NOT NULL,
   `user_description` varchar(500) NOT NULL,
   `user_location` varchar(255) NOT NULL,
   `user_work` varchar(255) NOT NULL,
   `user_school` varchar(255) NOT NULL,
   `user_banner_picture_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`) VALUES
+(1, 'Maxime', 'Lambert', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', '');
 
 --
 -- Index pour les tables déchargées
@@ -220,7 +248,8 @@ ALTER TABLE `group_members`
 -- Index pour la table `instances`
 --
 ALTER TABLE `instances`
-  ADD PRIMARY KEY (`instance_id`);
+  ADD PRIMARY KEY (`instance_id`),
+  ADD UNIQUE KEY `instance_name` (`instance_name`);
 
 --
 -- Index pour la table `likes`
@@ -251,7 +280,8 @@ ALTER TABLE `shares`
 -- Index pour la table `userlinkinstance`
 --
 ALTER TABLE `userlinkinstance`
-  ADD KEY `FK_UserLinkInstanceUserId` (`user_id`),
+  ADD PRIMARY KEY (`link_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`instance_id`),
   ADD KEY `FK_UserLinkInstanceInstanceId` (`instance_id`);
 
 --
@@ -298,7 +328,7 @@ ALTER TABLE `group_members`
 -- AUTO_INCREMENT pour la table `instances`
 --
 ALTER TABLE `instances`
-  MODIFY `instance_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `instance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `likes`
@@ -310,7 +340,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `shares`
@@ -319,10 +349,16 @@ ALTER TABLE `shares`
   MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `userlinkinstance`
+--
+ALTER TABLE `userlinkinstance`
+  MODIFY `link_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
