@@ -20,35 +20,39 @@ define('URL', "/no-reality/web/public/" . $uri . "/");
 define('POST_IMG_PATH', "/no-reality/web/public/" . $uri . "/img/post_img/");
 define('PROFILE_IMG_PATH', "/no-reality/web/profile_pictures/");
 
+if (instance_exist(get_instanceId($uri)) == false) {
+    http_response_code(404);
+    echo "Error 404: Instance not found.";
+    exit();
+} else {
+    $_SESSION['instanceId'] = get_instanceId($uri);
 
-$_SESSION['instanceId'] = get_instanceId($uri);
+    $controllerName = ucfirst($urlParts[0]) . 'Controller';
+    $actionName = isset($urlParts[1]) ? $urlParts[1] : 'home';
 
 
-$controllerName = ucfirst($urlParts[0]) . 'Controller';
-$actionName = isset($urlParts[1]) ? $urlParts[1] : 'home';
+    // Full path to the controller file
+    $controllerPath = '../../' . $platform . '/app/Controller/' . $controllerName . '.php';
 
+    if (file_exists($controllerPath)) {
+        require_once $controllerPath;
+        $controllerClass = '\\App\\Controller\\' . $controllerName;
 
-// Full path to the controller file
-$controllerPath = '../../' . $platform . '/app/Controller/' . $controllerName . '.php';
+        if (class_exists($controllerClass)) {
+            $controller = new $controllerClass();
 
-if (file_exists($controllerPath)) {
-    require_once $controllerPath;
-    $controllerClass = '\\App\\Controller\\' . $controllerName;
-
-    if (class_exists($controllerClass)) {
-        $controller = new $controllerClass();
-
-        if (method_exists($controller, $actionName)) {
-            $controller->$actionName(); // Call the method
+            if (method_exists($controller, $actionName)) {
+                $controller->$actionName(); // Call the method
+            } else {
+                http_response_code(404);
+                echo "Error 404: Method '$actionName' not found in $controllerClass.";
+            }
         } else {
             http_response_code(404);
-            echo "Error 404: Method '$actionName' not found in $controllerClass.";
+            echo "Error 404: Class '$controllerClass' not found.";
         }
     } else {
         http_response_code(404);
-        echo "Error 404: Class '$controllerClass' not found.";
+        echo "Error 404: Controller '$controllerName' not found.";
     }
-} else {
-    http_response_code(404);
-    echo "Error 404: Controller '$controllerName' not found.";
 }
