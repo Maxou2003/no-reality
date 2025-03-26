@@ -29,6 +29,10 @@ body {
     flex-direction: column;
 }
 
+.post-data a {
+    text-decoration: none;
+}
+
 .post-data-name {
     margin-bottom: 2px;
     font-weight: 500;
@@ -355,6 +359,8 @@ body {
 .online_list a {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: #626262;
 }
 
 .online_list .online_icon img {
