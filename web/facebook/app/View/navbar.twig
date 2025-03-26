@@ -9,57 +9,17 @@
             </div>
         </div>
         <div class="navbar-links">
-            <a href="" class="navbar-item">
+            <a href="{{url}}" class="navbar-item">
                 <i class="fa fa-home"></i>
             </a>
-            <a href="" class="navbar-item">
+            {# TO DO: CHANGE URL TO BE GROUP URL  #}
+            <a href="{{url}}" class="navbar-item">
                 <i class='fas fa-users'></i>
             </a>
         </div>
         <div class="nav_right">         
-            <div class="nav_user_icon online_icon" onclick="settingsMenuToggle()">
-                <img src="images/profile-pic.png" alt="profile">
+            <div class="nav_user_icon online_icon">
+                 <a href="{{url}}" ><ion-icon src="{{url}}img/svg-icons/person-circle-sharp.svg"></ion-icon></a>
             </div>   
-        </div>
-        <div class="setting_menu">
-
-            <div id="dark_btn" class="dark_btn_on">
-                <span></span>
-            </div>
-
-            <div class="settings_menu_inner">
-                <div class="user_profile">
-                    <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
-                    <div>
-                        <p>Kashan Adnan</p>
-                        <a href="./user.html">See Your Profile</a>
-                    </div>
-                </div>
-                <hr />
-                <div class="user_profile">
-                    <img src="images/feedback.png" alt="">
-                    <div>
-                        <p>Give Feedback</p>
-                        <a href="#">Help Us To improve new design</a>
-                    </div>
-                </div>
-                <hr />
-                <div class="setting_link">
-                    <img src="images/setting.png" class="setting_icon" alt="">
-                    <a href="#">Setting & Privacy <img src="images/arrow.png" alt="" width="10px"></a>
-                </div>
-                <div class="setting_link">
-                    <img src="images/help.png" class="setting_icon" alt="">
-                    <a href="#">Help & Support <img src="images/arrow.png" alt="" width="10px"></a>
-                </div>
-                <div class="setting_link">
-                    <img src="images/display.png" class="setting_icon" alt="">
-                    <a href="#">Dispaly & Accesiblity <img src="images/arrow.png" alt="" width="10px"></a>
-                </div>
-                <div class="setting_link">
-                    <img src="images/logout.png" class="setting_icon" alt="">
-                    <a href="#">Logout<img src="images/arrow.png" alt="" width="10px"></a>
-                </div>
-            </div>
         </div>
     </nav>
