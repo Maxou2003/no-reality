@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'navbar.twig' with {'url': URL} %}
+    {% include 'navbar.twig' with {'URL': URL} %}
 	<div class="profile-top">
         <div class="profile-cover">
             <img src="{{user.user_banner_picture_path}}" alt="cover" class="img-cover">
@@ -123,19 +123,19 @@
                 <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
                 <div class="post-bottom-row">
                     <div class="post-bottom-row-item">
-                        <ion-icon src="{{url}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
+                        <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
                         <span>J'aime</span>
                     </div>
                     <div class="post-bottom-row-item">
-                        <ion-icon src="{{url}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
+                        <ion-icon src="{{URL}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
                         <span>Commenter</span>
                     </div>
                     <div class="post-bottom-row-item">
-                        <ion-icon src="{{url}}img/svg-icons/people-circle-outline.svg"></ion-icon>
+                        <ion-icon src="{{URL}}img/svg-icons/people-circle-outline.svg"></ion-icon>
                         <span>Envoyer</span>
                     </div>
                     <div class="post-bottom-row-item">
-                        <ion-icon src="{{url}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
+                        <ion-icon src="{{URL}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
                         <span>Partager</span>
                     </div>
                 </div>

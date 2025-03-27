@@ -31,7 +31,6 @@ class ProfileController
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
             $photos = $UserRepository->getPhotos($user_id);
-            // $followers_stats = $UserRepository->getUserFollowersStats($user_id);
 
             $template = $this->twig->load('profile.twig');
 

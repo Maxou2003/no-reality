@@ -29,14 +29,19 @@ nav {
     display: flex;
     width: 100px;
     height: 100%;
+    color: #000000c2;
     align-items: center;
     justify-content: center;
-    color: #1876f2;
     text-decoration: none;
-    border-bottom: 3px solid #1876f2;
     cursor: pointer;
     padding-bottom: 12px;
     padding-top: 10px;
+}
+
+
+.navbar-links .active {
+    color: #1876f2;
+    border-bottom: 3px solid #1876f2;
 }
 
 .navbar-item:hover {
