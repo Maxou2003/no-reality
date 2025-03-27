@@ -1,7 +1,7 @@
 var splitted_location = window.location.href.split("/").filter((val) => val != "");
 var current_location = splitted_location[splitted_location.length - 1];
 
-if (current_location == "" || current_location == "home") {
+if (current_location == "love" || current_location == "home") {
     document.getElementById("home").classList.add("active");
     document.getElementById("groups").classList.remove("active");
 }
