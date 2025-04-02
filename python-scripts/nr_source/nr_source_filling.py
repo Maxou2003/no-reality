@@ -1,8 +1,9 @@
-from get_names import get_names
-from image_scraping import download_images
 from deepface import DeepFace
 import mysql.connector
-
+import sys
+sys.path.insert(0, 'python-scripts')
+from nr_source.get_names import get_names
+from nr_source.image_scraping import download_images
 
 def create_table():
     conn = mysql.connector.connect(
@@ -58,7 +59,7 @@ def create_persons(nb, binary_gender, ethnicity, path):
     country_code_surname = "FR"
     if binary_gender == 0:
         gender = 'M'
-    else:
+    elif binary_gender == 1:
         gender = 'F'
     names = get_names(nb+1, country_code_forename, country_code_surname, gender)
     temp_path = f"{path}/{gender}/{ethnicity}"
@@ -79,6 +80,8 @@ def create_persons(nb, binary_gender, ethnicity, path):
 
 
 if __name__ == '__main__':
+    from get_names import get_names
+    from image_scraping import download_images
     """
     create_persons(50, 0, 0, "web/profile_pictures")
     create_persons(50, 1, 0, "web/profile_pictures")

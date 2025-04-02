@@ -1,6 +1,10 @@
 import mysql.connector
 import json
-from create_descriptions import create_json
+import sys
+sys.path.insert(0, 'python-scripts')
+from nr_source.nr_source_filling import create_persons
+from nr_instagram.profiles.create_descriptions import create_json
+
 
 
 def create_table():
@@ -111,28 +115,34 @@ def fill_instance(instance, users):
             instance_id
         ) VALUES (%s, %s)
     '''
-
     for user in users:
-        user_id = user  
-        cursor.execute(insert, (user_id, instance))
+        try: 
+            user_id = user  
+            cursor.execute(insert, (user_id, instance))
+        except mysql.connector.Error as e:
+            print(f"Erreur lors de l'insertion dans la table userlinkinstance : {e}")
     
     conn.commit()
     conn.close()
+    
 
-def generate_new_profiles(nb_users, instance, gender, ethnicity, json_file_path):
+def generate_new_profiles(nb_users, last_user, instance, gender, ethnicity, json_file_path):
     """
     Get all infos from nr_source, create a json file with the usernames and descriptions, fill the table nr_instagram.users with the users informations\n
     returns: a list of the user name, surmane, pp_path, username, description\n
     format: [[forename, surname, age, image_path, username, description], [forename, surname, image_path, username, description], ...]
     """
-    users_all_infos = get_all_info(gender, ethnicity)[0:nb_users]
+    users_all_infos = get_all_info(gender, ethnicity)[last_user:last_user + nb_users]
     print(f"All users infos retrieved: {len(users_all_infos)}")
     if len(users_all_infos) < nb_users:
-        print(f" !!!! Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés.")
+        print(f" !!!! Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés. Création de nouveaux {nb_users - len(users_all_infos)}utilisateurs...")
+        create_persons(nb_users - len(users_all_infos), gender, ethnicity, "web/profile_pictures")
+        users_all_infos = get_all_info(gender, ethnicity)[last_user:last_user + nb_users]
     users = []
     for i in range(len(users_all_infos)):
         users.append(users_all_infos[i][0:3])
     create_json(json_file_path, users)
+    print(f"Json file created with {len(users)} users")
     user_names_descriptions = descriptions_from_json(json_file_path)
     final_list = []
     for i in range(len(user_names_descriptions)):
@@ -165,22 +175,25 @@ def generate_profiles(nb_users, instance, gender, ethnicity, json_file_path):
     '''
     cursor.execute(sql, (f"{pp_path}/%",))
     result = cursor.fetchall()
-    print(result)
     if len(result) >= nb_users:
-        users_list = []
         print(f"Enough users in the database")
-        users = result[0:nb_users]
-        for user in users:
-            users_list.append(user[0])
-        fill_instance(instance, users_list)
     else:
         print(f"Not enough users in the database, {len(result)} found")
-        print(f"Generating {nb_users - len(result)} new profiles")
+        print(f"Generating {nb_users - len(result)} new profiles...")
+        generate_new_profiles(nb_users - len(result), len(result), instance,gender,ethnicity,json_file_path)
+        cursor.execute(sql, (f"{pp_path}/%",))
+        result = cursor.fetchall()
+    users_list = []
+    users = result[0:nb_users]
+    for user in users:
+        users_list.append(user[0])
+    fill_instance(instance, users_list)
         
 
 if __name__ == '__main__':
-    generate_profiles(nb_users=20, instance=2, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
-    # generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    
+    #generate_profiles(nb_users=20, instance=2, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')

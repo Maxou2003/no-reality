@@ -117,13 +117,29 @@
 }
 
 .profile-link-item {
-    display: flex;
+    display: block;
     text-align: center;
     align-items: center;
-    color: #1876f2;
-    border-bottom: 3px solid #1876f2;
     cursor: pointer;
     padding: 10px 10px 12px 10px;
+}
+
+.profile-links-items a{
+    color: black;
+    text-decoration: none;
+    display: flex
+;
+}
+
+.profile-link-item.active{
+    color: #1876f2;
+    border-bottom: 3px solid #1876f2;
+}
+
+.profile-link-item:hover {
+    color: #1876f2;
+    border-bottom: 3px solid #1876f2;
+    background-color: #f1efef;
 }
 
 .profile-link-more {
