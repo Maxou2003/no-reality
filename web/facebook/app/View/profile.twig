@@ -61,10 +61,8 @@
                         <a href="{{URL}}profile/{{user.user_slug}}/photos">All Photos</a>
                     </div>
                     <div class="photo_box">
-                        {% for i in 0..9 %}                        
-                            {% if posts[i] %}
-                                <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{posts[i].post_picture_path}}" alt=""></div>
-                            {% endif %}
+                        {% for post in posts|slice(0, 9) %}
+                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
                         {% endfor %}
                     </div>
                 </div>
