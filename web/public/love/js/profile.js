@@ -15,8 +15,8 @@ if (current_location === "about") {
     aboutLink.classList.add("active");
 } else if (current_location === "friends") {
     friendsLink.classList.add("active");
-} else if (current_location === "pictures") {
+} else if (current_location === "photos") {
     picturesLink.classList.add("active");
-}else {
+} else {
     publicationsLink.classList.add("active");
 }

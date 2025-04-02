@@ -8,40 +8,7 @@
 
 {% block content %}
     {% include 'navbar.twig' with {'URL': URL} %}
-	<div class="profile-top">
-        <div class="profile-cover">
-            <img src="{{user.user_banner_picture_path}}" alt="cover" class="img-cover">
-        </div>
-        <div class="profile_detail">
-            <div class="proflie_detail_left">
-                <div class="profile_row">
-                    <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Profile" class="pd_image">
-                    <div class="profile-info">
-                        <span class="profile-name">{{user.user_firstname}} {{user.user_lastname}}</span>
-                        <span class="profile-friends">{{ nb_friends}} Friends</span>
-                    </div>
-                </div>
-            </div>
-            <div class="proflie_detail_right">
-                <span><i class='fas fa-user-friends'></i></ion-icon> Friends</span>
-                <span><i class='far fa-comment'></i> Message</span>
-                <br />
-            </div>
-        </div>
-        <div class="profile-links-container">
-            <div class="profile-links">
-                <div class="profile-links-items">
-                    <a href="{{URL}}profile/{{user.user_slug}}"><span class="profile-link-item" id="publications">Publications</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/about"><span class="profile-link-item" id="about">About</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/friends"><span class="profile-link-item" id="friends">Friend(s)</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/photos"><span class="profile-link-item" id="pictures">Pictures</span></a>
-                </div>
-                <div class="profile-link-more">
-                    <a href="#"><span><i class="fa fa-ellipsis-h"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
+	{% include 'profileHeader.twig' with {'URL': URL , 'user':user, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
     <div class="profile_container">
         <div class="profile_info">
             <div class="info_col">
@@ -73,7 +40,7 @@
                     </div>
                     <p>{{nb_friends}}</p>
                     <div class="friends_box">
-                    {% for friend in friends %}
+                    {% for friend in friends|slice(0, 9) %}
                         <a href="{{URL}}/profile/{{friend.user_slug}}">
                             <div class='friend-profile-info'>
                                 <div class='friend-profile_picture'>
