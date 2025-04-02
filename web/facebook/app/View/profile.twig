@@ -3,6 +3,7 @@
 {% block head %}
     <link rel="stylesheet" href="{{URL}}css/profile.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
+	<script src="{{URL}}js/profile.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -30,10 +31,10 @@
         <div class="profile-links-container">
             <div class="profile-links">
                 <div class="profile-links-items">
-                    <span class="profile-link-item">Publications</span>
-                    <span class="profile-link-item">About</span>
-                    <span class="profile-link-item">Friend(s)</span>
-                    <span class="profile-link-item">Pictures</span>
+                    <a href="{{URL}}profile/{{user.user_slug}}"><span class="profile-link-item" id="publications">Publications</span></a>
+                    <a href="{{URL}}profile/{{user.user_slug}}/about"><span class="profile-link-item" id="about">About</span></a>
+                    <a href="{{URL}}profile/{{user.user_slug}}/friends"><span class="profile-link-item" id="friends">Friend(s)</span></a>
+                    <a href="{{URL}}profile/{{user.user_slug}}/photos"><span class="profile-link-item" id="pictures">Pictures</span></a>
                 </div>
                 <div class="profile-link-more">
                     <a href="#"><span><i class="fa fa-ellipsis-h"></i></span></a>
