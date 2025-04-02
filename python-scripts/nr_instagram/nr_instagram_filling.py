@@ -1,11 +1,14 @@
 import sys
-sys.path.insert(0, 'python-scripts/nr_instagram')
+sys.path.insert(0, 'python-scripts')
 
-from profiles.generateFollowings import generate_followings
-from profiles.generateProfiles import generate_profiles
-from posts.generatePosts import generate_posts
-from posts.generateIdentifications import generate_identifications
-from posts.database import Database
+from nr_instagram.profiles.generateFollowings import generate_followings
+from nr_instagram.profiles.generateProfiles import generate_profiles
+from nr_instagram.profiles.create_descriptions import create_json
+from nr_instagram.posts.generatePosts import generate_posts
+from nr_instagram.posts.generateIdentifications import generate_identifications
+from nr_instagram.posts.database import Database
+
+
 
 def create_instance(instance_name, average_age, gender_prop, population, database_name):
     database = Database(database_name)
@@ -25,16 +28,18 @@ def fill_instance(instance_name, people_list, post_list, post_file, pexel_api_ke
     for post in post_list:
         generate_posts(DATABASE_NAME=database_name, INSTANCE_ID=instance_id, INSTANCE_NAME=instance_name,THEME=post[1], ENGLISH_THEME=post[2], PEXEL_API_KEY=pexel_api_key, POST_FILE=post_file, NUMBER_POSTS=post[0], PRECISIONS=precisions)
     generate_identifications(instance_id)
+
+
 if __name__ == "__main__":
     DATABASE_NAME = "nr_instagram"
     INSTANCE_ID = 2
-    INSTANCE_NAME = "love"
+    INSTANCE_NAME = "test"
     THEME = "art"
     ENGLISH_THEME = "art"
     PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
     POST_FILE = "art_posts.json"
 
-    PEOPLE = [(40, 0, 0), (40, 1, 0), (40, 0, 1), (40, 1, 1), (40, 0, 2), (40, 1, 2), (40, 0, 3), (40, 1, 3)]
-    POSTS = [(40, 'art', 'art'), (40, 'nourriture', 'food'), (40, 'nature', 'nature'), (40, 'amour', 'love')]
+    PEOPLE = [(5,0,0),(5,1,0),(5,0,1),(5,1,1),(5, 0, 2), (5, 1, 2), (5, 0, 3), (5, 1, 3)]
+    POSTS = [(10, 'art', 'art'), (10, 'nourriture', 'food'), (10, 'nature', 'nature'), (10, 'amour', 'love')]
     fill_instance(instance_name=INSTANCE_NAME, people_list=PEOPLE, post_list=POSTS, post_file=POST_FILE, pexel_api_key=PEXEL_API_KEY, follow_chance=0.3, follow_back_chance=0.9, database_name=DATABASE_NAME, precisions="")
     print("Done")

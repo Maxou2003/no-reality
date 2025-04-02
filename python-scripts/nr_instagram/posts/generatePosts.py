@@ -12,7 +12,7 @@ def load_posts(post_file):
     return posts, nb_posts
 
 def generate_posts(DATABASE_NAME, INSTANCE_ID, INSTANCE_NAME, THEME, ENGLISH_THEME, PEXEL_API_KEY, POST_FILE, NUMBER_POSTS, PRECISIONS):
-    post_pictures_directory = f"web/instagram/public/{INSTANCE_NAME}/img/post_img"
+    post_pictures_directory = f"web/public/{INSTANCE_NAME}/img/post_img"
 
     generate_json(number_posts=NUMBER_POSTS, theme=THEME, file=POST_FILE, min_comments=1, max_comments=5, precisions=PRECISIONS)
 
