@@ -31,7 +31,7 @@ class ProfileController
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
             $friends = $UserRepository->getFriends($user_id);
-            $template = $this->twig->load('profile.twig');
+            $template = $this->twig->load('profilePublications.twig');
 
             echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }
@@ -52,7 +52,7 @@ class ProfileController
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
             $friends = $UserRepository->getFriends($user_id);
-            $template = $this->twig->load('profile.twig');
+            $template = $this->twig->load('profileAbout.twig');
 
             echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }
@@ -72,7 +72,7 @@ class ProfileController
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
             $friends = $UserRepository->getFriends($user_id);
-            $template = $this->twig->load('profile.twig');
+            $template = $this->twig->load('profileFriends.twig');
 
             echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }
@@ -92,7 +92,7 @@ class ProfileController
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
             $friends = $UserRepository->getFriends($user_id);
-            $template = $this->twig->load('profile.twig');
+            $template = $this->twig->load('profilePhotos.twig');
 
             echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }

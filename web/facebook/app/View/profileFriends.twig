@@ -1,0 +1,116 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{URL}}css/profileFriends.css">
+    <link rel="stylesheet" href="{{URL}}css/profileHeader.css">
+    <link rel="stylesheet" href="{{URL}}css/home.css">
+	<script src="{{URL}}js/profile.js" defer></script>
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'URL': URL} %}
+	{% include 'profileHeader.twig' with {'URL': URL , 'user':user, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
+    <div class="profile_container">
+        <div class="profile_info">
+            <div class="info_col">
+                <div class="profile_intro">
+                    <h3>Intro</h3>
+                    <p class="intro_text">{{user.user_description}}</p>
+                    <hr>
+                    <ul>
+                        <li> <i class="fa fa-suitcase"></i>  {{user.user_work}}</li>
+                        <li> <i class='fas fa-layer-group'></i>  Studied at {{user.user_school}}</li>
+                        <li> <i class='fas fa-map-marker-alt'></i>  Lives in {{user.user_location}}</li>
+                    </ul>
+                </div>
+                <div class="profile_intro">
+                    <div class="title_box">
+                        <h3>Photos</h3>
+                        <a href="{{URL}}profile/{{user.user_slug}}/photos">All Photos</a>
+                    </div>
+                    <div class="photo_box">
+                        {% for post in posts|slice(0, 9) %}
+                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="profile_intro">
+                    <div class="title_box">
+                        <h3>Friends</h3>
+                        <a href="{{URL}}profile/{{user.user_slug}}/friends">All Friends</a>
+                    </div>
+                    <p>{{nb_friends}}</p>
+                    <div class="friends_box">
+                    {% for friend in friends|slice(0, 9) %}
+                        <a href="{{URL}}/profile/{{friend.user_slug}}">
+                            <div class='friend-profile-info'>
+                                <div class='friend-profile_picture'>
+                                    <img src="{{PROFILE_IMG_PATH}}{{friend.user_pp_path}}" alt=""> 
+                                </div>
+                                <p>{{friend.user_firstname}} {{friend.user_lastname}}</p>
+                            </div>
+                        </a> 
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="post_col">
+                <!---
+                <div class="post-container">
+                    <div class="user-profile">
+                        <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                        <div>
+                            <p>Kashan Adnan</p>
+                            <small>Public <i class="fa fa-caret-down"></i></small>
+                        </div>
+                    </div>
+                    <div class="post_input_container">
+                        <textarea placeholder="What's on Your Mind" rows="3"></textarea>
+                        <div class="add_post_link">
+                            <a href="#"><img src="images/live-video.png" alt="Its Video Time">Live Video</a>
+                            <a href="#"><img src="images/photo.png" alt="Its Video Time">Photo/Video</a>
+                            <a href="#"><img src="images/feeling.png" alt="Its Video Time">Feeling/Activity</a>
+                        </div>
+                    </div>
+                </div>-->
+                {% for post in posts %}
+                <div class="post-container">
+                <div class="post-top-row">
+                    <div class="user-profile">
+                        <img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Pro We Are Pro You Now">
+                        <div class="post-data">
+                            <span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span>
+                            <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
+                        </div>
+                    </div>
+                    <div class="post-setting">
+                        <span><i class="fa fa-ellipsis-h"></i></span>
+                        <span class="close">&times;</span>
+                    </div>
+                </div>
+                <p class="post_text">{{post.post_content}}</p>
+                <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                <div class="post-bottom-row">
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
+                        <span>J'aime</span>
+                    </div>
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{URL}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
+                        <span>Commenter</span>
+                    </div>
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{URL}}img/svg-icons/people-circle-outline.svg"></ion-icon>
+                        <span>Envoyer</span>
+                    </div>
+                    <div class="post-bottom-row-item">
+                        <ion-icon src="{{URL}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
+                        <span>Partager</span>
+                    </div>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
