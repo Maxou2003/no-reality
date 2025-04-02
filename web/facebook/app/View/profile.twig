@@ -58,19 +58,20 @@
                 <div class="profile_intro">
                     <div class="title_box">
                         <h3>Photos</h3>
-                        <a href="">All Photos</a>
+                        <a href="{{URL}}profile/{{user.user_slug}}/photos">All Photos</a>
                     </div>
                     <div class="photo_box">
-                        {% for post in posts %}
-                        <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                        {% for i in 0..9 %}                        
+                            {% if posts[i] %}
+                                <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{posts[i].post_picture_path}}" alt=""></div>
+                            {% endif %}
                         {% endfor %}
-
                     </div>
                 </div>
                 <div class="profile_intro">
                     <div class="title_box">
                         <h3>Friends</h3>
-                        <a href="">All Friends</a>
+                        <a href="{{URL}}profile/{{user.user_slug}}/friends">All Friends</a>
                     </div>
                     <p>120 (10 mutal)</p>
                     <div class="friends_box">
