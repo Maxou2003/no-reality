@@ -17,7 +17,7 @@
                     <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Profile" class="pd_image">
                     <div class="profile-info">
                         <span class="profile-name">{{user.user_firstname}} {{user.user_lastname}}</span>
-                        <span class="profile-friends">120 Friends</span>
+                        <span class="profile-friends">{{ nb_friends}} Friends</span>
                     </div>
                 </div>
             </div>
@@ -71,17 +71,18 @@
                         <h3>Friends</h3>
                         <a href="">All Friends</a>
                     </div>
-                    <p>120 (10 mutal)</p>
+                    <p>{{nb_friends}}</p>
                     <div class="friends_box">
-                        <div><img src="images/member-1.png" alt=""> <p>Adnan Y</p></div> 
-                        <div><img src="images/member-2.png" alt=""> <p>Izhan F</p></div> 
-                        <div><img src="images/member-3.png" alt=""> <p>Kamran S</p></div> 
-                        <div><img src="images/member-4.png" alt=""> <p>Sameer K</p></div> 
-                        <div><img src="images/member-5.png" alt=""> <p>Fatiama A</p></div> 
-                        <div><img src="images/member-6.png" alt=""> <p>Arham Ar</p></div> 
-                        <div><img src="images/member-7.png" alt=""> <p>Kamil Y</p></div> 
-                        <div><img src="images/member-8.png" alt=""> <p>Amir Y</p></div> 
-                        <div><img src="images/member-9.png" alt=""> <p>Kashan A</p></div> 
+                    {% for friend in friends %}
+                        <a href="{{URL}}/profile/{{friend.user_slug}}">
+                            <div class='friend-profile-info'>
+                                <div class='friend-profile_picture'>
+                                    <img src="{{PROFILE_IMG_PATH}}{{friend.user_pp_path}}" alt=""> 
+                                </div>
+                                <p>{{friend.user_firstname}} {{friend.user_lastname}}</p>
+                            </div>
+                        </a> 
+                    {% endfor %}
                     </div>
                 </div>
             </div>

@@ -30,10 +30,10 @@ class ProfileController
         } else {
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
-
+            $friends = $UserRepository->getFriends($user_id);
             $template = $this->twig->load('profile.twig');
 
-            echo $template->render(['posts' => $posts, 'user' => $user, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, /*'followers_stats' => $followers_stats,*/ 'nbPosts' => count($posts)]);
+            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }
     }
 }
