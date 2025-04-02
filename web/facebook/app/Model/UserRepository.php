@@ -116,4 +116,32 @@ class UserRepository
 
         return $user;
     }
+
+    public function getFriends($userid): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT * FROM users WHere user_id in (SELECT user_id_1 FROM friends where user_id_2 =:id and instance_id=:instanceId UNION SELECT user_id_2 FROM friends where user_id_1 =:id and instance_id=:instanceId);'
+        );
+        $statement->bindValue(':id', $userid, \PDO::PARAM_INT);
+        $statement->bindValue(':instanceId', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $userArray = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
+            $user->user_location = $row['user_location'];
+            $user->user_school = $row['user_school'];
+            $user->user_work = $row['user_work'];
+
+            $userArray[] = $user;
+        }
+        return $userArray;
+    }
 }
