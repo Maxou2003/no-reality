@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="{{URL}}img/favicon.ico" type="image/x-icon">
+		<title>
+			{% block title %}Facebook{% endblock %}
+		</title>
+		<script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+		<script src="{{URL}}js/navbar.js" defer></script>
+		<script src="{{URL}}js/global_variables.js" defer></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="{{URL}}css/navbar.css">
+ 
+
+		{% block head %}{% endblock %}
+	</head>
+
+	<body>
+		{% block content %}{% endblock %}
+	</body>
+
+</html>

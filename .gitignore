@@ -1,16 +1,11 @@
 # Ignore everything in the profile_pictures directory
-web/profile_pictures/*
-web/instagram/public/hates/img/*
-
-web/profile_pictures.zip
-
 python-scripts/nr_instagram/posts/test.json
 python-scripts/nr_source/descriptions.json
 mon_fichier.json
 art_posts.json
 posts.json
 /web/profile_pictures/
-/web/public/hates/img/post_img
+**/img/post_img
 web/public/test/
 python-scripts/nr_instagram/posts/__pycache__/
 python-scripts/nr_instagram/profiles/__pycache__/

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../public/love/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Facebook Profile Page</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav_left">
+            <div class="logo-container">
+                <img src="images/logo.png" alt="Logo" class="logo">
+            </div>
+            <div class="search_box">
+                <img src="images/search.png" alt="search">
+                <input type="search" placeholder="Rechercher sur Facebook">
+            </div>
+        </div>
+        <div class="navbar-links">
+            <a href="" class="navbar-item">
+                <i class="fa fa-home"></i>
+            </a>
+            <a href="" class="navbar-item">
+                <i class='fas fa-users'></i>
+            </a>
+        </div>
+        <div class="nav_right">       
+            <div class="nav_user_icon online_icon" onclick="settingsMenuToggle()">
+                <img src="images/profile-pic.png" alt="profile">
+            </div>   
+            <!---
+            <ul>
+                <li><img src="images/notification.png" alt="notification"></li>
+                <li><img src="images/inbox.png" alt="inbox"></li>
+                <li><img src="images/video.png" alt="video"></li>
+            </ul>-->
+        </div>
+        <div class="setting_menu">
+
+            <div id="dark_btn" class="dark_btn_on">
+                <span></span>
+            </div>
+
+            <div class="settings_menu_inner">
+                <div class="user_profile">
+                    <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                    <div>
+                        <p>Kashan Adnan</p>
+                        <a href="./user.html">See Your Profile</a>
+                    </div>
+                </div>
+                <hr />
+                <div class="user_profile">
+                    <img src="images/feedback.png" alt="">
+                    <div>
+                        <p>Give Feedback</p>
+                        <a href="#">Help Us To improve new design</a>
+                    </div>
+                </div>
+                <hr />
+                <div class="setting_link">
+                    <img src="images/setting.png" class="setting_icon" alt="">
+                    <a href="#">Setting & Privacy <img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+                <div class="setting_link">
+                    <img src="images/help.png" class="setting_icon" alt="">
+                    <a href="#">Help & Support <img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+                <div class="setting_link">
+                    <img src="images/display.png" class="setting_icon" alt="">
+                    <a href="#">Dispaly & Accesiblity <img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+                <div class="setting_link">
+                    <img src="images/logout.png" class="setting_icon" alt="">
+                    <a href="#">Logout<img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- todo: Profile Page -->
+    <div class="profile-top">
+        <div class="profile-cover">
+            <img src="images/cover.png" alt="cover" class="img-cover">
+        </div>
+        <div class="profile_detail">
+            <div class="proflie_detail_left">
+                <div class="profile_row">
+                    <img src="images/profile.png" alt="Profile" class="pd_image">
+                    <div class="profile-info">
+                        <span class="profile-name">Kashan Adnan</span>
+                        <span class="profile-friends">120 Friends</span>
+                    </div>
+                </div>
+            </div>
+            <div class="proflie_detail_right">
+                <span><i class='fas fa-user-friends'></i></ion-icon> Friends</span>
+                <span><i class='far fa-comment'></i> Message</span>
+                <br />
+            </div>
+        </div>
+        <div class="profile-links-container">
+            <div class="profile-links">
+                <div class="profile-links-items">
+                    <span class="profile-link-item">Publications</span>
+                    <span class="profile-link-item">About</span>
+                    <span class="profile-link-item">Friend(s)</span>
+                    <span class="profile-link-item">Pictures</span>
+                </div>
+                <div class="profile-link-more">
+                    <a href="#"><span><i class="fa fa-ellipsis-h"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile_container">
+        <div class="profile_info">
+            <div class="info_col">
+                <div class="profile_intro">
+                    <h3>Intro</h3>
+                    <p class="intro_text">Beileive in yourself and you can do unbelievible things. <img
+                            src="images/feeling.png" alt=""></p>
+                    <hr>
+                    <ul>
+                        <li> <i class="fa fa-suitcase"></i>  Director at 99media ltd</li>
+                        <li> <i class='fas fa-layer-group'></i>  Studied at Amity University</li>
+                        <li> <i class='fas fa-layer-group'></i>  Went to DPS Delhi</li>
+                        <li> <i class="fa fa-home"></i>  Lives in Karachi ,pakistan</li>
+                        <li> <i class='fas fa-map-marker-alt'></i>  From Karachi, Pakistan</li>
+                    </ul>
+                </div>
+                <div class="profile_intro">
+                    <div class="title_box">
+                        <h3>Photos</h3>
+                        <a href="">All Photos</a>
+                    </div>
+                    <div class="photo_box">
+                        <div><img src="images/photo1.png" alt=""></div>
+                        <div><img src="images/photo2.png" alt=""></div>
+                        <div><img src="images/photo3.png" alt=""></div>
+                        <div><img src="images/photo4.png" alt=""></div>
+                        <div><img src="images/photo5.png" alt=""></div>
+                        <div><img src="images/photo6.png" alt=""></div>
+
+                    </div>
+                </div>
+                <div class="profile_intro">
+                    <div class="title_box">
+                        <h3>Friends</h3>
+                        <a href="">All Freinds</a>
+                    </div>
+                    <p>120 (10 mutal)</p>
+                    <div class="friends_box">
+                        <div><img src="images/member-1.png" alt=""> <p>Adnan Y</p></div> 
+                        <div><img src="images/member-2.png" alt=""> <p>Izhan F</p></div> 
+                        <div><img src="images/member-3.png" alt=""> <p>Kamran S</p></div> 
+                        <div><img src="images/member-4.png" alt=""> <p>Sameer K</p></div> 
+                        <div><img src="images/member-5.png" alt=""> <p>Fatiama A</p></div> 
+                        <div><img src="images/member-6.png" alt=""> <p>Arham Ar</p></div> 
+                        <div><img src="images/member-7.png" alt=""> <p>Kamil Y</p></div> 
+                        <div><img src="images/member-8.png" alt=""> <p>Amir Y</p></div> 
+                        <div><img src="images/member-9.png" alt=""> <p>Kashan A</p></div> 
+                    </div>
+                </div>
+            </div>
+            <div class="post_col">
+                <!---
+                <div class="post-container">
+                    <div class="user-profile">
+                        <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                        <div>
+                            <p>Kashan Adnan</p>
+                            <small>Public <i class="fa fa-caret-down"></i></small>
+                        </div>
+                    </div>
+                    <div class="post_input_container">
+                        <textarea placeholder="What's on Your Mind" rows="3"></textarea>
+                        <div class="add_post_link">
+                            <a href="#"><img src="images/live-video.png" alt="Its Video Time">Live Video</a>
+                            <a href="#"><img src="images/photo.png" alt="Its Video Time">Photo/Video</a>
+                            <a href="#"><img src="images/feeling.png" alt="Its Video Time">Feeling/Activity</a>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="post-container">
+                    <div class="post-top-row">
+                        <div class="user-profile">
+                            <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                            <div class="post-data">
+                                <span class="post-data-name">Kamran Sheikh</span>
+                                <span class="post-data-date">Sep 9 2022 , 12:00 Am</span>
+                            </div>
+                        </div>
+                        <div class="post-setting">
+                            <span><i class="fa fa-ellipsis-h"></i></span>
+                            <span class="close">&times;</span>
+                        </div>
+                    </div>
+                    <p class="post_text">Subscribe <span> @KamranSheikh </span>Youtube channel to Watch More VIdeos
+                        Microsoft And Photo Editing
+                        <a href="#">#KamranSheikh</a><a href="#">#YoutubeChannel</a>
+                    </p>
+                    <img src="images/feed-image-1.png" alt="Feedback" class="post_img">
+                    <div class="post-bottom-row">
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                            <span>J'aime</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <span>Commenter</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="people-circle-outline"></ion-icon>
+                            <span>Envoyer</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="arrow-redo-outline"></ion-icon>
+                            <span>Partager</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-container">
+                    <div class="post-top-row">
+                        <div class="user-profile">
+                            <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                            <div class="post-data">
+                                <span class="post-data-name">Kamran Sheikh</span>
+                                <span class="post-data-date">Sep 9 2022 , 12:00 Am</span>
+                            </div>
+                        </div>
+                        <div class="post-setting">
+                            <span><i class="fa fa-ellipsis-h"></i></span>
+                            <span class="close">&times;</span>
+                        </div>
+                    </div>
+                    <p class="post_text">Subscribe <span> @KamranSheikh </span>Youtube channel to Watch More VIdeos
+                        Microsoft And Photo Editing
+                        <a href="#">#KamranSheikh</a><a href="#">#YoutubeChannel</a>
+                    </p>
+                    <img src="images/feed-image-2.png" alt="Feedback" class="post_img">
+                    <div class="post-bottom-row">
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                            <span>J'aime</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <span>Commenter</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="people-circle-outline"></ion-icon>
+                            <span>Envoyer</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="arrow-redo-outline"></ion-icon>
+                            <span>Partager</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-container">
+                    <div class="post-top-row">
+                        <div class="user-profile">
+                            <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                            <div class="post-data">
+                                <span class="post-data-name">Kamran Sheikh</span>
+                                <span class="post-data-date">Sep 9 2022 , 12:00 Am</span>
+                            </div>
+                        </div>
+                        <div class="post-setting">
+                            <span><i class="fa fa-ellipsis-h"></i></span>
+                            <span class="close">&times;</span>
+                        </div>
+                    </div>
+                    <p class="post_text">Subscribe <span> @KamranSheikh </span>Youtube channel to Watch More VIdeos
+                        Microsoft And Photo Editing
+                        <a href="#">#KamranSheikh</a><a href="#">#YoutubeChannel</a>
+                    </p>
+                    <img src="images/feed-image-3.png" alt="Feedback" class="post_img">
+                    <div class="post-bottom-row">
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                            <span>J'aime</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <span>Commenter</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="people-circle-outline"></ion-icon>
+                            <span>Envoyer</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="arrow-redo-outline"></ion-icon>
+                            <span>Partager</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-container">
+                    <div class="post-top-row">
+                        <div class="user-profile">
+                            <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                            <div class="post-data">
+                                <span class="post-data-name">Kamran Sheikh</span>
+                                <span class="post-data-date">Sep 9 2022 , 12:00 Am</span>
+                            </div>
+                        </div>
+                        <div class="post-setting">
+                            <span><i class="fa fa-ellipsis-h"></i></span>
+                            <span class="close">&times;</span>
+                        </div>
+                    </div>
+                    <p class="post_text">Subscribe <span> @KamranSheikh </span>Youtube channel to Watch More VIdeos
+                        Microsoft And Photo Editing
+                        <a href="#">#KamranSheikh</a><a href="#">#YoutubeChannel</a>
+                    </p>
+                    <img src="images/feed-image-4.png" alt="Feedback" class="post_img">
+                    <div class="post-bottom-row">
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                            <span>J'aime</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <span>Commenter</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="people-circle-outline"></ion-icon>
+                            <span>Envoyer</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="arrow-redo-outline"></ion-icon>
+                            <span>Partager</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-container">
+                    <div class="post-top-row">
+                        <div class="user-profile">
+                            <img src="images/profile-pic.png" alt="Pro We Are Pro You Now">
+                            <div class="post-data">
+                                <span class="post-data-name">Kamran Sheikh</span>
+                                <span class="post-data-date">Sep 9 2022 , 12:00 Am</span>
+                            </div>
+                        </div>
+                        <div class="post-setting">
+                            <span><i class="fa fa-ellipsis-h"></i></span>
+                            <span class="close">&times;</span>
+                        </div>
+                    </div>
+                    <p class="post_text">Subscribe <span> @KamranSheikh </span>Youtube channel to Watch More VIdeos
+                        Microsoft And Photo Editing
+                        <a href="#">#KamranSheikh</a><a href="#">#YoutubeChannel</a>
+                    </p>
+                    <img src="images/feed-image-5.png" alt="Feedback" class="post_img">
+                    <div class="post-bottom-row">
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                            <span>J'aime</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <span>Commenter</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="people-circle-outline"></ion-icon>
+                            <span>Envoyer</span>
+                        </div>
+                        <div class="post-bottom-row-item">
+                            <ion-icon name="arrow-redo-outline"></ion-icon>
+                            <span>Partager</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
