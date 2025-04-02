@@ -116,22 +116,4 @@ class UserRepository
 
         return $user;
     }
-    public function Getphotos($id): array
-    {
-        $statement = $this->connection->getConnection()->prepare(
-            'SELECT post_id, post_picture_path FROM posts p join users u on p.user_id=u.user_id  WHERE u.user_id = :id and instance_id=:instance_id ORDER BY time_stamp DESC'
-        );
-        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
-        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
-        $statement->execute();
-
-        $photosArray = [];
-        while (($row = $statement->fetch())) {
-            $post_id = $row['post_id'];
-            $post_picture_path = $row['post_picture_path'];
-
-            $photosArray[] = ['post_id' => $post_id, 'post_picture_path' => $post_picture_path];
-        }
-        return $photosArray;
-    }
 }

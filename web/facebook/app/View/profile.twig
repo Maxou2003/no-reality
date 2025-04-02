@@ -60,8 +60,8 @@
                         <a href="">All Photos</a>
                     </div>
                     <div class="photo_box">
-                        {% for photo in photos %}
-                        <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{photo.post_picture_path}}" alt=""></div>
+                        {% for post in posts %}
+                        <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
                         {% endfor %}
 
                     </div>
