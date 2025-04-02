@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 26 mars 2025 à 16:33
+-- Généré le : mer. 02 avr. 2025 à 09:38
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -63,6 +63,57 @@ CREATE TABLE `discussions_messages` (
   `message` varchar(500) NOT NULL,
   `time_stamp` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `friends`
+--
+
+CREATE TABLE `friends` (
+  `user_id_1` int(11) NOT NULL,
+  `user_id_2` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `friends`
+--
+
+INSERT INTO `friends` (`user_id_1`, `user_id_2`, `created_at`) VALUES
+(1, 2, '2025-03-27 10:24:40'),
+(1, 3, '2025-03-27 10:25:35'),
+(1, 4, '2025-03-27 10:24:08'),
+(1, 5, '2025-03-27 10:24:20'),
+(2, 3, '2025-03-27 10:23:56'),
+(2, 4, '2025-03-27 10:24:14'),
+(3, 4, '2025-03-27 10:25:27'),
+(3, 5, '2025-03-27 10:24:01'),
+(4, 5, '2025-03-27 10:24:46');
+
+--
+-- Déclencheurs `friends`
+--
+DELIMITER $$
+CREATE TRIGGER `order_friend_ids` BEFORE INSERT ON `friends` FOR EACH ROW BEGIN
+    IF NEW.user_id_1 > NEW.user_id_2 THEN
+        -- Swap the IDs
+        SET @temp = NEW.user_id_1;
+        SET NEW.user_id_1 = NEW.user_id_2;
+        SET NEW.user_id_2 = @temp;
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `prevent_self_friendship` BEFORE INSERT ON `friends` FOR EACH ROW BEGIN
+    IF NEW.user_id_1 = NEW.user_id_2 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'A user cannot be friends with themselves.';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -145,10 +196,12 @@ CREATE TABLE `posts` (
 
 INSERT INTO `posts` (`post_id`, `instance_id`, `post_content`, `user_id`, `post_picture_path`, `time_stamp`, `nb_comments`, `nb_likes`, `nb_shares`) VALUES
 (1, 1, 'Trop de love tue le love', 1, 'art_1_1.jpg', '2025-03-26 11:40:12', 0, 0, 0),
-(2, 1, 'L\'amour ça se provoque 😏', 3, 'pexels-vjapratama-935789.jpg', '2025-03-26 16:25:34', 0, 0, 0),
+(2, 1, 'L\'amour ça se provoque !', 3, 'pexels-vjapratama-935789.jpg', '2025-03-26 16:25:34', 0, 0, 0),
 (3, 1, 'L\'amour quand ça vous prend...', 5, 'pexels-gabriel-bastelli-865174-1759823.jpg', '2025-03-26 16:27:40', 0, 0, 0),
 (4, 1, 'I hate nothing about you, if you go to my representation on the 5th of April ! ', 4, 'pexels-designecologist-887353.jpg', '2025-03-26 16:28:21', 0, 0, 0),
-(6, 1, 'Weekend en amoureux !', 2, 'pexels-asadphoto-1024975.jpg', '2025-03-26 16:29:15', 0, 0, 0);
+(6, 1, 'Weekend en amoureux !', 2, 'pexels-asadphoto-1024975.jpg', '2025-03-26 16:29:15', 0, 0, 0),
+(7, 1, 'Une lune de miel qui se passe bien ! ', 5, 'pexels-nurseryart-348520.jpg', '2025-03-26 16:55:59', 0, 0, 0),
+(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -242,6 +295,13 @@ ALTER TABLE `discussions_messages`
   ADD PRIMARY KEY (`discussion_message_id`),
   ADD KEY `FK_DiscussionMessagesDiscussionId` (`discussion_id`),
   ADD KEY `FK_DiscussionsMessagesUserId` (`user_id`);
+
+--
+-- Index pour la table `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`user_id_1`,`user_id_2`),
+  ADD KEY `user_id_2` (`user_id_2`);
 
 --
 -- Index pour la table `groups`
@@ -354,7 +414,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `shares`
@@ -397,6 +457,13 @@ ALTER TABLE `discussions`
 ALTER TABLE `discussions_messages`
   ADD CONSTRAINT `FK_DiscussionMessagesDiscussionId` FOREIGN KEY (`discussion_id`) REFERENCES `discussions` (`discussion_id`),
   ADD CONSTRAINT `FK_DiscussionsMessagesUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `friends`
+--
+ALTER TABLE `friends`
+  ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id_1`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`user_id_2`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `group_members`
