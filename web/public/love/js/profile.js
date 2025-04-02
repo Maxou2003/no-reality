@@ -11,9 +11,7 @@ aboutLink.classList.remove("active");
 friendsLink.classList.remove("active");
 picturesLink.classList.remove("active");
 
-if (current_location === "publications") {
-    publicationsLink.classList.add("active");
-} else if (current_location === "about") {
+if (current_location === "about") {
     aboutLink.classList.add("active");
 } else if (current_location === "friends") {
     friendsLink.classList.add("active");
