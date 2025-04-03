@@ -1,4 +1,16 @@
 import mysql.connector
+import os
+
+def delete_post_picture(post_picture_path, instance_name):
+    post_picture_path = os.path.join("web", "public", instance_name, "img", "post_img", post_picture_path)
+    if os.path.exists(post_picture_path):
+        try:
+            os.remove(post_picture_path)
+            print(f"Deleted image at path: {post_picture_path}")
+        except OSError as e:
+            print(f"Error deleting image at path {post_picture_path}: {e}")
+    else:
+        print(f"Image path does not exist: {post_picture_path}")
 
 def delete_post(post_id):
     """
@@ -50,6 +62,25 @@ def delete_post(post_id):
             WHERE post_id = %s
         '''
         cursor.execute(delete_identifications, (post_id,))
+
+        select_post_picture_path = '''
+            SELECT post_picture_path FROM posts
+            WHERE post_id = %s
+        '''
+        cursor.execute(select_post_picture_path, (post_id,))  # Fetch the post picture path
+        post_picture_path = cursor.fetchone() # Get the first result
+        if post_picture_path is not None:
+            post_picture_path = post_picture_path[0]
+            select_instance_name = '''
+                SELECT instance_name FROM instance
+                WHERE instance_id = %s
+            '''
+            cursor.execute('SELECT instance_id FROM posts WHERE post_id = %s', (post_id,))  # Get the instance ID
+            instance_id = cursor.fetchone()[0]  # Get the first result
+            cursor.execute(select_instance_name, (instance_id,))  # Fetch the instance name
+            instance_name = cursor.fetchone()[0]  # Get the first result
+
+            delete_post_picture(post_picture_path, instance_name)  # Replace with actual instance name
 
         delete_post = '''
             DELETE FROM posts

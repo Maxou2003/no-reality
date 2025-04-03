@@ -1,8 +1,6 @@
-
 from datetime import datetime, timedelta
 from random import randint, shuffle, choice
-
-from posts.database import Database
+from database import Database
 
 
 class PostGenerator:
@@ -80,27 +78,27 @@ class PostGenerator:
             VALUES (%s, %s)'''
         return self.db.execute(query, (user_id, post_id))
 
-    def generate_posts(self, post_per_person=30, location='Angers'):
+    def generate_posts(self, post_per_person=30, location='Angers', posts_pathes=None):
         start_date = datetime(2025, 1, 1)
         end_date = datetime(2025, 12, 1)
         print(self.posts)
-        post_id = 0
+        post_idx = 0
         cnt = 0
 
         while cnt < post_per_person:
             for user_id in self.user_ids:
-                if post_id >= self.nb_posts:
+                if post_idx >= self.nb_posts:
                     return
-                post_picture_path = f"{self.theme}_{post_id // 10 + 1}_{post_id % 10}.jpg"
+                post_picture_path = f"{posts_pathes[post_idx]}"
                 post = {
                     'user_id': user_id,
                     'instance_id': self.instance_id,
                     'nb_views': randint(0, 100),
                     'timestamp': self.random_timestamp(start_date, end_date),
                     'post_picture_path': post_picture_path,
-                    'post_description': self.posts[post_id].get('description'),
+                    'post_description': self.posts[post_idx].get('description'),
                     'post_location': location,
-                    'nb_comments': len(self.posts[post_id].get('comments', []))
+                    'nb_comments': len(self.posts[post_idx].get('comments', []))
                 }
                 post_id_added = self.add_post(post)
                 
@@ -108,7 +106,7 @@ class PostGenerator:
                 for _id in range(randint(0, len(self.user_ids))):
                     self.add_likes(self.user_ids[_id], post_id_added)
 
-                for comment in self.posts[post_id].get('comments', []):
+                for comment in self.posts[post_idx].get('comments', []):
                     comment_ts = self.random_timestamp(post['timestamp'], end_date)
                     comment_uid = self.random_exclude(self.user_ids, user_id)
                     comment_data = {
@@ -129,6 +127,6 @@ class PostGenerator:
                         }
                         reponse_id = self.add_reponse(reponse_data)
 
-                post_id += 1
+                post_idx += 1
             cnt += 1
             shuffle(self.user_ids)

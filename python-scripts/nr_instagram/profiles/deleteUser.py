@@ -24,7 +24,6 @@ def delete_user_from_nr_instagram(user_id):
         cursor.execute(get_posts, (user_id,))
         posts_ids = cursor.fetchall()
 
-        print(posts_ids)
         for post in posts_ids:
             delete_post(post[0])
         delete_likes = '''
@@ -61,7 +60,6 @@ def delete_user_from_nr_instagram(user_id):
         '''
         cursor.execute(select_comments, (user_id,))
         comments_ids = cursor.fetchall()
-        print(comments_ids)
         for comment in comments_ids:
             cursor.execute(delete_responses_of_comments, (comment[0],))
         cursor.execute(delete_likes, (user_id,))
