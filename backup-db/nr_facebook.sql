@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 02 avr. 2025 à 09:38
+-- Généré le : mer. 02 avr. 2025 à 11:43
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -73,6 +73,7 @@ CREATE TABLE `discussions_messages` (
 CREATE TABLE `friends` (
   `user_id_1` int(11) NOT NULL,
   `user_id_2` int(11) NOT NULL,
+  `instance_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -80,16 +81,16 @@ CREATE TABLE `friends` (
 -- Déchargement des données de la table `friends`
 --
 
-INSERT INTO `friends` (`user_id_1`, `user_id_2`, `created_at`) VALUES
-(1, 2, '2025-03-27 10:24:40'),
-(1, 3, '2025-03-27 10:25:35'),
-(1, 4, '2025-03-27 10:24:08'),
-(1, 5, '2025-03-27 10:24:20'),
-(2, 3, '2025-03-27 10:23:56'),
-(2, 4, '2025-03-27 10:24:14'),
-(3, 4, '2025-03-27 10:25:27'),
-(3, 5, '2025-03-27 10:24:01'),
-(4, 5, '2025-03-27 10:24:46');
+INSERT INTO `friends` (`user_id_1`, `user_id_2`, `instance_id`, `created_at`) VALUES
+(1, 2, 1, '2025-03-27 10:24:40'),
+(1, 3, 1, '2025-03-27 10:25:35'),
+(1, 4, 1, '2025-03-27 10:24:08'),
+(1, 5, 1, '2025-03-27 10:24:20'),
+(2, 3, 1, '2025-03-27 10:23:56'),
+(2, 4, 1, '2025-03-27 10:24:14'),
+(3, 4, 1, '2025-03-27 10:25:27'),
+(3, 5, 1, '2025-03-27 10:24:01'),
+(4, 5, 1, '2025-03-27 10:24:46');
 
 --
 -- Déclencheurs `friends`
@@ -265,7 +266,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`) VALUES
 (1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', ''),
 (2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Enseignant Chercheur', 'Polytech Angers', 'none'),
-(3, 'Alexis', 'Paquereau--Gasnier', 'alexis.paquereauGasnier.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none'),
+(3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none'),
 (4, 'Martin', 'Mollat', 'martin.mollat.4', '1727454408757.jpg', 'Le 5 avril je présente un spectacle de théâtre d\'improvisation chez moi, venez nombreux !', 'Angers', 'none', 'Polytech Angers', 'none'),
 (5, 'Gaston', 'Plot', 'gaston.plot.5', '1636488595977.jpg', 'Work life balance 🎶', 'Angers', 'none', 'Polytech Angers', 'none');
 
@@ -300,8 +301,9 @@ ALTER TABLE `discussions_messages`
 -- Index pour la table `friends`
 --
 ALTER TABLE `friends`
-  ADD PRIMARY KEY (`user_id_1`,`user_id_2`),
-  ADD KEY `user_id_2` (`user_id_2`);
+  ADD PRIMARY KEY (`user_id_1`,`user_id_2`,`instance_id`) USING BTREE,
+  ADD KEY `user_id_2` (`user_id_2`),
+  ADD KEY `FK_FriendsInstanceID` (`instance_id`);
 
 --
 -- Index pour la table `groups`
@@ -462,6 +464,7 @@ ALTER TABLE `discussions_messages`
 -- Contraintes pour la table `friends`
 --
 ALTER TABLE `friends`
+  ADD CONSTRAINT `FK_FriendsInstanceID` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id_1`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`user_id_2`) REFERENCES `users` (`user_id`);
 

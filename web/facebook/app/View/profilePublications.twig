@@ -1,46 +1,15 @@
 {% extends 'base.twig' %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{URL}}css/profile.css">
+    <link rel="stylesheet" href="{{URL}}css/profilePublications.css">
+    <link rel="stylesheet" href="{{URL}}css/profileHeader.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
+	<script src="{{URL}}js/profileHeader.js" defer></script>
 {% endblock %}
 
 {% block content %}
     {% include 'navbar.twig' with {'URL': URL} %}
-	<div class="profile-top">
-        <div class="profile-cover">
-            <img src="{{user.user_banner_picture_path}}" alt="cover" class="img-cover">
-        </div>
-        <div class="profile_detail">
-            <div class="proflie_detail_left">
-                <div class="profile_row">
-                    <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Profile" class="pd_image">
-                    <div class="profile-info">
-                        <span class="profile-name">{{user.user_firstname}} {{user.user_lastname}}</span>
-                        <span class="profile-friends">120 Friends</span>
-                    </div>
-                </div>
-            </div>
-            <div class="proflie_detail_right">
-                <span><i class='fas fa-user-friends'></i></ion-icon> Friends</span>
-                <span><i class='far fa-comment'></i> Message</span>
-                <br />
-            </div>
-        </div>
-        <div class="profile-links-container">
-            <div class="profile-links">
-                <div class="profile-links-items">
-                    <span class="profile-link-item">Publications</span>
-                    <span class="profile-link-item">About</span>
-                    <span class="profile-link-item">Friend(s)</span>
-                    <span class="profile-link-item">Pictures</span>
-                </div>
-                <div class="profile-link-more">
-                    <a href="#"><span><i class="fa fa-ellipsis-h"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
+	{% include 'profileHeader.twig' with {'URL': URL , 'user':user, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
     <div class="profile_container">
         <div class="profile_info">
             <div class="info_col">
@@ -57,31 +26,31 @@
                 <div class="profile_intro">
                     <div class="title_box">
                         <h3>Photos</h3>
-                        <a href="">All Photos</a>
+                        <a href="{{URL}}profile/{{user.user_slug}}/photos">All Photos</a>
                     </div>
                     <div class="photo_box">
-                        {% for post in posts %}
-                        <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                        {% for post in posts|slice(0, 9) %}
+                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
                         {% endfor %}
-
                     </div>
                 </div>
                 <div class="profile_intro">
                     <div class="title_box">
                         <h3>Friends</h3>
-                        <a href="">All Friends</a>
+                        <a href="{{URL}}profile/{{user.user_slug}}/friends">All Friends</a>
                     </div>
-                    <p>120 (10 mutal)</p>
+                    <p>{{nb_friends}}</p>
                     <div class="friends_box">
-                        <div><img src="images/member-1.png" alt=""> <p>Adnan Y</p></div> 
-                        <div><img src="images/member-2.png" alt=""> <p>Izhan F</p></div> 
-                        <div><img src="images/member-3.png" alt=""> <p>Kamran S</p></div> 
-                        <div><img src="images/member-4.png" alt=""> <p>Sameer K</p></div> 
-                        <div><img src="images/member-5.png" alt=""> <p>Fatiama A</p></div> 
-                        <div><img src="images/member-6.png" alt=""> <p>Arham Ar</p></div> 
-                        <div><img src="images/member-7.png" alt=""> <p>Kamil Y</p></div> 
-                        <div><img src="images/member-8.png" alt=""> <p>Amir Y</p></div> 
-                        <div><img src="images/member-9.png" alt=""> <p>Kashan A</p></div> 
+                    {% for friend in friends|slice(0, 9) %}
+                        <a href="{{URL}}/profile/{{friend.user_slug}}">
+                            <div class='friend-profile-info'>
+                                <div class='friend-profile_picture'>
+                                    <img src="{{PROFILE_IMG_PATH}}{{friend.user_pp_path}}" alt=""> 
+                                </div>
+                                <p>{{friend.user_firstname}} {{friend.user_lastname}}</p>
+                            </div>
+                        </a> 
+                    {% endfor %}
                     </div>
                 </div>
             </div>

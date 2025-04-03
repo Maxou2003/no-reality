@@ -16,7 +16,7 @@ class ProfileController
         $this->twig = $twig;
     }
 
-    public function main()
+    public function publications()
     {
         $database = new DatabaseConnection();
         $UserRepository = new UserRepository();
@@ -30,10 +30,71 @@ class ProfileController
         } else {
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
+            $friends = $UserRepository->getFriends($user_id);
+            $template = $this->twig->load('profilePublications.twig');
 
-            $template = $this->twig->load('profile.twig');
+            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+        }
+    }
 
-            echo $template->render(['posts' => $posts, 'user' => $user, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, /*'followers_stats' => $followers_stats,*/ 'nbPosts' => count($posts)]);
+    public function about()
+    {
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $slug = strval($_GET['username']);
+        $user_id = $UserRepository->getUserIdBySlug($slug);
+        if ($user_id == -1) {;
+            http_response_code(404);
+            echo "Error 404: username '$slug' not found.";
+        } else {
+            $user = $UserRepository->getUser($user_id);
+            $posts = $UserRepository->getPosts($user_id);
+            $friends = $UserRepository->getFriends($user_id);
+            $template = $this->twig->load('profileAbout.twig');
+
+            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+        }
+    }
+    public function friends()
+    {
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $slug = strval($_GET['username']);
+        $user_id = $UserRepository->getUserIdBySlug($slug);
+        if ($user_id == -1) {;
+            http_response_code(404);
+            echo "Error 404: username '$slug' not found.";
+        } else {
+            $user = $UserRepository->getUser($user_id);
+            $posts = $UserRepository->getPosts($user_id);
+            $friends = $UserRepository->getFriends($user_id);
+            $template = $this->twig->load('profileFriends.twig');
+
+            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+        }
+    }
+    public function photos()
+    {
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $slug = strval($_GET['username']);
+        $user_id = $UserRepository->getUserIdBySlug($slug);
+        if ($user_id == -1) {;
+            http_response_code(404);
+            echo "Error 404: username '$slug' not found.";
+        } else {
+            $user = $UserRepository->getUser($user_id);
+            $posts = $UserRepository->getPosts($user_id);
+            $friends = $UserRepository->getFriends($user_id);
+            $template = $this->twig->load('profilePhotos.twig');
+
+            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }
     }
 }
