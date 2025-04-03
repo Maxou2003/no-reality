@@ -10,3 +10,15 @@ function changeActiveAboutNav(event) {
     }
 
 }
+
+function changeActiveFriendtNav(event) {
+    const active = document.querySelector('.friends-nav .active');
+    if (active != event.target) {
+        // const activeFiendsContent = document.querySelector(`.${event.target.id}`);
+        // const previousAvoutContent = document.querySelector(`.${active.id}`);
+        // activeAboutContent.style.display = 'block';
+        // previousAvoutContent.style.display = 'none';
+        event.target.classList.add("active");
+        active.classList.remove('active');
+    }
+}

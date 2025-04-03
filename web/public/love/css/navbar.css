@@ -107,6 +107,17 @@ nav {
     bottom: 5px;
 }
 
+.logo-container {
+    display: flex;
+    height: 4vh;
+    object-fit: contain;
+}
+
+.logo {
+    margin-right: 10px;
+    aspect-ratio: 1/1;
+}
+
 /* .nav_user_icon {
     margin-left: 30px;
 } */

@@ -67,11 +67,12 @@
     flex-direction: row;
 }
 
-.pd_image {
-    width: 175px;
-    margin-right: 20px;
+.profile_details_image img {
+    width: 22vh;
+    height: 22vh;
     border-radius: 50%;
-    border: 3px solid #efefef;
+    object-fit: cover;
+    margin-right: 1vh;
 }
 
 .profile-info {

@@ -15,6 +15,9 @@ class User implements JsonSerializable
     public string $user_location;
     public string $user_work;
     public string $user_school;
+    public int $user_gender;
+    public string $user_website;
+    public string $user_yob; // year of birth
     public string $user_banner_picture_path;
 
     public function jsonSerialize(): mixed
@@ -30,6 +33,9 @@ class User implements JsonSerializable
             'location' => $this->user_location,
             'work' => $this->user_work,
             'school' => $this->user_school,
+            'gender' => $this->user_gender,
+            'website' => $this->user_website,
+            'yob' => $this->user_yob,
             'banner_picture' => $this->user_banner_picture_path,
         ];
     }

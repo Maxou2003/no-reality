@@ -13,7 +13,7 @@ class UserRepository
     public function getSuggestions(): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT DISTINCT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school, user_banner_picture_path FROM users WHERE user_id in (
+            'SELECT DISTINCT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school,year_of_birth,gender,website, user_banner_picture_path FROM users WHERE user_id in (
             SELECT user_id 
         FROM userlinkinstance 
         WHERE instance_id =:instance_id
@@ -34,6 +34,9 @@ class UserRepository
             $user->user_location = $row['user_location'];
             $user->user_work = $row['user_work'];
             $user->user_school = $row['user_school'];
+            $user->user_yob = $row['year_of_birth'];
+            $user->user_gender = $row['gender'];
+            $user->user_website = $row['website'];
             $user->user_banner_picture_path = $row['user_banner_picture_path'];
 
             $users[] = $user;
@@ -92,7 +95,7 @@ class UserRepository
     public function getUser($id): User
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_id, user_firstname, user_lastname, user_pp_path, user_description, user_slug, user_banner_picture_path, user_location, user_school, user_work FROM users WHERE user_id = :id  and user_id in(
+            'SELECT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school,year_of_birth,gender,website, user_banner_picture_path FROM users WHERE user_id = :id  and user_id in(
                         SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id)'
         );
 
@@ -104,15 +107,19 @@ class UserRepository
 
         $user = new User();
         $user->user_id = $row['user_id'];
+        $user->user_pp_path = $row['user_pp_path'];
         $user->user_firstname = $row['user_firstname'];
         $user->user_lastname = $row['user_lastname'];
-        $user->user_pp_path = $row['user_pp_path'];
         $user->user_description = $row['user_description'];
         $user->user_slug = $row['user_slug'];
-        $user->user_banner_picture_path = $row['user_banner_picture_path'];
         $user->user_location = $row['user_location'];
-        $user->user_school = $row['user_school'];
         $user->user_work = $row['user_work'];
+        $user->user_school = $row['user_school'];
+        $user->user_yob = $row['year_of_birth'];
+        $user->user_gender = $row['gender'];
+        $user->user_website = $row['website'];
+        $user->user_banner_picture_path = $row['user_banner_picture_path'];
+
 
         return $user;
     }
@@ -130,15 +137,18 @@ class UserRepository
         while (($row = $statement->fetch())) {
             $user = new User();
             $user->user_id = $row['user_id'];
+            $user->user_pp_path = $row['user_pp_path'];
             $user->user_firstname = $row['user_firstname'];
             $user->user_lastname = $row['user_lastname'];
-            $user->user_pp_path = $row['user_pp_path'];
             $user->user_description = $row['user_description'];
             $user->user_slug = $row['user_slug'];
-            $user->user_banner_picture_path = $row['user_banner_picture_path'];
             $user->user_location = $row['user_location'];
-            $user->user_school = $row['user_school'];
             $user->user_work = $row['user_work'];
+            $user->user_school = $row['user_school'];
+            $user->user_yob = $row['year_of_birth'];
+            $user->user_gender = $row['gender'];
+            $user->user_website = $row['website'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
 
             $userArray[] = $user;
         }

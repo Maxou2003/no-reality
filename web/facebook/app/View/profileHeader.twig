@@ -5,7 +5,9 @@
         <div class="profile_detail">
             <div class="proflie_detail_left">
                 <div class="profile_row">
-                    <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Profile" class="pd_image">
+                    <div class="profile_details_image">
+                        <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Profile">
+                    </div>
                     <div class="profile-info">
                         <span class="profile-name">{{user.user_firstname}} {{user.user_lastname}}</span>
                         <span class="profile-friends">{{ nb_friends}} Friends</span>

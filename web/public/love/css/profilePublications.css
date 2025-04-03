@@ -232,13 +232,13 @@
     grid-template-columns: repeat(3, minmax(100px, 1fr));
     grid-gap: 5px;
     margin-top: 15px;
-    border-radius: 10px;
     overflow: hidden;
 }
 
 .photo_box_item {
     position: relative;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .photo_box_item img {

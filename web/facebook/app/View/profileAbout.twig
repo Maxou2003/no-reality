@@ -22,9 +22,9 @@
                         <div class="about-nav">
                             <h3 class="about-title">About</h3>
                             <button class="about-nav-item active" onclick="changeActiveAboutNav(event)" id="overview">Overview</button>
-                            <button class="about-nav-item"onclick="changeActiveAboutNav(event)" id="work-school">Work and School</button>
-                            <button class="about-nav-item"onclick="changeActiveAboutNav(event)"id="location">Location</button>
-                            <button class="about-nav-item"onclick="changeActiveAboutNav(event)"id="general-information">General Information</button>
+                            <button class="about-nav-item" onclick="changeActiveAboutNav(event)" id="work-school">Work and School</button>
+                            <button class="about-nav-item" onclick="changeActiveAboutNav(event)"id="location">Location</button>
+                            <button class="about-nav-item" onclick="changeActiveAboutNav(event)"id="general-information">General Information</button>
                         </div>
                         
                         <div class="about-content">
@@ -33,26 +33,26 @@
                                      {% if user.user_work %}
                                     <li class="about-list-item">
                                         <i class="fa-solid fa-briefcase"></i>
-                                        <span>A étudié à {{user.user_work}}</span>
+                                        <span>Works at {{user.user_work}}</span>
                                     </li>
                                     {% endif %}
                                 
                                     {% if user.user_school %}
                                     <li class="about-list-item">
                                         <i class="fas fa-graduation-cap"></i>
-                                        <span>A étudié à {{user.user_school}}</span>
+                                        <span>Studied at {{user.user_school}}</span>
                                     </li>
                                     {% endif %}
                                     {% if user.user_location %}
                                     <li class="about-list-item">
                                         <i class="fas fa-home"></i>
-                                        <span>Habite à {{user.user_location}}</span>
+                                        <span>Lives in {{user.user_location}}</span>
                                     </li>
                                     {% endif %}
                                     {% if user.user_hometown %}
                                     <li class="about-list-item">
                                         <i class="fas fa-map-marker-alt"></i>
-                                        <span>De {{user.user_hometown}}</span>
+                                        <span>From {{user.user_hometown}}</span>
                                     </li>
                                     {% endif %}
                                 </ul>
@@ -61,14 +61,14 @@
                                      {% if user.user_work %}
                                     <li class="about-list-item">
                                         <i class="fa-solid fa-briefcase"></i>
-                                        <span>A étudié à {{user.user_work}}</span>
+                                        <span>Works at {{user.user_work}}</span>
                                     </li>
                                     {% endif %}
                                 
                                     {% if user.user_school %}
                                     <li class="about-list-item">
                                         <i class="fas fa-graduation-cap"></i>
-                                        <span>A étudié à {{user.user_school}}</span>
+                                        <span>Studied at {{user.user_school}}</span>
                                     </li>
                                     {% endif %}
                                 </ul>
@@ -78,27 +78,37 @@
                                     {% if user.user_location %}
                                     <li class="about-list-item">
                                         <i class="fas fa-home"></i>
-                                        <span>Habite à {{user.user_location}}</span>
+                                        <span>Lives in  {{user.user_location}}</span>
                                     </li>
                                     {% endif %}
                                 </ul>
 
                                 <ul class="about-list general-information">
-                            
+                                    {% if user.user_yob !=0 %}
                                     <li class="about-list-item">
-                                        <i class="fa-solid fa-briefcase"></i>
-                                        <span>Year of birth : 1981 </span>
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Year of birth : {{user.user_yob}} </span>
                                     </li>
+                                     {% endif %}
                                 
+                                    {% if user.user_gender %}
                                     <li class="about-list-item">
-                                        <i class="fas fa-graduation-cap"></i>
+                                        {% if user.user_gender == 1 %}
+                                        <i class="fa-solid fa-mars"></i>
                                         <span>Gender: male</span>
+                                        {% endif %}
+                                        {% if user.user_gender == 0 %}
+                                        <i class="fa-solid fa-venus"></i>
+                                        <span>Gender: female</span>
+                                        {% endif %}
                                     </li>
-                                   
+                                    {% endif %}
+                                    {% if user.user_website %}
                                     <li class="about-list-item">
-                                        <i class="fas fa-home"></i>
-                                        <span>Website: http://noreality.eu/hates</span>
+                                       <i class="fa-solid fa-earth-americas"></i>
+                                        <span>Website: {{user.user_website}}</span>
                                     </li>
+                                    {% endif %}
 
                                    
                                 </ul>
@@ -119,16 +129,23 @@
                 
                 <div class="profile_intro friends-container">
                     <div class="friends-header">
-                        <h3 class="friends-title">Ami(e)s</h3>
-                        <span class="friends-count">{{nb_friends}} ami(e)s • 4 en commun</span>
+                        <h3 class="friends-title">Friends</h3>
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <div class="search-container" id="follow-search-container">
+                                        <input type="text" class="form-control search-input" name="follow-search" onkeyup="search()" placeholder="Search...">
+                                        <i class="fas fa-search search-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+				        </div>
                     </div>
                     
                     <div class="friends-nav">
-                        <a href="#" class="friends-nav-item active">Tous les amis</a>
-                        <a href="#" class="friends-nav-item">Ami(e)s en commun</a>
-                        <a href="#" class="friends-nav-item">Université</a>
-                        <a href="#" class="friends-nav-item">Ville d'origine</a>
-                        <a href="#" class="friends-nav-item">Suivi(e)s</a>
+                        <span class="friends-nav-item active" onclick="changeActiveFriendtNav(event)">All friends</span>
+                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)">School</span>
+                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)">City</span>
                     </div>
                     
                     <div class="friends_box">
