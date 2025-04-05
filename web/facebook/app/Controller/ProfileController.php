@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Lib\DatabaseConnection;
-use App\Model\PostRepository;
 use App\Model\UserRepository;
 
 class ProfileController

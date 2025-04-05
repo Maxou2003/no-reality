@@ -1,0 +1,23 @@
+<div class="profile_intro photos-container">
+    <div class="photos-header">
+        <h3 class="photos-title">Photos</h3>
+    </div>
+    
+    <div class="photos-nav">
+        <span class="photos-nav-item active" onclick="changeActivePhotosNav(event)" id="self">Photos taken by {{user.user_firstname}}</span>
+        <span class="photos-nav-item" onclick="changeActivePhotosNav(event)" id="others">Photos taken by others</span>
+    </div>
+    
+    <div class="photos_box">
+        {% for post in posts|slice(0, 6) %}
+        <div class="photos-item-container">
+                <div class='photo-picture'>
+                    <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""> 
+                </div>
+        </div> 
+        {% endfor %}
+    </div>
+    {% if profilePhotos is not defined %}
+    <a href="{{URL}}profile/{{user.user_slug}}/photos" class="see-all-friends">See all photos</a>
+    {% endif %}
+</div>
