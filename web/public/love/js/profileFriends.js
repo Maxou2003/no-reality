@@ -1,5 +1,4 @@
-
-function changeActiveFriendtNav(event) {
+function changeActiveFriendsNav(event) {
     const active = document.querySelector('.friends-nav .active');
     if (active != event.target) {
         const userId = document.querySelector('.profile_container').getAttribute('data-user-id');

@@ -109,9 +109,7 @@
                                        <i class="fa-solid fa-earth-americas"></i>
                                         <span>Website: {{user.user_website}}</span>
                                     </li>
-                                    {% endif %}
-
-                                   
+                                    {% endif %} 
                                 </ul>
 
                             </div>
@@ -144,9 +142,9 @@
                     </div>
                     
                     <div class="friends-nav">
-                        <span class="friends-nav-item active" onclick="changeActiveFriendtNav(event)" id="all">All friends</span>
-                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)" id="school">School</span>
-                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)" id="city">City</span>
+                        <span class="friends-nav-item active" onclick="changeActiveFriendsNav(event)" id="all">All friends</span>
+                        <span class="friends-nav-item" onclick="changeActiveFriendsNav(event)" id="school">School</span>
+                        <span class="friends-nav-item" onclick="changeActiveFriendsNav(event)" id="location">City</span>
                     </div>
                     
                     <div class="friends_box">
@@ -163,7 +161,32 @@
                         {% endfor %}
                     </div>
                     
-                    <a href="{{URL}}profile/{{user.user_slug}}/friends" class="see-all-friends">Voir tous les amis</a>
+                    <a href="{{URL}}profile/{{user.user_slug}}/friends" class="see-all-friends">See all Friends</a>
+                </div>
+
+
+
+                 <div class="profile_intro photos-container">
+                    <div class="photos-header">
+                        <h3 class="photos-title">Photos</h3>
+                    </div>
+                    
+                    <div class="photos-nav">
+                        <span class="photos-nav-item active" onclick="" id="">Photos taken by {{user.user_firstname}}</span>
+                        <span class="photos-nav-item" onclick="" id="">Photos taken by others</span>
+                    </div>
+                    
+                    <div class="photos_box">
+                        {% for post in posts|slice(0, 6) %}
+                        <div class="photos-item-container">
+                                <div class='photo-picture'>
+                                    <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""> 
+                                </div>
+                        </div> 
+                        {% endfor %}
+                    </div>
+                    
+                    <a href="{{URL}}profile/{{user.user_slug}}/photos" class="see-all-friends">See all photos</a>
                 </div>
             </div>
         </div>
