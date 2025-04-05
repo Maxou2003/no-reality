@@ -40,4 +40,36 @@ class PostRepository
         }
         return $postArray;
     }
+    function getPhotos($userId): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT post_picture_path FROM posts WHERE user_id=:user_id AND instance_id=:instance_id'
+        );
+        $statement->bindValue(':user_id', $userId, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $photos = [];
+        while (($row = $statement->fetch())) {
+            $photos[] = $row['post_picture_path'];
+        }
+        return $photos;
+    }
+
+    function getTaggedPhotos($userId): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT post_picture_path FROM posts WHERE instance_id=:instance_id AND post_id IN (
+            SELECT post_id FROM identifications WHERE user_id=:user_id)'
+        );
+        $statement->bindValue(':user_id', $userId, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $photos = [];
+        while (($row = $statement->fetch())) {
+            $photos[] = $row['post_picture_path'];
+        }
+        return $photos;
+    }
 }

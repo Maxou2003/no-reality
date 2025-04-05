@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 02 avr. 2025 à 11:43
+-- Généré le : sam. 05 avr. 2025 à 16:15
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -146,6 +146,25 @@ CREATE TABLE `group_members` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `identifications`
+--
+
+CREATE TABLE `identifications` (
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `instance_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `identifications`
+--
+
+INSERT INTO `identifications` (`user_id`, `post_id`, `instance_id`) VALUES
+(1, 2, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `instances`
 --
 
@@ -256,19 +275,22 @@ CREATE TABLE `users` (
   `user_location` varchar(255) NOT NULL,
   `user_work` varchar(255) NOT NULL,
   `user_school` varchar(255) NOT NULL,
-  `user_banner_picture_path` varchar(255) NOT NULL
+  `user_banner_picture_path` varchar(255) NOT NULL,
+  `year_of_birth` int(11) NOT NULL,
+  `gender` tinyint(1) NOT NULL,
+  `website` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`) VALUES
-(1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', ''),
-(2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Enseignant Chercheur', 'Polytech Angers', 'none'),
-(3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none'),
-(4, 'Martin', 'Mollat', 'martin.mollat.4', '1727454408757.jpg', 'Le 5 avril je présente un spectacle de théâtre d\'improvisation chez moi, venez nombreux !', 'Angers', 'none', 'Polytech Angers', 'none'),
-(5, 'Gaston', 'Plot', 'gaston.plot.5', '1636488595977.jpg', 'Work life balance 🎶', 'Angers', 'none', 'Polytech Angers', 'none');
+INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `year_of_birth`, `gender`, `website`) VALUES
+(1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', '', 0, 0, ''),
+(2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Polytech Angers', '', 'none', 0, 0, ''),
+(3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none', 0, 0, ''),
+(4, 'Martin', 'Mollat', 'martin.mollat.4', '1727454408757.jpg', 'Le 5 avril je présente un spectacle de théâtre d\'improvisation chez moi, venez nombreux !', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, ''),
+(5, 'Gaston', 'Plot', 'gaston.plot.5', '1636488595977.jpg', 'Work life balance 🎶', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, '');
 
 --
 -- Index pour les tables déchargées
@@ -318,6 +340,14 @@ ALTER TABLE `group_members`
   ADD PRIMARY KEY (`group_member_id`),
   ADD KEY `FK_GroupMembersGroupId` (`group_id`),
   ADD KEY `FK_GroupMembersUserId` (`user_id`);
+
+--
+-- Index pour la table `identifications`
+--
+ALTER TABLE `identifications`
+  ADD PRIMARY KEY (`user_id`,`post_id`,`instance_id`),
+  ADD KEY `FK_IdentificationsPostId` (`post_id`),
+  ADD KEY `FK_IdentificationsInstanceId` (`instance_id`);
 
 --
 -- Index pour la table `instances`
@@ -474,6 +504,14 @@ ALTER TABLE `friends`
 ALTER TABLE `group_members`
   ADD CONSTRAINT `FK_GroupMembersGroupId` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`),
   ADD CONSTRAINT `FK_GroupMembersUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `identifications`
+--
+ALTER TABLE `identifications`
+  ADD CONSTRAINT `FK_IdentificationsInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
+  ADD CONSTRAINT `FK_IdentificationsPostId` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`),
+  ADD CONSTRAINT `FK_IdentificationsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `likes`

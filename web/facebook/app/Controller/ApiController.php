@@ -101,4 +101,27 @@ class ApiController
         header('Content-Type: application/json');
         echo json_encode($friends);
     }
+
+    public function getPhotos()
+    {
+        if (!isset($_GET['userId'])) {
+            echo json_encode(['error' => 'User ID is required']);
+            return;
+        }
+
+        $userId = intval($_GET['userId']);
+
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        if (isset($_GET['filter']) && $_GET['filter'] == 'others') {
+            $photos = $PostRepository->getTaggedPhotos($userId);
+        } else {
+            $photos = $PostRepository->getPhotos($userId);
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($photos);
+    }
 }

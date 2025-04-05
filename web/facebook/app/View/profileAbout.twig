@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{URL}}css/home.css">
     <script src="{{URL}}js/profileHeader.js" defer></script>
     <script src="{{URL}}js/profileAbout.js" defer></script>
+    <script src="{{URL}}js/profilePhotos.js" defer></script>
     <script src="{{URL}}js/profileFriends.js" defer></script>
 {% endblock %}
 
@@ -172,8 +173,8 @@
                     </div>
                     
                     <div class="photos-nav">
-                        <span class="photos-nav-item active" onclick="" id="">Photos taken by {{user.user_firstname}}</span>
-                        <span class="photos-nav-item" onclick="" id="">Photos taken by others</span>
+                        <span class="photos-nav-item active" onclick="changeActivePhotosNav(event)" id="self">Photos taken by {{user.user_firstname}}</span>
+                        <span class="photos-nav-item" onclick="changeActivePhotosNav(event)" id="others">Photos taken by others</span>
                     </div>
                     
                     <div class="photos_box">
