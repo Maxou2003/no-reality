@@ -179,7 +179,6 @@
     display: flex;
     flex-wrap: wrap;
     padding: 8px 16px;
-    border-bottom: 1px solid #dddfe2;
 }
 
 .friends-nav-item {
@@ -201,7 +200,7 @@
 
 .friends_box {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     padding: 16px;
 }
@@ -213,23 +212,19 @@
 
 .friend-profile_picture {
     position: relative;
-    padding-top: 100%;
     overflow: hidden;
     border-radius: 8px;
 }
 
 .friend-profile_picture img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: 85px;
+    height: 85px;
     object-fit: cover;
 }
 
 .friend-item p {
-    margin: 4px 0 0 0;
     font-size: 13px;
+    margin-left: 6px;
     font-weight: 600;
     text-align: center;
     color: #050505;
@@ -288,4 +283,33 @@
     transform: translateY(-50%);
     color: #888;
     pointer-events: none;
+}
+
+/*  friend container */
+.friend-item-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border: 1px solid #eff4fc;
+    border-radius: 10px;
+}
+
+.friends-container .add-friend-btn {
+    background: #1876f2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.friends-container .friend-item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 10px;
 }

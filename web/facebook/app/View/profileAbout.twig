@@ -6,13 +6,14 @@
     <link rel="stylesheet" href="{{URL}}css/home.css">
     <script src="{{URL}}js/profileHeader.js" defer></script>
     <script src="{{URL}}js/profileAbout.js" defer></script>
+    <script src="{{URL}}js/profileFriends.js" defer></script>
 {% endblock %}
 
 {% block content %}
     {% include 'navbar.twig' with {'URL': URL} %}
     {% include 'profileHeader.twig' with {'URL': URL , 'user':user, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
     
-    <div class="profile_container">
+    <div class="profile_container" data-user-id="{{ user.user_id }}">
         <div class="profile_info">
             <div class="info_col">
                 <div class="profile_intro">
@@ -134,7 +135,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-12">
                                     <div class="search-container" id="follow-search-container">
-                                        <input type="text" class="form-control search-input" name="follow-search" onkeyup="search()" placeholder="Search...">
+                                        <input type="text" class="form-control search-input" name="follow-search" onkeyup="searchFriends(event)" placeholder="Search...">
                                         <i class="fas fa-search search-icon"></i>
                                     </div>
                                 </div>
@@ -143,19 +144,22 @@
                     </div>
                     
                     <div class="friends-nav">
-                        <span class="friends-nav-item active" onclick="changeActiveFriendtNav(event)">All friends</span>
-                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)">School</span>
-                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)">City</span>
+                        <span class="friends-nav-item active" onclick="changeActiveFriendtNav(event)" id="all">All friends</span>
+                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)" id="school">School</span>
+                        <span class="friends-nav-item" onclick="changeActiveFriendtNav(event)" id="city">City</span>
                     </div>
                     
                     <div class="friends_box">
-                        {% for friend in friends|slice(0, 9) %}
-                        <a href="{{URL}}/profile/{{friend.user_slug}}" class="friend-item">
-                            <div class='friend-profile_picture'>
-                                <img src="{{PROFILE_IMG_PATH}}{{friend.user_pp_path}}" alt=""> 
-                            </div>
-                            <p>{{friend.user_firstname}}</p>
-                        </a>
+                        {% for friend in friends|slice(0, 6) %}
+                        <div class="friend-item-container">
+                            <a href="{{URL}}/profile/{{friend.user_slug}}" class="friend-item">
+                                <div class='friend-profile_picture'>
+                                    <img src="{{PROFILE_IMG_PATH}}{{friend.user_pp_path}}" alt=""> 
+                                </div>
+                                <p>{{friend.user_firstname}} {{friend.user_lastname}}</p>
+                            </a>
+                            <button class="add-friend-btn">Add friend</button>
+                        </div> 
                         {% endfor %}
                     </div>
                     

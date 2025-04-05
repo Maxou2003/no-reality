@@ -18,9 +18,15 @@
                     <p class="intro_text">{{user.user_description}}</p>
                     <hr>
                     <ul>
+                    {% if user.user_work %}
                         <li> <i class="fa fa-suitcase"></i>  {{user.user_work}}</li>
+                    {% endif %}
+                    {% if user.user_school %}
                         <li> <i class='fas fa-layer-group'></i>  Studied at {{user.user_school}}</li>
+                    {% endif %}
+                    {% if user.user_location %}
                         <li> <i class='fas fa-map-marker-alt'></i>  Lives in {{user.user_location}}</li>
+                    {% endif %}
                     </ul>
                 </div>
                 <div class="profile_intro">
