@@ -125,11 +125,19 @@ DELIMITER ;
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL,
   `group_name` varchar(255) NOT NULL,
-  `group_profile_picture_path` varchar(255) NOT NULL,
+  `time_stamp` datetime NOT NULL,
   `group_banner_picture_path` varchar(255) NOT NULL,
   `group_description` varchar(500) NOT NULL,
-  `nb_members` int(11) NOT NULL DEFAULT 0
+  `nb_members` int(11) NOT NULL DEFAULT 0,
+  `instance_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `groups`
+--
+
+INSERT INTO `groups` (`group_id`, `group_name`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`) VALUES
+(1, 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -142,6 +150,31 @@ CREATE TABLE `group_members` (
   `group_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `group_posts`
+--
+
+CREATE TABLE `group_posts` (
+  `instance_id` int(11) NOT NULL,
+  `nb_comments` int(11) NOT NULL,
+  `nb_likes` int(11) NOT NULL,
+  `post_content` varchar(500) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `post_picture_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `time_stamp` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `group_posts`
+--
+
+INSERT INTO `group_posts` (`instance_id`, `nb_comments`, `nb_likes`, `post_content`, `post_id`, `post_picture_path`, `time_stamp`, `user_id`, `group_id`) VALUES
+(1, 0, 0, 'Just spend love', 1, '', '2025-04-02 16:36:41', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -331,8 +364,9 @@ ALTER TABLE `friends`
 -- Index pour la table `groups`
 --
 ALTER TABLE `groups`
-  ADD PRIMARY KEY (`group_id`);
-
+  ADD PRIMARY KEY (`group_id`),
+  ADD UNIQUE KEY `group_name` (`group_name`),
+  ADD KEY `FK_GroupsInstanceId` (`instance_id`);
 --
 -- Index pour la table `group_members`
 --
@@ -341,6 +375,15 @@ ALTER TABLE `group_members`
   ADD KEY `FK_GroupMembersGroupId` (`group_id`),
   ADD KEY `FK_GroupMembersUserId` (`user_id`);
 
+--
+-- Index pour la table `group_posts`
+--
+ALTER TABLE `group_posts`
+  ADD PRIMARY KEY (`post_id`),
+  ADD KEY `FK_GroupPostsInstanceId` (`instance_id`),
+  ADD KEY `FK_GroupPostsUserId` (`user_id`),
+  ADD KEY `FK_GroupPostsGroupId` (`group_id`);
+  
 --
 -- Index pour la table `identifications`
 --
@@ -431,6 +474,12 @@ ALTER TABLE `group_members`
   MODIFY `group_member_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `group_posts`
+--
+ALTER TABLE `group_posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  
+--
 -- AUTO_INCREMENT pour la table `instances`
 --
 ALTER TABLE `instances`
@@ -497,6 +546,12 @@ ALTER TABLE `friends`
   ADD CONSTRAINT `FK_FriendsInstanceID` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id_1`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`user_id_2`) REFERENCES `users` (`user_id`);
+  
+--
+-- Contraintes pour la table `groups`
+--
+ALTER TABLE `groups`
+  ADD CONSTRAINT `FK_GroupsInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`);
 
 --
 -- Contraintes pour la table `group_members`
@@ -504,6 +559,14 @@ ALTER TABLE `friends`
 ALTER TABLE `group_members`
   ADD CONSTRAINT `FK_GroupMembersGroupId` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`),
   ADD CONSTRAINT `FK_GroupMembersUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `group_posts`
+--
+ALTER TABLE `group_posts`
+  ADD CONSTRAINT `FK_GroupPostsGroupId` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`),
+  ADD CONSTRAINT `FK_GroupPostsInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
+  ADD CONSTRAINT `FK_GroupPostsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `identifications`
