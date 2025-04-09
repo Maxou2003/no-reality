@@ -1,0 +1,35 @@
+    <div class="group-top">
+        <div class="group-cover">
+            <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="cover" class="img-cover">
+            <span class="group-cover-info">Group managed by {{group.group_name}}</span>
+        </div>
+        <div class="group_detail">
+            <div class="group_detail_left">
+                <div class="group_row">
+                    <div class="group-info">
+                        <span class="group-name">{{group.group_name}}</span>
+                        <span class="group-members"><ion-icon name="earth-outline"></ion-icon> Group (Public) · {{ group.nb_members}} members</span>
+                    </div>
+                </div>
+            </div>
+            <div class="group_detail_right">
+                <span>+ Invite</span>
+                <span><i class='fas fa-user-friends'></i></ion-icon> Share</span>
+                <span><i class='fas fa-users'></i> Member</span>
+                <br />
+            </div>
+        </div>
+        <div class="group-links-container">
+            <div class="group-links">
+                <div class="group-links-items">
+                    <a href="{{URL}}groups/{{group.group_name}}"><span class="group-link-item" id="discussions">Discussion</span></a>
+                    <a href="{{URL}}groups/{{group.group_name}}/announcements"><span class="group-link-item" id="announcements">Announcements</span></a>
+                    <a href="{{URL}}groups/{{group.group_name}}/members"><span class="group-link-item" id="members">Members</span></a>
+                    <a href="{{URL}}groups/{{group.group_name}}/media"><span class="group-link-item" id="media">Media</span></a>
+                </div>
+                <div class="group-link-more">
+                    <a href=""><span><i class="fa fa-ellipsis-h"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>

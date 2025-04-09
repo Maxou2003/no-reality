@@ -5,6 +5,7 @@ namespace App\Model;
 use DateTime;
 use App\Model\Entity\GroupPost;
 use App\Model\Entity\Group;
+use App\Model\Entity\User;
 use App\Lib\DatabaseConnection;
 
 class GroupRepository
@@ -118,5 +119,36 @@ class GroupRepository
         }
 
         return $groupArray;
+    }
+    public function getGroupMembers($group_id): Users
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, time_stamp, post_picture_path, post_content, nb_comments FROM group_posts p join users u on p.user_id=u.user_id  WHERE p.group_id = (SELECT group_id FROM groups WHERE group_name = :group_name) and instance_id=:instance_id ORDER BY time_stamp DESC'
+        );
+        $statement->bindValue(':group_name', $group_name, \PDO::PARAM_STR);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $userArray = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $groupPosts->user_pp_path = $row['user_pp_path'];
+            $groupPosts->user_firstname = $row['user_firstname'];
+            $groupPosts->user_lastname = $row['user_lastname'];
+            $groupPosts->user_description = $row['user_description'];
+            $groupPosts->user_slug = $row['user_slug'];
+            $groupPosts->user_location = $row['user_location'];
+            $groupPosts->user_work = $row['user_work'];
+            $groupPosts->user_school = $row['user_school'];
+            $groupPosts->user_gender = $row['user_gender'];
+            $groupPosts->user_website = $row['user_website'];
+            $groupPosts->user_yob = $row['user_yob'];
+            $groupPosts->user_banner_picture_path = $row['user_banner_picture_path'];
+
+            $userArray[] = $groupPosts;
+        }
+
+        return $groupPostArray;
     }
 }

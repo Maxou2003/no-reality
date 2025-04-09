@@ -1,3 +1,4 @@
+
 /* Header section */
 
 .group-top {
@@ -172,98 +173,79 @@
     padding: 8px 12px 8px 12px;
 }
 
+/* SearchBox classes*/
+
+.search_box {
+    background: #efefef;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin-top: 10px;
+}
+
+.search_box img {
+    width: 18px;
+}
+
+.search_box input {
+    width: 100%;
+    background-color: transparent;
+    padding: 10px;
+    outline: none;
+    border: none;
+}
+
 /* Container section */
 
 .group_container {
-    padding: 0px 18% 20px 18%;
+    padding: 0px 35%;
     color: #626262;
 }
 
-.group_info {
+.members-container {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    flex-direction: column;
     margin-top: -20px;
+    background-color: white;
+    padding: 20px 15px;
 }
 
-.info_col {
-    flex-basis: 33%;
-    position: sticky;
-}
-
-.post_col {
-    flex-basis: 62%;
-}
-
-.group_intro {
-    background-color: #fff;
-    padding: 20px;
+.members-top-row {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
-    border-radius: 4px;
 }
 
-.group_intro h3 {
-    font-weight: 600;
+.members-top-row p{
 }
 
-.intro_text {
-    margin: 10px 0;
-    font-size: 15px;
+.members-title {
+    color: black;
+    margin-bottom: 5px;
 }
 
-.intro_text img {
-    width: 15px;
-    margin-bottom: -3px;
-}
-
-.group_intro ul li {
-    list-style-type: none;
-    font-size: 15px;
-    margin: 15px 0 5px 0;
-    display: flex;
-    align-items: center;
-}
-
-.group_intro ul li ion-icon {
-    padding-right: 7px;
-}
-
-.group_intro p {
-    font-size: 14px;
-}
-
-.title_box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.title_box a {
-    text-decoration: none;
-    color: #1876f2;
-    font-size: 14px;
-}
-
-.photo_box {
+.post-picture-container {
     display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 5px;
-    margin-top: 15px;
     overflow: hidden;
+    max-width: 100%;
 }
 
-.photo_box_item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
+.post-picture {
+    display: flex;
 }
 
-.photo_box_item img {
+.post-picture img {
     width: 100%;
-    height: 100%;
     object-fit: cover;
     aspect-ratio: 1/1;
     cursor: pointer;
-    object-fit: cover;
+}
 
+@media (min-width: 1080px) {
+    .post-picture-container {
+        grid-template-columns: repeat(6, 1fr);
+    }
 }

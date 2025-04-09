@@ -3,44 +3,12 @@
 {% block head %}
     <link rel="stylesheet" href="{{URL}}css/groupPage.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
+    <script src="{{URL}}js/groupHeader.js" defer></script>
 {% endblock %}
 
 {% block content %}
     {% include 'navbar.twig' with {'URL': URL} %}
-    <div class="group-top">
-        <div class="group-cover">
-            <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="cover" class="img-cover">
-        </div>
-        <div class="group_detail">
-            <div class="group_detail_left">
-                <div class="group_row">
-                    <div class="group-info">
-                        <span class="group-name">{{group.group_name}}</span>
-                        <span class="group-members"><ion-icon name="earth-outline"></ion-icon> Group (Public) · {{ group.nb_members}} members</span>
-                    </div>
-                </div>
-            </div>
-            <div class="group_detail_right">
-                <span>+ Invite</span>
-                <span><i class='fas fa-user-friends'></i></ion-icon> Share</span>
-                <span><i class='fas fa-users'></i> Member</span>
-                <br />
-            </div>
-        </div>
-        <div class="group-links-container">
-            <div class="group-links">
-                <div class="group-links-items">
-                    <a href="{{URL}}profile/{{user.user_slug}}"><span class="group-link-item" id="publications">Publications</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/about"><span class="group-link-item" id="about">About</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/friends"><span class="group-link-item" id="friends">Friend(s)</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/photos"><span class="group-link-item" id="pictures">Photos</span></a>
-                </div>
-                <div class="group-link-more">
-                    <a href="#"><span><i class="fa fa-ellipsis-h"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'groupHeader.twig' with {'URL': URL , 'group':group, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
     <div class="group_container">
         <div class="group_info">
             <div class="post_col">
@@ -102,7 +70,7 @@
                     </div>
                     <div class="photo_box">
                         {% for post in posts|slice(0, 9) %}
-                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                            {# <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div> #}
                         {% endfor %}
                     </div>
                 </div>
