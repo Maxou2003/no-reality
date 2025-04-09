@@ -1,9 +1,69 @@
 {% extends 'base.twig' %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{URL}}css/home.css">
+    <link rel="stylesheet" href="{{URL}}css/navbar.css">
+    <link rel="stylesheet" href="{{URL}}css/groupExplorer.css">
 {% endblock %}
 
 {% block content %}
     {% include 'navbar.twig' with {'URL': URL} %}
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Groups</div>
+            </div>
+            <div class="sidebar-section">
+                <div class="search_box" style="margin-bottom: 16px;">
+                    <i class="fas fa-search" style="position: absolute; margin: 10px; color: #65676b"></i>
+                    <input type="search" placeholder="Search in groups" style="padding-left: 32px; width: 100%;">
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <ul class="sidebar-menu">
+                    <li><i class="fas fa-newspaper"></i> Votre fil</li>
+                    <li><i class="fas fa-compass"></i> Découvrir</li>
+                    <li><i class="fas fa-users"></i> Vos groupes</li>
+                </ul>
+                
+                <button class="create-group-btn">
+                    <i class="fas fa-plus"></i> Créer un nouveau groupe
+                </button>
+            </div>
+            
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="suggestion-title">Suggestions</div>
+            <div class="section-title">Groups that might interest you.</div>
+            <div class="group-card-carroussel first-carroussel">
+                {%for group in suggestions | slice(0, 4) %}
+                    <div class="group-card">
+                        <div class="group-banner">
+                            <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="Group Banner" class="group-banner-img">
+                        </div>
+                        <div class="group-name">{{group.group_name}}</div>
+                        <div class="group-meta">{{group.nb_members}} members</div>
+                        <button class="join-btn">Join the group</button>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="suggestion-title">Other suggestions</div>
+
+            <div class="group-card-carroussel">
+               {%for group in otherSuggestions | slice(0, 4) %}
+                    <div class="group-card">
+                        <div class="group-banner">
+                            <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="Group Banner" class="group-banner-img">
+                        </div>
+                        <div class="group-name">{{group.group_name}}</div>
+                        <div class="group-meta">{{group.nb_members}} members</div>
+                        <button class="join-btn">Join the group</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

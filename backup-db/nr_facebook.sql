@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 09 avr. 2025 à 11:03
+-- Généré le : mer. 09 avr. 2025 à 17:05
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -168,7 +168,10 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`group_id`, `group_name`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`) VALUES
 (1, 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1),
-(2, 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1);
+(2, 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1),
+(3, 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1),
+(5, 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1),
+(6, 'LesAbandonnésDeLamour', '2025-04-09 16:49:10', 'pexels-pengwhan-1767434.jpg', 'Nous on est un groupe de célibataires assumés ! ', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -596,7 +599,7 @@ ALTER TABLE `discussions_messages`
 -- AUTO_INCREMENT pour la table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `group_members`

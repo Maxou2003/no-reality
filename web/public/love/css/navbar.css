@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 nav {
     display: flex;
     flex-direction: row;
@@ -118,6 +122,24 @@ nav {
     aspect-ratio: 1/1;
 }
 
-/* .nav_user_icon {
-    margin-left: 30px;
-} */
+/* SearchBox classes*/
+
+.search_box {
+    background: #efefef;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.search_box img {
+    width: 18px;
+}
+
+.search_box input {
+    width: 100%;
+    background-color: transparent;
+    padding: 10px;
+    outline: none;
+    border: none;
+}

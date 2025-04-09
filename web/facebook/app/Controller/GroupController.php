@@ -36,8 +36,8 @@ class GroupController
         $GroupRepository = new GroupRepository();
         $GroupRepository->connection = $database;
 
-        $suggestions = $GroupRepository->getGroupSuggestions(5, 0);
-        $otherSuggestions = $GroupRepository->getGroupSuggestions(5, 5);
+        $suggestions = $GroupRepository->getGroupSuggestions(4, 0);
+        $otherSuggestions = $GroupRepository->getGroupSuggestions(4, 4);
 
         $template = $this->twig->load('groupExplorer.twig');
         echo $template->render(['suggestions' => $suggestions, 'otherSuggestions' => $otherSuggestions, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
