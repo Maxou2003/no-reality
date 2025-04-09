@@ -1,47 +1,48 @@
 {% extends 'base.twig' %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{URL}}css/profile.css">
+    <link rel="stylesheet" href="{{URL}}css/groupPage.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
 {% endblock %}
 
 {% block content %}
     {% include 'navbar.twig' with {'URL': URL} %}
-    <div class="profile-top">
-        <div class="profile-cover">
+    <div class="group-top">
+        <div class="group-cover">
             <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="cover" class="img-cover">
         </div>
-        <div class="profile_detail">
-            <div class="proflie_detail_left">
-                <div class="profile_row">
-                    <div class="profile-info">
-                        <span class="profile-name">{{group.group_name}}</span>
-                        <span class="profile-friends"><ion-icon name="earth-outline"></ion-icon> Group (Public) · {{ group.nb_members}} members</span>
+        <div class="group_detail">
+            <div class="group_detail_left">
+                <div class="group_row">
+                    <div class="group-info">
+                        <span class="group-name">{{group.group_name}}</span>
+                        <span class="group-members"><ion-icon name="earth-outline"></ion-icon> Group (Public) · {{ group.nb_members}} members</span>
                     </div>
                 </div>
             </div>
-            <div class="proflie_detail_right">
-                <span><i class='fas fa-user-friends'></i></ion-icon> Friends</span>
-                <span><i class='far fa-comment'></i> Message</span>
+            <div class="group_detail_right">
+                <span>+ Invite</span>
+                <span><i class='fas fa-user-friends'></i></ion-icon> Share</span>
+                <span><i class='fas fa-users'></i> Member</span>
                 <br />
             </div>
         </div>
-        <div class="profile-links-container">
-            <div class="profile-links">
-                <div class="profile-links-items">
-                    <a href="{{URL}}profile/{{user.user_slug}}"><span class="profile-link-item" id="publications">Publications</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/about"><span class="profile-link-item" id="about">About</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/friends"><span class="profile-link-item" id="friends">Friend(s)</span></a>
-                    <a href="{{URL}}profile/{{user.user_slug}}/photos"><span class="profile-link-item" id="pictures">Photos</span></a>
+        <div class="group-links-container">
+            <div class="group-links">
+                <div class="group-links-items">
+                    <a href="{{URL}}profile/{{user.user_slug}}"><span class="group-link-item" id="publications">Publications</span></a>
+                    <a href="{{URL}}profile/{{user.user_slug}}/about"><span class="group-link-item" id="about">About</span></a>
+                    <a href="{{URL}}profile/{{user.user_slug}}/friends"><span class="group-link-item" id="friends">Friend(s)</span></a>
+                    <a href="{{URL}}profile/{{user.user_slug}}/photos"><span class="group-link-item" id="pictures">Photos</span></a>
                 </div>
-                <div class="profile-link-more">
+                <div class="group-link-more">
                     <a href="#"><span><i class="fa fa-ellipsis-h"></i></span></a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="profile_container">
-        <div class="profile_info">
+    <div class="group_container">
+        <div class="group_info">
             <div class="post_col">
             {% for post in posts %}
                 <div class="post-container">
@@ -55,7 +56,6 @@
                         </div>
                         <div class="post-setting">
                             <span><i class="fa fa-ellipsis-h"></i></span>
-                            <span class="close">&times;</span>
                         </div>
                     </div>
                     <p class="post_text">{{post.post_content}}</p>
@@ -82,10 +82,9 @@
             {% endfor %}
             </div>
             <div class="info_col">
-                <div class="profile_intro">
+                <div class="group_intro">
                     <h3>About</h3>
                     <p class="intro_text">{{group.group_description}}</p>
-                    <hr>
                     <ul>
                         <li> <ion-icon name="earth-outline"></ion-icon>  Public</li>
                         <p> Tout le monde peut voir qui est dans le groupe et ce qui est publié.</p>
@@ -93,7 +92,7 @@
                         <p> Tout le monde peut trouver ce groupe.</p>
                     </ul>
                 </div>
-                <div class="profile_intro">
+                <div class="group_intro">
                     <div class="title_box">
                         <h3>Discussions</h3>
                     </div>

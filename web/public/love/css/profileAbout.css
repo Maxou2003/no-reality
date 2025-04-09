@@ -179,7 +179,6 @@
     display: flex;
     flex-wrap: wrap;
     padding: 8px 16px;
-    border-bottom: 1px solid #dddfe2;
 }
 
 .friends-nav-item {
@@ -201,7 +200,7 @@
 
 .friends_box {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     padding: 16px;
 }
@@ -213,23 +212,19 @@
 
 .friend-profile_picture {
     position: relative;
-    padding-top: 100%;
     overflow: hidden;
     border-radius: 8px;
 }
 
 .friend-profile_picture img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: 85px;
+    height: 85px;
     object-fit: cover;
 }
 
 .friend-item p {
-    margin: 4px 0 0 0;
     font-size: 13px;
+    margin-left: 6px;
     font-weight: 600;
     text-align: center;
     color: #050505;
@@ -288,4 +283,99 @@
     transform: translateY(-50%);
     color: #888;
     pointer-events: none;
+}
+
+/*  friend container */
+.friend-item-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border: 1px solid #eff4fc;
+    border-radius: 10px;
+}
+
+.friends-container .add-friend-btn {
+    background: #1876f2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.friends-container .friend-item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+/* photos container  */
+
+.photos-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 0;
+}
+
+.photos-header {
+    display: flex;
+    padding: 16px;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.photos-nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px 16px;
+    column-gap: 8px;
+}
+
+.photos-nav-item {
+    display: block;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 10px 12px 10px;
+}
+
+.photos-nav-item.active {
+    color: #1876f2;
+    border-bottom: 3px solid #1876f2;
+}
+
+.photos-nav-item:hover {
+    background-color: #f0f2f5;
+}
+
+.photos_box {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    padding: 16px;
+}
+
+.photos-item-container .photo-picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.photos-nav-item .photos-nav-item-title {
+    font-size: 13px;
+    margin-left: 6px;
+    font-weight: 600;
+    text-align: center;
+    color: #050505;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

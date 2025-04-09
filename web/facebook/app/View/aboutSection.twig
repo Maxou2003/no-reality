@@ -1,0 +1,107 @@
+<div class="profile_intro"> 
+    <div class='about-container'>
+        <div class="about-nav">
+            <h3 class="about-title">About</h3>
+            <button class="about-nav-item active" onclick="changeActiveAboutNav(event)" id="overview">Overview</button>
+            <button class="about-nav-item" onclick="changeActiveAboutNav(event)" id="work-school">Work and School</button>
+            <button class="about-nav-item" onclick="changeActiveAboutNav(event)"id="location">Location</button>
+            <button class="about-nav-item" onclick="changeActiveAboutNav(event)"id="general-information">General Information</button>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-section">
+                <ul class="about-list overview">
+                        {% if user.user_work %}
+                    <li class="about-list-item">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span>Works at {{user.user_work}}</span>
+                    </li>
+                    {% endif %}
+                
+                    {% if user.user_school %}
+                    <li class="about-list-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Studied at {{user.user_school}}</span>
+                    </li>
+                    {% endif %}
+                    {% if user.user_location %}
+                    <li class="about-list-item">
+                        <i class="fas fa-home"></i>
+                        <span>Lives in {{user.user_location}}</span>
+                    </li>
+                    {% endif %}
+                    {% if user.user_hometown %}
+                    <li class="about-list-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>From {{user.user_hometown}}</span>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+                <ul class="about-list work-school">
+                        {% if user.user_work %}
+                    <li class="about-list-item">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span>Works at {{user.user_work}}</span>
+                    </li>
+                    {% endif %}
+                
+                    {% if user.user_school %}
+                    <li class="about-list-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Studied at {{user.user_school}}</span>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <ul class="about-list location">
+                    
+                    {% if user.user_location %}
+                    <li class="about-list-item">
+                        <i class="fas fa-home"></i>
+                        <span>Lives in  {{user.user_location}}</span>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <ul class="about-list general-information">
+                    {% if user.user_yob !=0 %}
+                    <li class="about-list-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Year of birth : {{user.user_yob}} </span>
+                    </li>
+                        {% endif %}
+                
+                    {% if user.user_gender %}
+                    <li class="about-list-item">
+                        {% if user.user_gender == 1 %}
+                        <i class="fa-solid fa-mars"></i>
+                        <span>Gender: male</span>
+                        {% endif %}
+                        {% if user.user_gender == 0 %}
+                        <i class="fa-solid fa-venus"></i>
+                        <span>Gender: female</span>
+                        {% endif %}
+                    </li>
+                    {% endif %}
+                    {% if user.user_website %}
+                    <li class="about-list-item">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span>Website: {{user.user_website}}</span>
+                    </li>
+                    {% endif %} 
+                </ul>
+
+            </div>
+            
+            {% if is_current_user %}
+            <div class="add-info-section">
+                <button class="add-info-button">
+                    <i class="fas fa-plus"></i>
+                    <span>Ajouter une information</span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
