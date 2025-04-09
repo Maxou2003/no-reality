@@ -175,20 +175,21 @@
 
 /* SearchBox classes*/
 
-.search_box {
+.search_box_members {
     background: #efefef;
     border-radius: 20px;
     display: flex;
     align-items: center;
     padding: 0 15px;
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 
-.search_box img {
+.search_box_members img {
     width: 18px;
 }
 
-.search_box input {
+.search_box_members input {
     width: 100%;
     background-color: transparent;
     padding: 10px;
@@ -214,10 +215,12 @@
 .members-top-row {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #d1d1d1;
 }
 
 .members-top-row p{
+    font-size: 14px;
 }
 
 .members-title {
@@ -230,13 +233,45 @@
     flex-direction: column;
 }
 
-.member-list-item {
-    display: flex;
+.members-list p{
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
-.post-picture img {
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 1/1;
-    cursor: pointer;
+.new-members-title {
+    color: black;
+    margin-bottom: 5px;
 }
+
+.member-list-item {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+}
+
+.member-list-item img {
+    width: 65px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 1px solid rgb(226, 226, 226);
+    margin-right: 10px;
+}
+
+.member-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.member-names {
+    margin-top: 10px;
+    color: black;
+}
+
+.member-since {
+    font-size: 14px;
+}
+
+.member-more {
+    font-size: 12px;
+}
+

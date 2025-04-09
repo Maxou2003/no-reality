@@ -123,7 +123,7 @@ class GroupRepository
     public function getGroupMembers($group_id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT u.user_id, u.user_pp_path, u.user_firstname, u.user_lastname, u.user_description, u.user_slug, u.user_location, u.user_work, u.user_school, u.user_gender, u.user_website, u.user_yob, u.user_banner_picture_path FROM group_members g JOIN users u ON g.user_id=u.user_id  WHERE g.group_id = :group_id ORDER BY g.time_stamp DESC'
+            'SELECT u.user_id, u.user_pp_path, u.user_firstname, u.user_lastname, u.user_description, u.user_slug, u.user_location, u.user_work, u.user_school, u.gender, u.website, u.year_of_birth, u.user_banner_picture_path, time_stamp FROM group_members g JOIN users u ON g.user_id=u.user_id  WHERE g.group_id = :group_id ORDER BY g.time_stamp DESC'
         );
         $statement->bindValue(':group_id', $group_id, \PDO::PARAM_INT);
         $statement->execute();
@@ -140,12 +140,12 @@ class GroupRepository
             $user->user_location = $row['user_location'];
             $user->user_work = $row['user_work'];
             $user->user_school = $row['user_school'];
-            $user->user_gender = $row['user_gender'];
-            $user->user_website = $row['user_website'];
-            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['gender'];
+            $user->user_website = $row['website'];
+            $user->user_yob = $row['year_of_birth'];
             $user->user_banner_picture_path = $row['user_banner_picture_path'];
 
-            $userArray[] = $user;
+            $userArray[] = ['users' => $user, 'timestamp' => $row['time_stamp']];
         }
 
         return $userArray;
