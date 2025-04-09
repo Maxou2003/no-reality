@@ -1,0 +1,33 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{URL}}css/groupMembers.css">
+    <link rel="stylesheet" href="{{URL}}css/home.css">
+    <script src="{{URL}}js/groupHeader.js" defer></script>
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'URL': URL} %}
+    {% include 'groupHeader.twig' with {'URL': URL , 'group':group, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
+    <div class="group_container">
+        <div class="members-container">
+            <div class="members-top-row">
+                <span class="members-title">Members · {{ group.nb_members}}</span>
+                <p>New people who join this group will appear here.</p>
+                <div class="search_box">
+                 <ion-icon src="{{URL}}img/svg-icons/search-outline.svg"></ion-icon>
+                <input type="search" placeholder="Search for a member">
+            </div>
+            </div>
+            <div class="post-picture-container">
+            {% for post in posts %}
+                    <div class="post-picture">
+                    {% if post.post_picture_path %}
+                        <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post_picture">
+                    {% endif %}
+                    </div>
+            {% endfor %}   
+            </div> 
+        </div>
+    </div>
+{% endblock %}
