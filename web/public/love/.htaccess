@@ -12,9 +12,9 @@
     RewriteRule ^profile/([a-zA-Z0-9\.]*)/photos$ index.php?p=profile/photos&username=$1
     # Group redirections
     RewriteRule ^groups$ index.php?p=group/groupExplorer
-    RewriteRule ^groups/([a-zA-Z0-9]*)$ index.php?p=group/discussions&groupname=$1
-    RewriteRule ^groups/([a-zA-Z0-9]*)/announcements$ index.php?p=group/announcements&groupname=$1
-    RewriteRule ^groups/([a-zA-Z0-9]*)/members$ index.php?p=group/members&groupname=$1
-    RewriteRule ^groups/([a-zA-Z0-9]*)/media$ index.php?p=group/media&groupname=$1
+    RewriteRule ^groups/([a-zA-Z0-9]*)$ index.php?p=group/discussions&groupslug=$1
+    RewriteRule ^groups/([a-zA-Z0-9]*)/announcements$ index.php?p=group/announcements&groupslug=$1
+    RewriteRule ^groups/([a-zA-Z0-9]*)/members$ index.php?p=group/members&groupslug=$1
+    RewriteRule ^groups/([a-zA-Z0-9]*)/media$ index.php?p=group/media&groupslug=$1
     RewriteRule ^explore/?$ index.php?p=explore/explore
 </IfModule>

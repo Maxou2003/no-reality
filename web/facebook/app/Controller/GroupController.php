@@ -21,10 +21,10 @@ class GroupController
         $GroupRepository = new GroupRepository();
         $GroupRepository->connection = $database;
 
-        $group_name = strval($_GET['groupname']);
+        $group_slug = strval($_GET['groupslug']);
 
-        $group = $GroupRepository->getGroup($group_name);
-        $posts = $GroupRepository->getPosts($group_name);
+        $group = $GroupRepository->getGroup($group_slug);
+        $posts = $GroupRepository->getPosts($group_slug);
 
         $template = $this->twig->load('groupPage.twig');
         echo $template->render(['group' => $group, 'posts' => $posts, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
@@ -48,14 +48,13 @@ class GroupController
         $GroupRepository = new GroupRepository();
         $GroupRepository->connection = $database;
 
-        $group_name = strval($_GET['groupname']);
-        
-        $group = $GroupRepository->getGroup($group_name);
-        $posts = $GroupRepository->getPosts($group_name);
-        
+        $group_slug = strval($_GET['groupslug']);
+
+        $group = $GroupRepository->getGroup($group_slug);
+        $posts = $GroupRepository->getPosts($group_slug);
+
         $template = $this->twig->load('groupPage.twig');
         echo $template->render(['group' => $group, 'posts' => $posts, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
-        
     }
     public function members()
     {
@@ -63,14 +62,13 @@ class GroupController
         $GroupRepository = new GroupRepository();
         $GroupRepository->connection = $database;
 
-        $group_name = strval($_GET['groupname']);
-        
-        $group = $GroupRepository->getGroup($group_name);
+        $group_slug = strval($_GET['groupslug']);
+
+        $group = $GroupRepository->getGroup($group_slug);
         $members = $GroupRepository->getGroupMembers($group->group_id);
-        
+
         $template = $this->twig->load('groupMembers.twig');
         echo $template->render(['group' => $group, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
-        
     }
     public function media()
     {
@@ -78,12 +76,12 @@ class GroupController
         $GroupRepository = new GroupRepository();
         $GroupRepository->connection = $database;
 
-        $group_name = strval($_GET['groupname']);
-        
-        $group = $GroupRepository->getGroup($group_name);
-        $posts = $GroupRepository->getPosts($group_name);
-        
+        $group_slug = strval($_GET['groupslug']);
+
+        $group = $GroupRepository->getGroup($group_slug);
+        $posts = $GroupRepository->getPosts($group_slug);
+
         $template = $this->twig->load('groupMedia.twig');
-        echo $template->render(['group' => $group, 'posts' => $posts, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);        
+        echo $template->render(['group' => $group, 'posts' => $posts, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
     }
 }

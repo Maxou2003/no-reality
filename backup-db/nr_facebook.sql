@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 09 avr. 2025 à 17:05
+-- Généré le : mer. 09 avr. 2025 à 21:06
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -155,6 +155,7 @@ DELIMITER ;
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL,
   `group_name` varchar(255) NOT NULL,
+  `group_slug` varchar(255) NOT NULL,
   `time_stamp` datetime NOT NULL,
   `group_banner_picture_path` varchar(255) NOT NULL,
   `group_description` varchar(500) NOT NULL,
@@ -166,12 +167,12 @@ CREATE TABLE `groups` (
 -- Déchargement des données de la table `groups`
 --
 
-INSERT INTO `groups` (`group_id`, `group_name`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`) VALUES
-(1, 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1),
-(2, 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1),
-(3, 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1),
-(5, 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1),
-(6, 'LesAbandonnésDeLamour', '2025-04-09 16:49:10', 'pexels-pengwhan-1767434.jpg', 'Nous on est un groupe de célibataires assumés ! ', 0, 1);
+INSERT INTO `groups` (`group_id`, `group_name`, `group_slug`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`) VALUES
+(1, 'Love is life', 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1),
+(2, 'LesTueLamour', 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1),
+(3, 'LesCupidons', 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1),
+(5, 'LesCharrots', 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1),
+(6, 'LesAbandonnesDeLamour', 'LesAbandonnesDeLamour', '2025-04-09 16:49:10', 'pexels-pengwhan-1767434.jpg', 'Nous on est un groupe de célibataires assumés ! ', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -182,17 +183,18 @@ INSERT INTO `groups` (`group_id`, `group_name`, `time_stamp`, `group_banner_pict
 CREATE TABLE `group_members` (
   `group_member_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `time_stamp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `group_members`
 --
 
-INSERT INTO `group_members` (`group_member_id`, `group_id`, `user_id`) VALUES
-(1, 1, 1),
-(3, 2, 1),
-(4, 1, 3);
+INSERT INTO `group_members` (`group_member_id`, `group_id`, `user_id`, `time_stamp`) VALUES
+(1, 1, 1, '2025-04-02 16:32:47'),
+(3, 2, 1, '2025-04-02 16:35:47'),
+(4, 1, 3, '2025-04-02 16:39:47');
 
 --
 -- Déclencheurs `group_members`
@@ -442,16 +444,16 @@ CREATE TABLE `users` (
   `user_work` varchar(255) NOT NULL,
   `user_school` varchar(255) NOT NULL,
   `user_banner_picture_path` varchar(255) NOT NULL,
-  `year_of_birth` int(11) NOT NULL,
-  `gender` tinyint(1) NOT NULL,
-  `website` varchar(255) NOT NULL
+  `user_yob` int(11) NOT NULL,
+  `user_gender` tinyint(1) NOT NULL,
+  `user_website` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `year_of_birth`, `gender`, `website`) VALUES
+INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `user_yob`, `user_gender`, `user_website`) VALUES
 (1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', '', 0, 0, ''),
 (2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Polytech Angers', '', 'none', 0, 0, ''),
 (3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none', 0, 0, ''),

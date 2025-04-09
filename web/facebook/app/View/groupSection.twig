@@ -10,13 +10,13 @@
     <div class="groups_box">
         {% for group in groups %}
         <div class="friend-item-container">
-            <a href="{{URL}}/groups/{{group.group_name}}" class="group-item">
+            <a href="{{URL}}groups/{{group.group_slug}}" class="group-item">
                 <div class='friend-profile_picture'>
                     <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt=""> 
                 </div>
                 <div class="group-info">
                     <div class="group-name">
-                        <p>{{group.group_name}}</p>
+                        <p>{{group.group_slug}}</p>
                     </div>
                     <div class="group-status-nbmembers">
                         <p class="group-public-status">

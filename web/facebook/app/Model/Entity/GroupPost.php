@@ -32,7 +32,7 @@ class GroupPost implements JsonSerializable
             "firstname" => $this->user_firstname,
             "lastname" => $this->user_lastname,
             "user_pp_path" => $this->user_pp_path,
-            "user_slug" => $this->$user_slug,
+            "user_slug" => $this->user_slug,
             "post_picture_path" => $this->post_picture_path,
             "time_stamp" => $this->time_stamp->format('Y-m-d H:i'),
             "nb_comments" => $this->nb_comments,

@@ -27,10 +27,10 @@
             <div class="group-card-carroussel first-carroussel">
                 {%for group in suggestions | slice(0, 4) %}
                     <div class="group-card">
-                        <a href="{{URL}}groups/{{group.group_name}}" class="group-card-link group-banner">
+                        <a href="{{URL}}groups/{{group.group_slug}}" class="group-card-link group-banner">
                             <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="Group Banner" class="group-banner-img">
                         </a>
-                        <a href="{{URL}}groups/{{group.group_name}}" class="group-card-link">
+                        <a href="{{URL}}groups/{{group.group_slug}}" class="group-card-link">
                             <div class="group-name">{{group.group_name}}</div>
                         </a>
                         <div class="group-meta">{{group.nb_members}} members</div>
@@ -44,10 +44,10 @@
             <div class="group-card-carroussel">
                {%for group in otherSuggestions | slice(0, 4) %}
                     <div class="group-card">
-                        <a href="{{URL}}groups/{{group.group_name}}" class="group-card-link group-banner">
+                        <a href="{{URL}}groups/{{group.group_slug}}" class="group-card-link group-banner">
                             <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="Group Banner" class="group-banner-img">
                         </a>
-                        <a href="{{URL}}groups/{{group.group_name}}" class="group-card-link">
+                        <a href="{{URL}}groups/{{group.group_slug}}" class="group-card-link">
                             <div class="group-name">{{group.group_name}}</div>
                         </a>
                         <div class="group-meta">{{group.nb_members}} members</div>
