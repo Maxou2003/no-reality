@@ -56,8 +56,8 @@ class GroupRepository
         if ($row == false) {;
             http_response_code(404);
             echo "Error 404: group name '$group_name' not found.";
-        }
-        else {
+            exit;
+        } else {
             $group = new Group();
             $group->group_id = $row['group_id'];
             $group->group_name = $row['group_name'];
@@ -65,9 +65,60 @@ class GroupRepository
             $group->group_banner_picture_path = $row['group_banner_picture_path'];
             $group->group_description = $row['group_description'];
             $group->nb_members = $row['nb_members'];
-    
+
             return $group;
         }
+    }
+
+    public function getUserGroups($userid): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT group_id, group_name, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE group_id IN (SELECT group_id FROM group_members WHERE user_id = :user_id) and instance_id=:instance_id'
+        );
+        $statement->bindValue(':user_id', $userid, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $groupArray = [];
+        while (($row = $statement->fetch())) {
+            $group = new Group();
+            $group->group_id = $row['group_id'];
+            $group->group_name = $row['group_name'];
+            $group->time_stamp = new DateTime($row['time_stamp']);
+            $group->group_banner_picture_path = $row['group_banner_picture_path'];
+            $group->group_description = $row['group_description'];
+            $group->nb_members = $row['nb_members'];
+
+            $groupArray[] = $group;
+        }
+
+        return $groupArray;
+    }
+
+    public function getGroupSuggestions($limit, $offset): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT group_id, group_name, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE instance_id=:instance_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
+        );
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $groupArray = [];
+        while (($row = $statement->fetch())) {
+            $group = new Group();
+            $group->group_id = $row['group_id'];
+            $group->group_name = $row['group_name'];
+            $group->time_stamp = new DateTime($row['time_stamp']);
+            $group->group_banner_picture_path = $row['group_banner_picture_path'];
+            $group->group_description = $row['group_description'];
+            $group->nb_members = $row['nb_members'];
+
+            $groupArray[] = $group;
+        }
+
+        return $groupArray;
     }
     public function getGroupMembers($group_id): Users
     {

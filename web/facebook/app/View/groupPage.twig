@@ -27,8 +27,10 @@
                         </div>
                     </div>
                     <p class="post_text">{{post.post_content}}</p>
-                    {% if post.post_picture_path %}
-                        <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                    {% if post.post_picture_path is not empty %}
+                        <div class="post_img_container">
+                            <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post Image" class="post_img">
+                        </div>
                     {% endif %}
                     <div class="post-bottom-row">
                         <div class="post-bottom-row-item">

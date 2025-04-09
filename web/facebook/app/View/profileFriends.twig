@@ -17,6 +17,6 @@
     <div class="profile_container" data-user-id="{{ user.user_id }}">
         {% include 'friendsSection.twig' with {'profileFriends': true}%}
         {% include 'photosSection.twig' with {'URL': URL ,'posts':posts, 'user':user, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,} %}
+         {% include 'groupSection.twig'%}
     </div>
 {% endblock %}
-{#   #}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 05 avr. 2025 à 16:15
+-- Généré le : mer. 09 avr. 2025 à 11:03
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -37,6 +37,36 @@ CREATE TABLE `comments` (
   `time_stamp` datetime NOT NULL,
   `nb_responses` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déclencheurs `comments`
+--
+DELIMITER $$
+CREATE TRIGGER `after_comment_deletion` AFTER DELETE ON `comments` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM comments
+        WHERE comments.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_comment_insertion` AFTER INSERT ON `comments` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM comments
+        WHERE comments.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -137,7 +167,8 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`group_id`, `group_name`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`) VALUES
-(1, 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 0, 1);
+(1, 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1),
+(2, 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -150,6 +181,45 @@ CREATE TABLE `group_members` (
   `group_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `group_members`
+--
+
+INSERT INTO `group_members` (`group_member_id`, `group_id`, `user_id`) VALUES
+(1, 1, 1),
+(3, 2, 1),
+(4, 1, 3);
+
+--
+-- Déclencheurs `group_members`
+--
+DELIMITER $$
+CREATE TRIGGER `after_group_member_deletion` AFTER DELETE ON `group_members` FOR EACH ROW BEGIN
+    UPDATE groups
+    SET nb_members = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM group_members
+        WHERE group_members.group_id = OLD.group_id
+    )
+    WHERE group_id = OLD.group_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_group_member_insertion` AFTER INSERT ON `group_members` FOR EACH ROW BEGIN
+    UPDATE groups
+    SET nb_members = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM group_members
+        WHERE group_members.group_id = NEW.group_id
+    )
+    WHERE group_id = NEW.group_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -225,6 +295,36 @@ CREATE TABLE `likes` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déclencheurs `likes`
+--
+DELIMITER $$
+CREATE TRIGGER `after_like_deletion` AFTER DELETE ON `likes` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_like_insertion` AFTER INSERT ON `likes` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -268,6 +368,36 @@ CREATE TABLE `shares` (
   `post_id` int(11) NOT NULL,
   `instance_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déclencheurs `shares`
+--
+DELIMITER $$
+CREATE TRIGGER `after_share_deletion` AFTER DELETE ON `shares` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_share_insertion` AFTER INSERT ON `shares` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -367,6 +497,7 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`group_id`),
   ADD UNIQUE KEY `group_name` (`group_name`),
   ADD KEY `FK_GroupsInstanceId` (`instance_id`);
+
 --
 -- Index pour la table `group_members`
 --
@@ -383,7 +514,7 @@ ALTER TABLE `group_posts`
   ADD KEY `FK_GroupPostsInstanceId` (`instance_id`),
   ADD KEY `FK_GroupPostsUserId` (`user_id`),
   ADD KEY `FK_GroupPostsGroupId` (`group_id`);
-  
+
 --
 -- Index pour la table `identifications`
 --
@@ -465,20 +596,20 @@ ALTER TABLE `discussions_messages`
 -- AUTO_INCREMENT pour la table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `group_members`
 --
 ALTER TABLE `group_members`
-  MODIFY `group_member_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `group_posts`
 --
 ALTER TABLE `group_posts`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-  
+
 --
 -- AUTO_INCREMENT pour la table `instances`
 --
@@ -546,7 +677,7 @@ ALTER TABLE `friends`
   ADD CONSTRAINT `FK_FriendsInstanceID` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id_1`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`user_id_2`) REFERENCES `users` (`user_id`);
-  
+
 --
 -- Contraintes pour la table `groups`
 --

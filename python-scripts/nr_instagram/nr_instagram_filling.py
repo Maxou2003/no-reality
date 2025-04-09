@@ -92,7 +92,7 @@ if __name__ == "__main__":
     POST_FILE = "posts.json"
 
     #PEOPLE = [(5,0,0),(5,1,0),(5,0,1),(5,1,1),(5, 0, 2), (5, 1, 2), (5, 0, 3), (5, 1, 3)]
-    PEOPLE = []
-    POSTS = [(10, 'voitures', 'cars')]
+    PEOPLE = [(6,0,0), (10,1,2)]
+    POSTS = [(10, 'voitures', 'cars'), (10, 'santé', 'health')]
     fill_instance(instance_name=INSTANCE_NAME, people_list=PEOPLE, post_list=POSTS, post_file=POST_FILE, pexel_api_key=PEXEL_API_KEY, follow_chance=0.3, follow_back_chance=0.9, database_name=DATABASE_NAME, precisions="")
     print("Instance filled")

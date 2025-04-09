@@ -18,5 +18,6 @@
         {% include 'aboutSection.twig' with {'user':user} %}
         {% include 'friendsSection.twig' with {'URL': URL , 'user':user, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,} %}
         {% include 'photosSection.twig' with {'URL': URL ,'posts':posts, 'user':user, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,} %}
+        {% include 'groupSection.twig'%}
     </div>
 {% endblock %}

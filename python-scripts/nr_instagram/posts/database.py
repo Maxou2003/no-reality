@@ -1,8 +1,8 @@
+from config import HOST, USER, PASSWORD
 import mysql.connector
 
-
 class Database:
-    def __init__(self, database, host="localhost", user="root", password=""):
+    def __init__(self, database, host=HOST, user=USER, password=PASSWORD):
         self.database = database
         self.host = host
         self.user = user

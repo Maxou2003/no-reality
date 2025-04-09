@@ -5,6 +5,7 @@ sys.path.insert(0, 'python-scripts')
 from nr_source.get_names import get_names
 from nr_source.image_scraping import download_images
 import math
+from config import HOST, USER, PASSWORD, DATABASE_SOURCE
 
 def clean_value(x):
     if isinstance(x, (float, int)) and math.isnan(x):
@@ -13,10 +14,10 @@ def clean_value(x):
 
 def check_last_index(gender, ethnicity):
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_source"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_SOURCE
     )
 
     cursor = conn.cursor()
@@ -54,10 +55,10 @@ def create_user_table():
     Create the users table in the nr_source database if it doesn't exist.
     """
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_source"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_SOURCE
     )
     cursor = conn.cursor()
     # Create table if it doesn't exist
@@ -76,10 +77,10 @@ def create_user_table():
 def execute_sql_insert(forename, surname, age, image_path, gender, ethnicity):
     # Connect to MySQL database
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_source"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_SOURCE
     )
     cursor = conn.cursor()
 
