@@ -154,4 +154,36 @@ class UserRepository
         }
         return $userArray;
     }
+
+    public function searchUsers($search): array
+    {
+
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT * FROM users WHERE user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id) and (user_firstname LIKE :search OR user_lastname LIKE :search)'
+        );
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
+        $statement->execute();
+
+        $userArray = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
+            $user->user_location = $row['user_location'];
+            $user->user_work = $row['user_work'];
+            $user->user_school = $row['user_school'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
+
+            $userArray[] = $user;
+        }
+        return $userArray;
+    }
 }

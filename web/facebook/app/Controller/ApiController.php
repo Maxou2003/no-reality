@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Lib\DatabaseConnection;
-use App\Model\Entity\ModalPost;
 use App\Model\PostRepository;
 use App\Model\UserRepository;
+use App\Model\GroupRepository;
 
 
 class ApiController
@@ -123,5 +123,49 @@ class ApiController
 
         header('Content-Type: application/json');
         echo json_encode($photos);
+    }
+
+    public function searchGroups()
+    {
+        if (!isset($_GET['searchContent'])) {
+            echo json_encode(['error' => 'Search term is required']);
+            return;
+        }
+        if (!$this->checkSearch($_GET['searchContent'])) {
+            echo json_encode(['error' => 'Invalid search term']);
+            return;
+        }
+
+        $search = $_GET['searchContent'];
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $groups = $GroupRepository->searchGroups($search);
+
+        header('Content-Type: application/json');
+        echo json_encode($groups);
+    }
+
+    public function searchUsers()
+    {
+        if (!isset($_GET['searchContent'])) {
+            echo json_encode(['error' => 'Search term is required']);
+            return;
+        }
+        if (!$this->checkSearch($_GET['searchContent'])) {
+            echo json_encode(['error' => 'Invalid search term']);
+            return;
+        }
+
+        $search = $_GET['searchContent'];
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $users = $UserRepository->searchUsers($search);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
     }
 }

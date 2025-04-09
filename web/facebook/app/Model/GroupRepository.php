@@ -158,4 +158,30 @@ class GroupRepository
 
         return $userArray;
     }
+
+    public function searchGroups($search): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE instance_id=:instance_id and group_name LIKE :search'
+        );
+        $statement->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $groupArray = [];
+        while (($row = $statement->fetch())) {
+            $group = new Group();
+            $group->group_id = $row['group_id'];
+            $group->group_name = $row['group_name'];
+            $group->group_slug = $row['group_slug'];
+            $group->time_stamp = new DateTime($row['time_stamp']);
+            $group->group_banner_picture_path = $row['group_banner_picture_path'];
+            $group->group_description = $row['group_description'];
+            $group->nb_members = $row['nb_members'];
+
+            $groupArray[] = $group;
+        }
+
+        return $groupArray;
+    }
 }
