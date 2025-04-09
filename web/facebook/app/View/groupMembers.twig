@@ -14,18 +14,28 @@
             <div class="members-top-row">
                 <span class="members-title">Members · {{ group.nb_members}}</span>
                 <p>New people who join this group will appear here.</p>
-                <div class="search_box">
+                <div class="search_box_members">
                  <ion-icon src="{{URL}}img/svg-icons/search-outline.svg"></ion-icon>
                     <input type="search" placeholder="Search for a member">
                 </div>
             </div>
             <div class="members-list">
+                <span class="new-members-title">New members</span>
+                <p>This list includes people who have joined the group as well as those who are previewing it. Anyone who has been invited and approved can preview the group's contents.</p>
             {% for member in members %}
                 <div class="member-list-item">
-                <span>{{member.user_firstname}}{{member.user_lastname}}</span>
-                {# {% if post.post_picture_path %}
-                    <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post_picture">
-                {% endif %} #}
+                    <img src="{{PROFILE_IMG_PATH}}{{member.users.user_pp_path}}" alt="Post_picture">
+                    <div class="member-data">
+                        <span class="member-names">{{member.users.user_firstname}}{{member.users.user_lastname}}</span>
+                        <span class="member-since">Member since {{member.timestamp}}</span>
+                        <span class="member-more">
+                        {% if member.users.user_location is not empty %}
+                            {{member.users.user_location}}
+                        {% elseif member.users.user_school is not empty %}
+                            {{member.users.user_school}}
+                        {% endif %}   
+                        </span>
+                    </div>
                 </div>
             {% endfor %}   
             </div> 
