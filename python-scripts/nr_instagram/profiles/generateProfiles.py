@@ -4,15 +4,14 @@ import sys
 sys.path.insert(0, 'python-scripts')
 from nr_source.nr_source_filling import create_persons
 from nr_instagram.profiles.create_descriptions import create_json
-
-
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM, DATABASE_SOURCE
 
 def create_table():
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_source"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_SOURCE
     )
     cursor = conn.cursor()
     cursor.execute('''
@@ -31,10 +30,10 @@ def get_all_info(gender, ethnicity):
     """
     try:
         conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="nr_source"
+            host=HOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE_SOURCE
         )
         sql = '''
                 SELECT user_firstname, user_lastname, user_age, user_pp_path FROM users
@@ -70,10 +69,10 @@ def fill_table(users):
     returns: a list of the user ids generated
     """
     conn = mysql.connector.connect(
-        host="localhost",
-        user = "root",
-        password = "",
-        database = "nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     sql = '''
@@ -103,10 +102,10 @@ def fill_table(users):
 
 def fill_instance(instance, users):
     conn = mysql.connector.connect(
-        host="localhost",
-        user = "root",
-        password = "",
-        database = "nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     insert = '''
@@ -135,12 +134,14 @@ def generate_new_profiles(nb_users, last_user, instance, gender, ethnicity, json
     users_all_infos = get_all_info(gender, ethnicity)[last_user:last_user + nb_users]
     print(f"All users infos retrieved: {len(users_all_infos)}")
     if len(users_all_infos) < nb_users:
-        print(f"Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés. Création de {nb_users - len(users_all_infos)} nouveaux utilisateurs...")
-        create_persons(nb_users - len(users_all_infos), gender, ethnicity, "web/profile_pictures")
+        print(f"Nombre d'utilisateurs insuffisant pour le nombre d'utilisateurs demandé. {len(users_all_infos)} utilisateurs trouvés. Création de {nb_users} nouveaux utilisateurs...")
+        create_persons(nb_users, gender, ethnicity, "web/profile_pictures")
         users_all_infos = get_all_info(gender, ethnicity)[last_user:last_user + nb_users]
+    print(f'users_all_infos: {users_all_infos}')
     users = []
     for i in range(len(users_all_infos)):
         users.append(users_all_infos[i][0:3])
+    print(f'users: {users}')
     create_json(json_file_path, users)
     print(f"Json file created with {len(users)} users")
     user_names_descriptions = descriptions_from_json(json_file_path)
@@ -161,10 +162,10 @@ def get_users_in_instance(instance_id):
     returns: a list of user IDs
     """
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     sql = '''
@@ -181,10 +182,10 @@ def check_instance_links(instance):
     returns: True if links exist, False otherwise
     """
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     sql = '''
@@ -212,10 +213,10 @@ def generate_profiles(nb_users, instance, gender, ethnicity, json_file_path):
     
     # Connect to database
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     
@@ -272,9 +273,8 @@ def generate_profiles(nb_users, instance, gender, ethnicity, json_file_path):
 
 if __name__ == '__main__':
     
-    generate_profiles(nb_users=5, instance=2, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    generate_profiles(nb_users=5, instance=19, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
     #generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
-    print(descriptions_from_json('python-scripts/nr_instagram/profiles/descriptions.json'))

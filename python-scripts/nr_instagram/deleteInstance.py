@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, 'python-scripts')
 from nr_instagram.posts.deletePost import delete_post
 from nr_instagram.profiles.deleteUser import delete_user_from_nr_instagram
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 import os
 import shutil
 
@@ -24,10 +25,10 @@ def delete_instance(instance_id):
     cursor = None
     try:
         conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_instagram"
+            host=HOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE_INSTAGRAM
         )
         cursor = conn.cursor()
         get_all_posts = '''
@@ -74,7 +75,7 @@ def delete_instance(instance_id):
     return True  # Return True on success
 
 if __name__ == "__main__":
-    instance_id = 17  # Replace with the actual instance ID you want to delete
+    instance_id = 18  # Replace with the actual instance ID you want to delete
     success = delete_instance(instance_id)
     if success:
         print(f"Instance {instance_id} deleted successfully.")
