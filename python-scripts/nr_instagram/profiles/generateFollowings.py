@@ -53,7 +53,11 @@ def fillTable(follow_list):
         database="nr_instagram"
     )
     cursor = conn.cursor()
-    sql = '''
+    sql_check = '''
+        SELECT COUNT(*) FROM subscriptions
+        WHERE follower_id = %s AND followed_id = %s AND instance_id = %s
+    '''
+    sql_insert = '''
         INSERT INTO subscriptions (
             follower_id,
             followed_id,
@@ -63,7 +67,9 @@ def fillTable(follow_list):
         )
     '''
     for i in range(len(follow_list)):
-        cursor.execute(sql, (follow_list[i][0], follow_list[i][1], follow_list[i][2]))
+        cursor.execute(sql_check, (follow_list[i][0], follow_list[i][1], follow_list[i][2]))
+        if cursor.fetchone()[0] == 0:  # Only insert if no existing subscription
+            cursor.execute(sql_insert, (follow_list[i][0], follow_list[i][1], follow_list[i][2]))
     conn.commit()
     cursor.close()
     conn.close()

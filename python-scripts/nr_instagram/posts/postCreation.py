@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from random import randint, shuffle, choice
-from database import Database
+from posts.database import Database
 
 
 class PostGenerator:

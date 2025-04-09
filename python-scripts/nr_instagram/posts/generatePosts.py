@@ -1,8 +1,8 @@
 import json
 import mysql.connector
-from postCreation import PostGenerator
-from getPostPictures import download_images_with_api
-from generateJson import generate_json
+from posts.postCreation import PostGenerator
+from posts.getPostPictures import download_images_with_api
+from posts.generateJson import generate_json
 
 def load_posts(post_file):
     with open(post_file, "r") as file:

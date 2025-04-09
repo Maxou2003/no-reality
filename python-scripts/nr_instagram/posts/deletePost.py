@@ -1,5 +1,6 @@
 import mysql.connector
 import os
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
 def delete_post_picture(post_picture_path, instance_name):
     post_picture_path = os.path.join("web", "public", instance_name, "img", "post_img", post_picture_path)
@@ -25,10 +26,10 @@ def delete_post(post_id):
     cursor = None
     try:
         conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="nr_instagram"
+            host=HOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE_INSTAGRAM
         )
         cursor = conn.cursor()
         sql = '''
