@@ -426,3 +426,7 @@
     flex-direction: row;
     column-gap: 8px;
 }
+
+.group-nb-members {
+    font-weight: 550;
+}

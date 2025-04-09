@@ -9,6 +9,7 @@
     RewriteRule ^profile/([a-zA-Z0-9\.]*)/about$ index.php?p=profile/about&username=$1
     RewriteRule ^profile/([a-zA-Z0-9\.]*)/friends$ index.php?p=profile/friends&username=$1
     RewriteRule ^profile/([a-zA-Z0-9\.]*)/photos$ index.php?p=profile/photos&username=$1
+    RewriteRule ^groups$ index.php?p=group/groupExplorer
     RewriteRule ^groups/([a-zA-Z0-9]*)$ index.php?p=group/group&groupname=$1
     RewriteRule ^explore/?$ index.php?p=explore/explore
 </IfModule>

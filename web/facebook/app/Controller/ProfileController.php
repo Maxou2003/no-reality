@@ -64,6 +64,8 @@ class ProfileController
     {
         $database = new DatabaseConnection();
         $UserRepository = new UserRepository();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
         $UserRepository->connection = $database;
 
         $slug = strval($_GET['username']);
@@ -75,15 +77,18 @@ class ProfileController
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
             $friends = $UserRepository->getFriends($user_id);
+            $groups = $GroupRepository->getUserGroups($user_id);
             $template = $this->twig->load('profileFriends.twig');
 
-            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+            echo $template->render(['groups' => $groups, 'posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }
     }
     public function photos()
     {
         $database = new DatabaseConnection();
         $UserRepository = new UserRepository();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
         $UserRepository->connection = $database;
 
         $slug = strval($_GET['username']);
@@ -95,9 +100,10 @@ class ProfileController
             $user = $UserRepository->getUser($user_id);
             $posts = $UserRepository->getPosts($user_id);
             $friends = $UserRepository->getFriends($user_id);
+            $groups = $GroupRepository->getUserGroups($user_id);
             $template = $this->twig->load('profilePhotos.twig');
 
-            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+            echo $template->render(['groups' => $groups, 'posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
         }
     }
 }
