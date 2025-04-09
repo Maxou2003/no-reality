@@ -74,11 +74,11 @@
                 
                     {% if user.user_gender %}
                     <li class="about-list-item">
-                        {% if user.user_gender == 1 %}
+                        {% if user.user_gender == 0 %}
                         <i class="fa-solid fa-mars"></i>
                         <span>Gender: male</span>
                         {% endif %}
-                        {% if user.user_gender == 0 %}
+                        {% if user.user_gender == 1 %}
                         <i class="fa-solid fa-venus"></i>
                         <span>Gender: female</span>
                         {% endif %}
