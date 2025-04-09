@@ -225,15 +225,12 @@
     margin-bottom: 5px;
 }
 
-.post-picture-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-gap: 5px;
-    overflow: hidden;
-    max-width: 100%;
+.members-list {
+    display: flex;
+    flex-direction: column;
 }
 
-.post-picture {
+.member-list-item {
     display: flex;
 }
 
@@ -242,10 +239,4 @@
     object-fit: cover;
     aspect-ratio: 1/1;
     cursor: pointer;
-}
-
-@media (min-width: 1080px) {
-    .post-picture-container {
-        grid-template-columns: repeat(6, 1fr);
-    }
 }

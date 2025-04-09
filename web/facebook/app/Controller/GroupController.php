@@ -66,10 +66,10 @@ class GroupController
         $group_name = strval($_GET['groupname']);
         
         $group = $GroupRepository->getGroup($group_name);
-        $posts = $GroupRepository->getPosts($group_name);
+        $members = $GroupRepository->getGroupMembers($group->group_id);
         
         $template = $this->twig->load('groupMembers.twig');
-        echo $template->render(['group' => $group, 'posts' => $posts, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+        echo $template->render(['group' => $group, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
         
     }
     public function media()

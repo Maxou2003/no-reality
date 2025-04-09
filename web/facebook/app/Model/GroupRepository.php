@@ -120,35 +120,34 @@ class GroupRepository
 
         return $groupArray;
     }
-    public function getGroupMembers($group_id): Users
+    public function getGroupMembers($group_id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, time_stamp, post_picture_path, post_content, nb_comments FROM group_posts p join users u on p.user_id=u.user_id  WHERE p.group_id = (SELECT group_id FROM groups WHERE group_name = :group_name) and instance_id=:instance_id ORDER BY time_stamp DESC'
+            'SELECT u.user_id, u.user_pp_path, u.user_firstname, u.user_lastname, u.user_description, u.user_slug, u.user_location, u.user_work, u.user_school, u.user_gender, u.user_website, u.user_yob, u.user_banner_picture_path FROM group_members g JOIN users u ON g.user_id=u.user_id  WHERE g.group_id = :group_id ORDER BY g.time_stamp DESC'
         );
-        $statement->bindValue(':group_name', $group_name, \PDO::PARAM_STR);
-        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindValue(':group_id', $group_id, \PDO::PARAM_INT);
         $statement->execute();
 
         $userArray = [];
         while (($row = $statement->fetch())) {
             $user = new User();
             $user->user_id = $row['user_id'];
-            $groupPosts->user_pp_path = $row['user_pp_path'];
-            $groupPosts->user_firstname = $row['user_firstname'];
-            $groupPosts->user_lastname = $row['user_lastname'];
-            $groupPosts->user_description = $row['user_description'];
-            $groupPosts->user_slug = $row['user_slug'];
-            $groupPosts->user_location = $row['user_location'];
-            $groupPosts->user_work = $row['user_work'];
-            $groupPosts->user_school = $row['user_school'];
-            $groupPosts->user_gender = $row['user_gender'];
-            $groupPosts->user_website = $row['user_website'];
-            $groupPosts->user_yob = $row['user_yob'];
-            $groupPosts->user_banner_picture_path = $row['user_banner_picture_path'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
+            $user->user_location = $row['user_location'];
+            $user->user_work = $row['user_work'];
+            $user->user_school = $row['user_school'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
 
-            $userArray[] = $groupPosts;
+            $userArray[] = $user;
         }
 
-        return $groupPostArray;
+        return $userArray;
     }
 }
