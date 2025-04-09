@@ -40,12 +40,6 @@ body {
     padding: 12px 0;
 }
 
-.sidebar-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 .sidebar-menu li {
     padding: 8px;
     border-radius: 8px;
@@ -66,26 +60,6 @@ body {
     text-align: center;
 }
 
-.create-group-btn {
-    background-color: #e7f3ff;
-    color: var(--primary-color);
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.create-group-btn i {
-    margin-right: 8px;
-    font-size: 16px;
-}
-
 /* Main Content */
 .main-content {
     flex-basis: 60%;
@@ -102,18 +76,10 @@ body {
     color: var(--secondary-color);
 }
 
-.see-all {
-    color: var(--primary-color);
-    font-weight: 600;
-    font-size: 15px;
-    cursor: pointer;
-    display: block;
-    margin: 8px 0;
-}
 
 .group-card-carroussel {
     display: flex;
-    gap: 16px;
+    gap: 8px;
     overflow-x: auto;
     padding-bottom: 40px;
     scrollbar-width: none;
@@ -230,6 +196,11 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.group-card-link {
+    text-decoration: none;
+    color: inherit;
 }
 
 @media (max-width: 1200px) {
