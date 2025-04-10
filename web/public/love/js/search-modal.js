@@ -70,10 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `).join('');
 
-        // Add click handlers for groups
         container.querySelectorAll('.result-item').forEach(item => {
             item.addEventListener('click', () => {
-                window.location.href = `${URL}groups/${item.dataset.groupSlug}`;
+                window.location.href = `${MY_URL}groups/${item.dataset.groupSlug}`;
             });
         });
     }
@@ -99,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `).join('');
 
-        // Add click handlers for users
         container.querySelectorAll('.result-item').forEach(item => {
             item.addEventListener('click', () => {
                 window.location.href = `${MY_URL}profile/${item.dataset.userSlug}`;
