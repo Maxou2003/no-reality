@@ -40,7 +40,7 @@ class PostRepository
         }
         return $postArray;
     }
-    function getPhotos($userId): array
+    public function getPhotos($userId): array
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT post_picture_path FROM posts WHERE user_id=:user_id AND instance_id=:instance_id'
@@ -56,7 +56,7 @@ class PostRepository
         return $photos;
     }
 
-    function getTaggedPhotos($userId): array
+    public function getTaggedPhotos($userId): array
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT post_picture_path FROM posts WHERE instance_id=:instance_id AND post_id IN (
@@ -71,5 +71,46 @@ class PostRepository
             $photos[] = $row['post_picture_path'];
         }
         return $photos;
+    }
+
+    public function searchPosts($search, $limit, $offset)
+    {
+
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT post_id, instance_id, user_firstname, user_lastname, post_content, u.user_id, u.user_slug, user_pp_path, post_picture_path, time_stamp, nb_comments, nb_likes, nb_shares 
+             FROM posts p join users u on p.user_id=u.user_id
+             WHERE u.user_id in (
+                SELECT ul.user_id 
+                FROM userlinkinstance ul
+                WHERE ul.instance_id=:instance_id
+                ) and (
+               u.user_firstname LIKE :search OR u.user_lastname LIKE :search or p.post_content LIKE :search
+                ) LIMIT :limit OFFSET :offset'
+        );
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $postArray = [];
+        while (($row = $statement->fetch())) {
+            $post = new Post();
+            $post->post_id = $row['post_id'];
+            $post->user_firstname = $row['user_firstname'];
+            $post->user_lastname = $row['user_lastname'];
+            $post->user_id = $row['user_id'];
+            $post->user_slug = $row['user_slug'];
+            $post->instance_id = $row['instance_id'];
+            $post->user_pp_path = $row['user_pp_path'];
+            $post->nb_likes = $row['nb_likes'];
+            $post->time_stamp = new DateTime($row['time_stamp']);
+            $post->post_picture_path = $row['post_picture_path'];
+            $post->post_content = $row['post_content'];
+            $post->nb_comments = $row['nb_comments'];
+
+            $postArray[] = $post;
+        }
+        return $postArray;
     }
 }

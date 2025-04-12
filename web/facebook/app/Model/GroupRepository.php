@@ -159,13 +159,15 @@ class GroupRepository
         return $userArray;
     }
 
-    public function searchGroups($search): array
+    public function searchGroups($search, $limit, $offset): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE instance_id=:instance_id and group_name LIKE :search'
+            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE instance_id=:instance_id and group_name LIKE :search LIMIT :limit OFFSET :offset'
         );
         $statement->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
         $statement->execute();
 
         $groupArray = [];

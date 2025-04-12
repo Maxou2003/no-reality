@@ -12,7 +12,7 @@ class ApiController
 {
     private function checkSearch($searchContent)
     {
-        $pattern = '/^[a-zA-Z0-9_]*$/';
+        $pattern = '/^[a-zA-Z0-9_\%]*$/';
         return preg_match($pattern, $searchContent);
     }
     private function checkFilter($filter)
@@ -131,17 +131,15 @@ class ApiController
             echo json_encode(['error' => 'Search term is required']);
             return;
         }
-        if (!$this->checkSearch($_GET['searchContent'])) {
-            echo json_encode(['error' => 'Invalid search term']);
-            return;
-        }
 
-        $search = $_GET['searchContent'];
+        $searchContent = urldecode($_GET['searchContent']);
+        $searchContent = htmlspecialchars($searchContent);
+
         $database = new DatabaseConnection();
         $GroupRepository = new GroupRepository();
         $GroupRepository->connection = $database;
 
-        $groups = $GroupRepository->searchGroups($search);
+        $groups = $GroupRepository->searchGroups($searchContent, 5, 0);
 
         header('Content-Type: application/json');
         echo json_encode($groups);
@@ -153,17 +151,15 @@ class ApiController
             echo json_encode(['error' => 'Search term is required']);
             return;
         }
-        if (!$this->checkSearch($_GET['searchContent'])) {
-            echo json_encode(['error' => 'Invalid search term']);
-            return;
-        }
 
-        $search = $_GET['searchContent'];
+        $searchContent = urldecode($_GET['searchContent']);
+        $searchContent = htmlspecialchars($searchContent);
+
         $database = new DatabaseConnection();
         $UserRepository = new UserRepository();
         $UserRepository->connection = $database;
 
-        $users = $UserRepository->searchUsers($search);
+        $users = $UserRepository->searchUsers($searchContent, 5, 0);
 
         header('Content-Type: application/json');
         echo json_encode($users);

@@ -155,14 +155,16 @@ class UserRepository
         return $userArray;
     }
 
-    public function searchUsers($search): array
+    public function searchUsers($search, $limit, $offset): array
     {
 
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT * FROM users WHERE user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id) and (user_firstname LIKE :search OR user_lastname LIKE :search)'
+            'SELECT * FROM users WHERE user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id) and (user_firstname LIKE :search OR user_lastname LIKE :search) LIMIT :limit OFFSET :offset'
         );
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
         $statement->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
         $statement->execute();
 
         $userArray = [];

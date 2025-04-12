@@ -3,14 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchModal = document.getElementById('searchModal');
     let searchTimeout;
 
-    // Show/hide modal based on input
     searchInput.addEventListener('input', function (e) {
         clearTimeout(searchTimeout);
 
         if (e.target.value.trim().length > 0) {
             searchModal.style.display = 'flex';
 
-            // Debounce the API calls (300ms delay)
             searchTimeout = setTimeout(() => {
                 updateSearchResults(e.target.value.trim());
             }, 300);
@@ -19,20 +17,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Close modal when clicking outside
+    searchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && searchModal.style.display === 'flex' && searchInput.value.trim().length > 0) {
+            e.preventDefault();
+            const searchContent = encodeURIComponent(searchInput.value.trim());
+            window.location.href = `${MY_URL}index.php?p=Search/SearchResults&searchContent=${searchContent}`;
+        }
+    });
+
     window.addEventListener('click', function (e) {
-        if (e.target === searchModal) {
+        if (e.target != searchModal) {
             searchModal.style.display = 'none';
+            console.log(e.target);
         }
     });
 
     async function updateSearchResults(query) {
         try {
-            // Show loading state
             document.getElementById('groupsResults').innerHTML = '<div class="loading">Loading groups...</div>';
             document.getElementById('usersResults').innerHTML = '<div class="loading">Loading people...</div>';
 
-            // Fetch groups and users in parallel
             const [groupsResponse, usersResponse] = await Promise.all([
                 fetch(`${API_BASE_URL}searchGroups&searchContent=${encodeURIComponent(query)}`),
                 fetch(`${API_BASE_URL}searchUsers&searchContent=${encodeURIComponent(query)}`)
@@ -59,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         container.innerHTML = groups.map(group => `
-            <div class="result-item" data-group-slug="${group.group_slug}">
+            <div class="result-item" data-group-name="${group.group_name}">
                 <div class="result-item-avatar">    
                 <i class="fas fa-users"></i>
                 </div>
@@ -72,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.querySelectorAll('.result-item').forEach(item => {
             item.addEventListener('click', () => {
-                window.location.href = `${MY_URL}groups/${item.dataset.groupSlug}`;
+                window.location.href = `${MY_URL}index.php?p=Search/SearchResults&searchContent=${encodeURIComponent(item.dataset.groupName)}`;
             });
         });
     }
@@ -86,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         container.innerHTML = users.map(user => `
-            <div class="result-item" data-user-slug="${user.user_slug}">
+            <div class="result-item" data-user-firstname="${user.user_firstname}">
                 <div class="result-item-avatar">
                     ${user.user_pp_path ?
                 `<img src="${PROFILE_IMG_PATH}${user.user_pp_path}" alt="${user.user_firstname} ${user.user_lastname}">` :
@@ -100,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.querySelectorAll('.result-item').forEach(item => {
             item.addEventListener('click', () => {
-                window.location.href = `${MY_URL}profile/${item.dataset.userSlug}`;
+                window.location.href = `${MY_URL}index.php?p=Search/SearchResults&searchContent=${encodeURIComponent(item.dataset.userFirstname)}`;
             });
         });
     }

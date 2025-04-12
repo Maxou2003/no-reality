@@ -1,0 +1,115 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{URL}}css/searchResults.css">
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'URL': URL ,'searchContent': searchContent} %}
+	
+	<div class="container">
+        <!-- Filters Sidebar -->
+        <div class="filters-sidebar">
+
+            <h1 class="filters-title">Search Results</h1>
+            <h2 class="filters-secondary-title">Filters</h2>
+            <ul class="filter-list">
+                <li class="filter-item active">
+                    <i class="fas fa-search"></i> All
+                </li>
+                <li class="filter-item">
+                    <i class="fas fa-newspaper"></i> Publications
+                </li>
+                <li class="filter-item">
+                    <i class="fas fa-user-friends"></i> Persons
+                </li>
+                <li class="filter-item">
+                    <i class="fas fa-users"></i> Groups
+                </li>
+            
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="search-results">
+            {% if users is not null and users|length !=0 %}
+                <div class="result-section">
+                    <h3 class="section-title">Persons</h3>
+                    {% for user in users %}
+                        <div class="result-card">
+                        <a href="{{URL}}profile/{{user.user_slug}}" class="result-link">
+                            <div class="result-avatar">
+                                <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Avatar" class="avatar">
+                            </div>
+                            <div class="result-info">
+                                <div class="result-name">{{user.user_firstname}} {{user.user_lastname}} </div>
+                                <div class="result-meta">Habite à Boulouse</div>
+                            </div>
+                        </a>
+                        </div>
+                    {% endfor %}
+                    <a href="#" class="see-all-link">See all</a>
+                </div>
+            {% endif %}
+
+            {% if groups is not null and groups|length !=0 %}
+                <div class="result-section">
+                    <h3 class="section-title">Groups</h3>
+                    {% for group in groups %}
+                        <div class="result-card">
+                            <a href="{{URL}}groups/{{group.group_slug}}" class="result-link">
+                                <div class="result-avatar">
+                                    <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="Avatar" class="avatar">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-name">{{group.group_name}}</div>
+                                    <div class="result-meta">Groupe de {{group.nb_member}} membres</div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    <a href="#" class="see-all-link">Voir tout</a>
+                </div>
+            {% endif %}
+
+            {% if posts is not null and posts|length !=0 %}
+                {%for post in posts %}
+                    <div class="post-container">
+                        <div class="post-top-row">
+                            <div class="user-profile">
+                                <a href="{{URL}}profile/{{post.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Avatar"></a>
+                                <div class="post-data">
+                                    <a href="{{URL}}profile/{{post.user_slug}}"><span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span></a>
+                                    <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
+                                </div>
+                            </div>
+                            <div class="post-setting">
+                                <span><i class="fa fa-ellipsis-h"></i></span>
+                            </div>
+                        </div>
+                        <p class="post_text">{{post.post_content}}</p>
+                        <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                        <div class="post-bottom-row">
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
+                                <span>Likes</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
+                                <span>Comments</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/logo-whatsapp.svg"></ion-icon>
+                                <span>Send</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                {%endfor%}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
