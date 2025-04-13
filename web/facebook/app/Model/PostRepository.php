@@ -35,6 +35,7 @@ class PostRepository
             $post->post_picture_path = $row['post_picture_path'];
             $post->post_content = $row['post_content'];
             $post->nb_comments = $row['nb_comments'];
+            $post->nb_shares = $row['nb_shares'];
 
             $postArray[] = $post;
         }
@@ -108,6 +109,7 @@ class PostRepository
             $post->post_picture_path = $row['post_picture_path'];
             $post->post_content = $row['post_content'];
             $post->nb_comments = $row['nb_comments'];
+            $post->nb_shares = $row['nb_shares'];
 
             $postArray[] = $post;
         }

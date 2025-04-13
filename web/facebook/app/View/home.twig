@@ -48,6 +48,16 @@
                 </div>
                 <p class="post_text">{{post.post_content}}</p>
                 <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                <div class="post_stats">
+                    <div class="post_stats_item"> 
+                        <ion-icon class="like-icon" src="{{URL}}img/svg-icons/heart-circle.svg" ></ion-icon>
+                        <span>{{post.nb_likes}}</span>
+                    </div>
+                    <div class="post_stats_item"> 
+                        <span>{{post.nb_comments}} comments </span>
+                        <span>{{post.nb_shares}} shares</span>
+                    </div>
+                </div>
                 <div class="post-bottom-row">
                     <div class="post-bottom-row-item">
                         <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
