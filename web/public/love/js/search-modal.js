@@ -62,14 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        container.innerHTML = groups.map(group => `
+        container.innerHTML = groups.filter((group, index) => index < 3).map(group => `
             <div class="result-item" data-group-name="${group.group_name}">
                 <div class="result-item-avatar">    
-                <i class="fas fa-users"></i>
+                    <i class="fas fa-search"></i>
                 </div>
                 <div class="result-item-info">
                     <div class="result-item-name">${group.group_name}</div>
-                    <div class="result-item-meta">${group.nb_members} members</div>
+                    <div class="result-item-meta">Group · ${group.nb_members} member(s)</div>
                 </div>
             </div>
         `).join('');
@@ -89,15 +89,14 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        container.innerHTML = users.map(user => `
+        container.innerHTML = users.filter((user, index) => index < 3).map(user => `
             <div class="result-item" data-user-firstname="${user.user_firstname}">
                 <div class="result-item-avatar">
-                    ${user.user_pp_path ?
-                `<img src="${PROFILE_IMG_PATH}${user.user_pp_path}" alt="${user.user_firstname} ${user.user_lastname}">` :
-                `<i class="fas fa-user"></i>`}
+                    <i class="fas fa-search"></i>
                 </div>
                 <div class="result-item-info">
                     <div class="result-item-name">${user.user_firstname} ${user.user_lastname}</div>
+                    <div class="result-item-meta">Persons</div>
                 </div>
             </div>
         `).join('');

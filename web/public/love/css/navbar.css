@@ -152,7 +152,7 @@ nav {
     left: 0;
     right: 0;
     z-index: 1000;
-    width: 40%;
+    width: 25%;
     padding-top: 2px;
 }
 
@@ -165,31 +165,12 @@ nav {
     overflow-y: auto;
 }
 
-.search-results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #ddd;
-}
-
-.search-results-header h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #65676b;
-}
-
 .edit-btn {
     background: none;
     border: none;
     color: #1877f2;
     font-weight: 600;
     cursor: pointer;
-}
-
-.search-results-groups,
-.search-results-users {
-    padding: 8px 16px;
 }
 
 .search-results-groups h4,
