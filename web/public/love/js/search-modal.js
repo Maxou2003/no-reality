@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'Enter' && searchModal.style.display === 'flex' && searchInput.value.trim().length > 0) {
             e.preventDefault();
             const searchContent = encodeURIComponent(searchInput.value.trim());
-            window.location.href = `${MY_URL}index.php?p=Search/SearchResults&searchContent=${searchContent}`;
+            window.location.href = `${MY_URL}SearchResults/all/${searchContent}`;
         }
     });
 
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.querySelectorAll('.result-item').forEach(item => {
             item.addEventListener('click', () => {
-                window.location.href = `${MY_URL}index.php?p=Search/SearchResults&searchContent=${encodeURIComponent(item.dataset.groupName)}`;
+                window.location.href = `${MY_URL}SearchResults/all/${encodeURIComponent(item.dataset.groupName)}`;
             });
         });
     }
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         container.querySelectorAll('.result-item').forEach(item => {
             item.addEventListener('click', () => {
-                window.location.href = `${MY_URL}index.php?p=Search/SearchResults&searchContent=${encodeURIComponent(item.dataset.userFirstname)}`;
+                window.location.href = `${MY_URL}SearchResults/all/${encodeURIComponent(item.dataset.userFirstname)}`;
             });
         });
     }

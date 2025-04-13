@@ -50,6 +50,11 @@ body {
     margin: 0;
 }
 
+.filter-list a {
+    text-decoration: none;
+    color: black;
+}
+
 .filter-item {
     padding: 12px 8px;
     border-radius: 8px;
@@ -112,6 +117,7 @@ body {
     border-radius: 8px;
     margin-bottom: 8px;
     cursor: pointer;
+    justify-content: space-between;
 }
 
 .result-card a {
@@ -169,7 +175,8 @@ body {
 }
 
 .see-all-link {
-    color: var(--primary-color);
+    color: black;
+    background-color: var(--border-color);
     font-weight: 600;
     font-size: 15px;
     text-decoration: none;
@@ -367,4 +374,14 @@ body {
 
 .user-profile small {
     font-size: 12px;
+}
+
+.add_btn {
+    background: #e7f3ff;
+    color: var(--primary-color);
+    font-weight: 600;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
 }

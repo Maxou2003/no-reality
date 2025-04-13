@@ -14,19 +14,29 @@
             <h1 class="filters-title">Search Results</h1>
             <h2 class="filters-secondary-title">Filters</h2>
             <ul class="filter-list">
-                <li class="filter-item active">
-                    <i class="fas fa-search"></i> All
-                </li>
-                <li class="filter-item">
-                    <i class="fas fa-newspaper"></i> Publications
-                </li>
-                <li class="filter-item">
-                    <i class="fas fa-user-friends"></i> Persons
-                </li>
-                <li class="filter-item">
-                    <i class="fas fa-users"></i> Groups
-                </li>
-            
+
+                <a href="{{URL}}SearchResults/all/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'all' ? 'active' : ''}}">
+                        <i class="fas fa-search"></i> All
+                    </li>
+                </a>
+                <a href="{{URL}}SearchResults/publications/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'publications' ? 'active' : ''}}">
+                        <i class="fas fa-newspaper"></i> Publications
+                    </li>
+                </a>
+
+                <a href="{{URL}}SearchResults/persons/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'persons' ? 'active' : ''}}">
+                        <i class="fas fa-user-friends"></i> Persons
+                    </li>
+                </a>
+
+                <a href="{{URL}}SearchResults/groups/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'groups' ? 'active' : ''}}">
+                        <i class="fas fa-users"></i> Groups
+                    </li>
+                </a>            
             </ul>
         </div>
         
@@ -37,15 +47,18 @@
                     <h3 class="section-title">Persons</h3>
                     {% for user in users %}
                         <div class="result-card">
-                        <a href="{{URL}}profile/{{user.user_slug}}" class="result-link">
-                            <div class="result-avatar">
-                                <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Avatar" class="avatar">
-                            </div>
-                            <div class="result-info">
-                                <div class="result-name">{{user.user_firstname}} {{user.user_lastname}} </div>
-                                <div class="result-meta">Habite à Boulouse</div>
-                            </div>
-                        </a>
+                            <a href="{{URL}}profile/{{user.user_slug}}" class="result-link">
+                                <div class="result-avatar">
+                                    <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Avatar" class="avatar">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-name">{{user.user_firstname}} {{user.user_lastname}} </div>
+                                    {% if user.user_location is not null %}
+                                        <div class="result-meta">Lives in {{user.user_location}}</div>
+                                    {% endif %}
+                                </div>
+                            </a>
+                            <button class="add_btn"> Add to friend</button>
                         </div>
                     {% endfor %}
                     <a href="#" class="see-all-link">See all</a>
@@ -63,12 +76,12 @@
                                 </div>
                                 <div class="result-info">
                                     <div class="result-name">{{group.group_name}}</div>
-                                    <div class="result-meta">Groupe de {{group.nb_member}} membres</div>
+                                    <div class="result-meta">{{group.nb_members}} members</div>
                                 </div>
                             </a>
                         </div>
                     {% endfor %}
-                    <a href="#" class="see-all-link">Voir tout</a>
+                    <a href="#" class="see-all-link">See all</a>
                 </div>
             {% endif %}
 
