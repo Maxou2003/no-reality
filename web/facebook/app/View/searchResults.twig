@@ -45,7 +45,7 @@
             {% if users is not null and users|length !=0 %}
                 <div class="result-section">
                     <h3 class="section-title">Persons</h3>
-                    {% for user in users %}
+                    {% for user in (filter == 'all' ? users|slice(0, 5) : users) %}
                         <div class="result-card">
                             <a href="{{URL}}profile/{{user.user_slug}}" class="result-link">
                                 <div class="result-avatar">
@@ -61,14 +61,17 @@
                             <button class="add_btn"> Add to friend</button>
                         </div>
                     {% endfor %}
-                    <a href="#" class="see-all-link">See all</a>
+                    
+                     {% if (filter == 'all') %}
+                        <a href="{{URL}}SearchResults/persons/{{searchContent}}" class="see-all-link">See all ({{users|length}})</a>
+                    {% endif %}
                 </div>
             {% endif %}
 
             {% if groups is not null and groups|length !=0 %}
                 <div class="result-section">
                     <h3 class="section-title">Groups</h3>
-                    {% for group in groups %}
+                    {% for group in (filter == 'all' ? groups|slice(0, 5) : groups) %}
                         <div class="result-card">
                             <a href="{{URL}}groups/{{group.group_slug}}" class="result-link">
                                 <div class="result-avatar">
@@ -81,7 +84,10 @@
                             </a>
                         </div>
                     {% endfor %}
-                    <a href="#" class="see-all-link">See all</a>
+
+                    {% if (filter == 'all') %}
+                        <a href="{{URL}}SearchResults/groups/{{searchContent}}" class="see-all-link">See all ({{groups|length}})</a>
+                    {% endif %}
                 </div>
             {% endif %}
 
