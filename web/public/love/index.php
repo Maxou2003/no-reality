@@ -7,18 +7,20 @@ session_start();
 
 $platform = "facebook";
 
-// Load configurations and autoloader
 require_once '../../' . $platform . '/app/Lib/autoloader.php';
 require_once '../../' . $platform . '/app/Lib/functions.php';
 
 // Parse the URL to determine the controller and action
 $url = isset($_GET['p']) ? rtrim($_GET['p'], '/') : 'home/home';
 $urlParts = explode('/', $url);
+
+// MODIFY THE INDEX TO GET THE NAME OF THE FOLDER IF NECESSARY 
 $uri = explode('/', $_SERVER['REQUEST_URI'])[4];
 
 define('URL', "/no-reality/web/public/" . $uri . "/");
 define('POST_IMG_PATH', "/no-reality/web/public/" . $uri . "/img/post_img/");
 define('PROFILE_IMG_PATH', "/no-reality/web/profile_pictures/");
+
 
 if (instance_exist(get_instanceId($uri)) == false) {
     http_response_code(404);
