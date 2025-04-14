@@ -24,17 +24,22 @@
                 <p>This list includes people who have joined the group as well as those who are previewing it. Anyone who has been invited and approved can preview the group's contents.</p>
             {% for member in members %}
                 <div class="member-list-item">
-                    <img src="{{PROFILE_IMG_PATH}}{{member.users.user_pp_path}}" alt="Post_picture">
-                    <div class="member-data">
-                        <span class="member-names">{{member.users.user_firstname}}{{member.users.user_lastname}}</span>
-                        <span class="member-since">Member since {{member.timestamp}}</span>
-                        <span class="member-more">
-                        {% if member.users.user_location is not empty %}
-                            {{member.users.user_location}}
-                        {% elseif member.users.user_school is not empty %}
-                            {{member.users.user_school}}
-                        {% endif %}   
-                        </span>
+                    <div class="member-item-left">                        
+                        <a class="user-page-link" href="{{URL}}groups/{{group.group_slug}}/user/{{member.users.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{member.users.user_pp_path}}" alt="Post_picture"></a>
+                        <div class="member-data">
+                            <a class="user-page-link" href="{{URL}}groups/{{group.group_slug}}/user/{{member.users.user_slug}}"><span class="member-names">{{member.users.user_firstname}} {{member.users.user_lastname}}</span></a>
+                            <span class="member-since">Member since {{member.timestamp}}</span>
+                            <span class="member-more">
+                            {% if member.users.user_location is not empty %}
+                                {{member.users.user_location}}
+                            {% elseif member.users.user_school is not empty %}
+                                {{member.users.user_school}}
+                            {% endif %}   
+                            </span>
+                        </div>
+                    </div>
+                    <div class="member-item-right">
+                        <button class="add-button"><ion-icon name="person-add"></ion-icon> Add as friend</button>
                     </div>
                 </div>
             {% endfor %}   

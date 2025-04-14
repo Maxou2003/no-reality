@@ -17,6 +17,7 @@
     RewriteRule ^groups/([a-zA-Z0-9]*)/members$ index.php?p=group/members&groupslug=$1
     RewriteRule ^groups/([a-zA-Z0-9]*)/media$ index.php?p=group/media&groupslug=$1
     RewriteRule ^explore/?$ index.php?p=explore/explore
+    RewriteRule ^groups/([a-zA-Z0-9]*)/user/([a-zA-Z0-9\.]*)$ index.php?p=group/groupUser&groupslug=$1&userslug=$2
 
     RewriteRule ^SearchResults/([a-zA-Z]*)/(.*)$ index.php?p=Search/SearchResults&filter=$1&searchContent=$2 [B,NE]
 </IfModule>

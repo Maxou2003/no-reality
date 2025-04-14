@@ -1,15 +1,14 @@
-/* Header section */
+/* Header */
 
-.group-top {
+.profile-top {
     display: flex;
     flex-direction: column;
     background-image: linear-gradient(black, gray, white, white);
     margin-bottom: 35px;
 }
 
-.group-cover {
+.profile-cover {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -17,125 +16,108 @@
     margin-bottom: 14px;
 }
 
-.group-cover .img-cover {
+.profile-cover .img-cover {
     width: 1280px;
     height: 100%;
-    object-fit: cover;
-}
-
-.group-cover-info {
-    display: flex;
-    width: 1280px;
-    padding: 15px;
-    background-color: #52a32c;
-    color: white;
     border-radius: 0px 0px 6px 6px;
 }
 
-.group_detail {
-    padding: 0px 18% 15px 18%;
+.profile_detail {
+    margin-top: -50px;
+    padding: 0px 18% 20px 18%;
     border-radius: 4px;
     display: flex;
     justify-content: space-between;
 }
 
-.group_detail_left {
+.proflie_detail_right span {
     display: flex;
-    flex-direction: column;
-}
-
-.members-header-container {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-}
-
-.members-header-picture img {
-    width: 40px;
-    border-radius: 50%;
-    margin-right: -10px;
-}
-
-.group_detail_right {    
-    display: flex;
-    text-align: right;
-    align-items: end;
-}
-
-.group_detail_right .fas {
-    font-size: 15px;
-}
-
-.group_detail_right span:first-child {
-    background-color: #52a32c;
-    color: white;
-}
-
-.group_detail_right span {
-    background-color: #e4ebe6;
+    background-color: #1876f2;
     border: 0;
     outline: 0;
     padding: 6px 10px;
-    display: inline-block;
     align-items: center;
-    color: black;
+    color: #fff;
     border-radius: 3px;
-    margin-left: 3px;
+    margin-left: 10px;
     cursor: pointer;
 }
 
-.group_row {
-    display: flex;
-    flex-direction: row;
-    margin-top: 35px;
+.proflie_detail_right ion-icon {
+    margin-right: 5px;
 }
 
-.group_details_image img {
-    width: 22vh;
-    height: 22vh;
+.proflie_detail_right span:first-child {
+    background-color: #e4e6eb;
+    color: #000;
+}
+
+.proflie_detail_right span:first-child ion-icon{
+    height: 20px;
+    width: 20px;
+}
+
+.proflie_detail_right {
+    display: flex;
+    align-items: end;
+}
+
+.user-profile-link {
+    align-items: center;
+    text-decoration: none;
+}
+
+.proflie_detail_right .fas {
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+.profile_row {
+    display: flex;
+    flex-direction: row;
+    margin-top: -4vh;
+}
+
+.profile_details_image img {
+    width: 16vh;
+    height: 16vh;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 1vh;
+    border: 4px solid white;
 }
 
-.group-info {
+.profile-info {
     display: flex;
     flex-direction: column;
+    justify-content: end;
 }
 
-.group-name {
+.profile-name {
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 800;
     margin-bottom: 7px;
 }
 
-.group-members {
-    display: flex;
+.profile-friends {
     font-size: 12px;
     color: #a5a5a5;
     font-weight: 600;
 }
 
-.group-members ion-icon {
-    width: 13px;
-    height: 13px;
-    color: black;
-    margin-right: 2px;
-}
-
-.group_row div p {
+.profile_row div p {
     font-size: 13px;
 }
 
-.group-links-container {
+.profile-links-container {
     display: flex;
     flex-direction: row;
-    padding: 0px 18% 0 18%;
+    padding: 0px 18% 20px 18%;
     justify-content: space-between;
 }
 
-.group-links {
-    border-top: 1px solid #e4e6eb;
+.profile-links {
+    border-top: 2px solid #e4e6eb;
     margin-top: 3px;
     display: flex;
     flex-direction: row;
@@ -143,36 +125,33 @@
     width: 100%;
 }
 
-.group-links-items {
+.profile-links-items {
     display: flex;
 }
 
-.group-link-item {
+.profile-link-item {
     display: block;
     text-align: center;
     align-items: center;
     cursor: pointer;
     padding: 10px 10px 12px 10px;
+    color: #1876f2;
+    border-bottom: 3px solid #1876f2;
 }
 
-.group-links-items a {
+.profile-links-items a {
     color: black;
     text-decoration: none;
     display: flex;
 }
 
-.group-link-item.active {
-    color: #1876f2;
-    border-bottom: 3px solid #1876f2;
-}
-
-.group-link-item:hover {
+.profile-link-item:hover {
     color: #1876f2;
     border-bottom: 3px solid #1876f2;
     background-color: #f1efef;
 }
 
-.group-link-more {
+.profile-link-more {
     justify-content: center;
     text-align: center;
     display: flex;
@@ -180,24 +159,24 @@
     margin-bottom: 5px;
 }
 
-.group-link-more a {
+.profile-link-more a {
     text-align: center;
     justify-content: center;
     background-color: #e4e6eb;
     color: rgb(71, 71, 71);
     border-radius: 3px;
     padding: 8px 12px 8px 12px;
-    margin-left: 10px;
 }
 
-/* Container section */
 
-.group_container {
+/* Container */
+
+.profile_container {
     padding: 0px 18% 20px 18%;
     color: #626262;
 }
 
-.group_info {
+.profile_info {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -205,7 +184,7 @@
 }
 
 .info_col {
-    flex-basis: 33%;
+    flex-basis: 37%;
     position: sticky;
 }
 
@@ -213,42 +192,22 @@
     flex-basis: 62%;
 }
 
-.group_intro {
+.profile_intro {
     background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 4px;
 }
 
-.group_intro h3 {
-    font-weight: 600;
-}
-
 .intro_text {
+    text-align: left;
     margin: 10px 0;
-    font-size: 15px;
 }
 
-.intro_text img {
-    width: 15px;
-    margin-bottom: -3px;
+.intro_text .fas{
+    margin-right: 5px;
 }
 
-.group_intro ul li {
-    list-style-type: none;
-    font-size: 15px;
-    margin: 15px 0 5px 0;
-    display: flex;
-    align-items: center;
-}
-
-.group_intro ul li ion-icon {
-    padding-right: 7px;
-}
-
-.group_intro p {
-    font-size: 14px;
-}
 
 .title_box {
     display: flex;
@@ -283,5 +242,51 @@
     aspect-ratio: 1/1;
     cursor: pointer;
     object-fit: cover;
+
+}
+
+.profile_intro p {
+    font-size: 14px;
+}
+
+/* Posts section */
+
+.top-group {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 10px 20px 10px 10px;
+    color: #626262;
+    margin-bottom: 15px;
+}
+
+.top-group-publications {
+    font-size: 22px;
+    color: black;
+    font-weight: 750;
+}
+
+.no-posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+.back-home {
+    text-decoration: none;
+    color: #1876f2;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.no-new-posts {
+    font-size: 22px;
+    color: black;
+    font-weight: 600;
+}
+
+.not-posted-yet {
 
 }

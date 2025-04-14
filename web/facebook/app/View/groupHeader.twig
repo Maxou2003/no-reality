@@ -11,6 +11,13 @@
                         <span class="group-members"><ion-icon name="earth-outline"></ion-icon> Group (Public) · {{ group.nb_members}} members</span>
                     </div>
                 </div>
+                <div class="members-header-container">
+                    {% for member in members|slice(0, 20) %}
+                    <div class="members-header-picture">
+                        <a class="user-page-link" href="{{URL}}groups/{{group.group_slug}}/user/{{member.users.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{member.users.user_pp_path}}" alt="User_pp"></a>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="group_detail_right">
                 <span>+ Invite</span>
@@ -28,6 +35,7 @@
                     <a href="{{URL}}groups/{{group.group_slug}}/media"><span class="group-link-item" id="media">Media</span></a>
                 </div>
                 <div class="group-link-more">
+                    <a href=""><span class="search-in-group"><ion-icon src="{{URL}}img/svg-icons/search-outline.svg"></ion-icon></i></span></a>
                     <a href=""><span><i class="fa fa-ellipsis-h"></i></span></a>
                 </div>
             </div>
