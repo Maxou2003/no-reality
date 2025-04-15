@@ -3,6 +3,7 @@
 {% block head %}
     <link rel="stylesheet" href="{{URL}}css/navbar.css">
     <link rel="stylesheet" href="{{URL}}css/groupExplorer.css">
+    <script src="{{URL}}js/groupExplorer.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -15,8 +16,10 @@
             <div class="sidebar-section">
                 <div class="search_box" style="margin-bottom: 16px;">
                     <i class="fas fa-search" style="position: absolute; margin: 10px; color: #65676b"></i>
-                    <input type="search" placeholder="Search in groups" style="padding-left: 32px; width: 100%;">
+                    <input type="search" id="explorer_search_input" placeholder="Search in groups" style="padding-left: 32px; width: 100%;">
                 </div>
+            </div>
+            <div class="group-explorer-search-results">
             </div>
         </div>
         

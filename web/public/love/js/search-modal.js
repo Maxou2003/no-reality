@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('click', function (e) {
         if (e.target != searchModal) {
             searchModal.style.display = 'none';
-            console.log(e.target);
         }
     });
 
