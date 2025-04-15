@@ -17,9 +17,9 @@ class GroupRepository
         $statement = $this->connection->getConnection()->prepare(
             'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, time_stamp, post_picture_path, post_content, nb_comments 
             FROM group_posts p join users u on p.user_id=u.user_id  
-            WHERE p.group_id = (
+            WHERE announcement = :announcement AND p.group_id = (
                 SELECT group_id FROM groups 
-                WHERE group_slug = :group_slug AND announcement = :announcement) 
+                WHERE group_slug = :group_slug) 
             and instance_id=:instance_id ORDER BY time_stamp DESC'
         );
         $statement->bindValue(':group_slug', $group_slug, \PDO::PARAM_STR);
@@ -52,7 +52,7 @@ class GroupRepository
     public function getGroup($group_slug): Group
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE group_slug = :group_slug and instance_id=:instance_id'
+            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members, instance_id, group_location FROM groups WHERE group_slug = :group_slug and instance_id=:instance_id'
         );
         $statement->bindValue(':group_slug', $group_slug, \PDO::PARAM_STR);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -72,6 +72,8 @@ class GroupRepository
             $group->group_banner_picture_path = $row['group_banner_picture_path'];
             $group->group_description = $row['group_description'];
             $group->nb_members = $row['nb_members'];
+            $group->instance_id = $row['instance_id'];
+            $group->group_location = $row['group_location'];
 
             return $group;
         }
@@ -80,7 +82,7 @@ class GroupRepository
     public function getUserGroups($userid): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE group_id IN (SELECT group_id FROM group_members WHERE user_id = :user_id) and instance_id=:instance_id'
+            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members, instance_id, group_location FROM groups WHERE group_id IN (SELECT group_id FROM group_members WHERE user_id = :user_id) and instance_id=:instance_id'
         );
         $statement->bindValue(':user_id', $userid, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -96,6 +98,8 @@ class GroupRepository
             $group->group_banner_picture_path = $row['group_banner_picture_path'];
             $group->group_description = $row['group_description'];
             $group->nb_members = $row['nb_members'];
+            $group->instance_id = $row['instance_id'];
+            $group->group_location = $row['group_location'];
 
             $groupArray[] = $group;
         }
@@ -106,7 +110,7 @@ class GroupRepository
     public function getGroupSuggestions($limit, $offset): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE instance_id=:instance_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
+            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members, instance_id, group_location FROM groups WHERE instance_id=:instance_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
         );
         $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -123,6 +127,8 @@ class GroupRepository
             $group->group_banner_picture_path = $row['group_banner_picture_path'];
             $group->group_description = $row['group_description'];
             $group->nb_members = $row['nb_members'];
+            $group->instance_id = $row['instance_id'];
+            $group->group_location = $row['group_location'];
 
             $groupArray[] = $group;
         }
@@ -163,7 +169,7 @@ class GroupRepository
     public function searchGroups($search, $limit, $offset): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT group_id, group_name,group_slug, time_stamp, group_banner_picture_path, group_description, nb_members FROM groups WHERE instance_id=:instance_id and group_name LIKE :search LIMIT :limit OFFSET :offset'
+            'SELECT group_id, group_name, group_slug, time_stamp, group_banner_picture_path, group_description, nb_members, instance_id, group_location FROM groups WHERE instance_id=:instance_id and group_name LIKE :search LIMIT :limit OFFSET :offset'
         );
         $statement->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
@@ -181,6 +187,8 @@ class GroupRepository
             $group->group_banner_picture_path = $row['group_banner_picture_path'];
             $group->group_description = $row['group_description'];
             $group->nb_members = $row['nb_members'];
+            $group->instance_id = $row['instance_id'];
+            $group->group_location = $row['group_location'];
 
             $groupArray[] = $group;
         }
@@ -265,5 +273,64 @@ class GroupRepository
         $row = $statement->fetch();
 
         return $row[0];
+    }
+    public function getAllPostsPictures($group_slug): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, time_stamp, post_picture_path, post_content, nb_comments 
+            FROM group_posts p join users u on p.user_id=u.user_id  
+            WHERE p.group_id = (
+                SELECT group_id FROM groups 
+                WHERE group_slug = :group_slug) 
+            and instance_id=:instance_id ORDER BY time_stamp DESC'
+        );
+        $statement->bindValue(':group_slug', $group_slug, \PDO::PARAM_STR);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $groupPostArray = [];
+        while (($row = $statement->fetch())) {
+            $groupPosts = new GroupPost();
+            $groupPosts->post_id = $row['post_id'];
+            $groupPosts->user_firstname = $row['user_firstname'];
+            $groupPosts->user_lastname = $row['user_lastname'];
+            $groupPosts->user_id = $row['user_id'];
+            $groupPosts->user_slug = $row['user_slug'];
+            $groupPosts->instance_id = $row['instance_id'];
+            $groupPosts->user_pp_path = $row['user_pp_path'];
+            $groupPosts->nb_likes = $row['nb_likes'];
+            $groupPosts->time_stamp = new DateTime($row['time_stamp']);
+            $groupPosts->post_picture_path = $row['post_picture_path'];
+            $groupPosts->post_content = $row['post_content'];
+            $groupPosts->nb_comments = $row['nb_comments'];
+
+            $groupPostArray[] = $groupPosts;
+        }
+
+        return $groupPostArray;
+    }
+    public function getGroupActivity($group_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT 
+            (SELECT COUNT(*) 
+            FROM group_posts 
+            WHERE DATE(time_stamp) = CURRENT_DATE AND group_id = :group_id AND instance_id = :instance_id) AS posts_today,
+            (SELECT COUNT(*) 
+            FROM group_posts 
+            WHERE time_stamp >= DATE_FORMAT(DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 MONTH), "%Y-%m-01")
+            AND time_stamp < CURRENT_TIMESTAMP AND group_id = :group_id AND instance_id = :instance_id) AS posts_last_month,
+
+            (SELECT COUNT(*) 
+            FROM group_members 
+            WHERE time_stamp >= DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY) AND group_id = :group_id) AS new_members'
+        );
+        $statement->bindValue(':group_id', $group_id, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->execute();
+
+        $row = $statement->fetch();
+
+        return ['posts_today' => $row['posts_today'], 'posts_last_month' => $row['posts_last_month'], 'new_members' => $row['new_members']];
     }
 }

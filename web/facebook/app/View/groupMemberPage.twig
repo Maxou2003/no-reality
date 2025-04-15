@@ -57,7 +57,9 @@
                     </div>
                     <div class="photo_box">
                         {% for post in posts|slice(0, 9) %}
-                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                            {% if post.post_picture_path %}
+                                <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -84,7 +86,9 @@
                             </div>
                         </div>
                         <p class="post_text">{{post.post_content}}</p>
-                        <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                        {% if post.post_picture_path %}
+                            <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                        {% endif %}
                         <div class="post_stats">
                             <div class="post_stats_item"> 
                                 <ion-icon class="like-icon" src="{{URL}}img/svg-icons/heart-circle.svg" ></ion-icon>

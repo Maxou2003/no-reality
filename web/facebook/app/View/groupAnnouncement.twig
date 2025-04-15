@@ -68,22 +68,27 @@
                     <p class="intro_text">{{group.group_description}}</p>
                     <ul>
                         <li> <ion-icon name="earth-outline"></ion-icon>  Public</li>
-                        <p> Tout le monde peut voir qui est dans le groupe et ce qui est publié.</p>
+                        <p> Everyone can see who is in the group and what is posted.</p>
                         <li> <ion-icon name="eye-outline"></ion-icon> Visible </li>
-                        <p> Tout le monde peut trouver ce groupe.</p>
+                        <p> Anyone can find this group.</p>
                     </ul>
+                    <a href="{{URL}}groups/{{group.group_slug}}/about" class="group-link"><span class="link-label">Learn more</span></a>
                 </div>
+                {% if posts_pictures|length > 0 %}
                 <div class="group_intro">
                     <div class="title_box">
                         <h3>Recent multimedia content</h3>
                     </div>
                     <div class="photo_box">
-                        {% for post in posts|slice(0, 4) %}
-                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                        {% for post_picture in posts_pictures|slice(0, 4) %}
+                            {% if post_picture.post_picture_path %}
+                                <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post_picture.post_picture_path}}" alt=""></div>
+                            {% endif %}
                         {% endfor %}
                     </div>
-                    <a href="{{URL}}groups/{{group.group_slug}}/media" class="media-link"><span class="media-label">See all</span></a>
+                    <a href="{{URL}}groups/{{group.group_slug}}/media" class="group-link"><span class="link-label">See all</span></a>
                 </div>
+                {% endif %}
             </div>
             
         </div>

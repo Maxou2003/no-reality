@@ -16,12 +16,12 @@
                 <span class="media-link-item">Pictures</span>
             </div>
             <div class="post-picture-container">
-            {% for post in posts %}
+            {% for post_picture in posts_pictures %}
+                    {% if post_picture.post_picture_path %}
                     <div class="post-picture">
-                    {% if post.post_picture_path %}
-                        <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Post_picture">
-                    {% endif %}
+                        <img src="{{POST_IMG_PATH}}{{post_picture.post_picture_path}}" alt="Post_picture">
                     </div>
+                    {% endif %}
             {% endfor %}   
             </div> 
         </div>

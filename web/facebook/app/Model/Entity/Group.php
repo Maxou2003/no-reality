@@ -15,6 +15,8 @@ class Group implements JsonSerializable
     public string $group_banner_picture_path;
     public string $group_description;
     public string $nb_members;
+    public string $instance_id;
+    public string $group_location;
 
 
     public function jsonSerialize(): mixed
@@ -27,6 +29,8 @@ class Group implements JsonSerializable
             "group_banner_picture_path" => $this->group_banner_picture_path,
             "group_description" => $this->group_description,
             "nb_members" => $this->nb_members,
+            "instance_id" => $this->instance_id,
+            "group_location" => $this->group_location,
         ];
     }
 }

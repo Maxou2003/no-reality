@@ -1,0 +1,65 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{URL}}css/groupAbout.css">
+    <link rel="stylesheet" href="{{URL}}css/home.css">
+    <script src="{{URL}}js/groupHeader.js" defer></script>
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'URL': URL} %}
+    {% include 'groupHeader.twig' with {'URL': URL , 'group':group, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
+    <div class="group_container">
+        <div class="about-container">
+            <div class="group_intro">
+                <h3>About</h3>
+                <ul>
+                    <li> <ion-icon src="{{URL}}img/svg-icons/earth.svg"></ion-icon>  Public</li>
+                    <p>Everyone can see who is in the group and what is posted.</p>
+                    <li> <ion-icon src="{{URL}}img/svg-icons/eye.svg"></ion-icon> Visible </li>
+                    <p>Anyone can find this group.</p>
+                    <li> <ion-icon src="{{URL}}img/svg-icons/time.svg"></ion-icon> Historical </li>
+                    <p> Group created on the {{group.time_stamp|date('jS') }} of {{ group.time_stamp|date('F Y')}}</p>
+                    <li> <ion-icon src="{{URL}}img/svg-icons/location.svg"></ion-icon> {{group.group_location}} </li>
+                </ul>
+            </div>
+            <div class="group_intro">
+                <h3>Members · {{ group.nb_members}}</h3>
+                <div class="members-list">
+                {% for member in members|slice(0, 7) %}
+                    <div class="member-list-item">
+                        <a class="user-page-link" href="{{URL}}groups/{{group.group_slug}}/user/{{member.users.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{member.users.user_pp_path}}" alt="Post_picture"></a>
+                    </div>
+                {% endfor %}   
+                </div> 
+                <a href="{{URL}}groups/{{group.group_slug}}/members" class="group-link"><span class="link-label">See All</span></a>
+            </div>
+            <div class="group_intro">
+                <h3>Activity</h3>
+                <div class="activity-container">
+                    <div class="activity-row">
+                        <ion-icon src="{{URL}}img/svg-icons/chatbox-ellipses.svg"></ion-icon>
+                        <div class="activity-data">
+                            <span>{{activity.posts_today}} new publications today</span>
+                            <p>{{activity.posts_last_month}} last month</p>
+                        </div> 
+                    </div> 
+                    <div class="activity-row">
+                        <ion-icon src="{{URL}}img/svg-icons/people.svg"></ion-icon>
+                        <div class="activity-data">
+                            <span>{{group.nb_members}} members in total </span>
+                            <p>+ {{activity.new_members}} last week</p>
+                        </div> 
+                    </div> 
+                    <div class="activity-row">
+                        <i class='fas fa-users'></i> 
+                        <div class="activity-data">
+                            <span>Created on</span>
+                            <p> {{group.time_stamp.format('Y-m-d H:i:s')}}</p>
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+{% endblock %}

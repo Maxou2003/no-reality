@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 09 avr. 2025 à 21:06
+-- Généré le : mar. 15 avr. 2025 à 19:04
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -71,32 +71,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `discussions`
---
-
-CREATE TABLE `discussions` (
-  `discussion_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  `discussion_name` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `discussions_messages`
---
-
-CREATE TABLE `discussions_messages` (
-  `discussion_message_id` int(11) NOT NULL,
-  `discussion_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `message` varchar(500) NOT NULL,
-  `time_stamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `friends`
 --
 
@@ -160,19 +134,20 @@ CREATE TABLE `groups` (
   `group_banner_picture_path` varchar(255) NOT NULL,
   `group_description` varchar(500) NOT NULL,
   `nb_members` int(11) NOT NULL DEFAULT 0,
-  `instance_id` int(11) NOT NULL
+  `instance_id` int(11) NOT NULL,
+  `group_location` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `groups`
 --
 
-INSERT INTO `groups` (`group_id`, `group_name`, `group_slug`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`) VALUES
-(1, 'Love is life', 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1),
-(2, 'LesTueLamour', 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1),
-(3, 'LesCupidons', 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1),
-(5, 'LesCharrots', 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1),
-(6, 'LesAbandonnesDeLamour', 'LesAbandonnesDeLamour', '2025-04-09 16:49:10', 'pexels-pengwhan-1767434.jpg', 'Nous on est un groupe de célibataires assumés ! ', 0, 1);
+INSERT INTO `groups` (`group_id`, `group_name`, `group_slug`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`, `group_location`) VALUES
+(1, 'Love is life', 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1, 'Angers'),
+(2, 'LesTueLamour', 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1, ''),
+(3, 'LesCupidons', 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1, ''),
+(5, 'LesCharrots', 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1, ''),
+(6, 'LesAbandonnesDeLamour', 'LesAbandonnesDeLamour', '2025-04-09 16:49:10', 'pexels-pengwhan-1767434.jpg', 'Nous on est un groupe de célibataires assumés ! ', 0, 1, '');
 
 -- --------------------------------------------------------
 
@@ -241,15 +216,17 @@ CREATE TABLE `group_posts` (
   `post_picture_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `time_stamp` datetime NOT NULL,
   `user_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL
+  `group_id` int(11) NOT NULL,
+  `announcement` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `group_posts`
 --
 
-INSERT INTO `group_posts` (`instance_id`, `nb_comments`, `nb_likes`, `post_content`, `post_id`, `post_picture_path`, `time_stamp`, `user_id`, `group_id`) VALUES
-(1, 0, 0, 'Just spend love', 1, '', '2025-04-02 16:36:41', 1, 1);
+INSERT INTO `group_posts` (`instance_id`, `nb_comments`, `nb_likes`, `post_content`, `post_id`, `post_picture_path`, `time_stamp`, `user_id`, `group_id`, `announcement`) VALUES
+(1, 0, 0, 'Just spend love', 1, 'art_1_1.jpg', '2025-04-02 16:36:41', 1, 1, 0),
+(1, 0, 0, 'Important NEWS !!!! Love is life !!!!!', 2, '', '2025-04-15 16:34:02', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -454,7 +431,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `user_yob`, `user_gender`, `user_website`) VALUES
-(1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', '', 0, 0, ''),
+(1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', 'art_1_1.jpg', 0, 0, ''),
 (2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Polytech Angers', '', 'none', 0, 0, ''),
 (3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none', 0, 0, ''),
 (4, 'Martin', 'Mollat', 'martin.mollat.4', '1727454408757.jpg', 'Le 5 avril je présente un spectacle de théâtre d\'improvisation chez moi, venez nombreux !', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, ''),
@@ -471,21 +448,6 @@ ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`),
   ADD KEY `FK_CommentsUserId` (`user_id`),
   ADD KEY `FK_CommentsPostId` (`post_id`);
-
---
--- Index pour la table `discussions`
---
-ALTER TABLE `discussions`
-  ADD PRIMARY KEY (`discussion_id`),
-  ADD KEY `FK_DiscussionGroupID` (`group_id`);
-
---
--- Index pour la table `discussions_messages`
---
-ALTER TABLE `discussions_messages`
-  ADD PRIMARY KEY (`discussion_message_id`),
-  ADD KEY `FK_DiscussionMessagesDiscussionId` (`discussion_id`),
-  ADD KEY `FK_DiscussionsMessagesUserId` (`user_id`);
 
 --
 -- Index pour la table `friends`
@@ -586,18 +548,6 @@ ALTER TABLE `comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `discussions`
---
-ALTER TABLE `discussions`
-  MODIFY `discussion_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `discussions_messages`
---
-ALTER TABLE `discussions_messages`
-  MODIFY `discussion_message_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `groups`
 --
 ALTER TABLE `groups`
@@ -613,7 +563,7 @@ ALTER TABLE `group_members`
 -- AUTO_INCREMENT pour la table `group_posts`
 --
 ALTER TABLE `group_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `instances`
@@ -661,19 +611,6 @@ ALTER TABLE `users`
 ALTER TABLE `comments`
   ADD CONSTRAINT `FK_CommentsPostId` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`),
   ADD CONSTRAINT `FK_CommentsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
---
--- Contraintes pour la table `discussions`
---
-ALTER TABLE `discussions`
-  ADD CONSTRAINT `FK_DiscussionGroupID` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`);
-
---
--- Contraintes pour la table `discussions_messages`
---
-ALTER TABLE `discussions_messages`
-  ADD CONSTRAINT `FK_DiscussionMessagesDiscussionId` FOREIGN KEY (`discussion_id`) REFERENCES `discussions` (`discussion_id`),
-  ADD CONSTRAINT `FK_DiscussionsMessagesUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `friends`
