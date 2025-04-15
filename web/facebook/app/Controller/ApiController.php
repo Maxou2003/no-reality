@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\Lib\DatabaseConnection;
 use App\Model\PostRepository;
 use App\Model\UserRepository;
 use App\Model\GroupRepository;
+use App\Lib\DatabaseConnection;
+use App\Model\Entity\CommentModal;
 
 
 class ApiController
@@ -163,5 +164,49 @@ class ApiController
 
         header('Content-Type: application/json');
         echo json_encode($users);
+    }
+
+    public function getLikes()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $users = $UserRepository->fetchLikes($post_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
+
+    public function getCommentModal()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $post = $PostRepository->getPostById($post_id);
+        $comments = $PostRepository->getPostComments($post_id);
+        $taggedUsers = $PostRepository->getTaggedUsers($post_id);
+
+        $commentModal = new CommentModal();
+
+        $commentModal->comments = $comments;
+        $commentModal->post = $post;
+        $commentModal->taggedUsers = $taggedUsers;
+
+        header('Content-Type: application/json');
+        echo json_encode($commentModal);
     }
 }

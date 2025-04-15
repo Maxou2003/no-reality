@@ -151,7 +151,7 @@ nav {
     position: fixed;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 999;
     width: 25%;
     padding-top: 2px;
 }
