@@ -12,17 +12,18 @@ class GroupRepository
 {
     public DatabaseConnection $connection;
 
-    public function getPosts($group_slug): array
+    public function getPosts($group_slug, $annoucement): array
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, time_stamp, post_picture_path, post_content, nb_comments 
             FROM group_posts p join users u on p.user_id=u.user_id  
             WHERE p.group_id = (
                 SELECT group_id FROM groups 
-                WHERE group_slug = :group_slug) 
+                WHERE group_slug = :group_slug AND announcement = :announcement) 
             and instance_id=:instance_id ORDER BY time_stamp DESC'
         );
         $statement->bindValue(':group_slug', $group_slug, \PDO::PARAM_STR);
+        $statement->bindValue(':announcement', $annoucement, \PDO::PARAM_BOOL);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
         $statement->execute();
 

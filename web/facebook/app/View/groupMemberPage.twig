@@ -8,6 +8,7 @@
 
 {% block content %}
     {% include 'navbar.twig' with {'URL': URL} %}
+    {# Specific profile header for this page #}
 	<div class="profile-top">
         <div class="profile-cover">
             <img src="{{POST_IMG_PATH}}{{user.user_banner_picture_path}}" alt="cover" class="img-cover">
@@ -41,6 +42,7 @@
             </div>
         </div>
     </div>
+    {# Page container #}
     <div class="profile_container">
         <div class="profile_info">
             <div class="info_col">
@@ -90,7 +92,6 @@
                             </div>
                             <div class="post_stats_item"> 
                                 <span>{{post.nb_comments}} comments </span>
-                                <span>{{post.nb_shares}} shares</span>
                             </div>
                         </div>
                         <div class="post-bottom-row">
