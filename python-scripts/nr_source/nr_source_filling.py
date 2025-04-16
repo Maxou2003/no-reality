@@ -155,5 +155,5 @@ if __name__ == '__main__':
     create_persons(50, 1, 0, "web/profile_pictures")
     create_persons(50, 0, 1, "web/profile_pictures")
     create_persons(50, 1, 1, "web/profile_pictures")"""
-    create_persons(20, 0, 2, "web/profile_pictures")
+    create_persons(20, 0, 0, "web/profile_pictures")
     #create_persons(50, 1, 2, "web/profile_pictures")

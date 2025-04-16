@@ -10,6 +10,7 @@ from nr_instagram.posts.database import Database
 import os
 import shutil
 import mysql.connector
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
 
 def create_direcory(instance_name):
@@ -26,10 +27,10 @@ def create_direcory(instance_name):
 def create_instance(instance_name, average_age, gender_prop, population):
     print(f"population: {population}")
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     instance_exists = '''

@@ -1,11 +1,17 @@
 import json
 import mysql.connector
-from posts.postCreation import PostGenerator
-from posts.getPostPictures import download_images_with_api
-from posts.generateJson import generate_json
-from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
+import sys
+import os
+sys.path.insert(0, 'python-scripts')
+from postCreation import PostGenerator
+from getPostPictures import download_images_with_api
+from generateJson import generate_json
+from config import HOST, USER, PASSWORD, DATABASE_FACEBOOK
 
 def load_posts(post_file):
+    if not os.path.exists(post_file):
+        print(f"Error: The file '{post_file}' does not exist.")
+        sys.exit(1)  # Exit the program with an error code
     with open(post_file, "r") as file:
         data = json.load(file)
         posts = data.get("posts", [])
@@ -24,7 +30,7 @@ def get_last_page_of_post_associated_with_theme(theme, instance_id):
         host=HOST,
         user=USER,
         password=PASSWORD,
-        database=DATABASE_INSTAGRAM
+        database=DATABASE_FACEBOOK
     )
     cursor = conn.cursor()
     query = """
@@ -66,15 +72,15 @@ def generate_posts(DATABASE_NAME, INSTANCE_ID, INSTANCE_NAME, THEME, ENGLISH_THE
     generator.generate_posts(post_per_person=30, location="Angers", posts_pathes=all_posts_pathes)
 
 if __name__ == "__main__":
-    DATABASE_NAME = "nr_instagram"
-    INSTANCE_ID = 18
-    INSTANCE_NAME = "test"
-    THEME = "art"
-    ENGLISH_THEME = "art"
+    DATABASE_NAME = "nr_facebook"
+    INSTANCE_ID = 1
+    INSTANCE_NAME = "love"
+    THEME = "amour"
+    ENGLISH_THEME = "love"
     PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
-    POST_FILE = "posts.json"
+    POST_FILE = "python-scripts/nr_facebook/posts/posts.json"
 
-    NUMBER_POSTS = 1
+    NUMBER_POSTS = 10
 
     PRECISIONS = ""
     generate_posts(DATABASE_NAME, INSTANCE_ID, INSTANCE_NAME, THEME, ENGLISH_THEME, PEXEL_API_KEY, POST_FILE, NUMBER_POSTS, PRECISIONS)

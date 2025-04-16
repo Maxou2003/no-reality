@@ -1,10 +1,10 @@
 import mysql.connector
 import sys
 sys.path.insert(0, 'python-scripts')
-from nr_instagram.posts.deletePost import delete_post
-from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
+from nr_facebook.posts.deletePost import delete_post
+from config import HOST, USER, PASSWORD, DATABASE_FACEBOOK 
 
-def delete_user_from_nr_instagram(user_id):
+def delete_user_from_nr_facebook(user_id):
     conn = None
     cursor = None
 
@@ -13,7 +13,7 @@ def delete_user_from_nr_instagram(user_id):
             host=HOST,
             user=USER,
             password=PASSWORD,
-            database=DATABASE_INSTAGRAM
+            database=DATABASE_FACEBOOK
         )
 
         cursor = conn.cursor()
@@ -40,42 +40,25 @@ def delete_user_from_nr_instagram(user_id):
             WHERE user_id = %s
         '''
         delete_identifications = '''
-            DELETE FROM identification
+            DELETE FROM identifications
             WHERE user_id = %s
-        '''
-        delete_responses = '''
-            DELETE FROM response
-            WHERE user_id = %s
-        '''
-        select_comments = '''
-            SELECT comment_id FROM comments
-            WHERE user_id = %s
-        '''
-        delete_responses_of_comments = '''
-            DELETE FROM response
-            WHERE comment_id = %s
         '''
         delete_user_link_instance = '''
             DELETE FROM userlinkinstance
             WHERE user_id = %s
         '''
-        cursor.execute(select_comments, (user_id,))
-        comments_ids = cursor.fetchall()
-        for comment in comments_ids:
-            cursor.execute(delete_responses_of_comments, (comment[0],))
         cursor.execute(delete_likes, (user_id,))
-        cursor.execute(delete_responses, (user_id,))
         cursor.execute(delete_identifications, (user_id,))
         conn.commit()
         cursor.execute(delete_comments, (user_id,))
         cursor.execute(delete_user_link_instance, (user_id,))
 
-        # Delete the followings
-        delete_followings = '''
-            DELETE FROM subscriptions
-            WHERE follower_id = %s OR followed_id = %s
+        # # Delete the followings
+        delete_friends = '''
+            DELETE FROM friends
+            WHERE user_id_1 = %s OR user_id_2 = %s
         '''
-        cursor.execute(delete_followings, (user_id, user_id))
+        cursor.execute(delete_friends, (user_id, user_id))
 
         cursor.execute(delete_user, (user_id,))
         conn.commit()
@@ -91,5 +74,6 @@ def delete_user_from_nr_instagram(user_id):
             conn.close()
 
 if __name__ == "__main__":
-    for i in range(331,500):
-        delete_user_from_nr_instagram(i)
+    for n in range(0,500):
+        delete_user_from_nr_facebook(n)
+    delete_user_from_nr_facebook(8)
