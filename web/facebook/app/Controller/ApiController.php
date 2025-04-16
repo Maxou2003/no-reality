@@ -227,4 +227,46 @@ class ApiController
         header('Content-Type: application/json');
         echo json_encode($responses);
     }
+    public function getGroupCommentModal()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $group_post = $GroupRepository->getPostById($post_id);
+        $group_comments = $GroupRepository->getPostComments($post_id);
+        $taggedUsers = $GroupRepository->getTaggedUsers($post_id);
+
+        $commentModal = new CommentModal();
+
+        $commentModal->group_comments = $group_comments;
+        $commentModal->group_post = $group_post;
+        $commentModal->taggedUsers = $taggedUsers;
+
+        header('Content-Type: application/json');
+        echo json_encode($commentModal);
+    }
+    public function getGroupResponses()
+    {
+        if (!isset($_GET['commentId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+
+        $commentId = intval($_GET['commentId']);
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $responses = $GroupRepository->getResponses($commentId);
+        header('Content-Type: application/json');
+        echo json_encode($responses);
+    }
 }
