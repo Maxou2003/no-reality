@@ -29,7 +29,7 @@ async function showCommentsModal(postId) {
         let taggedUsersHtml = '';
         if (data.taggedUsers && data.taggedUsers.length > 0) {
             taggedUsersHtml = `<div class="tagged-users">
-                <span>Avec </span>${data.taggedUsers.map(user =>
+                <span>With </span>${data.taggedUsers.map(user =>
                 `<a href="${MY_URL}profile/${user.user_slug}">${user.user_firstname} ${user.user_lastname}</a>`
             ).join(', ')}
             </div>`;
