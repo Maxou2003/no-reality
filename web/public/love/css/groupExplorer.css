@@ -1,7 +1,7 @@
 :root {
     --primary-color: #1877f2;
     --secondary-color: #65676b;
-    --bg-color: #f0f2f5;
+    --bg-color: #fbfdff;
     --card-bg: #ffffff;
 }
 
@@ -28,6 +28,7 @@ body {
     overflow-y: auto;
     background-color: var(--card-bg);
     min-width: 250px;
+    box-shadow: 1px 0 6px 2px #e2e2e2;
 }
 
 .sidebar-section {
@@ -97,8 +98,9 @@ body {
 .group-card {
     background-color: var(--card-bg);
     border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 1px 2px rgb(223, 223, 223);
+    padding: 16px;    
+    border: 1px solid #ece9e9;
+    box-shadow: 0 1px #d4d4d4;
     min-width: 280px;
     max-width: 280px;
     flex: 0 0 auto;

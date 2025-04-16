@@ -26,6 +26,8 @@
     border-radius: 4px;
     color: rgb(71, 71, 71);
     font-weight: 400;
+    border: 1px solid #ece9e9;
+    box-shadow: 0 1px #d4d4d4;
 }
 
 .group_intro h3 {
