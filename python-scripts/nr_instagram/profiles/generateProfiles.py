@@ -273,7 +273,7 @@ def generate_profiles(nb_users, instance, gender, ethnicity, json_file_path):
 
 if __name__ == '__main__':
     
-    generate_profiles(nb_users=5, instance=19, gender=0, ethnicity=0, json_file_path='python-scripts/nr_source/descriptions.json')
+    generate_profiles(nb_users=5, instance=19, gender=0, ethnicity=0, json_file_path='python-scripts/nr_instagram/descriptions.json')
     #generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')

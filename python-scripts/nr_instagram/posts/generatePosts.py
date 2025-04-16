@@ -3,6 +3,7 @@ import mysql.connector
 from posts.postCreation import PostGenerator
 from posts.getPostPictures import download_images_with_api
 from posts.generateJson import generate_json
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
 def load_posts(post_file):
     with open(post_file, "r") as file:
@@ -20,10 +21,10 @@ def get_last_page_of_post_associated_with_theme(theme, instance_id):
     """
     # Placeholder for actual database query to get the last page number
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     query = """

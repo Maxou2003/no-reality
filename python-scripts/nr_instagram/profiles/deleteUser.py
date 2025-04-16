@@ -2,6 +2,7 @@ import mysql.connector
 import sys
 sys.path.insert(0, 'python-scripts')
 from nr_instagram.posts.deletePost import delete_post
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
 def delete_user_from_nr_instagram(user_id):
     conn = None
@@ -9,10 +10,10 @@ def delete_user_from_nr_instagram(user_id):
 
     try:
         conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="nr_instagram"
+            host=HOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE_INSTAGRAM
         )
 
         cursor = conn.cursor()

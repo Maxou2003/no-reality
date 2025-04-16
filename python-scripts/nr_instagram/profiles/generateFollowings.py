@@ -3,6 +3,7 @@ import random
 
 import mysql.connector
 from mysql.connector import Error
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
 def get_users(instance_id):
     """
@@ -17,10 +18,10 @@ def get_users(instance_id):
     cursor = None
     try:
         conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="nr_instagram"
+            host=HOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE_INSTAGRAM
         )
         cursor = conn.cursor()
         sql = '''
@@ -47,10 +48,10 @@ def fillTable(follow_list):
     Create the followings table
     """
     conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="nr_instagram"
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE_INSTAGRAM
     )
     cursor = conn.cursor()
     sql_check = '''

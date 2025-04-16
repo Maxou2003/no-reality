@@ -15,7 +15,7 @@ def create_json(json_file, person_list):
     client = Mistral(api_key=api_key)
 
 
-    goal = f'Écris un fichier json avec les pseudos et descriptions instagram de chacune des personnes suivantes : {person_list}. Écris les descriptions à la première personne du singuler'
+    goal = f'Écris un fichier json avec les pseudos et descriptions instagram de chacune des personnes suivantes : {person_list}. Écris les descriptions à la première personne du singulier'
     
     format_instructions =  'Suis exactement ce format: {"descriptions": {"pseudo":"La description de la personne", "pseudo": "La description de la personne", ...}}'
 
