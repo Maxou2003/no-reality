@@ -48,9 +48,11 @@ async function showCommentsModal(postId) {
                 return `
                 <div class="comment" data-comment-id="${comment.comment_id}">
                     <div class="comment-header">
-                        <img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" class="comment-avatar" alt="${comment.user_firstname}">
+                        <a href="${MY_URL}profile/${comment.user_slug}">
+                            <img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" class="comment-avatar" alt="${comment.user_firstname}">
+                        </a>
                         <div class="comment-text-container">
-                            <div class="comment-author">${comment.user_firstname} ${comment.user_lastname}</div>
+                            <a href="${MY_URL}profile/${comment.user_slug}" class="comment-author">${comment.user_firstname} ${comment.user_lastname}</a>
                             <div class="comment-content">${comment.comment_text}</div>
                         </div>
                     </div>
@@ -194,9 +196,11 @@ async function toggleResponses(commentId, toggleElement) {
                     return `
                     <div class="response">
                         <div class="response-header">
-                            <img src="${PROFILE_IMG_PATH}${response.user_profile_picture}" class="response-avatar">
+                            <a href="${MY_URL}profile/${response.user_slug}">
+                                <img src="${PROFILE_IMG_PATH}${response.user_profile_picture}" class="response-avatar">
+                            </a>
                             <div class="response-text-container">
-                                <div class="response-author">${response.user_firstname} ${response.user_lastname}</div>
+                                <a href="${MY_URL}profile/${response.user_slug}" class="response-author">${response.user_firstname} ${response.user_lastname}</a>
                                 <div class="response-content">${response.content}</div>
                             </div>
                         </div>

@@ -115,6 +115,7 @@
 .comment-author {
     font-weight: bold;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 
 .comment-content {
@@ -319,6 +320,7 @@
     font-weight: 600;
     font-size: 14px;
     color: #050505;
+    text-decoration: none;
 }
 
 .response-content {

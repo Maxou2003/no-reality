@@ -15,6 +15,7 @@ class Response implements JsonSerializable
     public DateTime $time_stamp;
     public string $user_firstname;
     public string $user_lastname;
+    public string $user_slug;
     public string $user_pp_path;
 
     public function jsonSerialize(): mixed
@@ -27,6 +28,7 @@ class Response implements JsonSerializable
             'user_profile_picture' => $this->user_pp_path,
             'response_id' => $this->response_id,
             'content' => $this->content,
+            'user_slug' => $this->user_slug,
             'time_stamp' => $this->time_stamp->format('Y-m-d H:i'),
         ];
     }

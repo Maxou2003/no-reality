@@ -153,7 +153,7 @@ class PostRepository
     public function getPostComments($post_id): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT comment_id, u.user_id, post_id, comment_text, time_stamp, u.user_firstname, u.user_lastname, u.user_pp_path, nb_responses 
+            'SELECT comment_id, u.user_id, post_id, comment_text, time_stamp, u.user_slug, u.user_firstname, u.user_lastname, u.user_pp_path, nb_responses 
              FROM comments c join users u on c.user_id=u.user_id
              WHERE post_id = :post_id'
         );
@@ -172,6 +172,7 @@ class PostRepository
             $comment->comment_text = $row['comment_text'];
             $comment->nb_responses = $row['nb_responses'];
             $comment->user_pp_path = $row['user_pp_path'];
+            $comment->user_slug = $row['user_slug'];
             $comment->time_stamp = new DateTime($row['time_stamp']);
 
             $commentArray[] = $comment;
@@ -217,7 +218,7 @@ class PostRepository
     public function getResponses($commentId): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT comment_id,response_id,u.user_id, response_content,time_stamp,u.user_firstname,u.user_lastname,u.user_pp_path FROM responses r
+            'SELECT comment_id,response_id,u.user_id, u.user_slug, response_content,time_stamp,u.user_firstname,u.user_lastname,u.user_pp_path FROM responses r
                join users u on r.user_id= u.user_id 
                 WHERE comment_id = :commentId and r.user_id in (
                     SELECT user_id FROM userLinkInstance where instance_id =:instance_id)'
@@ -238,6 +239,7 @@ class PostRepository
             $response->user_firstname = $row['user_firstname'];
             $response->user_lastname = $row['user_lastname'];
             $response->user_pp_path = $row['user_pp_path'];
+            $response->user_slug = $row['user_slug'];
 
             $responseArray[] = $response;
         }

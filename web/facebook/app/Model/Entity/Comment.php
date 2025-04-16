@@ -14,6 +14,7 @@ class Comment implements JsonSerializable
     public DateTime $time_stamp;
     public string $user_firstname;
     public string $user_lastname;
+    public string $user_slug;
     public string $user_pp_path;
     public int $nb_responses;
 
@@ -24,6 +25,7 @@ class Comment implements JsonSerializable
             'user_id' => $this->user_id,
             'user_firstname' => $this->user_firstname,
             'user_lastname' => $this->user_lastname,
+            'user_slug' => $this->user_slug,
             'user_profile_picture' => $this->user_pp_path,
             'post_id' => $this->post_id,
             'comment_text' => $this->comment_text,
