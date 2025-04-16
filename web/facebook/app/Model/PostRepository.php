@@ -7,6 +7,7 @@ use App\Model\Entity\Post;
 use App\Model\Entity\User;
 use App\Model\Entity\Comment;
 use App\Lib\DatabaseConnection;
+use App\Model\Entity\Response;
 
 class PostRepository
 {
@@ -211,5 +212,35 @@ class PostRepository
             $userArray[] = $user;
         }
         return $userArray;
+    }
+
+    public function getResponses($commentId): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT comment_id,response_id,u.user_id, response_content,time_stamp,u.user_firstname,u.user_lastname,u.user_pp_path FROM responses r
+               join users u on r.user_id= u.user_id 
+                WHERE comment_id = :commentId and r.user_id in (
+                    SELECT user_id FROM userLinkInstance where instance_id =:instance_id)'
+        );
+
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':commentId', $commentId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $responseArray = [];
+        while (($row = $statement->fetch())) {
+            $response = new Response();
+            $response->comment_id = $row['comment_id'];
+            $response->response_id = $row['response_id'];
+            $response->user_id = $row['user_id'];
+            $response->content = $row['response_content'];
+            $response->time_stamp = new DateTime($row['time_stamp']);
+            $response->user_firstname = $row['user_firstname'];
+            $response->user_lastname = $row['user_lastname'];
+            $response->user_pp_path = $row['user_pp_path'];
+
+            $responseArray[] = $response;
+        }
+        return $responseArray;
     }
 }

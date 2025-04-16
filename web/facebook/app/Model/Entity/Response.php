@@ -13,7 +13,8 @@ class Response implements JsonSerializable
     public int $user_id;
     public string $content;
     public DateTime $time_stamp;
-    public string $user_username;
+    public string $user_firstname;
+    public string $user_lastname;
     public string $user_pp_path;
 
     public function jsonSerialize(): mixed
@@ -21,7 +22,8 @@ class Response implements JsonSerializable
         return [
             'comment_id' => $this->comment_id,
             'user_id' => $this->user_id,
-            'user_username' => $this->user_username,
+            'user_firstname' => $this->user_firstname,
+            'user_lastname' => $this->user_lastname,
             'user_profile_picture' => $this->user_pp_path,
             'response_id' => $this->response_id,
             'content' => $this->content,

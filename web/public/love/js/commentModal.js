@@ -46,7 +46,7 @@ async function showCommentsModal(postId) {
                 });
 
                 return `
-                <div class="comment">
+                <div class="comment" data-comment-id="${comment.comment_id}">
                     <div class="comment-header">
                         <img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" class="comment-avatar" alt="${comment.user_firstname}">
                         <div class="comment-text-container">
@@ -60,8 +60,13 @@ async function showCommentsModal(postId) {
                         <span class="comment-action">Send</span>
                         <span class="comment-action">Share</span>
                     </div>
-                    ${comment.nb_responses > 0 ? `<div class="comment-replies">See all ${comment.nb_responses} responses</div>` : ''}
-                </div>`;
+                    ${comment.nb_responses > 0 ? `
+                        <div class="comment-replies" onclick="toggleResponses(${comment.comment_id}, this)">
+                            See all ${comment.nb_responses} responses
+                        </div>
+                        <div class="responses-container" id="responses-${comment.comment_id}" style="display: none;"></div>
+                        ` : ''}
+                    </div>`;
             }).join('');
         } else {
             commentsHtml = '<div class="no-comments">No comment as of now</div>';
@@ -160,4 +165,62 @@ async function showCommentsModal(postId) {
             document.body.classList.remove('body-no-scroll');
         }
     });
+}
+
+async function toggleResponses(commentId, toggleElement) {
+    const responsesContainer = document.getElementById(`responses-${commentId}`);
+    const isHidden = responsesContainer.style.display === 'none';
+
+    if (isHidden) {
+        // Show loading state
+        responsesContainer.innerHTML = '<div class="loading-responses">Loading...</div>';
+        responsesContainer.style.display = 'block';
+
+        try {
+            // Fetch responses
+            const response = await fetch(`${API_BASE_URL}getResponses&commentId=${commentId}`);
+            const responses = await response.json();
+
+            if (responses.length > 0) {
+                let responsesHtml = responses.map(response => {
+                    const responseDate = new Date(response.time_stamp);
+                    const formattedDate = responseDate.toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    return `
+                    <div class="response">
+                        <div class="response-header">
+                            <img src="${PROFILE_IMG_PATH}${response.user_profile_picture}" class="response-avatar">
+                            <div class="response-text-container">
+                                <div class="response-author">${response.user_firstname} ${response.user_lastname}</div>
+                                <div class="response-content">${response.content}</div>
+                            </div>
+                        </div>
+                        <div class="response-meta">
+                            <span class="response-time">${formattedDate}</span>
+                            <span class="comment-action">Likes</span>
+                            <span class="comment-action">Send</span>
+                            <span class="comment-action">Share</span>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                responsesContainer.innerHTML = responsesHtml;
+                toggleElement.textContent = `Hide all ${responses.length} responses`;
+            } else {
+                responsesContainer.innerHTML = '<div class="no-responses">No responses </div>';
+            }
+        } catch (error) {
+            console.error('Error loading responses:', error);
+            responsesContainer.innerHTML = '<div class="error">Loading error...</div>';
+        }
+    } else {
+        // Hide responses
+        responsesContainer.style.display = 'none';
+        toggleElement.textContent = `See all responses`;
+    }
 }
