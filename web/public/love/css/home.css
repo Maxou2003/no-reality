@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #efefef;
+    background-color: #f5fafb;
 }
 
 
@@ -16,10 +16,12 @@ body {
 .post-container {
     width: 100%;
     background-color: #fff;
-    border-radius: 6px;
-    padding: 20px 20px 5px 20px;
+    border-radius: 10px;
+    border: 1px solid #ece9e9;
+    padding: 20px 10px 5px 10px;
     margin-bottom: 15px;
     color: #626262;
+    box-shadow: 0 1px #d4d4d4;
 }
 
 .post-data {
@@ -230,15 +232,15 @@ body {
 /* Sidebar classes */
 
 .left_sidebar {
-    flex-basis: 25%;
+    flex-basis: 18%;
     position: sticky;
     top: 90px;
     align-self: flex-start;
 }
 
 .right-sidebar {
-    background-color: #fff;
-    flex-basis: 25%;
+    /*background-color: #fff;*/
+    flex-basis: 20%;
     padding: 20px;
     height: 89vh;
     border-radius: 4px;
@@ -264,6 +266,12 @@ body {
     text-decoration: none;
     color: #1876f2;
     font-size: 12px;
+}
+
+.sider_bar_title span{
+    font-weight: 500;
+    font-size: 18.5px;
+    color: #7c7c7c;
 }
 
 .advirsment_side_bar {
@@ -296,11 +304,11 @@ body {
 .container {
     display: flex;
     justify-content: space-between;
-    padding: 13px 5%;
+    padding: 13px 0 13px 1%;
 }
 
 .main_content {
-    flex-basis: 47%;
+    flex-basis: 35%;
 }
 
 .important_link a,
@@ -308,12 +316,23 @@ body {
     text-decoration: none;
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
-    color: #626262;
-    width: fit-content;
+    /* margin-bottom: 30px; */
+    font-weight: 550;
+    font-size: 16px;
+    color: black;
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
 }
-
-
+.important_link a ion-icon {
+    color: #1876f2;
+    width: 30px;
+    aspect-ratio: 1/1;
+    margin-right: 15px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
 .important_link a :last-child {
     color: #1876f2;
     width: 25px;
@@ -321,6 +340,12 @@ body {
     align-items: center;
     justify-content: center;
     display: flex;
+}
+
+
+
+.important_link a:hover, .shortcut_links a:hover {
+    background-color: #e5e9ec;
 }
 
 .important_link {
@@ -382,6 +407,14 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+}
+
+
+
+.online_list p {
+    font-weight: 550;
+    font-size: 16px;
+    color: black;
 }
 
 .online_list a {

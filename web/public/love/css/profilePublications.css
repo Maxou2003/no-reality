@@ -166,19 +166,21 @@
 }
 
 .info_col {
-    flex-basis: 33%;
+    flex-basis: 40.5%;
     position: sticky;
 }
 
 .post_col {
-    flex-basis: 62%;
+    flex-basis: 58%;
 }
 
 .profile_intro {
     background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 4px;
+    border-radius: 10px;
+    border: 1px solid #ece9e9;
+    box-shadow: 0 1px #d4d4d4;
 }
 
 .profile_intro h3 {
@@ -259,7 +261,7 @@
 .friends_box {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    gap: 20px 12px;
 }
 
 .friends_box a {
