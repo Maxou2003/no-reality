@@ -279,37 +279,21 @@ class GroupRepository
     public function getAllPostsPictures($group_slug): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, time_stamp, post_picture_path, post_content, nb_comments 
-            FROM group_posts p join users u on p.user_id=u.user_id  
-            WHERE p.group_id = (
-                SELECT group_id FROM groups 
-                WHERE group_slug = :group_slug) 
-            and instance_id=:instance_id ORDER BY time_stamp DESC'
+            'SELECT post_id, post_picture_path FROM group_posts 
+            WHERE group_id = (SELECT group_id FROM groups WHERE group_slug = :group_slug) AND instance_id=:instance_id ORDER BY time_stamp DESC'
         );
         $statement->bindValue(':group_slug', $group_slug, \PDO::PARAM_STR);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
         $statement->execute();
 
-        $groupPostArray = [];
+        $picturesArray = [];
         while (($row = $statement->fetch())) {
-            $groupPosts = new GroupPost();
-            $groupPosts->post_id = $row['post_id'];
-            $groupPosts->user_firstname = $row['user_firstname'];
-            $groupPosts->user_lastname = $row['user_lastname'];
-            $groupPosts->user_id = $row['user_id'];
-            $groupPosts->user_slug = $row['user_slug'];
-            $groupPosts->instance_id = $row['instance_id'];
-            $groupPosts->user_pp_path = $row['user_pp_path'];
-            $groupPosts->nb_likes = $row['nb_likes'];
-            $groupPosts->time_stamp = new DateTime($row['time_stamp']);
-            $groupPosts->post_picture_path = $row['post_picture_path'];
-            $groupPosts->post_content = $row['post_content'];
-            $groupPosts->nb_comments = $row['nb_comments'];
+            $picture = [ 'post_id' => $row['post_id'], 'post_picture_path' => $row['post_picture_path'] ];
 
-            $groupPostArray[] = $groupPosts;
+            $picturesArray[] = $picture;
         }
 
-        return $groupPostArray;
+        return $picturesArray;
     }
     public function getGroupActivity($group_id): array
     {
@@ -460,5 +444,37 @@ class GroupRepository
             $responseArray[] = $response;
         }
         return $responseArray;
+    }
+
+    public function fetchLikes($post_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT * FROM users WHERE user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id) 
+            and user_id in (SELECT user_id FROM group_likes where post_id = :post_id)'
+        );
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':post_id', $post_id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $userArray = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
+            $user->user_location = $row['user_location'];
+            $user->user_work = $row['user_work'];
+            $user->user_school = $row['user_school'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
+
+            $userArray[] = $user;
+        }
+        return $userArray;
     }
 }

@@ -288,4 +288,21 @@ class ApiController
         header('Content-Type: application/json');
         echo json_encode($responses);
     }
+    public function getGroupLikes()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $users = $GroupRepository->fetchLikes($post_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
 }

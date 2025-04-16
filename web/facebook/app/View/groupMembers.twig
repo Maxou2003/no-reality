@@ -15,7 +15,7 @@
             <div class="members-top-row">
                 <span class="members-title">Members · {{ group.nb_members}}</span>
                 <p>New people who join this group will appear here.</p>
-                <div class="search_box_members">
+                <div class="search_box">
                  <ion-icon src="{{URL}}img/svg-icons/search-outline.svg"></ion-icon>
                     <input type="search" placeholder="Search for a member">
                 </div>
@@ -45,6 +45,23 @@
                 </div>
             {% endfor %}   
             </div> 
+        </div>
+
+        <div class="search-modal" id="searchModal">
+            <div class="search-modal-content">
+            {# Filled in search-modal.js #}
+                <div class="search-results-container">
+                    <div class="search-results-groups">
+                        <div class="groups-list" id="groupsResults">
+                        </div>
+                    </div>
+                    
+                    <div class="search-results-users">
+                        <div class="users-list" id="usersResults">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

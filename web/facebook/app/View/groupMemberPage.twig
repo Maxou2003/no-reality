@@ -2,7 +2,11 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{URL}}css/groupMemberPage.css">
+    <link rel="stylesheet" href="{{URL}}css/commentModal.css">
+    <link rel="stylesheet" href="{{URL}}css/likeModal.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
+    <script src="{{URL}}js/likeModal.js" defer></script>
+    <script src="{{URL}}js/commentModal.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -57,7 +61,9 @@
                     <div class="photo_box">
                         {% for post in posts|slice(0, 9) %}
                             {% if post.post_picture_path %}
-                                <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                                <div class="photo_box_item" onclick="showGroupCommentsModal({{post.post_id}})">
+                                    <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="">
+                                </div>
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -68,7 +74,7 @@
                 <div class="top-group">
                     <span class="top-group-publications">Group publications</span>
                 </div>
-            {% if posts|length > 0 %}
+                {% if posts|length > 0 %}
                 {% for post in posts %}
                     <div class="post-container">
                         <div class="post-top-row">
@@ -85,16 +91,16 @@
                             </div>
                         </div>
                         <p class="post_text">{{post.post_content}}</p>
-                        {% if post.post_picture_path %}
-                            <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
-                        {% endif %}
+                            {% if post.post_picture_path is not empty %}
+                                <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                            {% endif %}
                         <div class="post_stats">
-                            <div class="post_stats_item"> 
+                            <div class="post_stats_item" onclick="showGroupLikesModal({{post.post_id}})"> 
                                 <ion-icon class="like-icon" src="{{URL}}img/svg-icons/heart-circle.svg" ></ion-icon>
                                 <span>{{post.nb_likes}}</span>
                             </div>
                             <div class="post_stats_item"> 
-                                <span>{{post.nb_comments}} comments </span>
+                                <span  onclick="showGroupCommentsModal({{post.post_id}})">{{post.nb_comments}} comments </span>
                             </div>
                         </div>
                         <div class="post-bottom-row">
@@ -126,5 +132,22 @@
                 {% endif %}
             </div>
         </div>
+
+        <div id="likeModal" class="like-modal">
+            <div class="like-modal-content">
+                <div class="like-modal-header">
+                    <div class="like-modal-title">Likes</div>
+                    <span class="close-like-modal">&times;</span>
+                </div>
+                <div id="likeModalBody">
+                </div>
+            </div>
+        </div>
+
+        <div id="commentModal" class="comment-modal"> 
+            <div class="comment-modal-content">
+            </div>
+        </div>
+
     </div>
 {% endblock %}

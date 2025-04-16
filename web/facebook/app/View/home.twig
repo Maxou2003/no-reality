@@ -36,7 +36,7 @@
 
         <div class="main_content">
 
-        {%for post in posts %}
+        {% for post in posts %}
             <div class="post-container">
                 <div class="post-top-row">
                     <div class="user-profile">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-        {%endfor%}
+        {% endfor %}
         </div>
 
         <div class="right-sidebar">
@@ -98,7 +98,7 @@
                         <p>{{suggestion.user_firstname}} {{suggestion.user_lastname}}</p>
                     </a>
                 </div>
-            {%endfor%}
+            {% endfor %}
         </div>
         <div id="likeModal" class="like-modal">
             <div class="like-modal-content">
