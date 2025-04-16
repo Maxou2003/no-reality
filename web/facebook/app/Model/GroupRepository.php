@@ -6,6 +6,8 @@ use DateTime;
 use App\Model\Entity\GroupPost;
 use App\Model\Entity\Group;
 use App\Model\Entity\User;
+use App\Model\Entity\Comment;
+use App\Model\Entity\Response;
 use App\Lib\DatabaseConnection;
 
 class GroupRepository
@@ -368,7 +370,7 @@ class GroupRepository
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT comment_id, u.user_id, post_id, comment_text, time_stamp, u.user_firstname, u.user_lastname, u.user_slug, u.user_pp_path, nb_responses 
-             FROM comments c join users u on c.user_id=u.user_id
+             FROM group_comments c join users u on c.user_id=u.user_id
              WHERE post_id = :post_id'
         );
 
@@ -399,7 +401,7 @@ class GroupRepository
         $statement = $this->connection->getConnection()->prepare(
             'SELECT * FROM users
                 WHERE user_id in(
-                SELECT user_id FROM identifications 
+                SELECT user_id FROM group_identifications 
                 WHERE post_id = :post_id and instance_id =:instance_id)'
         );
 
@@ -432,7 +434,7 @@ class GroupRepository
     public function getResponses($commentId): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT comment_id,response_id,u.user_id, response_content,time_stamp,u.user_firstname,u.user_lastname,u.user_pp_path FROM responses r
+            'SELECT comment_id,response_id,u.user_id, u.user_slug, response_content,time_stamp,u.user_firstname,u.user_lastname,u.user_pp_path FROM group_responses r
                join users u on r.user_id= u.user_id 
                 WHERE comment_id = :commentId and r.user_id in (
                     SELECT user_id FROM userLinkInstance where instance_id =:instance_id)'
@@ -452,6 +454,7 @@ class GroupRepository
             $response->time_stamp = new DateTime($row['time_stamp']);
             $response->user_firstname = $row['user_firstname'];
             $response->user_lastname = $row['user_lastname'];
+            $response->user_slug = $row['user_slug'];
             $response->user_pp_path = $row['user_pp_path'];
 
             $responseArray[] = $response;

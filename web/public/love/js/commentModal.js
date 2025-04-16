@@ -231,9 +231,12 @@ async function toggleResponses(commentId, toggleElement) {
     }
 }
 
+
+// ------------------------------------------------------------------------------------------------------------------
+
 // Comment modal for group posts
 
-async function showCommentsModal(postId) {
+async function showGroupCommentsModal(postId) {
     const modal = document.getElementById('commentModal');
     const modalContent = document.querySelector('.comment-modal-content');
 
@@ -249,12 +252,12 @@ async function showCommentsModal(postId) {
         const response = await fetch(`${API_BASE_URL}getGroupCommentModal&postId=${postId}`);
         const data = await response.json();
 
-        if (!data.post) {
+        if (!data.group_post) {
             throw new Error('Post data not available');
         }
 
         // Format the timestamp
-        const postDate = new Date(data.post.time_stamp);
+        const postDate = new Date(data.group_post.time_stamp);
         const options = { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
         const formattedDate = postDate.toLocaleDateString('fr-FR', options);
 
@@ -283,9 +286,11 @@ async function showCommentsModal(postId) {
                 return `
                 <div class="comment" data-comment-id="${comment.comment_id}">
                     <div class="comment-header">
-                        <img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" class="comment-avatar" alt="${comment.user_firstname}">
+                        <a href="${MY_URL}profile/${comment.user_slug}">
+                            <img src="${PROFILE_IMG_PATH}${comment.user_profile_picture}" class="comment-avatar" alt="${comment.user_firstname}">
+                        </a>
                         <div class="comment-text-container">
-                            <div class="comment-author">${comment.user_firstname} ${comment.user_lastname}</div>
+                            <a href="${MY_URL}profile/${comment.user_slug}" class="comment-author">${comment.user_firstname} ${comment.user_lastname}</a>
                             <div class="comment-content">${comment.comment_text}</div>
                         </div>
                     </div>
@@ -296,7 +301,7 @@ async function showCommentsModal(postId) {
                         <span class="comment-action">Share</span>
                     </div>
                     ${comment.nb_responses > 0 ? `
-                        <div class="comment-replies" onclick="toggleResponses(${comment.comment_id}, this)">
+                        <div class="comment-replies" onclick="toggleGroupResponses(${comment.comment_id}, this)">
                             See all ${comment.nb_responses} responses
                         </div>
                         <div class="responses-container" id="responses-${comment.comment_id}" style="display: none;"></div>
@@ -310,18 +315,18 @@ async function showCommentsModal(postId) {
         // Update modal content
         modalContent.innerHTML = `
             <div class="comment-modal-header">
-                <div class="comment-modal-title">Post from ${data.post.firstname}</div>
+                <div class="comment-modal-title">Post from ${data.group_post.firstname}</div>
                 <span class="close-comment-modal">&times;</span>
             </div>
 
             <div class="post_header">
                 <div class="post-profile">
-                    <a class="profile_img" href="${MY_URL}profile/${data.post.user_slug}">
-                        <img src="${PROFILE_IMG_PATH}${data.post.user_pp_path}">
+                    <a class="profile_img" href="${MY_URL}profile/${data.group_post.user_slug}">
+                        <img src="${PROFILE_IMG_PATH}${data.group_post.user_pp_path}">
                     </a>
                     <div class="profile-data">
-                        <a class="profile-name" href="${MY_URL}profile/${data.post.user_slug}">
-                            ${data.post.firstname} ${data.post.lastname}
+                        <a class="profile-name" href="${MY_URL}profile/${data.group_post.user_slug}">
+                            ${data.group_post.firstname} ${data.group_post.lastname}
                         </a>
                         <div class="post_timestamp">
                             ${formattedDate} · <ion-icon name="earth-outline"></ion-icon>
@@ -333,16 +338,16 @@ async function showCommentsModal(postId) {
             </div>
 
             <div class="original-post">
-                <p class="post_text">${data.post.post_description}</p>
-                ${data.post.post_picture_path ? `<img src="${POST_IMG_PATH}${data.post.post_picture_path}" alt="Post image" class="post_img">` : ''}
+                <p class="post_text">${data.group_post.post_description}</p>
+                ${data.group_post.post_picture_path ? `<img src="${POST_IMG_PATH}${data.group_post.post_picture_path}" alt="Post image" class="post_img">` : ''}
                 <div class="post_stats">
-                    <div class="post_stats_item" onclick="showLikesModal(${data.post.post_id})">
+                    <div class="post_stats_item" onclick="showLikesModal(${data.group_post.post_id})">
                         <ion-icon class="like-icon" src="${MY_URL}img/svg-icons/heart-circle.svg"></ion-icon>
-                        <span>${data.post.nb_likes}</span>
+                        <span>${data.group_post.nb_likes}</span>
                     </div>
                     <div class="post_stats_item">
-                        <span>${data.post.nb_comments} comments</span>
-                        <span>${data.post.nb_shares} shares</span>
+                        <span>${data.group_post.nb_comments} comments</span>
+                        <span>${data.group_post.nb_shares} shares</span>
                     </div>
                 </div>
                 <div class="post-bottom-row">
@@ -402,7 +407,7 @@ async function showCommentsModal(postId) {
     });
 }
 
-async function toggleResponses(commentId, toggleElement) {
+async function toggleGroupResponses(commentId, toggleElement) {
     const responsesContainer = document.getElementById(`responses-${commentId}`);
     const isHidden = responsesContainer.style.display === 'none';
 
@@ -413,7 +418,7 @@ async function toggleResponses(commentId, toggleElement) {
 
         try {
             // Fetch responses
-            const response = await fetch(`${API_BASE_URL}getResponses&commentId=${commentId}`);
+            const response = await fetch(`${API_BASE_URL}getGroupResponses&commentId=${commentId}`);
             const responses = await response.json();
 
             if (responses.length > 0) {
@@ -429,9 +434,11 @@ async function toggleResponses(commentId, toggleElement) {
                     return `
                     <div class="response">
                         <div class="response-header">
-                            <img src="${PROFILE_IMG_PATH}${response.user_profile_picture}" class="response-avatar">
+                            <a href="${MY_URL}profile/${response.user_slug}">
+                                <img src="${PROFILE_IMG_PATH}${response.user_profile_picture}" class="response-avatar">
+                            </a>
                             <div class="response-text-container">
-                                <div class="response-author">${response.user_firstname} ${response.user_lastname}</div>
+                                <a href="${MY_URL}profile/${response.user_slug}" class="response-author">${response.user_firstname} ${response.user_lastname}</a>
                                 <div class="response-content">${response.content}</div>
                             </div>
                         </div>

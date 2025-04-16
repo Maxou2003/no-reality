@@ -7,6 +7,7 @@ use App\Model\UserRepository;
 use App\Model\GroupRepository;
 use App\Lib\DatabaseConnection;
 use App\Model\Entity\CommentModal;
+use App\Model\Entity\GroupCommentModal;
 
 
 class ApiController
@@ -240,12 +241,12 @@ class ApiController
         $GroupRepository->connection = $database;
 
         $group_post = $GroupRepository->getPostById($post_id);
-        $group_comments = $GroupRepository->getPostComments($post_id);
+        $comments = $GroupRepository->getPostComments($post_id);
         $taggedUsers = $GroupRepository->getTaggedUsers($post_id);
 
-        $commentModal = new CommentModal();
+        $commentModal = new GroupCommentModal();
 
-        $commentModal->group_comments = $group_comments;
+        $commentModal->comments = $comments;
         $commentModal->group_post = $group_post;
         $commentModal->taggedUsers = $taggedUsers;
 

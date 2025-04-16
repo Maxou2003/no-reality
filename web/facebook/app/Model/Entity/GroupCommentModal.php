@@ -8,14 +8,14 @@ use App\Model\Entity\Comment;
 use JsonSerializable;
 
 
-class CommentModal implements JsonSerializable
+class GroupCommentModal implements JsonSerializable
 {
     public GroupPost $group_post;
 
     /**
-     * @var GroupComment[]
+     * @var Comment[]
      */
-    public array $group_comments;
+    public array $comments;
 
     public array $taggedUsers;
 
@@ -23,9 +23,9 @@ class CommentModal implements JsonSerializable
     {
         return [
             'group_post' => $this->group_post->jsonSerialize(),
-            'group_comments' => array_map(
-                fn(GroupComment $group_comments) => $group_comments->jsonSerialize(),
-                $this->group_comments
+            'comments' => array_map(
+                fn(Comment $comments) => $comments->jsonSerialize(),
+                $this->comments
             ),
             'taggedUsers' => $this->taggedUsers,
         ];

@@ -3,8 +3,11 @@
 {% block head %}
     <link rel="stylesheet" href="{{URL}}css/groupPage.css">
     <link rel="stylesheet" href="{{URL}}css/groupHeader.css">
+    <link rel="stylesheet" href="{{URL}}css/commentModal.css">
+    <link rel="stylesheet" href="{{URL}}css/likeModal.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
     <script src="{{URL}}js/groupHeader.js" defer></script>
+    <script src="{{URL}}js/commentModal.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -39,7 +42,7 @@
                                 <span>{{post.nb_likes}}</span>
                             </div>
                             <div class="post_stats_item"> 
-                                <span>{{post.nb_comments}} comments </span>
+                                <span onclick="showGroupCommentsModal({{post.post_id}})">{{post.nb_comments}} comments </span>
                             </div>
                         </div>
                     <div class="post-bottom-row">
@@ -93,5 +96,22 @@
             </div>
             
         </div>
+
+        <div id="likeModal" class="like-modal">
+            <div class="like-modal-content">
+                <div class="like-modal-header">
+                    <div class="like-modal-title">Likes</div>
+                    <span class="close-like-modal">&times;</span>
+                </div>
+                <div id="likeModalBody">
+                </div>
+            </div>
+        </div>
+
+        <div id="commentModal" class="comment-modal"> 
+            <div class="comment-modal-content">
+            </div>
+        </div>
+
     </div>
 {% endblock %}
