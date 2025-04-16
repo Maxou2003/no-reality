@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #f5fafb;
+    background-color: #f2f4f7;
 }
 
 
@@ -316,7 +316,6 @@ body {
     text-decoration: none;
     display: flex;
     align-items: center;
-    /* margin-bottom: 30px; */
     font-weight: 550;
     font-size: 16px;
     color: black;
@@ -349,13 +348,14 @@ body {
 }
 
 .important_link {
-    border-bottom: 1px solid #ccc;
+    box-shadow: 0 1px #d4d4d4;
 }
 
 .shortcut_links a ion-icon {
     width: 40px;
     border-radius: 4px;
     margin-right: 5px;
+    color: #1876f2;
 }
 
 .shortcut_links p {

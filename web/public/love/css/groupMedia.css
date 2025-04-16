@@ -10,6 +10,8 @@
     margin-top: -20px;
     background-color: white;
     padding: 20px 15px;
+    border: 1px solid #ece9e9;
+    box-shadow: 0 1px #d4d4d4;
 }
 
 .media-top-row {
