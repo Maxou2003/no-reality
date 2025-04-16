@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{URL}}css/searchResults.css">
     <link rel="stylesheet" href="{{URL}}css/likeModal.css">
     <link rel="stylesheet" href="{{URL}}css/commentModal.css">
+    <link rel="stylesheet" href="{{URL}}css/shareModal.css">
+    <script src="{{URL}}js/shareModal.js" defer></script>
     <script src="{{URL}}js/likeModal.js" defer></script>
     <script src="{{URL}}js/commentModal.js" defer></script>
 {% endblock %}
@@ -120,7 +122,7 @@
                             </div>
                             <div class="post_stats_item"> 
                                 <span  onclick="showCommentsModal({{post.post_id}})">{{post.nb_comments}} comments </span>
-                                <span>{{post.nb_shares}} shares</span>
+                                <span onclick="showSharesModal({{post.post_id}})">{{post.nb_shares}} shares</span>
                             </div>
                         </div>
                         <div class="post-bottom-row">
@@ -153,6 +155,17 @@
                 <span class="close-like-modal">&times;</span>
             </div>
             <div id="likeModalBody">
+            </div>
+        </div>
+    </div>
+
+     <div id="shareModal" class="share-modal">
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <div class="share-modal-title">Shares</div>
+                <span class="close-share-modal">&times;</span>
+            </div>
+            <div id="shareModalBody">
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 16 avr. 2025 à 17:06
+-- Généré le : mer. 16 avr. 2025 à 17:45
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -418,6 +418,14 @@ CREATE TABLE `likes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Déchargement des données de la table `likes`
+--
+
+INSERT INTO `likes` (`like_id`, `post_id`, `user_id`) VALUES
+(1, 8, 1),
+(2, 8, 2);
+
+--
 -- Déclencheurs `likes`
 --
 DELIMITER $$
@@ -476,7 +484,7 @@ INSERT INTO `posts` (`post_id`, `instance_id`, `post_content`, `user_id`, `post_
 (4, 1, 'I hate nothing about you, if you go to my representation on the 5th of April ! ', 4, 'pexels-designecologist-887353.jpg', '2025-03-26 16:28:21', 0, 0, 0),
 (6, 1, 'Weekend en amoureux !', 2, 'pexels-asadphoto-1024975.jpg', '2025-03-26 16:29:15', 0, 0, 0),
 (7, 1, 'Une lune de miel qui se passe bien ! ', 5, 'pexels-nurseryart-348520.jpg', '2025-03-26 16:55:59', 0, 0, 0),
-(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 3, 0, 0);
+(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 3, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -543,15 +551,23 @@ CREATE TABLE `shares` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Déchargement des données de la table `shares`
+--
+
+INSERT INTO `shares` (`share_id`, `user_id`, `post_id`, `instance_id`) VALUES
+(1, 2, 8, 1),
+(2, 5, 8, 1);
+
+--
 -- Déclencheurs `shares`
 --
 DELIMITER $$
 CREATE TRIGGER `after_share_deletion` AFTER DELETE ON `shares` FOR EACH ROW BEGIN
     UPDATE posts
-    SET nb_likes = (
+    SET nb_shares = (
         SELECT COUNT(DISTINCT user_id)
-        FROM likes
-        WHERE likes.post_id = OLD.post_id
+        FROM shares
+        WHERE shares.post_id = OLD.post_id
     )
     WHERE post_id = OLD.post_id;
 
@@ -561,10 +577,10 @@ DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `after_share_insertion` AFTER INSERT ON `shares` FOR EACH ROW BEGIN
     UPDATE posts
-    SET nb_likes = (
+    SET nb_shares = (
         SELECT COUNT(DISTINCT user_id)
-        FROM likes
-        WHERE likes.post_id = NEW.post_id
+        FROM shares
+        WHERE shares.post_id = NEW.post_id
     )
     WHERE post_id = NEW.post_id;
 
@@ -816,7 +832,7 @@ ALTER TABLE `instances`
 -- AUTO_INCREMENT pour la table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
@@ -834,7 +850,7 @@ ALTER TABLE `responses`
 -- AUTO_INCREMENT pour la table `shares`
 --
 ALTER TABLE `shares`
-  MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `userlinkinstance`

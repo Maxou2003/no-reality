@@ -184,6 +184,24 @@ class ApiController
         echo json_encode($users);
     }
 
+    public function getShares()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $users = $UserRepository->fetchShares($post_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
+
     public function getCommentModal()
     {
         if (!isset($_GET['postId'])) {
