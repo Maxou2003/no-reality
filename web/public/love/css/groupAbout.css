@@ -1,0 +1,156 @@
+
+.group_container {
+    padding: 0px 35%;
+    color: #626262;
+}
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+.group_intro {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: rgb(71, 71, 71);
+    font-weight: 400;
+    border: 1px solid #ece9e9;
+    box-shadow: 0 1px #d4d4d4;
+}
+
+.group_intro h3 {
+    font-weight: 600;
+    color: black;
+    font-size: large;
+    border-bottom: 1px solid #cfcfcf;
+    padding-bottom: 15px;
+}
+
+.intro_text {
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.intro_text img {
+    width: 15px;
+    margin-bottom: -3px;
+}
+
+.group_intro ul li {
+    list-style-type: none;
+    font-size: 15px;
+    margin: 15px 0 5px 0;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-weight: 600;
+}
+
+.group_intro ul li:first-child {
+    margin: 3px 0 5px 0;
+}
+
+.group_intro ul li ion-icon {
+    padding-right: 7px;
+    color: rgb(134, 134, 134);
+}
+
+.group_intro p {
+    font-size: 14px;
+    color: rgb(134, 134, 134);;
+}
+
+.members-list {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    height: 35px;
+}
+
+.member-list-item {
+    display: flex;
+}
+
+.member-list-item img {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 1px solid rgb(226, 226, 226);
+    margin-right: 10px;
+}
+
+.user-page-link {
+    display: contents;
+}
+
+.group-link {
+    display: contents;
+    text-decoration: none;
+}
+
+.link-label {
+    display: flex;
+    font-size: 17px;
+    color: black;
+    font-weight: 500;
+    background-color: #e4e6eb;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 5px 0px;
+}
+
+.activity-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.activity-row .fas{
+    margin-right: 5px;
+    color: rgb(134, 134, 134);
+}
+
+.activity-row ion-icon{
+    margin-right: 4px;
+    font-size: 22px;
+    color: rgb(134, 134, 134);
+}
+.activity-row ion-icon:last-child{
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    margin-right: 4px;
+    font-size: 22px;
+    color: rgb(134, 134, 134);
+}
+
+.activity-data {
+    color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-data span {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.activity-data p {
+    font-size: 14px;
+    font-weight: lighter;
+    color: rgb(71, 71, 71);
+}

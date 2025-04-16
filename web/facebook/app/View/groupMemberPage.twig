@@ -1,0 +1,130 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{URL}}css/groupMemberPage.css">
+    <link rel="stylesheet" href="{{URL}}css/home.css">
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'URL': URL} %}
+    {# Specific profile header for this page #}
+	<div class="profile-top">
+        <div class="profile-cover">
+            <img src="{{POST_IMG_PATH}}{{user.user_banner_picture_path}}" alt="cover" class="img-cover">
+        </div>
+        <div class="profile_detail">
+            <div class="proflie_detail_left">
+                <div class="profile_row">
+                    <div class="profile_details_image">
+                        <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Profile">
+                    </div>
+                    <div class="profile-info">
+                        <span class="profile-name">{{user.user_firstname}} {{user.user_lastname}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="proflie_detail_right">
+                <span><i class='fas fa-user-friends'></i></ion-icon> Friends</span>
+                <span><ion-icon name="person-add"></ion-icon> Add as friend</span>
+                <a class="user-profile-link" href="{{URL}}profile/{{user.user_slug}}"> <span><ion-icon name="person-circle-outline"></ion-icon> See profile</span></a>
+                <br />
+            </div>
+        </div>
+        <div class="profile-links-container">
+            <div class="profile-links">
+                <div class="profile-links-items">
+                    <a href="{{URL}}profile/{{user.user_slug}}"><span class="profile-link-item" id="publications">Group's publications</span></a>
+                </div>
+                <div class="profile-link-more">
+                    <a href="#"><span><i class="fa fa-ellipsis-h"></i></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# Page container #}
+    <div class="profile_container">
+        <div class="profile_info">
+            <div class="info_col">
+                <div class="profile_intro">
+                    <h3>Intro</h3>
+                    <p class="intro_text"><i class='fas fa-users'></i>Member of the {{group.group_name}} group since {{member_since}}</p>
+                </div>
+                {% if posts|length > 0 %}
+                <div class="profile_intro">
+                    <div class="title_box">
+                        <h3>Recent photos</h3>
+                    </div>
+                    <div class="photo_box">
+                        {% for post in posts|slice(0, 9) %}
+                            {% if post.post_picture_path %}
+                                <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="post_col">
+                <div class="top-group">
+                    <span class="top-group-publications">Group publications</span>
+                </div>
+            {% if posts|length > 0 %}
+                {% for post in posts %}
+                    <div class="post-container">
+                        <div class="post-top-row">
+                            <div class="user-profile">
+                                <a href="{{URL}}profile/{{post.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Avatar"></a>
+                                <div class="post-data">
+                                    <a href="{{URL}}profile/{{post.user_slug}}"><span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span></a>
+                                    <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
+                                </div>
+                            </div>
+                            <div class="post-setting">
+                                <span><i class="fa fa-ellipsis-h"></i></span>
+                                <span class="close">&times;</span>
+                            </div>
+                        </div>
+                        <p class="post_text">{{post.post_content}}</p>
+                        {% if post.post_picture_path %}
+                            <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                        {% endif %}
+                        <div class="post_stats">
+                            <div class="post_stats_item"> 
+                                <ion-icon class="like-icon" src="{{URL}}img/svg-icons/heart-circle.svg" ></ion-icon>
+                                <span>{{post.nb_likes}}</span>
+                            </div>
+                            <div class="post_stats_item"> 
+                                <span>{{post.nb_comments}} comments </span>
+                            </div>
+                        </div>
+                        <div class="post-bottom-row">
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
+                                <span>Likes</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
+                                <span>Comments</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/logo-whatsapp.svg"></ion-icon>
+                                <span>Send</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <div class="no-posts-container">
+                        <span class="no-new-posts">No new posts</span>
+                        <span class="not-posted-yet">{{user.user_firstname}} {{user.user_lastname}} hasn't posted anything in {{group.group_name}} yet.</span>
+                        <a class="back-home" href="{{URL}}"><span>Back</span></a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

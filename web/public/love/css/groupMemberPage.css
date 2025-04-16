@@ -1,13 +1,10 @@
+/* Header */
+
 .profile-top {
     display: flex;
     flex-direction: column;
     background-image: linear-gradient(black, gray, white, white);
     margin-bottom: 35px;
-}
-
-.profile_container {
-    padding: 0px 18% 20px 18%;
-    color: #626262;
 }
 
 .profile-cover {
@@ -34,11 +31,11 @@
 }
 
 .proflie_detail_right span {
+    display: flex;
     background-color: #1876f2;
     border: 0;
     outline: 0;
     padding: 6px 10px;
-    display: inline-block;
     align-items: center;
     color: #fff;
     border-radius: 3px;
@@ -46,43 +43,59 @@
     cursor: pointer;
 }
 
+.proflie_detail_right ion-icon {
+    margin-right: 5px;
+}
 
 .proflie_detail_right span:first-child {
     background-color: #e4e6eb;
     color: #000;
 }
 
+.proflie_detail_right span:first-child ion-icon{
+    height: 20px;
+    width: 20px;
+}
+
 .proflie_detail_right {
-    text-align: right;
-    margin-top: 130px;
+    display: flex;
+    align-items: end;
+}
+
+.user-profile-link {
+    align-items: center;
+    text-decoration: none;
 }
 
 .proflie_detail_right .fas {
     font-size: 15px;
+    margin-right: 5px;
 }
-
 
 .profile_row {
     display: flex;
     flex-direction: row;
+    margin-top: -4vh;
 }
 
-.pd_image {
-    width: 175px;
-    margin-right: 20px;
+.profile_details_image img {
+    width: 16vh;
+    height: 16vh;
     border-radius: 50%;
-    border: 3px solid #efefef;
+    object-fit: cover;
+    margin-right: 1vh;
+    border: 4px solid white;
 }
 
 .profile-info {
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
+    justify-content: end;
 }
 
 .profile-name {
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 800;
     margin-bottom: 7px;
 }
 
@@ -122,17 +135,14 @@
     align-items: center;
     cursor: pointer;
     padding: 10px 10px 12px 10px;
+    color: #1876f2;
+    border-bottom: 3px solid #1876f2;
 }
 
 .profile-links-items a {
     color: black;
     text-decoration: none;
     display: flex;
-}
-
-.profile-link-item.active {
-    color: #1876f2;
-    border-bottom: 3px solid #1876f2;
 }
 
 .profile-link-item:hover {
@@ -158,6 +168,14 @@
     padding: 8px 12px 8px 12px;
 }
 
+
+/* Container */
+
+.profile_container {
+    padding: 0px 18% 20px 18%;
+    color: #626262;
+}
+
 .profile_info {
     display: flex;
     align-items: flex-start;
@@ -166,56 +184,30 @@
 }
 
 .info_col {
-    flex-basis: 40.5%;
+    flex-basis: 37%;
     position: sticky;
 }
 
 .post_col {
-    flex-basis: 58%;
+    flex-basis: 62%;
 }
 
 .profile_intro {
     background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 10px;
-    border: 1px solid #ece9e9;
-    box-shadow: 0 1px #d4d4d4;
-}
-
-.profile_intro h3 {
-    font-weight: 600;
+    border-radius: 4px;
 }
 
 .intro_text {
-    text-align: center;
+    text-align: left;
     margin: 10px 0;
-    font-size: 15px;
 }
 
-.intro_text img {
-    width: 15px;
-    margin-bottom: -3px;
+.intro_text .fas{
+    margin-right: 5px;
 }
 
-.profile_intro hr {
-    border: 0;
-    height: 1px;
-    background-color: #ccc;
-    margin: 24px;
-}
-
-.profile_intro ul li {
-    list-style-type: none;
-    font-size: 15px;
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-}
-
-.profile_intro ul li i {
-    padding-right: 5px;
-}
 
 .title_box {
     display: flex;
@@ -253,57 +245,48 @@
 
 }
 
-
 .profile_intro p {
     font-size: 14px;
 }
 
-.friends_box {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px 12px;
+/* Posts section */
+
+.top-group {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 10px 20px 10px 10px;
+    color: #626262;
+    margin-bottom: 15px;
 }
 
-.friends_box a {
-    text-decoration: none;
+.top-group-publications {
+    font-size: 22px;
+    color: black;
+    font-weight: 750;
 }
 
-.friends_box .friend-profile-info {
+.no-posts-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
 }
 
-.friends_box .friend-profile_picture {
-    position: relative;
-    padding-top: 100%;
-    overflow: hidden;
-    border-radius: 4px;
+.back-home {
+    text-decoration: none;
+    color: #1876f2;
+    font-weight: 600;
+    margin-top: 10px;
 }
 
-.friends_box .friend-profile_picture img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.no-new-posts {
+    font-size: 22px;
+    color: black;
+    font-weight: 600;
 }
 
-.friends_box .friend-profile-info p {
-    margin: 5px 0 0 0;
-    font-size: 14px;
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #626262;
-    text-align: center;
-}
-
-.user_profile span {
-    font-size: 13px;
-    color: #9a9a9a;
+.not-posted-yet {
+    
 }

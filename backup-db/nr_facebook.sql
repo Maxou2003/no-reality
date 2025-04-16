@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 05 avr. 2025 à 16:15
+-- Généré le : mer. 16 avr. 2025 à 17:45
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -38,31 +38,44 @@ CREATE TABLE `comments` (
   `nb_responses` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `discussions`
+-- Déchargement des données de la table `comments`
 --
 
-CREATE TABLE `discussions` (
-  `discussion_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  `discussion_name` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
+INSERT INTO `comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
+(1, 4, 8, 'Véritablement véritable !', '2025-04-15 18:14:20', 1),
+(2, 1, 8, 'Mouais...', '2025-04-15 18:39:52', 0),
+(3, 2, 8, 'Je pense qu\'il faut prendre les aléas de la vie comme ils viennent et faire avec #Crocker.', '2025-04-16 16:42:40', 0);
 
 --
--- Structure de la table `discussions_messages`
+-- Déclencheurs `comments`
 --
+DELIMITER $$
+CREATE TRIGGER `after_comment_deletion` AFTER DELETE ON `comments` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM comments
+        WHERE comments.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
 
-CREATE TABLE `discussions_messages` (
-  `discussion_message_id` int(11) NOT NULL,
-  `discussion_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `message` varchar(500) NOT NULL,
-  `time_stamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_comment_insertion` AFTER INSERT ON `comments` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM comments
+        WHERE comments.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -125,19 +138,112 @@ DELIMITER ;
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL,
   `group_name` varchar(255) NOT NULL,
+  `group_slug` varchar(255) NOT NULL,
   `time_stamp` datetime NOT NULL,
   `group_banner_picture_path` varchar(255) NOT NULL,
   `group_description` varchar(500) NOT NULL,
   `nb_members` int(11) NOT NULL DEFAULT 0,
-  `instance_id` int(11) NOT NULL
+  `instance_id` int(11) NOT NULL,
+  `group_location` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `groups`
 --
 
-INSERT INTO `groups` (`group_id`, `group_name`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`) VALUES
-(1, 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 0, 1);
+INSERT INTO `groups` (`group_id`, `group_name`, `group_slug`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`, `group_location`) VALUES
+(1, 'Love is life', 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1, 'Angers'),
+(2, 'LesTueLamour', 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1, ''),
+(3, 'LesCupidons', 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1, ''),
+(5, 'LesCharrots', 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1, ''),
+(6, 'LesAbandonnesDeLamour', 'LesAbandonnesDeLamour', '2025-04-09 16:49:10', 'pexels-pengwhan-1767434.jpg', 'Nous on est un groupe de célibataires assumés ! ', 0, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `group_comments`
+--
+
+CREATE TABLE `group_comments` (
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `comment_text` varchar(500) NOT NULL,
+  `time_stamp` datetime NOT NULL DEFAULT current_timestamp(),
+  `nb_responses` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déclencheurs `group_comments`
+--
+DELIMITER $$
+CREATE TRIGGER `after_groupComment_deletion` AFTER DELETE ON `group_comments` FOR EACH ROW BEGIN
+    UPDATE group_posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM group_comments
+        WHERE group_comments.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_groupComment_insertion` AFTER INSERT ON `group_comments` FOR EACH ROW BEGIN
+    UPDATE group_posts
+    SET nb_comments = (
+        SELECT COUNT(DISTINCT comment_id)
+        FROM group_comments
+        WHERE group_comments.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `group_likes`
+--
+
+CREATE TABLE `group_likes` (
+  `like_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déclencheurs `group_likes`
+--
+DELIMITER $$
+CREATE TRIGGER `after_groupLike_deletion` AFTER DELETE ON `group_likes` FOR EACH ROW BEGIN
+    UPDATE group_posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM group_likes
+        WHERE group_likes.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_groupLike_insert` AFTER INSERT ON `group_likes` FOR EACH ROW BEGIN
+    UPDATE group_posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM group_likes
+        WHERE group_likes.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -148,8 +254,48 @@ INSERT INTO `groups` (`group_id`, `group_name`, `time_stamp`, `group_banner_pict
 CREATE TABLE `group_members` (
   `group_member_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `time_stamp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `group_members`
+--
+
+INSERT INTO `group_members` (`group_member_id`, `group_id`, `user_id`, `time_stamp`) VALUES
+(1, 1, 1, '2025-04-02 16:32:47'),
+(3, 2, 1, '2025-04-02 16:35:47'),
+(4, 1, 3, '2025-04-02 16:39:47');
+
+--
+-- Déclencheurs `group_members`
+--
+DELIMITER $$
+CREATE TRIGGER `after_group_member_deletion` AFTER DELETE ON `group_members` FOR EACH ROW BEGIN
+    UPDATE groups
+    SET nb_members = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM group_members
+        WHERE group_members.group_id = OLD.group_id
+    )
+    WHERE group_id = OLD.group_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_group_member_insertion` AFTER INSERT ON `group_members` FOR EACH ROW BEGIN
+    UPDATE groups
+    SET nb_members = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM group_members
+        WHERE group_members.group_id = NEW.group_id
+    )
+    WHERE group_id = NEW.group_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -166,15 +312,61 @@ CREATE TABLE `group_posts` (
   `post_picture_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `time_stamp` datetime NOT NULL,
   `user_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL
+  `group_id` int(11) NOT NULL,
+  `announcement` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `group_posts`
 --
 
-INSERT INTO `group_posts` (`instance_id`, `nb_comments`, `nb_likes`, `post_content`, `post_id`, `post_picture_path`, `time_stamp`, `user_id`, `group_id`) VALUES
-(1, 0, 0, 'Just spend love', 1, '', '2025-04-02 16:36:41', 1, 1);
+INSERT INTO `group_posts` (`instance_id`, `nb_comments`, `nb_likes`, `post_content`, `post_id`, `post_picture_path`, `time_stamp`, `user_id`, `group_id`, `announcement`) VALUES
+(1, 0, 0, 'Just spend love', 1, 'art_1_1.jpg', '2025-04-02 16:36:41', 1, 1, 0),
+(1, 0, 0, 'Important NEWS !!!! Love is life !!!!!', 2, '', '2025-04-15 16:34:02', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `group_responses`
+--
+
+CREATE TABLE `group_responses` (
+  `response_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `response_content` varchar(500) NOT NULL,
+  `time_stamp` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déclencheurs `group_responses`
+--
+DELIMITER $$
+CREATE TRIGGER `after_groupResponse_deletion` AFTER DELETE ON `group_responses` FOR EACH ROW BEGIN
+    UPDATE group_comments
+    SET nb_responses = (
+        SELECT COUNT(DISTINCT response_id)
+        FROM group_responses
+        WHERE group_responses.comment_id = OLD.comment_id
+    )
+    WHERE comment_id = OLD.comment_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_groupResponse_insert` AFTER INSERT ON `group_responses` FOR EACH ROW BEGIN
+    UPDATE group_comments
+    SET nb_responses = (
+        SELECT COUNT(DISTINCT response_id)
+        FROM group_responses
+        WHERE group_responses.comment_id = NEW.comment_id
+    )
+    WHERE comment_id = NEW.comment_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -225,6 +417,44 @@ CREATE TABLE `likes` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `likes`
+--
+
+INSERT INTO `likes` (`like_id`, `post_id`, `user_id`) VALUES
+(1, 8, 1),
+(2, 8, 2);
+
+--
+-- Déclencheurs `likes`
+--
+DELIMITER $$
+CREATE TRIGGER `after_like_deletion` AFTER DELETE ON `likes` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_like_insertion` AFTER INSERT ON `likes` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_likes = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM likes
+        WHERE likes.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -254,7 +484,58 @@ INSERT INTO `posts` (`post_id`, `instance_id`, `post_content`, `user_id`, `post_
 (4, 1, 'I hate nothing about you, if you go to my representation on the 5th of April ! ', 4, 'pexels-designecologist-887353.jpg', '2025-03-26 16:28:21', 0, 0, 0),
 (6, 1, 'Weekend en amoureux !', 2, 'pexels-asadphoto-1024975.jpg', '2025-03-26 16:29:15', 0, 0, 0),
 (7, 1, 'Une lune de miel qui se passe bien ! ', 5, 'pexels-nurseryart-348520.jpg', '2025-03-26 16:55:59', 0, 0, 0),
-(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 0, 0, 0);
+(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 3, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `responses`
+--
+
+CREATE TABLE `responses` (
+  `response_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `response_content` varchar(500) NOT NULL,
+  `time_stamp` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `responses`
+--
+
+INSERT INTO `responses` (`response_id`, `comment_id`, `user_id`, `response_content`, `time_stamp`) VALUES
+(1, 1, 5, 'Véritable en vrai', '2025-04-15 18:38:56');
+
+--
+-- Déclencheurs `responses`
+--
+DELIMITER $$
+CREATE TRIGGER `after_response_deletion` AFTER DELETE ON `responses` FOR EACH ROW BEGIN
+    UPDATE Comments
+    SET nb_responses = (
+        SELECT COUNT(DISTINCT response_id)
+        FROM responses
+        WHERE responses.comment_id = OLD.comment_id
+    )
+    WHERE comment_id = OLD.comment_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_response_insert` AFTER INSERT ON `responses` FOR EACH ROW BEGIN
+    UPDATE comments
+    SET nb_responses = (
+        SELECT COUNT(DISTINCT response_id)
+        FROM responses
+        WHERE responses.comment_id = NEW.comment_id
+    )
+    WHERE comment_id = NEW.comment_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -268,6 +549,44 @@ CREATE TABLE `shares` (
   `post_id` int(11) NOT NULL,
   `instance_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `shares`
+--
+
+INSERT INTO `shares` (`share_id`, `user_id`, `post_id`, `instance_id`) VALUES
+(1, 2, 8, 1),
+(2, 5, 8, 1);
+
+--
+-- Déclencheurs `shares`
+--
+DELIMITER $$
+CREATE TRIGGER `after_share_deletion` AFTER DELETE ON `shares` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_shares = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM shares
+        WHERE shares.post_id = OLD.post_id
+    )
+    WHERE post_id = OLD.post_id;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_share_insertion` AFTER INSERT ON `shares` FOR EACH ROW BEGIN
+    UPDATE posts
+    SET nb_shares = (
+        SELECT COUNT(DISTINCT user_id)
+        FROM shares
+        WHERE shares.post_id = NEW.post_id
+    )
+    WHERE post_id = NEW.post_id;
+
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -309,17 +628,17 @@ CREATE TABLE `users` (
   `user_work` varchar(255) NOT NULL,
   `user_school` varchar(255) NOT NULL,
   `user_banner_picture_path` varchar(255) NOT NULL,
-  `year_of_birth` int(11) NOT NULL,
-  `gender` tinyint(1) NOT NULL,
-  `website` varchar(255) NOT NULL
+  `user_yob` int(11) NOT NULL,
+  `user_gender` tinyint(1) NOT NULL,
+  `user_website` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `year_of_birth`, `gender`, `website`) VALUES
-(1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', '', 0, 0, ''),
+INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `user_yob`, `user_gender`, `user_website`) VALUES
+(1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', 'art_1_1.jpg', 0, 0, ''),
 (2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Polytech Angers', '', 'none', 0, 0, ''),
 (3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none', 0, 0, ''),
 (4, 'Martin', 'Mollat', 'martin.mollat.4', '1727454408757.jpg', 'Le 5 avril je présente un spectacle de théâtre d\'improvisation chez moi, venez nombreux !', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, ''),
@@ -338,21 +657,6 @@ ALTER TABLE `comments`
   ADD KEY `FK_CommentsPostId` (`post_id`);
 
 --
--- Index pour la table `discussions`
---
-ALTER TABLE `discussions`
-  ADD PRIMARY KEY (`discussion_id`),
-  ADD KEY `FK_DiscussionGroupID` (`group_id`);
-
---
--- Index pour la table `discussions_messages`
---
-ALTER TABLE `discussions_messages`
-  ADD PRIMARY KEY (`discussion_message_id`),
-  ADD KEY `FK_DiscussionMessagesDiscussionId` (`discussion_id`),
-  ADD KEY `FK_DiscussionsMessagesUserId` (`user_id`);
-
---
 -- Index pour la table `friends`
 --
 ALTER TABLE `friends`
@@ -367,6 +671,23 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`group_id`),
   ADD UNIQUE KEY `group_name` (`group_name`),
   ADD KEY `FK_GroupsInstanceId` (`instance_id`);
+
+--
+-- Index pour la table `group_comments`
+--
+ALTER TABLE `group_comments`
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `FK_GroupCommentsUserId` (`user_id`),
+  ADD KEY `FK_GroupCommentsGroupPostId` (`post_id`);
+
+--
+-- Index pour la table `group_likes`
+--
+ALTER TABLE `group_likes`
+  ADD PRIMARY KEY (`like_id`),
+  ADD KEY `FK_GroupLikesUserId` (`user_id`),
+  ADD KEY `FK_GroupLikesGroupPostId` (`post_id`);
+
 --
 -- Index pour la table `group_members`
 --
@@ -383,7 +704,15 @@ ALTER TABLE `group_posts`
   ADD KEY `FK_GroupPostsInstanceId` (`instance_id`),
   ADD KEY `FK_GroupPostsUserId` (`user_id`),
   ADD KEY `FK_GroupPostsGroupId` (`group_id`);
-  
+
+--
+-- Index pour la table `group_responses`
+--
+ALTER TABLE `group_responses`
+  ADD PRIMARY KEY (`response_id`),
+  ADD KEY `FK_GroupResponsesUserId` (`user_id`),
+  ADD KEY `FK_GroupResponsesCommentId` (`comment_id`);
+
 --
 -- Index pour la table `identifications`
 --
@@ -414,6 +743,14 @@ ALTER TABLE `posts`
   ADD PRIMARY KEY (`post_id`),
   ADD KEY `FK_PostsUserId` (`user_id`),
   ADD KEY `FK_PostsInstanceId` (`instance_id`);
+
+--
+-- Index pour la table `responses`
+--
+ALTER TABLE `responses`
+  ADD PRIMARY KEY (`response_id`),
+  ADD KEY `FK_ResponseCommentId` (`comment_id`),
+  ADD KEY `FK_ResponseUserId` (`user_id`);
 
 --
 -- Index pour la table `shares`
@@ -447,38 +784,44 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `discussions`
---
-ALTER TABLE `discussions`
-  MODIFY `discussion_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `discussions_messages`
---
-ALTER TABLE `discussions_messages`
-  MODIFY `discussion_message_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `group_comments`
+--
+ALTER TABLE `group_comments`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `group_likes`
+--
+ALTER TABLE `group_likes`
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `group_members`
 --
 ALTER TABLE `group_members`
-  MODIFY `group_member_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `group_posts`
 --
 ALTER TABLE `group_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-  
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `group_responses`
+--
+ALTER TABLE `group_responses`
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT pour la table `instances`
 --
@@ -489,7 +832,7 @@ ALTER TABLE `instances`
 -- AUTO_INCREMENT pour la table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
@@ -498,10 +841,16 @@ ALTER TABLE `posts`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT pour la table `responses`
+--
+ALTER TABLE `responses`
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `shares`
 --
 ALTER TABLE `shares`
-  MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `userlinkinstance`
@@ -527,31 +876,32 @@ ALTER TABLE `comments`
   ADD CONSTRAINT `FK_CommentsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
--- Contraintes pour la table `discussions`
---
-ALTER TABLE `discussions`
-  ADD CONSTRAINT `FK_DiscussionGroupID` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`);
-
---
--- Contraintes pour la table `discussions_messages`
---
-ALTER TABLE `discussions_messages`
-  ADD CONSTRAINT `FK_DiscussionMessagesDiscussionId` FOREIGN KEY (`discussion_id`) REFERENCES `discussions` (`discussion_id`),
-  ADD CONSTRAINT `FK_DiscussionsMessagesUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
---
 -- Contraintes pour la table `friends`
 --
 ALTER TABLE `friends`
   ADD CONSTRAINT `FK_FriendsInstanceID` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id_1`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`user_id_2`) REFERENCES `users` (`user_id`);
-  
+
 --
 -- Contraintes pour la table `groups`
 --
 ALTER TABLE `groups`
   ADD CONSTRAINT `FK_GroupsInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`);
+
+--
+-- Contraintes pour la table `group_comments`
+--
+ALTER TABLE `group_comments`
+  ADD CONSTRAINT `FK_GroupCommentsGroupPostId` FOREIGN KEY (`post_id`) REFERENCES `group_posts` (`post_id`),
+  ADD CONSTRAINT `FK_GroupCommentsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `group_likes`
+--
+ALTER TABLE `group_likes`
+  ADD CONSTRAINT `FK_GroupLikesGroupPostId` FOREIGN KEY (`post_id`) REFERENCES `group_posts` (`post_id`),
+  ADD CONSTRAINT `FK_GroupLikesUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `group_members`
@@ -567,6 +917,13 @@ ALTER TABLE `group_posts`
   ADD CONSTRAINT `FK_GroupPostsGroupId` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`),
   ADD CONSTRAINT `FK_GroupPostsInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
   ADD CONSTRAINT `FK_GroupPostsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `group_responses`
+--
+ALTER TABLE `group_responses`
+  ADD CONSTRAINT `FK_GroupResponsesCommentId` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`comment_id`),
+  ADD CONSTRAINT `FK_GroupResponsesUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `identifications`
@@ -589,6 +946,13 @@ ALTER TABLE `likes`
 ALTER TABLE `posts`
   ADD CONSTRAINT `FK_PostsInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`),
   ADD CONSTRAINT `FK_PostsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Contraintes pour la table `responses`
+--
+ALTER TABLE `responses`
+  ADD CONSTRAINT `FK_ResponseCommentId` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`comment_id`),
+  ADD CONSTRAINT `FK_ResponseUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Contraintes pour la table `shares`

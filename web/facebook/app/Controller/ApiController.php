@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
-use App\Lib\DatabaseConnection;
-use App\Model\Entity\ModalPost;
 use App\Model\PostRepository;
 use App\Model\UserRepository;
+use App\Model\GroupRepository;
+use App\Lib\DatabaseConnection;
+use App\Model\Entity\CommentModal;
 
 
 class ApiController
 {
     private function checkSearch($searchContent)
     {
-        $pattern = '/^[a-zA-Z0-9_]*$/';
+        $pattern = '/^[a-zA-Z0-9_\%]*$/';
         return preg_match($pattern, $searchContent);
     }
     private function checkFilter($filter)
@@ -123,5 +124,125 @@ class ApiController
 
         header('Content-Type: application/json');
         echo json_encode($photos);
+    }
+
+    public function searchGroups()
+    {
+        if (!isset($_GET['searchContent'])) {
+            echo json_encode(['error' => 'Search term is required']);
+            return;
+        }
+
+        $searchContent = urldecode($_GET['searchContent']);
+        $searchContent = htmlspecialchars($searchContent);
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $groups = $GroupRepository->searchGroups($searchContent, 5, 0);
+
+        header('Content-Type: application/json');
+        echo json_encode($groups);
+    }
+
+    public function searchUsers()
+    {
+        if (!isset($_GET['searchContent'])) {
+            echo json_encode(['error' => 'Search term is required']);
+            return;
+        }
+
+        $searchContent = urldecode($_GET['searchContent']);
+        $searchContent = htmlspecialchars($searchContent);
+
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $users = $UserRepository->searchUsers($searchContent, 5, 0);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
+
+    public function getLikes()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $users = $UserRepository->fetchLikes($post_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
+
+    public function getShares()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $users = $UserRepository->fetchShares($post_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
+
+    public function getCommentModal()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $post = $PostRepository->getPostById($post_id);
+        $comments = $PostRepository->getPostComments($post_id);
+        $taggedUsers = $PostRepository->getTaggedUsers($post_id);
+
+        $commentModal = new CommentModal();
+
+        $commentModal->comments = $comments;
+        $commentModal->post = $post;
+        $commentModal->taggedUsers = $taggedUsers;
+
+        header('Content-Type: application/json');
+        echo json_encode($commentModal);
+    }
+
+    public function getResponses()
+    {
+        if (!isset($_GET['commentId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+
+        $commentId = intval($_GET['commentId']);
+
+        $database = new DatabaseConnection();
+        $PostRepository = new PostRepository();
+        $PostRepository->connection = $database;
+
+        $responses = $PostRepository->getResponses($commentId);
+        header('Content-Type: application/json');
+        echo json_encode($responses);
     }
 }

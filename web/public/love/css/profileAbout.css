@@ -14,7 +14,9 @@
     background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 4px;
+    border-radius: 10px;
+    border: 1px solid #ece9e9;
+    box-shadow: 0 1px #d4d4d4;
 }
 
 .profile_intro h3 {
@@ -152,7 +154,7 @@
 .friends-container {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px #d4d4d4;
     padding: 0;
 }
 
@@ -213,13 +215,13 @@
 .friend-profile_picture {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
 }
 
 .friend-profile_picture img {
     width: 85px;
     height: 85px;
     object-fit: cover;
+    border-radius: 8px;
 }
 
 .friend-item p {
@@ -292,7 +294,7 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 8px 16px;
-    border: 1px solid #eff4fc;
+    border: 1px solid #fbfbfb;
     border-radius: 10px;
 }
 
@@ -319,7 +321,7 @@
 .photos-container {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px #d4d4d4;
     padding: 0;
 }
 
@@ -378,4 +380,55 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* groups section */
+
+.groups_box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 16px;
+}
+
+.groups-container .group-item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.group-item {
+    text-decoration: none;
+    color: inherit;
+}
+
+.group-info {
+    padding-left: 6px;
+}
+
+.group-item .group-name p {
+    font-size: 15px;
+    margin-left: 6px;
+    font-weight: 600;
+    color: #050505;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.group-status-nbmembers {
+    font-size: 13px;
+    color: #65676b;
+    margin-left: 6px;
+    text-align: flex-start;
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+}
+
+.group-nb-members {
+    font-weight: 550;
 }

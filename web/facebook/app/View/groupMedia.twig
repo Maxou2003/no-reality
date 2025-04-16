@@ -1,0 +1,30 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{URL}}css/groupMedia.css">
+    <link rel="stylesheet" href="{{URL}}css/groupHeader.css">
+    <link rel="stylesheet" href="{{URL}}css/home.css">
+    <script src="{{URL}}js/groupHeader.js" defer></script>
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'URL': URL} %}
+    {% include 'groupHeader.twig' with {'URL': URL , 'group':group, 'PROFILE_IMG_PATH':PROFILE_IMG_PATH,'nb_friends':nb_friends} %}
+    <div class="group_container">
+        <div class="media-container">
+            <div class="media-top-row">
+                <span class="media-title">Media</span>
+                <span class="media-link-item">Pictures</span>
+            </div>
+            <div class="post-picture-container">
+            {% for post_picture in posts_pictures %}
+                    {% if post_picture.post_picture_path %}
+                    <div class="post-picture">
+                        <img src="{{POST_IMG_PATH}}{{post_picture.post_picture_path}}" alt="Post_picture">
+                    </div>
+                    {% endif %}
+            {% endfor %}   
+            </div> 
+        </div>
+    </div>
+{% endblock %}

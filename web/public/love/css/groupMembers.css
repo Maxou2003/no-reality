@@ -1,0 +1,144 @@
+
+.search_box_members {
+    background: #efefef;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.search_box_members img {
+    width: 18px;
+}
+
+.search_box_members input {
+    width: 100%;
+    background-color: transparent;
+    padding: 10px;
+    outline: none;
+    border: none;
+}
+
+/* Container section */
+
+.group_container {
+    padding: 0px 35%;
+    color: #626262;
+}
+
+.members-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 20px 15px;
+    border: 1px solid #ece9e9;
+    border-radius: 10px;
+    box-shadow: 0 1px #d4d4d4;
+}
+
+.members-top-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.members-top-row p{
+    font-size: 14px;
+}
+
+.members-title {
+    color: black;
+    margin-bottom: 5px;
+}
+
+.members-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.members-list p{
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.new-members-title {
+    color: black;
+    margin-bottom: 5px;
+}
+
+.member-list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.member-item-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.member-item-left img {
+    height: 65%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 1px solid rgb(226, 226, 226);
+    margin-right: 10px;
+}
+
+.user-page-link {
+    display: contents;
+}
+
+.member-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.member-names {
+    margin-top: 10px;
+    color: black;
+}
+
+.member-since {
+    font-size: 14px;
+}
+
+.member-more {
+    font-size: 12px;
+}
+
+.member-item-right {
+    display: flex;
+    flex-direction: row; 
+    padding: 15px;
+    justify-content: center;
+    
+}
+
+.add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.add-button ion-icon {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    width: 13px;
+    height: 13px;
+    margin-right: 5px;
+}

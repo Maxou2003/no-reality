@@ -1,0 +1,177 @@
+{% extends 'base.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{URL}}css/searchResults.css">
+    <link rel="stylesheet" href="{{URL}}css/likeModal.css">
+    <link rel="stylesheet" href="{{URL}}css/commentModal.css">
+    <link rel="stylesheet" href="{{URL}}css/shareModal.css">
+    <script src="{{URL}}js/shareModal.js" defer></script>
+    <script src="{{URL}}js/likeModal.js" defer></script>
+    <script src="{{URL}}js/commentModal.js" defer></script>
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar.twig' with {'URL': URL ,'searchContent': searchContent} %}
+	
+	<div class="container">
+        <!-- Filters Sidebar -->
+        <div class="filters-sidebar">
+
+            <h1 class="filters-title">Search Results</h1>
+            <h2 class="filters-secondary-title">Filters</h2>
+            <ul class="filter-list">
+
+                <a href="{{URL}}SearchResults/all/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'all' ? 'active' : ''}}">
+                        <i class="fas fa-search"></i> All
+                    </li>
+                </a>
+                <a href="{{URL}}SearchResults/publications/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'publications' ? 'active' : ''}}">
+                        <i class="fas fa-newspaper"></i> Publications
+                    </li>
+                </a>
+
+                <a href="{{URL}}SearchResults/persons/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'persons' ? 'active' : ''}}">
+                        <i class="fas fa-user-friends"></i> Persons
+                    </li>
+                </a>
+
+                <a href="{{URL}}SearchResults/groups/{{searchContent}}" class="filter-link">
+                    <li class="filter-item {{filter == 'groups' ? 'active' : ''}}">
+                        <i class="fas fa-users"></i> Groups
+                    </li>
+                </a>            
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="search-results">
+            {% if users is not null and users|length !=0 %}
+                <div class="result-section">
+                    <h3 class="section-title">Persons</h3>
+                    {% for user in (filter == 'all' ? users|slice(0, 5) : users) %}
+                        <div class="result-card">
+                            <a href="{{URL}}profile/{{user.user_slug}}" class="result-link">
+                                <div class="result-avatar">
+                                    <img src="{{PROFILE_IMG_PATH}}{{user.user_pp_path}}" alt="Avatar" class="avatar">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-name">{{user.user_firstname}} {{user.user_lastname}} </div>
+                                    {% if user.user_location is not null %}
+                                        <div class="result-meta">Lives in {{user.user_location}}</div>
+                                    {% endif %}
+                                </div>
+                            </a>
+                            <button class="add_btn"> Add to friend</button>
+                        </div>
+                    {% endfor %}
+                    
+                     {% if (filter == 'all') %}
+                        <a href="{{URL}}SearchResults/persons/{{searchContent}}" class="see-all-link">See all ({{users|length}})</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if groups is not null and groups|length !=0 %}
+                <div class="result-section">
+                    <h3 class="section-title">Groups</h3>
+                    {% for group in (filter == 'all' ? groups|slice(0, 5) : groups) %}
+                        <div class="result-card">
+                            <a href="{{URL}}groups/{{group.group_slug}}" class="result-link">
+                                <div class="result-avatar">
+                                    <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt="Avatar" class="avatar">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-name">{{group.group_name}}</div>
+                                    <div class="result-meta">{{group.nb_members}} members</div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                    {% if (filter == 'all') %}
+                        <a href="{{URL}}SearchResults/groups/{{searchContent}}" class="see-all-link">See all ({{groups|length}})</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if posts is not null and posts|length !=0 %}
+                {%for post in posts %}
+                    <div class="post-container">
+                        <div class="post-top-row">
+                            <div class="user-profile">
+                                <a href="{{URL}}profile/{{post.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Avatar"></a>
+                                <div class="post-data">
+                                    <a href="{{URL}}profile/{{post.user_slug}}"><span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span></a>
+                                    <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
+                                </div>
+                            </div>
+                            <div class="post-setting">
+                                <span><i class="fa fa-ellipsis-h"></i></span>
+                                <span class="close">&times;</span>
+                            </div>
+                        </div>
+                        <p class="post_text">{{post.post_content}}</p>
+                        <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
+                        <div class="post_stats">
+                            <div class="post_stats_item" onclick="showLikesModal({{post.post_id}})"> 
+                                <ion-icon class="like-icon" src="{{URL}}img/svg-icons/heart-circle.svg" ></ion-icon>
+                                <span>{{post.nb_likes}}</span>
+                            </div>
+                            <div class="post_stats_item"> 
+                                <span  onclick="showCommentsModal({{post.post_id}})">{{post.nb_comments}} comments </span>
+                                <span onclick="showSharesModal({{post.post_id}})">{{post.nb_shares}} shares</span>
+                            </div>
+                        </div>
+                        <div class="post-bottom-row">
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
+                                <span>Likes</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
+                                <span>Comments</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/logo-whatsapp.svg"></ion-icon>
+                                <span>Send</span>
+                            </div>
+                            <div class="post-bottom-row-item">
+                                <ion-icon src="{{URL}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div id="likeModal" class="like-modal">
+        <div class="like-modal-content">
+            <div class="like-modal-header">
+                <div class="like-modal-title">Likes</div>
+                <span class="close-like-modal">&times;</span>
+            </div>
+            <div id="likeModalBody">
+            </div>
+        </div>
+    </div>
+
+     <div id="shareModal" class="share-modal">
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <div class="share-modal-title">Shares</div>
+                <span class="close-share-modal">&times;</span>
+            </div>
+            <div id="shareModalBody">
+            </div>
+        </div>
+    </div>
+
+    <div id="commentModal" class="comment-modal"> 
+        <div class="comment-modal-content">
+        </div>
+    </div> 
+{% endblock %}

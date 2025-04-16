@@ -13,7 +13,7 @@ class UserRepository
     public function getSuggestions(): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT DISTINCT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school,year_of_birth,gender,website, user_banner_picture_path FROM users WHERE user_id in (
+            'SELECT DISTINCT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school,user_yob,user_gender,user_website, user_banner_picture_path FROM users WHERE user_id in (
             SELECT user_id 
         FROM userlinkinstance 
         WHERE instance_id =:instance_id
@@ -34,9 +34,9 @@ class UserRepository
             $user->user_location = $row['user_location'];
             $user->user_work = $row['user_work'];
             $user->user_school = $row['user_school'];
-            $user->user_yob = $row['year_of_birth'];
-            $user->user_gender = $row['gender'];
-            $user->user_website = $row['website'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
             $user->user_banner_picture_path = $row['user_banner_picture_path'];
 
             $users[] = $user;
@@ -95,7 +95,7 @@ class UserRepository
     public function getUser($id): User
     {
         $statement = $this->connection->getConnection()->prepare(
-            'SELECT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school,year_of_birth,gender,website, user_banner_picture_path FROM users WHERE user_id = :id  and user_id in(
+            'SELECT user_id, user_firstname, user_lastname, user_description, user_slug, user_pp_path, user_location, user_work, user_school,user_yob,user_gender,user_website, user_banner_picture_path FROM users WHERE user_id = :id  and user_id in(
                         SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id)'
         );
 
@@ -115,9 +115,9 @@ class UserRepository
         $user->user_location = $row['user_location'];
         $user->user_work = $row['user_work'];
         $user->user_school = $row['user_school'];
-        $user->user_yob = $row['year_of_birth'];
-        $user->user_gender = $row['gender'];
-        $user->user_website = $row['website'];
+        $user->user_yob = $row['user_yob'];
+        $user->user_gender = $row['user_gender'];
+        $user->user_website = $row['user_website'];
         $user->user_banner_picture_path = $row['user_banner_picture_path'];
 
 
@@ -145,9 +145,107 @@ class UserRepository
             $user->user_location = $row['user_location'];
             $user->user_work = $row['user_work'];
             $user->user_school = $row['user_school'];
-            $user->user_yob = $row['year_of_birth'];
-            $user->user_gender = $row['gender'];
-            $user->user_website = $row['website'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
+
+            $userArray[] = $user;
+        }
+        return $userArray;
+    }
+
+    public function searchUsers($search, $limit, $offset): array
+    {
+
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT * FROM users WHERE user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id) and (user_firstname LIKE :search OR user_lastname LIKE :search) LIMIT :limit OFFSET :offset'
+        );
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $userArray = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
+            $user->user_location = $row['user_location'];
+            $user->user_work = $row['user_work'];
+            $user->user_school = $row['user_school'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
+
+            $userArray[] = $user;
+        }
+        return $userArray;
+    }
+
+    public function fetchLikes($post_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT * FROM users WHERE user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id) 
+            and user_id in (SELECT user_id FROM likes where post_id = :post_id)'
+        );
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':post_id', $post_id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $userArray = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
+            $user->user_location = $row['user_location'];
+            $user->user_work = $row['user_work'];
+            $user->user_school = $row['user_school'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
+            $user->user_banner_picture_path = $row['user_banner_picture_path'];
+
+            $userArray[] = $user;
+        }
+        return $userArray;
+    }
+
+    public function fetchShares($post_id): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT * FROM users WHERE user_id in (SELECT user_id FROM userlinkinstance WHERE instance_id=:instance_id) 
+            and user_id in (SELECT user_id FROM shares where post_id = :post_id)'
+        );
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':post_id', $post_id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $userArray = [];
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->user_id = $row['user_id'];
+            $user->user_pp_path = $row['user_pp_path'];
+            $user->user_firstname = $row['user_firstname'];
+            $user->user_lastname = $row['user_lastname'];
+            $user->user_description = $row['user_description'];
+            $user->user_slug = $row['user_slug'];
+            $user->user_location = $row['user_location'];
+            $user->user_work = $row['user_work'];
+            $user->user_school = $row['user_school'];
+            $user->user_yob = $row['user_yob'];
+            $user->user_gender = $row['user_gender'];
+            $user->user_website = $row['user_website'];
             $user->user_banner_picture_path = $row['user_banner_picture_path'];
 
             $userArray[] = $user;
