@@ -23,7 +23,7 @@ async function showCommentsModal(postId) {
         // Format the timestamp
         const postDate = new Date(data.post.time_stamp);
         const options = { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
-        const formattedDate = postDate.toLocaleDateString('fr-FR', options);
+        const formattedDate = postDate.toLocaleDateString('en-US', options);
 
         // Generate HTML for tagged users
         let taggedUsersHtml = '';
@@ -259,7 +259,7 @@ async function showGroupCommentsModal(postId) {
         // Format the timestamp
         const postDate = new Date(data.group_post.time_stamp);
         const options = { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
-        const formattedDate = postDate.toLocaleDateString('fr-FR', options);
+        const formattedDate = postDate.toLocaleDateString('en-US', options);
 
         // Generate HTML for tagged users
         let taggedUsersHtml = '';
@@ -341,13 +341,12 @@ async function showGroupCommentsModal(postId) {
                 <p class="post_text">${data.group_post.post_description}</p>
                 ${data.group_post.post_picture_path ? `<img src="${POST_IMG_PATH}${data.group_post.post_picture_path}" alt="Post image" class="post_img">` : ''}
                 <div class="post_stats">
-                    <div class="post_stats_item" onclick="showLikesModal(${data.group_post.post_id})">
+                    <div class="post_stats_item" onclick="showGroupLikesModal(${data.group_post.post_id})">
                         <ion-icon class="like-icon" src="${MY_URL}img/svg-icons/heart-circle.svg"></ion-icon>
                         <span>${data.group_post.nb_likes}</span>
                     </div>
                     <div class="post_stats_item">
                         <span>${data.group_post.nb_comments} comments</span>
-                        <span>${data.group_post.nb_shares} shares</span>
                     </div>
                 </div>
                 <div class="post-bottom-row">

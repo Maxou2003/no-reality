@@ -3,8 +3,12 @@
 {% block head %}
     <link rel="stylesheet" href="{{URL}}css/groupMedia.css">
     <link rel="stylesheet" href="{{URL}}css/groupHeader.css">
+    <link rel="stylesheet" href="{{URL}}css/commentModal.css">
+    <link rel="stylesheet" href="{{URL}}css/likeModal.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
     <script src="{{URL}}js/groupHeader.js" defer></script>
+    <script src="{{URL}}js/likeModal.js" defer></script>
+    <script src="{{URL}}js/commentModal.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -19,12 +23,29 @@
             <div class="post-picture-container">
             {% for post_picture in posts_pictures %}
                     {% if post_picture.post_picture_path %}
-                    <div class="post-picture">
+                    <div class="post-picture" onclick="showGroupCommentsModal({{post_picture.post_id}})">
                         <img src="{{POST_IMG_PATH}}{{post_picture.post_picture_path}}" alt="Post_picture">
                     </div>
                     {% endif %}
             {% endfor %}   
             </div> 
         </div>
+
+        <div id="likeModal" class="like-modal">
+            <div class="like-modal-content">
+                <div class="like-modal-header">
+                    <div class="like-modal-title">Likes</div>
+                    <span class="close-like-modal">&times;</span>
+                </div>
+                <div id="likeModalBody">
+                </div>
+            </div>
+        </div>
+
+        <div id="commentModal" class="comment-modal"> 
+            <div class="comment-modal-content">
+            </div>
+        </div>
+
     </div>
 {% endblock %}

@@ -288,4 +288,55 @@ class ApiController
         header('Content-Type: application/json');
         echo json_encode($responses);
     }
+    public function getGroupLikes()
+    {
+        if (!isset($_GET['postId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        $post_id = intval($_GET['postId']);
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $users = $GroupRepository->fetchLikes($post_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
+
+    public function searchInGroupMembers()
+    {
+        if (!isset($_GET['groupId'])) {
+            echo json_encode(['error' => 'Post id is required']);
+            return;
+        }
+        if (!isset($_GET['searchContent'])) {
+            echo json_encode(['error' => 'Search term is required']);
+            return;
+        }
+        $searchContent = urldecode($_GET['searchContent']);
+        $searchContent = htmlspecialchars($searchContent);
+        $group_id = $_GET['groupId'];
+
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $groupMembers = $GroupRepository->getGroupMembers($group_id);
+
+        if (count($groupMembers) > 0) {
+            $groupMembers = array_filter($groupMembers, function ($groupMember) use ($searchContent) {
+                if (stripos($groupMember['users']->user_firstname, $searchContent) !== false || stripos($groupMember['users']->user_lastname, $searchContent) !== false) {
+                    return $groupMember;
+                }
+            });
+        }
+
+        $groupMembers = array_values($groupMembers);
+        header('Content-Type: application/json');
+        echo json_encode($groupMembers);
+    }
 }

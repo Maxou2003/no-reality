@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 16 avr. 2025 à 17:45
+-- Généré le : mer. 16 avr. 2025 à 22:28
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -174,6 +174,14 @@ CREATE TABLE `group_comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Déchargement des données de la table `group_comments`
+--
+
+INSERT INTO `group_comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
+(1, 3, 1, 'first comment', '2025-04-16 18:21:09', 1),
+(2, 3, 2, 'wow !!!!', '2025-04-16 20:13:40', 0);
+
+--
 -- Déclencheurs `group_comments`
 --
 DELIMITER $$
@@ -206,6 +214,18 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `group_identifications`
+--
+
+CREATE TABLE `group_identifications` (
+  `instance_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `group_likes`
 --
 
@@ -214,6 +234,16 @@ CREATE TABLE `group_likes` (
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `group_likes`
+--
+
+INSERT INTO `group_likes` (`like_id`, `user_id`, `post_id`) VALUES
+(1, 2, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 3, 2);
 
 --
 -- Déclencheurs `group_likes`
@@ -321,8 +351,8 @@ CREATE TABLE `group_posts` (
 --
 
 INSERT INTO `group_posts` (`instance_id`, `nb_comments`, `nb_likes`, `post_content`, `post_id`, `post_picture_path`, `time_stamp`, `user_id`, `group_id`, `announcement`) VALUES
-(1, 0, 0, 'Just spend love', 1, 'art_1_1.jpg', '2025-04-02 16:36:41', 1, 1, 0),
-(1, 0, 0, 'Important NEWS !!!! Love is life !!!!!', 2, '', '2025-04-15 16:34:02', 1, 1, 1);
+(1, 1, 2, 'Just spend love', 1, 'art_1_1.jpg', '2025-04-02 16:36:41', 1, 1, 0),
+(1, 1, 1, 'Important NEWS !!!! Love is life !!!!!', 2, '', '2025-04-15 16:34:02', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -337,6 +367,13 @@ CREATE TABLE `group_responses` (
   `response_content` varchar(500) NOT NULL,
   `time_stamp` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `group_responses`
+--
+
+INSERT INTO `group_responses` (`response_id`, `comment_id`, `user_id`, `response_content`, `time_stamp`) VALUES
+(1, 1, 1, 'hey la réponse insane', '2025-04-16 18:26:51');
 
 --
 -- Déclencheurs `group_responses`
@@ -418,14 +455,6 @@ CREATE TABLE `likes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `likes`
---
-
-INSERT INTO `likes` (`like_id`, `post_id`, `user_id`) VALUES
-(1, 8, 1),
-(2, 8, 2);
-
---
 -- Déclencheurs `likes`
 --
 DELIMITER $$
@@ -484,7 +513,7 @@ INSERT INTO `posts` (`post_id`, `instance_id`, `post_content`, `user_id`, `post_
 (4, 1, 'I hate nothing about you, if you go to my representation on the 5th of April ! ', 4, 'pexels-designecologist-887353.jpg', '2025-03-26 16:28:21', 0, 0, 0),
 (6, 1, 'Weekend en amoureux !', 2, 'pexels-asadphoto-1024975.jpg', '2025-03-26 16:29:15', 0, 0, 0),
 (7, 1, 'Une lune de miel qui se passe bien ! ', 5, 'pexels-nurseryart-348520.jpg', '2025-03-26 16:55:59', 0, 0, 0),
-(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 3, 2, 2);
+(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -551,23 +580,15 @@ CREATE TABLE `shares` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `shares`
---
-
-INSERT INTO `shares` (`share_id`, `user_id`, `post_id`, `instance_id`) VALUES
-(1, 2, 8, 1),
-(2, 5, 8, 1);
-
---
 -- Déclencheurs `shares`
 --
 DELIMITER $$
 CREATE TRIGGER `after_share_deletion` AFTER DELETE ON `shares` FOR EACH ROW BEGIN
     UPDATE posts
-    SET nb_shares = (
+    SET nb_likes = (
         SELECT COUNT(DISTINCT user_id)
-        FROM shares
-        WHERE shares.post_id = OLD.post_id
+        FROM likes
+        WHERE likes.post_id = OLD.post_id
     )
     WHERE post_id = OLD.post_id;
 
@@ -577,10 +598,10 @@ DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `after_share_insertion` AFTER INSERT ON `shares` FOR EACH ROW BEGIN
     UPDATE posts
-    SET nb_shares = (
+    SET nb_likes = (
         SELECT COUNT(DISTINCT user_id)
-        FROM shares
-        WHERE shares.post_id = NEW.post_id
+        FROM likes
+        WHERE likes.post_id = NEW.post_id
     )
     WHERE post_id = NEW.post_id;
 
@@ -679,6 +700,13 @@ ALTER TABLE `group_comments`
   ADD PRIMARY KEY (`comment_id`),
   ADD KEY `FK_GroupCommentsUserId` (`user_id`),
   ADD KEY `FK_GroupCommentsGroupPostId` (`post_id`);
+
+--
+-- Index pour la table `group_identifications`
+--
+ALTER TABLE `group_identifications`
+  ADD PRIMARY KEY (`instance_id`,`post_id`,`user_id`),
+  ADD KEY `FK_GroupIdentificationsGroupPostId` (`post_id`) USING BTREE;
 
 --
 -- Index pour la table `group_likes`
@@ -796,13 +824,13 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT pour la table `group_comments`
 --
 ALTER TABLE `group_comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `group_likes`
 --
 ALTER TABLE `group_likes`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `group_members`
@@ -820,7 +848,7 @@ ALTER TABLE `group_posts`
 -- AUTO_INCREMENT pour la table `group_responses`
 --
 ALTER TABLE `group_responses`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `instances`
@@ -832,7 +860,7 @@ ALTER TABLE `instances`
 -- AUTO_INCREMENT pour la table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
@@ -850,7 +878,7 @@ ALTER TABLE `responses`
 -- AUTO_INCREMENT pour la table `shares`
 --
 ALTER TABLE `shares`
-  MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `userlinkinstance`
@@ -897,10 +925,17 @@ ALTER TABLE `group_comments`
   ADD CONSTRAINT `FK_GroupCommentsUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
+-- Contraintes pour la table `group_identifications`
+--
+ALTER TABLE `group_identifications`
+  ADD CONSTRAINT `FK_GroupIdentificationsGroupPostId` FOREIGN KEY (`post_id`) REFERENCES `group_posts` (`post_id`),
+  ADD CONSTRAINT `FK_GroupIdentificationsInstanceId` FOREIGN KEY (`instance_id`) REFERENCES `instances` (`instance_id`);
+
+--
 -- Contraintes pour la table `group_likes`
 --
 ALTER TABLE `group_likes`
-  ADD CONSTRAINT `FK_GroupLikesGroupPostId` FOREIGN KEY (`post_id`) REFERENCES `group_posts` (`post_id`),
+  ADD CONSTRAINT `FK_GroupLikesGroupsPostsId` FOREIGN KEY (`post_id`) REFERENCES `group_posts` (`post_id`),
   ADD CONSTRAINT `FK_GroupLikesUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
@@ -922,7 +957,7 @@ ALTER TABLE `group_posts`
 -- Contraintes pour la table `group_responses`
 --
 ALTER TABLE `group_responses`
-  ADD CONSTRAINT `FK_GroupResponsesCommentId` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`comment_id`),
+  ADD CONSTRAINT `FK_GroupResponsesCommentId` FOREIGN KEY (`comment_id`) REFERENCES `group_comments` (`comment_id`),
   ADD CONSTRAINT `FK_GroupResponsesUserId` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
