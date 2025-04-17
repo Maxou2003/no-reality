@@ -65,7 +65,7 @@ class PostGenerator:
 
     def add_reponse(self, reponse):
         query = '''
-            INSERT INTO responses (comment_id, user_id, content, time_stamp)
+            INSERT INTO responses (comment_id, user_id, response_content, time_stamp)
             VALUES (%s, %s, %s, %s)'''
         return self.db.execute(query, (
             reponse['comment_id'], reponse['user_id'],
@@ -77,6 +77,12 @@ class PostGenerator:
             INSERT INTO likes (user_id, post_id)
             VALUES (%s, %s)'''
         return self.db.execute(query, (user_id, post_id))
+
+    def add_shares(self, user_id, post_id):
+        query = '''
+            INSERT INTO shares (user_id, post_id, instance_id)
+            VALUES (%s, %s, %s)'''
+        return self.db.execute(query, (user_id, post_id, self.instance_id))
 
     def generate_posts(self, post_per_person=30, location='Angers', posts_pathes=None):
         start_date = datetime(2025, 1, 1)
@@ -102,9 +108,13 @@ class PostGenerator:
                 }
                 post_id_added = self.add_post(post)
                 
-                shuffle(self.user_ids)
-                for _id in range(randint(0, len(self.user_ids))):
-                    self.add_likes(self.user_ids[_id], post_id_added)
+                for _id in range(len(self.user_ids)):
+                    like_chance = randint(0, 100)
+                    share_chance = randint(0, 100)
+                    if like_chance < 10:
+                        self.add_likes(self.user_ids[_id], post_id_added)
+                    if share_chance < 8:
+                        self.add_shares(self.user_ids[_id], post_id_added)
 
                 for comment in self.posts[post_idx].get('comments', []):
                     comment_ts = self.random_timestamp(post['timestamp'], end_date)

@@ -75,8 +75,8 @@ if __name__ == "__main__":
     DATABASE_NAME = "nr_facebook"
     INSTANCE_ID = 1
     INSTANCE_NAME = "love"
-    THEME = "amour"
-    ENGLISH_THEME = "love"
+    THEME = "guitare"
+    ENGLISH_THEME = "guitar"
     PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
     POST_FILE = "python-scripts/nr_facebook/posts/posts.json"
 

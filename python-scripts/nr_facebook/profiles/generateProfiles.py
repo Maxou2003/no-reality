@@ -122,8 +122,8 @@ def fill_table(users):
             user_pp_path,
             user_slug,
             user_description,
-            year_of_birth,
-            gender,
+            user_yob,
+            user_gender,
             user_location
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
     '''
