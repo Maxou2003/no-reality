@@ -23,7 +23,7 @@ async function showCommentsModal(postId) {
         // Format the timestamp
         const postDate = new Date(data.post.time_stamp);
         const options = { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
-        const formattedDate = postDate.toLocaleDateString('fr-FR', options);
+        const formattedDate = postDate.toLocaleDateString('en-US', options);
 
         // Generate HTML for tagged users
         let taggedUsersHtml = '';
@@ -259,7 +259,7 @@ async function showGroupCommentsModal(postId) {
         // Format the timestamp
         const postDate = new Date(data.group_post.time_stamp);
         const options = { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
-        const formattedDate = postDate.toLocaleDateString('fr-FR', options);
+        const formattedDate = postDate.toLocaleDateString('en-US', options);
 
         // Generate HTML for tagged users
         let taggedUsersHtml = '';

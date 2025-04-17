@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{URL}}css/groupHeader.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
     <script src="{{URL}}js/groupHeader.js" defer></script>
+    <script src="{{URL}}js/searchGroupMembers.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -15,14 +16,15 @@
             <div class="members-top-row">
                 <span class="members-title">Members · {{ group.nb_members}}</span>
                 <p>New people who join this group will appear here.</p>
-                <div class="search_box">
+                <div class="search_box search_group_members">
                  <ion-icon src="{{URL}}img/svg-icons/search-outline.svg"></ion-icon>
-                    <input type="search" placeholder="Search for a member">
+                    <input type="search" placeholder="Search for a member"  data-group-slug="{{group.group_slug}}" data-group-id="{{group.group_id}}">
                 </div>
             </div>
             <div class="members-list">
                 <span class="new-members-title">New members</span>
                 <p>This list includes people who have joined the group as well as those who are previewing it. Anyone who has been invited and approved can preview the group's contents.</p>
+                <div class="members">
             {% for member in members %}
                 <div class="member-list-item">
                     <div class="member-item-left">                        
@@ -43,7 +45,8 @@
                         <button class="add-button"><ion-icon name="person-add"></ion-icon> Add as friend</button>
                     </div>
                 </div>
-            {% endfor %}   
+            {% endfor %}  
+                </div> 
             </div> 
         </div>
 
