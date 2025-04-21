@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="no-posts-container">
                         <span class="no-new-posts">No new posts</span>
                         <span class="not-posted-yet">${newPosts.user?.user_firstname || "This user"} ${newPosts.user?.user_lastname || ""} hasn't posted anything in ${newPosts.group?.group_name || "this group"} yet.</span>
-                        <a class="back-home" href="{{URL}}"><span>Back</span></a>
+                        <a class="back-home" href="${MY_URL}"><span>Back</span></a>
                     </div>
                     `
                 );

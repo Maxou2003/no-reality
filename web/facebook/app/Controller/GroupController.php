@@ -100,11 +100,9 @@ class GroupController
         else {  
             $user = $UserRepository->getUser($user_id);
             $members = $GroupRepository->getGroupMembers($group->group_id);   
-            //$posts = $GroupRepository->getUserGroupPosts($user_id, $group->group_id);
     
             $template = $this->twig->load('groupMemberPage.twig');
             echo $template->render(['group' => $group, 
-                                    //'posts' => $posts,
                                     'user' => $user, 
                                     'member_since' => $member_since,
                                     'members' => $members, 
