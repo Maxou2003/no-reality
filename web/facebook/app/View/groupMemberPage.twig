@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{URL}}css/commentModal.css">
     <link rel="stylesheet" href="{{URL}}css/likeModal.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
+    <script src="{{URL}}js/dynamic_groupProfile.js" defer></script>
     <script src="{{URL}}js/likeModal.js" defer></script>
     <script src="{{URL}}js/commentModal.js" defer></script>
 {% endblock %}
@@ -51,7 +52,7 @@
             <div class="info_col">
                 <div class="profile_intro">
                     <h3>Intro</h3>
-                    <p class="intro_text"><i class='fas fa-users'></i>Member of the {{group.group_name}} group since {{member_since}}</p>
+                    <p class="intro_text"><i class='fas fa-users'></i>Member of the {{group.group_name}} group since {{member_since|date('jS') }} of {{ member_since|date('F Y')}}</p>
                 </div>
                 {% if posts|length > 0 %}
                 <div class="profile_intro">
@@ -74,7 +75,7 @@
                 <div class="top-group">
                     <span class="top-group-publications">Group publications</span>
                 </div>
-                {% if posts|length > 0 %}
+                {# {% if posts|length > 0 %}
                 {% for post in posts %}
                     <div class="post-container">
                         <div class="post-top-row">
@@ -129,7 +130,7 @@
                         <span class="not-posted-yet">{{user.user_firstname}} {{user.user_lastname}} hasn't posted anything in {{group.group_name}} yet.</span>
                         <a class="back-home" href="{{URL}}"><span>Back</span></a>
                     </div>
-                {% endif %}
+                {% endif %} #}
             </div>
         </div>
 

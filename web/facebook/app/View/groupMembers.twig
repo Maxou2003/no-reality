@@ -31,7 +31,7 @@
                         <a class="user-page-link" href="{{URL}}groups/{{group.group_slug}}/user/{{member.users.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{member.users.user_pp_path}}" alt="Post_picture"></a>
                         <div class="member-data">
                             <a class="user-page-link" href="{{URL}}groups/{{group.group_slug}}/user/{{member.users.user_slug}}"><span class="member-names">{{member.users.user_firstname}} {{member.users.user_lastname}}</span></a>
-                            <span class="member-since">Member since {{member.timestamp}}</span>
+                            <span class="member-since">Member since {{member.time_stamp|date('jS') }} of {{ member.time_stamp|date('F Y')}}</span>
                             <span class="member-more">
                             {% if member.users.user_location is not empty %}
                                 {{member.users.user_location}}

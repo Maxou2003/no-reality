@@ -230,17 +230,19 @@ class GroupRepository
 
         return $userArray;
     }
-    public function getUserGroupPosts($user_id, $group_id): array
+    public function getUserGroupPosts($user_id, $group_id, $limit, $offset): array
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, nb_comments, time_stamp, post_picture_path, post_content, nb_comments 
             FROM group_posts p join users u on p.user_id=u.user_id  
             WHERE u.user_id=:user_id and instance_id=:instance_id and group_id=:group_id 
-            ORDER BY time_stamp DESC'
+            ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
         );
         $statement->bindValue(':user_id', $user_id, \PDO::PARAM_INT);
         $statement->bindValue(':group_id', $group_id, \PDO::PARAM_INT);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
         $statement->execute();
 
         $groupPostArray = [];
