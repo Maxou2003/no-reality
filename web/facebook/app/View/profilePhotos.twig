@@ -4,10 +4,16 @@
      <link rel="stylesheet" href="{{URL}}css/profileAbout.css">
     <link rel="stylesheet" href="{{URL}}css/profileHeader.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
+    <link rel="stylesheet" href="{{URL}}css/likeModal.css">
+    <link rel="stylesheet" href="{{URL}}css/commentModal.css">
+    <link rel="stylesheet" href="{{URL}}css/shareModal.css">
     <script src="{{URL}}js/profileHeader.js" defer></script>
     <script src="{{URL}}js/profileAbout.js" defer></script>
     <script src="{{URL}}js/profilePhotos.js" defer></script>
     <script src="{{URL}}js/profileFriends.js" defer></script>
+    <script src="{{URL}}js/shareModal.js" defer></script>
+    <script src="{{URL}}js/likeModal.js" defer></script>
+    <script src="{{URL}}js/commentModal.js" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -18,4 +24,28 @@
         {% include 'photosSection.twig' with {'profilePhotos': true } %}
         {% include 'groupSection.twig'%}
     </div>
+    <div id="likeModal" class="like-modal">
+        <div class="like-modal-content">
+            <div class="like-modal-header">
+                <div class="like-modal-title">Likes</div>
+                <span class="close-like-modal">&times;</span>
+            </div>
+            <div id="likeModalBody">
+            </div>
+        </div>
+    </div>
+    <div id="shareModal" class="share-modal">
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <div class="share-modal-title">Shares</div>
+                <span class="close-share-modal">&times;</span>
+            </div>
+            <div id="shareModalBody">
+            </div>
+        </div>
+    </div>
+    <div id="commentModal" class="comment-modal"> 
+        <div class="comment-modal-content">
+        </div>
+    </div> 
 {% endblock %}

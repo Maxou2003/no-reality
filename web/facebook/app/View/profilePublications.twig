@@ -44,7 +44,7 @@
                     </div>
                     <div class="photo_box">
                         {% for post in posts|slice(0, 9) %}
-                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""></div>
+                            <div class="photo_box_item"><img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="" onclick="showCommentsModal({{post.post_id}})"></div>
                         {% endfor %}
                     </div>
                 </div>

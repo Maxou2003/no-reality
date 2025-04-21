@@ -12,7 +12,7 @@
         {% for post in posts|slice(0, 6) %}
         <div class="photos-item-container">
                 <div class='photo-picture'>
-                    <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt=""> 
+                    <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="" onclick="showCommentsModal({{post.post_id}})"> 
                 </div>
         </div> 
         {% endfor %}
