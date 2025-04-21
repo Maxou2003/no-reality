@@ -26,11 +26,11 @@ class GroupController
 
         $group = $GroupRepository->getGroup($group_slug);
         $members = $GroupRepository->getGroupMembers($group->group_id);
-        $posts = $GroupRepository->getPosts($group_slug, false);
+        //$posts = $GroupRepository->getPosts($group_slug, false);
         $posts_pictures = $GroupRepository->getAllPostsPictures($group_slug);
 
         $template = $this->twig->load('groupPage.twig');
-        echo $template->render(['group' => $group, 'posts' => $posts, 'posts_pictures' => $posts_pictures, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+        echo $template->render(['group' => $group, 'posts_pictures' => $posts_pictures, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
     }
 
     public function groupExplorer()
@@ -55,11 +55,10 @@ class GroupController
 
         $group = $GroupRepository->getGroup($group_slug);
         $members = $GroupRepository->getGroupMembers($group->group_id);
-        $posts = $GroupRepository->getPosts($group_slug, true);
         $posts_pictures = $GroupRepository->getAllPostsPictures($group_slug);
 
         $template = $this->twig->load('groupAnnouncement.twig');
-        echo $template->render(['group' => $group, 'posts' => $posts, 'posts_pictures' => $posts_pictures, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+        echo $template->render(['group' => $group, 'posts_pictures' => $posts_pictures, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
     }
     public function members()
     {

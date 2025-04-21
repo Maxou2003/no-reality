@@ -11,7 +11,6 @@ aboutLink.classList.remove("active");
 friendsLink.classList.remove("active");
 picturesLink.classList.remove("active");
 
-console.log("Current location: ", current_location);
 if (current_location === "about") {
     aboutLink.classList.add("active");
 } else if (current_location === "friends") {

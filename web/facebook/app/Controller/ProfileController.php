@@ -33,7 +33,7 @@ class ProfileController
             $friends = $UserRepository->getFriends($user_id);
             $template = $this->twig->load('profilePublications.twig');
 
-            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH, 'nbPosts' => count($posts)]);
+            echo $template->render(['posts' => $posts, 'user' => $user, 'friends' => $friends, 'nb_friends' => count($friends), 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
         }
     }
 

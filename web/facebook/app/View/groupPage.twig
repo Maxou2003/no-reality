@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{URL}}css/commentModal.css">
     <link rel="stylesheet" href="{{URL}}css/likeModal.css">
     <link rel="stylesheet" href="{{URL}}css/home.css">
+    <script src="{{URL}}js/dynamic_groupPosts.js" defer></script>
     <script src="{{URL}}js/groupHeader.js" defer></script>
     <script src="{{URL}}js/likeModal.js" defer></script>
     <script src="{{URL}}js/commentModal.js" defer></script>
@@ -17,54 +18,7 @@
     <div class="group_container">
         <div class="group_info">
             <div class="post_col">
-            {% for post in posts %}
-                <div class="post-container">
-                <div class="post-top-row">
-                    <div class="user-profile">
-                        <a href="{{URL}}groups/{{group.group_slug}}/user/{{post.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Avatar"></a>
-                        <div class="post-data">
-                            <a href="{{URL}}groups/{{group.group_slug}}/user/{{post.user_slug}}"><span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span></a>
-                            <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
-                        </div>
-                    </div>
-                    <div class="post-setting">
-                        <span><i class="fa fa-ellipsis-h"></i></span>
-                        <span class="close">&times;</span>
-                    </div>
-                </div>
-                <p class="post_text">{{post.post_content}}</p>
-                    {% if post.post_picture_path is not empty %}
-                        <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
-                    {% endif %}
-                <div class="post_stats">
-                    <div class="post_stats_item" onclick="showGroupLikesModal({{post.post_id}})"> 
-                        <ion-icon class="like-icon" src="{{URL}}img/svg-icons/heart-circle.svg" ></ion-icon>
-                        <span>{{post.nb_likes}}</span>
-                    </div>
-                    <div class="post_stats_item"> 
-                        <span  onclick="showGroupCommentsModal({{post.post_id}})">{{post.nb_comments}} comments </span>
-                    </div>
-                </div>
-                <div class="post-bottom-row">
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
-                        <span>Likes</span>
-                    </div>
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
-                        <span>Comments</span>
-                    </div>
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/logo-whatsapp.svg"></ion-icon>
-                        <span>Send</span>
-                    </div>
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
-                        <span>Share</span>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+            
             </div>
             <div class="info_col">
                 <div class="group_intro">

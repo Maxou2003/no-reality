@@ -14,7 +14,7 @@ class GroupRepository
 {
     public DatabaseConnection $connection;
 
-    public function getPosts($group_slug, $annoucement): array
+    public function getPosts($group_slug, $announcement, $limit, $offset): array
     {
         $statement = $this->connection->getConnection()->prepare(
             'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, time_stamp, post_picture_path, post_content, nb_comments 
@@ -22,11 +22,13 @@ class GroupRepository
             WHERE announcement = :announcement AND p.group_id = (
                 SELECT group_id FROM groups 
                 WHERE group_slug = :group_slug) 
-            and instance_id=:instance_id ORDER BY time_stamp DESC'
+            and instance_id=:instance_id ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
         );
         $statement->bindValue(':group_slug', $group_slug, \PDO::PARAM_STR);
-        $statement->bindValue(':announcement', $annoucement, \PDO::PARAM_BOOL);
+        $statement->bindValue(':announcement', $announcement, \PDO::PARAM_BOOL);
         $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
         $statement->execute();
 
         $groupPostArray = [];
