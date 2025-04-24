@@ -305,6 +305,16 @@
     .post_col {
         flex-basis: 100%;
     }
+
+    .profile-cover .img-cover {
+        width: 100%;
+        height: auto;
+    }
+
+    .profile-info {
+        text-align: center;
+        margin-top: 20px;
+    }
 }
 
 /* Media Query pour des écrans de moins de 700px */
@@ -326,11 +336,22 @@
         height: 350px;
     }
 
+    .profile-info {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
     .profile-name {
         font-size: 22px;
     }
 
     .profile-friends {
         font-size: 11px;
+    }
+
+    .profile-cover .img-cover {
+        width: 100%;
+        height: auto;
     }
 }
