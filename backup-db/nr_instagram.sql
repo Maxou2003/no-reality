@@ -42,14 +42,6 @@ CREATE TABLE `comments` (
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
-(1, 2, 1, 'vivcqvceqvqvcqk', '2025-02-05 14:59:13', 1),
-(2, 3, 3, 'ça travaille dur en Finlande ?!', '2025-02-12 17:34:01', 1),
-(3, 1, 3, 'Trop nul ! ', '2025-02-12 17:35:11', 1),
-(4, 3, 3, 'Il est pas cool Maxime en vrai, je lui met 0 en OSINT.', '2025-02-12 17:36:28', 1),
-(7, 2, 1, 'Ok.', '2025-02-13 11:42:06', 0),
-(8, 3, 2, 'Sympa,c\'est où ?', '2025-02-13 11:43:01', 0),
-(9, 2, 5, 'Pas cool man...', '2025-02-13 11:43:43', 0);
 
 --
 -- Déclencheurs `comments`
@@ -98,11 +90,6 @@ CREATE TABLE `identification` (
 -- Déchargement des données de la table `identification`
 --
 
-INSERT INTO `identification` (`identification_id`, `post_id`, `user_id`, `instance_id`) VALUES
-(1, 1, 2, 1),
-(2, 5, 2, 1),
-(3, 6, 4, 2),
-(4, 7, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -122,10 +109,6 @@ CREATE TABLE `instance` (
 -- Déchargement des données de la table `instance`
 --
 
-INSERT INTO `instance` (`instance_id`, `average_age`, `gender_prop`, `population`, `instance_name`) VALUES
-(1, 34, 1, 1, 'hates'),
-(2, 34, 1, 1, 'test');
-
 -- --------------------------------------------------------
 
 --
@@ -142,15 +125,6 @@ CREATE TABLE `likes` (
 -- Déchargement des données de la table `likes`
 --
 
-INSERT INTO `likes` (`like_id`, `user_id`, `post_id`) VALUES
-(1, 1, 3),
-(3, 3, 1),
-(4, 3, 2),
-(2, 3, 3),
-(6, 3, 4),
-(7, 3, 5),
-(9, 4, 6),
-(8, 5, 7);
 
 --
 -- Déclencheurs `likes`
@@ -205,14 +179,6 @@ CREATE TABLE `posts` (
 -- Déchargement des données de la table `posts`
 --
 
-INSERT INTO `posts` (`post_id`, `user_id`, `instance_id`, `nb_likes`, `nb_views`, `time_stamp`, `post_picture_path`, `post_description`, `post_location`, `nb_comments`) VALUES
-(1, 1, 1, 1, 45, '2025-01-23 13:30:47', 'pexels-clement-proust-363898785-14606642.jpg', 'Un super semestre à l\'étranger !', 'Finlande, Helsinki', 2),
-(2, 1, 1, 1, 65, '2025-01-29 17:33:30', 'pexels-filatova-1861817299-30427823.jpg', 'Petite photo de zinzin !', 'Finlande, Helsinki (non je dahek)', 1),
-(3, 2, 1, 2, 0, '2025-01-29 17:55:52', 'finlande.jpg', 'mon voyage en Finlande', 'Finlande, Helsinki', 3),
-(4, 2, 1, 1, 67, '2025-02-12 07:51:43', 'pexels-kaboompics-6256.jpg', 'Un evier...', 'France, Angers', 0),
-(5, 1, 1, 1, 53, '2025-02-12 07:53:27', 'pexels-ps-photography-14694-67184.jpg', 'Ce robinet est meilleur !', 'Finlande, Helsinki', 1),
-(6, 5, 2, 1, 0, '2025-02-26 16:26:00', 'japan_1_0.jpg', 'Mes vacances au Japon, trop une dingz ! ', 'Japon', 0),
-(7, 4, 2, 1, 0, '2025-02-26 16:59:32', 'japan_1_4.jpg', 'I love Japan ! ', 'Japon', 0);
 
 -- --------------------------------------------------------
 
@@ -232,11 +198,6 @@ CREATE TABLE `response` (
 -- Déchargement des données de la table `response`
 --
 
-INSERT INTO `response` (`response_id`, `comment_id`, `user_id`, `content`, `time_stamp`) VALUES
-(1, 2, 2, 'Oui !', '2025-02-12 17:34:37'),
-(2, 3, 2, 'Aigri/20', '2025-02-12 17:35:41'),
-(3, 4, 1, 'Oh non, je suis désolé, please pas 0.', '2025-02-12 17:36:50'),
-(8, 1, 1, 'I beg you pardon ?', '2025-02-13 11:28:18');
 
 --
 -- Déclencheurs `response`
@@ -286,10 +247,6 @@ CREATE TABLE `subscriptions` (
 -- Déchargement des données de la table `subscriptions`
 --
 
-INSERT INTO `subscriptions` (`subscription_id`, `follower_id`, `followed_id`, `instance_id`) VALUES
-(1, 1, 2, 1),
-(2, 4, 5, 2),
-(3, 5, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -307,12 +264,6 @@ CREATE TABLE `userlinkinstance` (
 -- Déchargement des données de la table `userlinkinstance`
 --
 
-INSERT INTO `userlinkinstance` (`link_id`, `user_id`, `instance_id`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 4, 2),
-(5, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -333,12 +284,6 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_username`, `user_firstname`, `user_lastname`, `user_pp_path`, `user_description`) VALUES
-(1, 'MaxLambert', 'Maxime', 'Lambert', 'maxime_lambert.jpg', 'Hey, je suis Maxime Lambert !\nBienvenue sur mon Instagram !\nJ\'aime le handball, et les jeux de sociétés !'),
-(2, 'Siphy666', 'Alexis', 'Paquereau--Gasnier', '1711984249368.jpg', 'Hey la team ! Comment va ?'),
-(3, 'Algo', 'Alain', 'Godon', 'ID_alain_polytech_NB_max203x270.jpg', 'Otp leona plat sur la faille de l\'invocateur'),
-(4, 'LeGoat', 'Martin', 'Mollat', '1727454408757.jpg', 'Théâtre d\'impro ce soir ouvert à tous !'),
-(5, 'PlotG', 'Gaston', 'Plot', '1636488595977.jpg', 'J\'aime beaucoup les restaurants chinois à volonté ! ');
 
 --
 -- Index pour les tables déchargées

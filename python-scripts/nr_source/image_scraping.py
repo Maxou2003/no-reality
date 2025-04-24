@@ -58,20 +58,6 @@ def download_images(num_img=100, gender='M', ethnicity=0, path='web/profile_pict
         url = url_maker(gender, ethnicity)
         driver.get(url)
         
-        # Check for cookies popup
-        print("Checking for cookies popup...")
-        try:
-            cookie_button = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.CLASS_NAME, "cookies-agree"))
-            )
-            print("Cookies popup found, accepting...")
-            cookie_button.click()
-        except Exception as e:
-            print(f"No cookies popup found or timeout: {e}")
-            with open("page_source.html", "w", encoding="utf-8") as f:
-                f.write(driver.page_source)
-            print("Page source saved to page_source.html for debugging")
-        
         # Get starting index - use provided start_index if available, otherwise get from filesystem
         max_index = start_index - 1 if start_index is not None else get_last_index(path)
         print(f"Starting image numbering from index {max_index + 1}")

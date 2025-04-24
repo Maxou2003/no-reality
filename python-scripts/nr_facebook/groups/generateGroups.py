@@ -3,8 +3,12 @@ import mysql.connector
 import json
 import unicodedata
 import sys
-sys.path.append(sys.path[0] + "/../..")  # Adjust the path to include the parent directory
+import os
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
 from config import HOST, USER, PASSWORD, DATABASE_FACEBOOK
+from nr_facebook.posts.generatePosts import generate_posts
 
 def fill_group_names_table(instance_id, group_name, group_description, theme):
     """
@@ -75,7 +79,7 @@ def create_group_slug(group_name):
 
 
 
-def create_group_names(instance_id, nb_group, theme, file_path):
+def generate_groups(instance_id, nb_group, theme, file_path):
     """
     Create a JSON file with group names and descriptions
     and insert them into the database.
@@ -96,9 +100,11 @@ def create_group_names(instance_id, nb_group, theme, file_path):
 
 
 if __name__ == '__main__':
-    theme = 'train'
+    theme = 'chevaux'
+    english_theme = 'horses'
+    average_posts_per_group = 5
     nb_group = 10
     instance_id = 1
     file_path = 'python-scripts/nr_facebook/groups/groups_names.json'
-    create_group_names(instance_id, nb_group, theme, file_path)
+    generate_groups(instance_id, nb_group, theme, file_path)
 

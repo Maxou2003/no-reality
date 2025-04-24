@@ -42,10 +42,6 @@ CREATE TABLE `comments` (
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
-(1, 4, 8, 'Véritablement véritable !', '2025-04-15 18:14:20', 1),
-(2, 1, 8, 'Mouais...', '2025-04-15 18:39:52', 0),
-(3, 2, 8, 'Je pense qu\'il faut prendre les aléas de la vie comme ils viennent et faire avec #Crocker.', '2025-04-16 16:42:40', 0);
 
 --
 -- Déclencheurs `comments`
@@ -94,16 +90,6 @@ CREATE TABLE `friends` (
 -- Déchargement des données de la table `friends`
 --
 
-INSERT INTO `friends` (`user_id_1`, `user_id_2`, `instance_id`, `created_at`) VALUES
-(1, 2, 1, '2025-03-27 10:24:40'),
-(1, 3, 1, '2025-03-27 10:25:35'),
-(1, 4, 1, '2025-03-27 10:24:08'),
-(1, 5, 1, '2025-03-27 10:24:20'),
-(2, 3, 1, '2025-03-27 10:23:56'),
-(2, 4, 1, '2025-03-27 10:24:14'),
-(3, 4, 1, '2025-03-27 10:25:27'),
-(3, 5, 1, '2025-03-27 10:24:01'),
-(4, 5, 1, '2025-03-27 10:24:46');
 
 --
 -- Déclencheurs `friends`
@@ -151,13 +137,6 @@ CREATE TABLE `groups` (
 -- Déchargement des données de la table `groups`
 --
 
-INSERT INTO `groups` (`group_id`, `group_name`, `group_slug`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`, `group_location`) VALUES
-(1, 'Love is life', 'LoveIsLife', '2025-04-02 16:32:47', 'nintendo.jpg', 'Love is life so live as you love !', 2, 1, 'Angers'),
-(2, 'LesTueLamour', 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1, ''),
-(3, 'LesCupidons', 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1, ''),
-(5, 'LesCharrots', 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1, ''),
-(6, 'LesAbandonnesDeLamour', 'LesAbandonnesDeLamour', '2025-04-09 16:49:10', 'pexels-pengwhan-1767434.jpg', 'Nous on est un groupe de célibataires assumés ! ', 0, 1, '');
-
 -- --------------------------------------------------------
 
 --
@@ -176,10 +155,6 @@ CREATE TABLE `group_comments` (
 --
 -- Déchargement des données de la table `group_comments`
 --
-
-INSERT INTO `group_comments` (`comment_id`, `user_id`, `post_id`, `comment_text`, `time_stamp`, `nb_responses`) VALUES
-(1, 3, 1, 'first comment', '2025-04-16 18:21:09', 1),
-(2, 3, 2, 'wow !!!!', '2025-04-16 20:13:40', 0);
 
 --
 -- Déclencheurs `group_comments`
@@ -239,11 +214,6 @@ CREATE TABLE `group_likes` (
 -- Déchargement des données de la table `group_likes`
 --
 
-INSERT INTO `group_likes` (`like_id`, `user_id`, `post_id`) VALUES
-(1, 2, 1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 3, 2);
 
 --
 -- Déclencheurs `group_likes`
@@ -292,10 +262,6 @@ CREATE TABLE `group_members` (
 -- Déchargement des données de la table `group_members`
 --
 
-INSERT INTO `group_members` (`group_member_id`, `group_id`, `user_id`, `time_stamp`) VALUES
-(1, 1, 1, '2025-04-02 16:32:47'),
-(3, 2, 1, '2025-04-02 16:35:47'),
-(4, 1, 3, '2025-04-02 16:39:47');
 
 --
 -- Déclencheurs `group_members`
@@ -350,10 +316,6 @@ CREATE TABLE `group_posts` (
 -- Déchargement des données de la table `group_posts`
 --
 
-INSERT INTO `group_posts` (`instance_id`, `nb_comments`, `nb_likes`, `post_content`, `post_id`, `post_picture_path`, `time_stamp`, `user_id`, `group_id`, `announcement`) VALUES
-(1, 1, 2, 'Just spend love', 1, 'art_1_1.jpg', '2025-04-02 16:36:41', 1, 1, 0),
-(1, 1, 1, 'Important NEWS !!!! Love is life !!!!!', 2, '', '2025-04-15 16:34:02', 1, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -371,9 +333,6 @@ CREATE TABLE `group_responses` (
 --
 -- Déchargement des données de la table `group_responses`
 --
-
-INSERT INTO `group_responses` (`response_id`, `comment_id`, `user_id`, `response_content`, `time_stamp`) VALUES
-(1, 1, 1, 'hey la réponse insane', '2025-04-16 18:26:51');
 
 --
 -- Déclencheurs `group_responses`
@@ -421,9 +380,6 @@ CREATE TABLE `identifications` (
 -- Déchargement des données de la table `identifications`
 --
 
-INSERT INTO `identifications` (`user_id`, `post_id`, `instance_id`) VALUES
-(1, 2, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -438,9 +394,6 @@ CREATE TABLE `instances` (
 --
 -- Déchargement des données de la table `instances`
 --
-
-INSERT INTO `instances` (`instance_id`, `instance_name`) VALUES
-(1, 'love');
 
 -- --------------------------------------------------------
 
@@ -506,15 +459,6 @@ CREATE TABLE `posts` (
 -- Déchargement des données de la table `posts`
 --
 
-INSERT INTO `posts` (`post_id`, `instance_id`, `post_content`, `user_id`, `post_picture_path`, `time_stamp`, `nb_comments`, `nb_likes`, `nb_shares`) VALUES
-(1, 1, 'Trop de love tue le love', 1, 'art_1_1.jpg', '2025-03-26 11:40:12', 0, 0, 0),
-(2, 1, 'L\'amour ça se provoque !', 3, 'pexels-vjapratama-935789.jpg', '2025-03-26 16:25:34', 0, 0, 0),
-(3, 1, 'L\'amour quand ça vous prend...', 5, 'pexels-gabriel-bastelli-865174-1759823.jpg', '2025-03-26 16:27:40', 0, 0, 0),
-(4, 1, 'I hate nothing about you, if you go to my representation on the 5th of April ! ', 4, 'pexels-designecologist-887353.jpg', '2025-03-26 16:28:21', 0, 0, 0),
-(6, 1, 'Weekend en amoureux !', 2, 'pexels-asadphoto-1024975.jpg', '2025-03-26 16:29:15', 0, 0, 0),
-(7, 1, 'Une lune de miel qui se passe bien ! ', 5, 'pexels-nurseryart-348520.jpg', '2025-03-26 16:55:59', 0, 0, 0),
-(8, 1, 'Parfois les désaccords sont l\'occasion d\'en apprendre plus sur l\'autre !', 3, 'pexels-pengwhan-1767434.jpg', '2025-03-26 16:57:53', 3, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -533,8 +477,6 @@ CREATE TABLE `responses` (
 -- Déchargement des données de la table `responses`
 --
 
-INSERT INTO `responses` (`response_id`, `comment_id`, `user_id`, `response_content`, `time_stamp`) VALUES
-(1, 1, 5, 'Véritable en vrai', '2025-04-15 18:38:56');
 
 --
 -- Déclencheurs `responses`
@@ -625,13 +567,6 @@ CREATE TABLE `userlinkinstance` (
 -- Déchargement des données de la table `userlinkinstance`
 --
 
-INSERT INTO `userlinkinstance` (`link_id`, `user_id`, `instance_id`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 4, 1),
-(5, 5, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -657,13 +592,6 @@ CREATE TABLE `users` (
 --
 -- Déchargement des données de la table `users`
 --
-
-INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `user_yob`, `user_gender`, `user_website`) VALUES
-(1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', 'art_1_1.jpg', 0, 0, ''),
-(2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Polytech Angers', '', 'none', 0, 0, ''),
-(3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', '', 0, 0, ''),
-(4, 'Martin', 'Mollat', 'martin.mollat.4', '1727454408757.jpg', 'Le 5 avril je présente un spectacle de théâtre d\'improvisation chez moi, venez nombreux !', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, ''),
-(5, 'Gaston', 'Plot', 'gaston.plot.5', '1636488595977.jpg', 'Work life balance 🎶', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, '');
 
 --
 -- Index pour les tables déchargées

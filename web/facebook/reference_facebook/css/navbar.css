@@ -1,0 +1,260 @@
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+    padding-left: 15px;
+    padding-top: 7px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0 3px 2px -2px rgb(223, 223, 223);
+}
+
+.nav_right {
+    display: flex;
+    text-align: right;
+}
+
+.navbar-links {
+    width: 60%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 2px;
+}
+
+.navbar-item {
+    display: flex;
+    width: 100px;
+    height: 100%;
+    color: #000000c2;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding-bottom: 12px;
+    padding-top: 10px;
+}
+
+
+.navbar-links .active {
+    color: #1876f2;
+    border-bottom: 3px solid #1876f2;
+}
+
+.navbar-item:hover {
+    color: #1876f2;
+    border: 1px solid #efefef;
+    border-bottom: 3px solid #1876f2;
+    background-color: #f1efef;
+}
+
+.navbar-item .fa {
+    width: 50px;
+}
+
+.navbar-item .fas {
+    width: 50px;
+}
+
+.nav_left,
+.nav_right {
+    display: flex;
+    align-items: center;
+}
+
+.nav_right {
+    padding-right: 10px;
+}
+
+.nav_left ul li {
+    list-style: none;
+    display: inline-block;
+}
+
+.nav_left ul li img {
+    width: 28px;
+    margin: 0 15px;
+}
+
+.nav_user_icon ion-icon {
+    width: 40px;
+    height: 40px;
+    color: #1876f2;
+    cursor: pointer;
+}
+
+.nav_right .online_icon {
+    position: relative;
+}
+
+.nav_right .online_icon::after {
+    content: ' ';
+    width: 7px;
+    height: 7px;
+    background-color: #41db51;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.nav_right .online_icon::after {
+    top: unset;
+    bottom: 5px;
+}
+
+.logo-container {
+    display: flex;
+    height: 4vh;
+    object-fit: contain;
+}
+
+.logo {
+    margin-right: 10px;
+    aspect-ratio: 1/1;
+}
+
+/* SearchBox classes*/
+
+.search_box {
+    background: #efefef;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.search_box img {
+    width: 18px;
+}
+
+.search_box input {
+    width: 100%;
+    background-color: transparent;
+    padding: 10px;
+    outline: none;
+    border: none;
+}
+
+/* search modal */
+
+.search-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    width: 25%;
+    padding-top: 2px;
+}
+
+.search-modal-content {
+    background-color: white;
+    width: 500px;
+    max-height: 70vh;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    color: #1877f2;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.search-results-groups h4,
+.search-results-users h4 {
+    margin: 8px 0;
+    color: #65676b;
+    font-size: 14px;
+}
+
+/* Result Items */
+.result-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.result-item:hover {
+    background-color: #f0f2f5;
+}
+
+.result-item-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e4e6eb;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.result-item-avatar i {
+    color: #1877f2;
+    font-size: 18px;
+}
+
+.result-item-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.result-item-info {
+    flex: 1;
+}
+
+.result-item-name {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.result-item-meta {
+    font-size: 13px;
+    color: #65676b;
+}
+
+.loading {
+    padding: 16px;
+    text-align: center;
+    color: #65676b;
+    font-style: italic;
+}
+
+.error {
+    padding: 16px;
+    text-align: center;
+    color: #ff0000;
+}
+
+.no-results {
+    padding: 16px;
+    text-align: center;
+    color: #65676b;
+    font-style: italic;
+}
+
+.result-item {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.result-item:hover {
+    background-color: #f0f2f5;
+}

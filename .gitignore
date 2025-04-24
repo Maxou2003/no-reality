@@ -7,6 +7,8 @@ posts.json
 /web/profile_pictures/
 **/img/post_img
 web/public/test/
+web/public/presentation/
+web/public/horses/
 python-scripts/nr_instagram/posts/__pycache__/
 python-scripts/nr_instagram/profiles/__pycache__/
 python-scripts/nr_source/__pycache__/

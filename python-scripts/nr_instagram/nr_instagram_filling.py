@@ -21,7 +21,7 @@ from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
 def create_direcory(instance_name):
     # Create a copy of the folder if it doesn't already exist
-    source_folder = "web/public/reference_instagram"
+    source_folder = "web/instagram/reference_instagram"
     destination_folder = f"web/public/{instance_name}"
     if not os.path.exists(destination_folder):
         print(f"Creating folder for instance: {destination_folder}")
@@ -72,13 +72,13 @@ def create_instance(instance_name, average_age, gender_prop, population):
 
     
 
-def fill_instance(instance_name, people_list, post_list, post_file, pexel_api_key, follow_chance, follow_back_chance, database_name, precisions):
+def fill_instance(instance_name, people_list, post_list, post_file, description_file, pexel_api_key, follow_chance, follow_back_chance, database_name, precisions):
     nb_people = 0
     for i in range(len(people_list)):
         nb_people += people_list[i][0]
     instance_id = create_instance(instance_name, 30, 0.5, nb_people)
     for people in people_list:
-        generate_profiles(people[0], instance_id, people[1], people[2], 'python-scripts/nr_source/descriptions.json')
+        generate_profiles(people[0], instance_id, people[1], people[2], description_file)
     generate_followings(instance_id, follow_chance, follow_back_chance)
     for post in post_list:
         generate_posts(DATABASE_NAME=database_name, INSTANCE_ID=instance_id, INSTANCE_NAME=instance_name,THEME=post[1], ENGLISH_THEME=post[2], PEXEL_API_KEY=pexel_api_key, POST_FILE=post_file, NUMBER_POSTS=post[0], PRECISIONS=precisions)
@@ -93,12 +93,13 @@ if __name__ == "__main__":
     It also generates the followings and identifications for the posts.\n
     """
     DATABASE_NAME = "nr_instagram"
-    INSTANCE_NAME = "test"
     PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
     POST_FILE = "python-scripts/nr_instagram/posts/posts.json"
+    DESCRIPTION_FILE = "python-scripts/nr_instagram/profiles/descriptions.json"
 
-    #PEOPLE = [(5,0,0),(5,1,0),(5,0,1),(5,1,1),(5, 0, 2), (5, 1, 2), (5, 0, 3), (5, 1, 3)]
-    PEOPLE = []
-    POSTS = [(10, 'chevaux', 'horses'), (10, 'santé', 'health')]
-    fill_instance(instance_name=INSTANCE_NAME, people_list=PEOPLE, post_list=POSTS, post_file=POST_FILE, pexel_api_key=PEXEL_API_KEY, follow_chance=0.3, follow_back_chance=0.9, database_name=DATABASE_NAME, precisions="")
+    INSTANCE_NAME = "presentation"
+    PEOPLE = [(10,0,1), (10,0,3)]
+    POSTS = [(10, 'chevaux', 'horses'), (10, 'japon', 'japan')]
+    fill_instance(instance_name=INSTANCE_NAME, people_list=PEOPLE, post_list=POSTS, post_file=POST_FILE, description_file = DESCRIPTION_FILE,
+                   pexel_api_key=PEXEL_API_KEY, follow_chance=0.3, follow_back_chance=0.9, database_name=DATABASE_NAME, precisions="")
     print("Instance filled")

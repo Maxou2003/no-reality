@@ -1,0 +1,127 @@
+.group_container {
+    padding: 0px 18% 20px 18%;
+    color: #626262;
+}
+
+.group_info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: -20px;
+}
+
+.info_col {
+    flex-basis: 37%;
+    position: sticky;
+}
+
+.post_col {
+    flex-basis: 62%;
+}
+
+.group_intro {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: rgb(71, 71, 71);
+    font-weight: 400;
+    border: 1px solid #ece9e9;
+    box-shadow: 0 1px #d4d4d4;
+}
+
+.group_intro h3 {
+    font-weight: 600;
+    color: black;
+    font-size: large;
+}
+
+.intro_text {
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.intro_text img {
+    width: 15px;
+    margin-bottom: -3px;
+}
+
+.group_intro ul li {
+    list-style-type: none;
+    font-size: 15px;
+    margin: 15px 0 5px 0;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-weight: 600;
+}
+
+.group_intro ul li ion-icon {
+    padding-right: 7px;
+}
+
+.group_intro p {
+    font-size: 14px;
+}
+
+.title_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title_box a {
+    text-decoration: none;
+    color: #1876f2;
+    font-size: 14px;
+}
+
+.photo_box {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    grid-gap: 5px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.photo_box_item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.photo_box_item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.group-link {
+    display: contents;
+    text-decoration: none;
+}
+
+.link-label {
+    display: flex;
+    font-size: 17px;
+    color: black;
+    font-weight: 500;
+    background-color: #e4e6eb;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 5px 0px;
+}
+
+.post-data-date {
+    display: flex;
+    align-items: center;
+}
+
+.post-data-date ion-icon{
+    margin-left: 3px;
+}

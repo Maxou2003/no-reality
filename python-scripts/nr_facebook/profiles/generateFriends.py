@@ -87,4 +87,4 @@ if __name__ == "__main__":
     import sys
     sys.path.append(sys.path[0] + "/../..")  # Adjust the path to include the parent directory
     from config import HOST, USER, PASSWORD, DATABASE_FACEBOOK
-    generate_friendships(1, friendship_chance=0.3)
+    generate_friendships(3, friendship_chance=0.3)

@@ -1,3 +1,10 @@
+import sys
+import os
+
+# Ajoute le chemin du dossier racine (qui contient nr_facebook, nr_source, etc.)
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
 import mysql.connector
 import os
 from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM

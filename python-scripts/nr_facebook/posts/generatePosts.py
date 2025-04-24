@@ -2,7 +2,10 @@ import json
 import mysql.connector
 import sys
 import os
-sys.path.append(sys.path[0] + '../..')  # Adjust the path to include the parent directory
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
+
 from postCreation import PostGenerator
 from getPostPictures import download_images_with_api
 from generateJson import generate_json
@@ -73,10 +76,10 @@ def generate_posts(DATABASE_NAME, INSTANCE_ID, INSTANCE_NAME, THEME, ENGLISH_THE
 
 if __name__ == "__main__":
     DATABASE_NAME = "nr_facebook"
-    INSTANCE_ID = 1
-    INSTANCE_NAME = "love"
-    THEME = "guitare"
-    ENGLISH_THEME = "guitar"
+    INSTANCE_ID = 3
+    INSTANCE_NAME = "horses"
+    THEME = "chevaux"
+    ENGLISH_THEME = "horses"
     PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
     POST_FILE = "python-scripts/nr_facebook/posts/posts.json"
 
