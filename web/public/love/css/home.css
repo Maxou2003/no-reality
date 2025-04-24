@@ -279,7 +279,7 @@ body {
     font-size: 12px;
 }
 
-.sider_bar_title span{
+.sider_bar_title span {
     font-weight: 500;
     font-size: 18.5px;
     color: #7c7c7c;
@@ -334,6 +334,7 @@ body {
     padding: 15px;
     border-radius: 5px;
 }
+
 .important_link a ion-icon {
     color: #1876f2;
     width: 30px;
@@ -343,6 +344,7 @@ body {
     justify-content: center;
     display: flex;
 }
+
 .important_link a :last-child {
     color: #1876f2;
     width: 25px;
@@ -354,7 +356,8 @@ body {
 
 
 
-.important_link a:hover, .shortcut_links a:hover {
+.important_link a:hover,
+.shortcut_links a:hover {
     background-color: #e5e9ec;
 }
 
@@ -565,120 +568,35 @@ body {
     .left_sidebar {
         display: none;
     }
+
     .right-sidebar {
         flex-basis: 30%;
     }
+
     .main_content {
-        flex-basis: 70%;       
+        flex-basis: 70%;
         padding: 0 30px;
     }
 }
 
-/* Cache la partie droite à partir de 900px */
 @media (max-width: 900px) {
     .right-sidebar {
         display: none;
     }
+
     .main_content {
-        flex-basis: 100%;    
+        flex-basis: 100%;
         padding: 0;
     }
+
     .container {
         flex-direction: column;
         padding: 13px 1%;
     }
 }
 
-/* La partie centrale occupe 100% en dessous de 700px */
 @media (max-width: 700px) {
     .container {
         padding: 13px 0;
     }
 }
-
-
-/*
-@media (max-width: 900px) {
-    .right_sidebar {
-        display: none;
-    }
-
-    .left_sidebar {
-        display: none;
-    }
-
-    nav {
-        flex-wrap: wrap;
-    }
-
-    .search_box {
-        display: none;
-    }
-
-    .logo {
-        width: 110px;
-        margin-right: 20px;
-    }
-
-    .nav_left ul li img {
-        width: 20px;
-        margin: 0 8px;
-    }
-
-    .nav_user_icon img {
-        width: 30px;
-    }
-
-    .nav_user_icon {
-        margin-left: 0;
-    }
-
-    .add_post_link {
-        flex-wrap: wrap;
-    }
-
-    .main_content {
-        flex-basis: 100%;
-    }
-
-    .add_post_link a {
-        font-size: 11px;
-        margin-right: 12px;
-    }
-
-    .add_post_link a img {
-        width: 16px;
-        margin-right: 5px;
-    }
-
-    .post_input_container {
-        padding-left: 0;
-    }
-}
-
-@media (max-width: 900px) {
-    .profile_container {
-        padding: 20px 5%;
-    }
-
-
-
-    .profile_info {
-        flex-wrap: wrap;
-    }
-
-    .info_col {
-        flex-basis: 100%;
-    }
-
-    .post_col {
-        flex-basis: 100%;
-    }
-}
-
-#button_value {
-    padding: 10px 30px;
-    margin-bottom: -440px;
-    margin-left: 430px;
-}
-    */

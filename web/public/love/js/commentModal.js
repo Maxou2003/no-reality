@@ -243,12 +243,12 @@ async function showGroupCommentsModal(postId) {
     // Prevent background scrolling
     document.body.classList.add('body-no-scroll');
 
-    // Show loading state
+
     modalContent.innerHTML = '<div class="loading">Loading comments...</div>';
     modal.style.display = 'block';
 
     try {
-        // Fetch post and comments data
+
         const response = await fetch(`${API_BASE_URL}getGroupCommentModal&postId=${postId}`);
         const data = await response.json();
 
@@ -256,7 +256,7 @@ async function showGroupCommentsModal(postId) {
             throw new Error('Post data not available');
         }
 
-        // Format the timestamp
+
         const postDate = new Date(data.group_post.time_stamp);
         const options = { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
         const formattedDate = postDate.toLocaleDateString('en-US', options);
@@ -391,13 +391,13 @@ async function showGroupCommentsModal(postId) {
             </div>`;
     }
 
-    // Close modal when clicking X
+
     document.querySelector('.close-comment-modal').addEventListener('click', function () {
         modal.style.display = 'none';
         document.body.classList.remove('body-no-scroll');
     });
 
-    // Close modal when clicking outside
+
     modal.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = 'none';
@@ -411,12 +411,12 @@ async function toggleGroupResponses(commentId, toggleElement) {
     const isHidden = responsesContainer.style.display === 'none';
 
     if (isHidden) {
-        // Show loading state
+
         responsesContainer.innerHTML = '<div class="loading-responses">Loading...</div>';
         responsesContainer.style.display = 'block';
 
         try {
-            // Fetch responses
+
             const response = await fetch(`${API_BASE_URL}getGroupResponses&commentId=${commentId}`);
             const responses = await response.json();
 
@@ -460,7 +460,7 @@ async function toggleGroupResponses(commentId, toggleElement) {
             responsesContainer.innerHTML = '<div class="error">Loading error...</div>';
         }
     } else {
-        // Hide responses
+
         responsesContainer.style.display = 'none';
         toggleElement.textContent = `See all responses`;
     }

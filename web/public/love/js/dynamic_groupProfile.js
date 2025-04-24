@@ -2,8 +2,8 @@ let noPostsShown = false;
 document.addEventListener("DOMContentLoaded", function () {
     var splitted_location = window.location.href.split("/").filter((val) => val != "");
     var group_slug = splitted_location[splitted_location.length - 3];
-    var user_slug = splitted_location[splitted_location.length - 1];    
-    console.log("group_slug : ", group_slug); 
+    var user_slug = splitted_location[splitted_location.length - 1];
+    console.log("group_slug : ", group_slug);
     console.log("user_slug : ", user_slug);
 
     let loading = false;
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (loading) return;
         loading = true;
 
-        try {           
+        try {
             const response = await fetch(`${API_BASE_URL}getDynamicUserGroupPosts&page=${page}&nbPosts=${nb_home_post}&groupSlug=${group_slug}&userSlug=${user_slug}`);
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
@@ -23,11 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
             if (newPosts.posts.length > 0) {
                 newPosts.posts.forEach(post => {
                     document.querySelector(".post_col").insertAdjacentHTML("beforeend", renderPost(group_slug, post));
-                });                
+                });
 
                 page++;
             } else if (page === 1 && !noPostsShown) {
-                document.querySelector(".post_col").insertAdjacentHTML("beforeend", 
+                document.querySelector(".post_col").insertAdjacentHTML("beforeend",
                     `
                     <div class="no-posts-container">
                         <span class="no-new-posts">No new posts</span>
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 noPostsShown = true;
                 window.removeEventListener("scroll", handleScroll);
             } else {
-                // Plus de posts à charger
                 window.removeEventListener("scroll", handleScroll);
             }
         } catch (error) {
