@@ -20,7 +20,7 @@
     </div>
     
     <div class="friends_box">
-        {% for friend in friends|slice(0, 6) %}
+        {% for friend in profileFriends is defined ? friends : friends|slice(0, 6) %}
         <div class="friend-item-container">
             <a href="{{URL}}/profile/{{friend.user_slug}}" class="friend-item">
                 <div class='friend-profile_picture'>

@@ -57,7 +57,17 @@ class SearchController
             $groups = $GroupRepository->searchGroups($searchContent, 5, 0);
         }
         $template = $this->twig->load('searchResults.twig');
-        echo $template->render(['filter' => $filter, 'searchContent' => $searchContent, 'posts' => $posts, 'users' => $users, 'groups' => $groups, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'filter' => $filter,
+            'searchContent' => $searchContent,
+            'posts' => $posts,
+            'users' => $users,
+            'groups' => $groups,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
+        ]);
     }
 
     private function checkFilter($filter)

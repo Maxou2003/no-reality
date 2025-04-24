@@ -75,6 +75,42 @@ class UserRepository
 
         return $postArray;
     }
+    public function getPostsByUserId($userId, $limit, $offset): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            'SELECT post_id, user_firstname, user_lastname, u.user_id, u.user_slug, instance_id, user_pp_path, nb_likes, nb_shares, time_stamp, post_picture_path, post_content, nb_comments 
+            FROM posts p join users u on p.user_id=u.user_id  
+            WHERE u.user_id = :userId and instance_id=:instance_id 
+            ORDER BY time_stamp DESC LIMIT :limit OFFSET :offset'
+        );
+        $statement->bindValue(':userId', $userId, \PDO::PARAM_INT);
+        $statement->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $statement->bindValue(':instance_id', $_SESSION['instanceId'], \PDO::PARAM_INT);
+        $statement->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $statement->execute();
+
+        $postArray = [];
+        while (($row = $statement->fetch())) {
+            $post = new Post();
+            $post->post_id = $row['post_id'];
+            $post->user_firstname = $row['user_firstname'];
+            $post->user_lastname = $row['user_lastname'];
+            $post->user_id = $row['user_id'];
+            $post->user_slug = $row['user_slug'];
+            $post->instance_id = $row['instance_id'];
+            $post->user_pp_path = $row['user_pp_path'];
+            $post->nb_likes = $row['nb_likes'];
+            $post->nb_shares = $row['nb_shares'];
+            $post->time_stamp = new DateTime($row['time_stamp']);
+            $post->post_picture_path = $row['post_picture_path'];
+            $post->post_content = $row['post_content'];
+            $post->nb_comments = $row['nb_comments'];
+
+            $postArray[] = $post;
+        }
+
+        return $postArray;
+    }
     public function getUserIdBySlug($slug): int
     {
         $statement = $this->connection->getConnection()->prepare(

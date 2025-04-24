@@ -20,6 +20,7 @@ $uri = explode('/', $_SERVER['REQUEST_URI'])[4];
 define('URL', "/no-reality/web/public/" . $uri . "/");
 define('POST_IMG_PATH', "/no-reality/web/public/" . $uri . "/img/post_img/");
 define('PROFILE_IMG_PATH', "/no-reality/web/profile_pictures/");
+define('BANNER_IMG_PATH', "/no-reality/web/public/" . $uri . "/img/banner_pictures/");
 
 
 if (instance_exist(get_instanceId($uri)) == false) {

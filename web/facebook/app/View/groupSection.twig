@@ -13,7 +13,7 @@
         <div class="friend-item-container">
             <a href="{{URL}}groups/{{group.group_slug}}" class="group-item">
                 <div class='friend-profile_picture'>
-                    <img src="{{POST_IMG_PATH}}{{group.group_banner_picture_path}}" alt=""> 
+                    <img src="{{BANNER_IMG_PATH}}{{group.group_banner_picture_path}}" alt=""> 
                 </div>
                 <div class="group-info">
                     <div class="group-name">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="group-status-nbmembers">
                         <p class="group-public-status">
-                            <ion-icon name="earth-outline"></ion-icon>
+                            <ion-icon src="{{URL}}img/svg-icons/earth-outline.svg"></ion-icon>
                             Public 
                         </p>
                         <p class="group-nb-members">· {{group.nb_members}} members</p>

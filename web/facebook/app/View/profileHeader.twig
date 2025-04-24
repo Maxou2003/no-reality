@@ -1,6 +1,6 @@
-	<div class="profile-top">
-        <div class="profile-cover">
-            <img src="{{user.user_banner_picture_path}}" alt="cover" class="img-cover">
+    <div class="profile-top">
+        <div class="profile-cover" id="cover">
+            <img src="{{BANNER_IMG_PATH}}{{user.user_banner_picture_path}}" alt="cover" class="img-cover">
         </div>
         <div class="profile_detail">
             <div class="proflie_detail_left">
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="proflie_detail_right">
-                <span><i class='fas fa-user-friends'></i></ion-icon> Friends</span>
+                <span><i class='fas fa-user-friends'></i> Friends</span>
                 <span><i class='far fa-comment'></i> Message</span>
                 <br />
             </div>

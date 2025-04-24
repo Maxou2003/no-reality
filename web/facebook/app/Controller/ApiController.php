@@ -34,7 +34,7 @@ class ApiController
             return;
         }
         if (!isset($_GET['nbPosts'])) {
-            echo json_encode(['error' => 'Page number is required']);
+            echo json_encode(['error' => 'Post number is required']);
             return;
         }
 
@@ -51,6 +51,122 @@ class ApiController
         echo json_encode($posts);
     }
 
+    public function getDynamicUserPosts()
+    {
+        if (!isset($_GET['page'])) {
+            echo json_encode(['error' => 'Page number is required']);
+            return;
+        }
+        if (!isset($_GET['nbPosts'])) {
+            echo json_encode(['error' => 'Post number is required']);
+            return;
+        }
+        if (!isset($_GET['userId'])) {
+            echo json_encode(['error' => 'User id is required']);
+            return;
+        }
+
+        $page = intval($_GET['page']);
+        $perPage = intval($_GET['nbPosts']);
+        $user_id = intval($_GET['userId']);
+        $offset = ($page - 1) * $perPage;
+
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $posts = $UserRepository->getPostsByUserId($user_id, $perPage, $offset);
+        header('Content-Type: application/json');
+        echo json_encode($posts);
+    }
+    public function getUserIdBySlug()
+    {
+        if (!isset($_GET['userSlug'])) {
+            echo json_encode(['error' => 'User slug is required']);
+            return;
+        }
+        $user_slug = $_GET['userSlug'];
+
+        $database = new DatabaseConnection();
+        $UserRepository = new UserRepository();
+        $UserRepository->connection = $database;
+
+        $user_id = $UserRepository->getUserIdBySlug($user_slug);
+
+        header('Content-Type: application/json');
+        echo json_encode(['user_id' => $user_id]);
+    }
+    public function getDynamicGroupPosts()
+    {
+        if (!isset($_GET['page'])) {
+            echo json_encode(['error' => 'Page number is required']);
+            return;
+        }
+        if (!isset($_GET['nbPosts'])) {
+            echo json_encode(['error' => 'Post number is required']);
+            return;
+        }
+        if (!isset($_GET['announcement'])) {
+            echo json_encode(['error' => 'Announcement is required']);
+            return;
+        }
+        if (!isset($_GET['groupSlug'])) {
+            echo json_encode(['error' => 'Group slug is required']);
+            return;
+        }
+
+        $page = intval($_GET['page']);
+        $perPage = intval($_GET['nbPosts']);
+        $group_slug = $_GET['groupSlug'];
+        $announcement = boolval($_GET['announcement']);
+        $offset = ($page - 1) * $perPage;
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $GroupRepository->connection = $database;
+
+        $posts = $GroupRepository->getPosts($group_slug, $announcement, $perPage, $offset);
+        header('Content-Type: application/json');
+        echo json_encode($posts);
+    }
+    public function getDynamicUserGroupPosts()
+    {
+        if (!isset($_GET['page'])) {
+            echo json_encode(['error' => 'Page number is required']);
+            return;
+        }
+        if (!isset($_GET['nbPosts'])) {
+            echo json_encode(['error' => 'Post number is required']);
+            return;
+        }
+        if (!isset($_GET['userSlug'])) {
+            echo json_encode(['error' => 'User slug is required']);
+            return;
+        }
+        if (!isset($_GET['groupSlug'])) {
+            echo json_encode(['error' => 'Group slug is required']);
+            return;
+        }
+
+        $page = intval($_GET['page']);
+        $perPage = intval($_GET['nbPosts']);
+        $group_slug = $_GET['groupSlug'];
+        $user_slug = $_GET['userSlug'];
+        $offset = ($page - 1) * $perPage;
+
+        $database = new DatabaseConnection();
+        $GroupRepository = new GroupRepository();
+        $UserRepository = new UserRepository();
+        $GroupRepository->connection = $database;
+        $UserRepository->connection = $database;
+        $group = $GroupRepository->getGroup($group_slug);
+        $user_id = $UserRepository->getUserIdBySlug($user_slug);
+        $user = $UserRepository->getUser($user_id);
+
+        $posts = $GroupRepository->getUserGroupPosts($user_id, $group->group_id, $perPage, $offset);
+        header('Content-Type: application/json');
+        echo json_encode(['posts' => $posts, 'group' => $group, 'user' => $user]);
+    }
     public function getFriends()
     {
         if (!isset($_GET['userId'])) {

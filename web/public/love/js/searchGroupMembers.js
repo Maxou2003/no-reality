@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const originalMembersHTML = usersResults.innerHTML;
     let searchTimeout;
 
-    // Function to display search results
+
     function displaySearchResults(results) {
         if (results.length === 0) {
             usersResults.innerHTML = '<div class="no-results">No members found</div>';
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).join('');
     }
 
-    // Function to search group members
+
     function searchGroupMembers(searchTerm) {
         if (searchTerm.length < 2) {
             usersResults.innerHTML = originalMembersHTML;
@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const groupId = searchInput.getAttribute("data-group-id");
 
-        // Show loading state
         usersResults.innerHTML = '<div class="loading">Searching members...</div>';
 
         fetch(`${API_BASE_URL}searchInGroupMembers&groupId=${groupId}&searchContent=${encodeURIComponent(searchTerm)}`)

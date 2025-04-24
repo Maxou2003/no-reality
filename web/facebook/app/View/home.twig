@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{URL}}css/likeModal.css">
     <link rel="stylesheet" href="{{URL}}css/commentModal.css">
     <link rel="stylesheet" href="{{URL}}css/shareModal.css">
+    <script src="{{URL}}js/dynamic_home.js" defer></script>
     <script src="{{URL}}js/shareModal.js" defer></script>
     <script src="{{URL}}js/likeModal.js" defer></script>
     <script src="{{URL}}js/commentModal.js" defer></script>
@@ -13,6 +14,7 @@
 {% endblock %}
 
 {% block content %}
+
     {% include 'navbar.twig' with {'URL': URL} %}
 	
 	<div class="container">
@@ -35,63 +37,13 @@
         </div>
 
         <div class="main_content">
-
-        {% for post in posts %}
-            <div class="post-container">
-                <div class="post-top-row">
-                    <div class="user-profile">
-                        <a href="{{URL}}profile/{{post.user_slug}}"><img src="{{PROFILE_IMG_PATH}}{{post.user_pp_path}}" alt="Avatar"></a>
-                        <div class="post-data">
-                            <a href="{{URL}}profile/{{post.user_slug}}"><span class="post-data-name">{{post.user_firstname}} {{post.user_lastname}}</span></a>
-                            <span class="post-data-date">{{post.time_stamp.format('Y-m-d H:i')}}</span>
-                        </div>
-                    </div>
-                    <div class="post-setting">
-                        <span><i class="fa fa-ellipsis-h"></i></span>
-                        <span class="close">&times;</span>
-                    </div>
-                </div>
-                <p class="post_text">{{post.post_content}}</p>
-                {% if post.post_picture_path is not empty %}
-                    <img src="{{POST_IMG_PATH}}{{post.post_picture_path}}" alt="Feedback" class="post_img">
-                {% endif %}
-                <div class="post_stats">
-                    <div class="post_stats_item" onclick="showLikesModal({{post.post_id}})"> 
-                        <ion-icon class="like-icon" src="{{URL}}img/svg-icons/heart-circle.svg" ></ion-icon>
-                        <span>{{post.nb_likes}}</span>
-                    </div>
-                    <div class="post_stats_item"> 
-                        <span  onclick="showCommentsModal({{post.post_id}})">{{post.nb_comments}} comments </span>
-                        <span onclick="showSharesModal({{post.post_id}})">{{post.nb_shares}} shares</span>
-                    </div>
-                </div>
-                <div class="post-bottom-row">
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/thumbs-up-outline.svg"></ion-icon>
-                        <span>Likes</span>
-                    </div>
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/chatbubble-outline.svg"></ion-icon>
-                        <span>Comments</span>
-                    </div>
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/logo-whatsapp.svg"></ion-icon>
-                        <span>Send</span>
-                    </div>
-                    <div class="post-bottom-row-item">
-                        <ion-icon src="{{URL}}img/svg-icons/arrow-redo-outline.svg"></ion-icon>
-                        <span>Share</span>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
         </div>
 
         <div class="right-sidebar">
             <div class="sider_bar_title">
                 <span>Suggestions</span>
             </div>
-            {%for suggestion in suggestions %}
+            {% for suggestion in suggestions %}
                 <div class="online_list">
                     <a href="{{URL}}profile/{{suggestion.user_slug}}" >
                         <div class="online_icon">
@@ -102,7 +54,8 @@
                 </div>
             {% endfor %}
         </div>
-        <div id="likeModal" class="like-modal">
+    
+    <div id="likeModal" class="like-modal">
             <div class="like-modal-content">
                 <div class="like-modal-header">
                     <div class="like-modal-title">Likes</div>
@@ -113,20 +66,21 @@
             </div>
         </div>
 
-        <div id="shareModal" class="share-modal">
-            <div class="share-modal-content">
-                <div class="share-modal-header">
-                    <div class="share-modal-title">Shares</div>
-                    <span class="close-share-modal">&times;</span>
-                </div>
-                <div id="shareModalBody">
-                </div>
+    <div id="shareModal" class="share-modal">
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <div class="share-modal-title">Shares</div>
+                <span class="close-share-modal">&times;</span>
+            </div>
+            <div id="shareModalBody">
             </div>
         </div>
+    </div>
 
-        <div id="commentModal" class="comment-modal"> 
-            <div class="comment-modal-content">
-            </div>
-        </div> 
+    <div id="commentModal" class="comment-modal"> 
+        <div class="comment-modal-content">
+        </div>
+    </div> 
+</div>
 
 {% endblock %}

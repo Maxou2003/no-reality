@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 16 avr. 2025 à 22:28
+-- Généré le : jeu. 24 avr. 2025 à 11:38
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -152,7 +152,7 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`group_id`, `group_name`, `group_slug`, `time_stamp`, `group_banner_picture_path`, `group_description`, `nb_members`, `instance_id`, `group_location`) VALUES
-(1, 'Love is life', 'LoveIsLife', '2025-04-02 16:32:47', 'art_1_1.jpg', 'Love is life so live as you love !', 2, 1, 'Angers'),
+(1, 'Love is life', 'LoveIsLife', '2025-04-02 16:32:47', 'nintendo.jpg', 'Love is life so live as you love !', 2, 1, 'Angers'),
 (2, 'LesTueLamour', 'LesTueLamour', '2025-04-09 10:18:28', 'Quels-sont-les-pires-tue-l-amour-selon-les-celibataires.jpg', 'On partage tous les pires tue-l\'amour pour t\'éviter les soucis ! Rejoins nous vite ! <3', 1, 1, ''),
 (3, 'LesCupidons', 'LesCupidons', '2025-04-09 16:46:22', 'pexels-asadphoto-1024975.jpg', 'On est les anges de l\'amour ! ', 0, 1, ''),
 (5, 'LesCharrots', 'LesCharrots', '2025-04-09 16:48:31', 'pexels-gabriel-bastelli-865174-1759823.jpg', 'On pécho dure ici ! ', 0, 1, ''),
@@ -661,7 +661,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `user_firstname`, `user_lastname`, `user_slug`, `user_pp_path`, `user_description`, `user_location`, `user_work`, `user_school`, `user_banner_picture_path`, `user_yob`, `user_gender`, `user_website`) VALUES
 (1, 'Maxime', 'Lambert', 'maxime.lambert.1', 'maxime_lambert.jpg', 'Je suis trop un lover ❤️', 'Angers', 'none', 'Polytech Angers', 'art_1_1.jpg', 0, 0, ''),
 (2, 'Alain', 'Godon', 'alain.godon.2', 'ID_alain_polytech_NB_max203x270.jpg', 'Je suis les règles de Crocker ! ', 'Angers', 'Polytech Angers', '', 'none', 0, 0, ''),
-(3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', 'none', 0, 0, ''),
+(3, 'Alexis', 'Paquereau', 'alexis.paquereau.3', '1711984249368.jpg', 'Le rizzler originel...', 'Ton coeur ', 'none', 'Polytech Angers', '', 0, 0, ''),
 (4, 'Martin', 'Mollat', 'martin.mollat.4', '1727454408757.jpg', 'Le 5 avril je présente un spectacle de théâtre d\'improvisation chez moi, venez nombreux !', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, ''),
 (5, 'Gaston', 'Plot', 'gaston.plot.5', '1636488595977.jpg', 'Work life balance 🎶', 'Angers', 'none', 'Polytech Angers', 'none', 0, 0, '');
 

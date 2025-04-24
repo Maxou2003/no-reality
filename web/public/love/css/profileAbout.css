@@ -27,8 +27,8 @@
 .about-container {
     background: white;
     border-radius: 8px;
-    padding: 0;
     margin-bottom: 20px;
+    padding: 5px 3px 0 3px;
 }
 
 .about-title {
@@ -364,11 +364,17 @@
     padding: 16px;
 }
 
+
 .photos-item-container .photo-picture img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
+.photos-item-container .photo-picture img:hover {
+    cursor: pointer;
 }
 
 .photos-nav-item .photos-nav-item-title {
@@ -432,3 +438,4 @@
 .group-nb-members {
     font-weight: 550;
 }
+
