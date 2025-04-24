@@ -3,26 +3,6 @@
     color: #626262;
 }
 
-.proflie_detail_right span:first-child {
-    background-color: #e4e6eb;
-    color: #000;
-}
-
-.proflie_detail_right {
-    text-align: right;
-    margin-top: 130px;
-}
-
-.proflie_detail_right .fas {
-    font-size: 15px;
-}
-
-
-.profile_row {
-    display: flex;
-    flex-direction: row;
-}
-
 .pd_image {
     width: 175px;
     margin-right: 20px;
@@ -274,21 +254,6 @@
         flex-direction: column;
         align-items: center;
     }
-
-    .profile-cover .img-cover {
-        width: 100%;
-        height: auto;
-    }
-
-    .profile-detail {
-        flex-direction: column;
-        padding: 0 15%;
-    }
-
-    .proflie_detail_right {
-        text-align: center;
-        margin-top: 20px;
-    }
 }
 
 /* Media Query pour des écrans de moins de 910px */
@@ -305,16 +270,6 @@
     .post_col {
         flex-basis: 100%;
     }
-
-    .profile-cover .img-cover {
-        width: 100%;
-        height: auto;
-    }
-
-    .profile-info {
-        text-align: center;
-        margin-top: 20px;
-    }
 }
 
 /* Media Query pour des écrans de moins de 700px */
@@ -330,28 +285,5 @@
 
     .profile_container {
         padding: 0 10px;
-    }
-
-    .profile-cover {
-        height: 350px;
-    }
-
-    .profile-info {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    .profile-name {
-        font-size: 22px;
-    }
-
-    .profile-friends {
-        font-size: 11px;
-    }
-
-    .profile-cover .img-cover {
-        width: 100%;
-        height: auto;
     }
 }
