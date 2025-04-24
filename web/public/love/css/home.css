@@ -561,7 +561,40 @@ body {
     background-color: #000;
 }
 
+@media (max-width: 1100px) {
+    .left_sidebar {
+        display: none;
+    }
+    .right-sidebar {
+        flex-basis: 30%;
+    }
+    .main_content {
+        flex-basis: 70%;       
+        padding: 0 30px;
+    }
+}
 
+/* Cache la partie droite à partir de 900px */
+@media (max-width: 900px) {
+    .right-sidebar {
+        display: none;
+    }
+    .main_content {
+        flex-basis: 100%;    
+        padding: 0;
+    }
+    .container {
+        flex-direction: column;
+        padding: 13px 1%;
+    }
+}
+
+/* La partie centrale occupe 100% en dessous de 700px */
+@media (max-width: 700px) {
+    .container {
+        padding: 13px 0;
+    }
+}
 
 
 /*
