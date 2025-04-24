@@ -1,15 +1,11 @@
-// Like modal for classic posts
-
 function showLikesModal(postId) {
     const modal = document.getElementById('likeModal');
     const modalBody = document.getElementById('likeModalBody');
 
     document.body.classList.add('body-no-scroll');
-    // Show loading state
     modalBody.innerHTML = '<p>Loading...</p>';
     modal.style.display = 'block';
 
-    // Fetch liked users for this post
     fetch(`${API_BASE_URL}getLikes&postId=${postId}`)
         .then(response => response.json())
         .then(data => {
@@ -41,13 +37,13 @@ function showLikesModal(postId) {
         });
 }
 
-// Close modal when clicking X
+
 document.querySelector('.close-like-modal').addEventListener('click', function () {
     document.getElementById('likeModal').style.display = 'none';
     document.body.classList.remove('body-no-scroll');
 });
 
-// Close modal when clicking outside
+
 window.addEventListener('click', function (event) {
     const modal = document.getElementById('likeModal');
     if (event.target == modal) {
@@ -56,20 +52,17 @@ window.addEventListener('click', function (event) {
     }
 });
 
-// ------------------------------------------------------------------------------------------------------------------
-
-// Like modal for group posts
 
 function showGroupLikesModal(postId) {
     const modal = document.getElementById('likeModal');
     const modalBody = document.getElementById('likeModalBody');
 
     document.body.classList.add('body-no-scroll');
-    // Show loading state
+
     modalBody.innerHTML = '<p>Loading...</p>';
     modal.style.display = 'block';
 
-    // Fetch liked users for this post
+
     fetch(`${API_BASE_URL}getGroupLikes&postId=${postId}`)
         .then(response => response.json())
         .then(data => {

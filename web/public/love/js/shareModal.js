@@ -3,11 +3,9 @@ function showSharesModal(postId) {
     const modalBody = document.getElementById('shareModalBody');
 
     document.body.classList.add('body-no-scroll');
-    // Show loading state
     modalBody.innerHTML = '<p>Loading...</p>';
     modal.style.display = 'block';
 
-    // Fetch shared users for this post
     fetch(`${API_BASE_URL}getShares&postId=${postId}`)
         .then(response => response.json())
         .then(data => {

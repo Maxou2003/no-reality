@@ -67,7 +67,7 @@ class ApiController
         }
 
         $page = intval($_GET['page']);
-        $perPage = intval($_GET['nbPosts']); // Number of posts to be loaded for each page
+        $perPage = intval($_GET['nbPosts']);
         $user_id = intval($_GET['userId']);
         $offset = ($page - 1) * $perPage;
 
@@ -92,7 +92,7 @@ class ApiController
         $UserRepository->connection = $database;
 
         $user_id = $UserRepository->getUserIdBySlug($user_slug);
-        
+
         header('Content-Type: application/json');
         echo json_encode(['user_id' => $user_id]);
     }
@@ -116,7 +116,7 @@ class ApiController
         }
 
         $page = intval($_GET['page']);
-        $perPage = intval($_GET['nbPosts']); // Number of posts to be loaded for each page
+        $perPage = intval($_GET['nbPosts']);
         $group_slug = $_GET['groupSlug'];
         $announcement = boolval($_GET['announcement']);
         $offset = ($page - 1) * $perPage;
@@ -149,7 +149,7 @@ class ApiController
         }
 
         $page = intval($_GET['page']);
-        $perPage = intval($_GET['nbPosts']); // Number of posts to be loaded for each page
+        $perPage = intval($_GET['nbPosts']);
         $group_slug = $_GET['groupSlug'];
         $user_slug = $_GET['userSlug'];
         $offset = ($page - 1) * $perPage;
