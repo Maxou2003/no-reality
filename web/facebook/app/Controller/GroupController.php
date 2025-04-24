@@ -91,25 +91,25 @@ class GroupController
 
         if ($user_id == -1) {;
             http_response_code(404);
-            echo "Error 404: username '$slug' not found.";
-        } 
+            echo "Error 404: username '$user_slug' not found.";
+        }
         if ($member_since == false) {
             http_response_code(404);
             echo "Error 404: username '$user_slug' not in '$group_slug' group.";
-        }
-        else {  
+        } else {
             $user = $UserRepository->getUser($user_id);
-            $members = $GroupRepository->getGroupMembers($group->group_id);   
-    
+            $members = $GroupRepository->getGroupMembers($group->group_id);
+
             $template = $this->twig->load('groupMemberPage.twig');
-            echo $template->render(['group' => $group, 
-                                    'user' => $user, 
-                                    'member_since' => $member_since,
-                                    'members' => $members, 
-                                    'URL' => URL, 
-                                    'POST_IMG_PATH' => POST_IMG_PATH, 
-                                    'PROFILE_IMG_PATH' => PROFILE_IMG_PATH
-                                ]);
+            echo $template->render([
+                'group' => $group,
+                'user' => $user,
+                'member_since' => $member_since,
+                'members' => $members,
+                'URL' => URL,
+                'POST_IMG_PATH' => POST_IMG_PATH,
+                'PROFILE_IMG_PATH' => PROFILE_IMG_PATH
+            ]);
         }
     }
     public function media()
@@ -121,7 +121,7 @@ class GroupController
         $group_slug = strval($_GET['groupslug']);
 
         $group = $GroupRepository->getGroup($group_slug);
-        $members = $GroupRepository->getGroupMembers($group->group_id);   
+        $members = $GroupRepository->getGroupMembers($group->group_id);
         $posts_pictures = $GroupRepository->getAllPostsPictures($group_slug);
 
         $template = $this->twig->load('groupMedia.twig');
@@ -136,12 +136,19 @@ class GroupController
         $group_slug = strval($_GET['groupslug']);
 
         $group = $GroupRepository->getGroup($group_slug);
-        $members = $GroupRepository->getGroupMembers($group->group_id);   
+        $members = $GroupRepository->getGroupMembers($group->group_id);
         $posts_pictures = $GroupRepository->getAllPostsPictures($group_slug);
         $activity = $GroupRepository->getGroupActivity($group->group_id);
 
         $template = $this->twig->load('groupAbout.twig');
-        echo $template->render(['group' => $group, 'posts_pictures' => $posts_pictures, 'members' => $members, 'activity' => $activity,
-                                'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'group' => $group,
+            'posts_pictures' => $posts_pictures,
+            'members' => $members,
+            'activity' => $activity,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH
+        ]);
     }
 }
