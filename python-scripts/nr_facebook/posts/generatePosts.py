@@ -2,7 +2,7 @@ import json
 import mysql.connector
 import sys
 import os
-sys.path.insert(0, 'python-scripts')
+sys.path.append(sys.path[0] + '../..')  # Adjust the path to include the parent directory
 from postCreation import PostGenerator
 from getPostPictures import download_images_with_api
 from generateJson import generate_json

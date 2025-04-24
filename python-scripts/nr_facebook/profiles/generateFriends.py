@@ -1,13 +1,6 @@
 import mysql.connector
 import random
-import sys
-import os
-root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-if root_path not in sys.path:
-    sys.path.insert(0, root_path)
-import mysql.connector
-from mysql.connector import Error
-from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
+
 
 def get_users(instance_id):
     """
@@ -25,7 +18,7 @@ def get_users(instance_id):
             host=HOST,
             user=USER,
             password=PASSWORD,
-            database=DATABASE_INSTAGRAM
+            database=DATABASE_FACEBOOK
         )
         cursor = conn.cursor()
         sql = '''
@@ -45,51 +38,53 @@ def get_users(instance_id):
         if conn and conn.is_connected():
             conn.close()
 
-    
-
-def fillTable(follow_list):
+def fill_friends_table(friendship_list):
     """
-    Create the followings table
+    Create entries in the friends table
     """
     conn = mysql.connector.connect(
         host=HOST,
         user=USER,
         password=PASSWORD,
-        database=DATABASE_INSTAGRAM
+        database=DATABASE_FACEBOOK
     )
     cursor = conn.cursor()
     sql_check = '''
-        SELECT COUNT(*) FROM subscriptions
-        WHERE follower_id = %s AND followed_id = %s AND instance_id = %s
+        SELECT COUNT(*) FROM friends
+        WHERE user_id_1 = %s AND user_id_2 = %s AND instance_id = %s
     '''
     sql_insert = '''
-        INSERT INTO subscriptions (
-            follower_id,
-            followed_id,
+        INSERT INTO friends (
+            user_id_1,
+            user_id_2,
             instance_id
         ) VALUES (
             %s, %s, %s
         )
     '''
-    for i in range(len(follow_list)):
-        cursor.execute(sql_check, (follow_list[i][0], follow_list[i][1], follow_list[i][2]))
-        if cursor.fetchone()[0] == 0:  # Only insert if no existing subscription
-            cursor.execute(sql_insert, (follow_list[i][0], follow_list[i][1], follow_list[i][2]))
+    for friendship in friendship_list:
+        cursor.execute(sql_check, (friendship[0], friendship[1], friendship[2]))
+        if cursor.fetchone()[0] == 0:  # Only insert if no existing friendship
+            cursor.execute(sql_insert, (friendship[0], friendship[1], friendship[2]))
     conn.commit()
     cursor.close()
     conn.close()
 
-def generate_followings(instance_id, follow_chance, follow_back_chance):
+def generate_friendships(instance_id, friendship_chance):
     users = get_users(instance_id)
-    follow_list = []
+    friendship_list = []
     for i in range(len(users)):
-        for j in range(i + 1, len(users)):  
-            if random.random() < follow_chance:  
-                follow_list.append([users[i], users[j], instance_id])
-                if random.random() < follow_back_chance:  
-                    follow_list.append([users[j], users[i], instance_id])
+        for j in range(i + 1, len(users)):  # Ensure we only create one friendship between each pair
+            if random.random() < friendship_chance:  
+                # Always store with smaller ID first to prevent duplicates
+                smaller_id = min(users[i], users[j])
+                larger_id = max(users[i], users[j])
+                friendship_list.append([smaller_id, larger_id, instance_id])
 
-    fillTable(follow_list)
+    fill_friends_table(friendship_list)
 
 if __name__ == "__main__":
-    generate_followings(1, follow_chance=0.3, follow_back_chance=0.9)
+    import sys
+    sys.path.append(sys.path[0] + "/../..")  # Adjust the path to include the parent directory
+    from config import HOST, USER, PASSWORD, DATABASE_FACEBOOK
+    generate_friendships(1, friendship_chance=0.3)

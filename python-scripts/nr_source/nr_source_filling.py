@@ -1,7 +1,10 @@
 from deepface import DeepFace
 import mysql.connector
 import sys
-sys.path.insert(0, 'python-scripts')
+import os
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))  
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
 from nr_source.get_names import get_names
 from nr_source.image_scraping import download_images
 import math

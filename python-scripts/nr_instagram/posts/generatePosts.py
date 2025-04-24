@@ -1,8 +1,16 @@
 import json
 import mysql.connector
-from posts.postCreation import PostGenerator
-from posts.getPostPictures import download_images_with_api
-from posts.generateJson import generate_json
+
+import sys
+import os
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
+
+from nr_instagram.posts.postCreation import PostGenerator
+from nr_instagram.posts.getPostPictures import download_images_with_api
+from nr_instagram.posts.generateJson import generate_json
+
 from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
 def load_posts(post_file):
@@ -66,15 +74,16 @@ def generate_posts(DATABASE_NAME, INSTANCE_ID, INSTANCE_NAME, THEME, ENGLISH_THE
     generator.generate_posts(post_per_person=30, location="Angers", posts_pathes=all_posts_pathes)
 
 if __name__ == "__main__":
+    
     DATABASE_NAME = "nr_instagram"
-    INSTANCE_ID = 18
+    INSTANCE_ID = 3
     INSTANCE_NAME = "test"
     THEME = "art"
     ENGLISH_THEME = "art"
     PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
-    POST_FILE = "posts.json"
+    POST_FILE = "python-scripts/nr_instagram/posts/art_posts.json"
 
-    NUMBER_POSTS = 1
+    NUMBER_POSTS = 10
 
     PRECISIONS = ""
     generate_posts(DATABASE_NAME, INSTANCE_ID, INSTANCE_NAME, THEME, ENGLISH_THEME, PEXEL_API_KEY, POST_FILE, NUMBER_POSTS, PRECISIONS)

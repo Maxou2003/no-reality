@@ -1,7 +1,14 @@
+import sys
+import os
+
+# Ajoute le chemin du dossier racine (qui contient nr_facebook, nr_source, etc.)
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
+
+
 import mysql.connector
 import json
-import sys
-sys.path.insert(0, 'python-scripts')
 from nr_source.nr_source_filling import create_persons
 from nr_facebook.profiles.createDescriptions import create_json
 import datetime
@@ -324,6 +331,8 @@ def generate_profiles(nb_users, instance, gender, ethnicity, json_file_path):
 
 
 if __name__ == '__main__':
+    import sys
+    print(sys.path)
     generate_profiles(5, 1, 0, 0, 'python-scripts/nr_facebook/descriptions.json')
     #generate_profiles(nb_users=5, instance=19, gender=0, ethnicity=0, json_file_path='python-scripts/facebook/descriptions.json')
     #generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')

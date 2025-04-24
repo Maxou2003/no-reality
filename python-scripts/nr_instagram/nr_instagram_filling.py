@@ -1,5 +1,11 @@
 import sys
-sys.path.insert(0, 'python-scripts')
+import os
+
+# Ajoute le chemin du dossier racine (qui contient nr_facebook, nr_source, etc.)
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+print(f"Root path: {root_path}")
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
 
 from nr_instagram.profiles.generateFollowings import generate_followings
 from nr_instagram.profiles.generateProfiles import generate_profiles
@@ -70,7 +76,6 @@ def fill_instance(instance_name, people_list, post_list, post_file, pexel_api_ke
     nb_people = 0
     for i in range(len(people_list)):
         nb_people += people_list[i][0]
-    print(nb_people)
     instance_id = create_instance(instance_name, 30, 0.5, nb_people)
     for people in people_list:
         generate_profiles(people[0], instance_id, people[1], people[2], 'python-scripts/nr_source/descriptions.json')
@@ -90,10 +95,10 @@ if __name__ == "__main__":
     DATABASE_NAME = "nr_instagram"
     INSTANCE_NAME = "test"
     PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
-    POST_FILE = "posts.json"
+    POST_FILE = "python-scripts/nr_instagram/posts/posts.json"
 
     #PEOPLE = [(5,0,0),(5,1,0),(5,0,1),(5,1,1),(5, 0, 2), (5, 1, 2), (5, 0, 3), (5, 1, 3)]
-    PEOPLE = [(6,0,0), (10,1,2)]
-    POSTS = [(10, 'voitures', 'cars'), (10, 'santé', 'health')]
+    PEOPLE = []
+    POSTS = [(10, 'chevaux', 'horses'), (10, 'santé', 'health')]
     fill_instance(instance_name=INSTANCE_NAME, people_list=PEOPLE, post_list=POSTS, post_file=POST_FILE, pexel_api_key=PEXEL_API_KEY, follow_chance=0.3, follow_back_chance=0.9, database_name=DATABASE_NAME, precisions="")
     print("Instance filled")

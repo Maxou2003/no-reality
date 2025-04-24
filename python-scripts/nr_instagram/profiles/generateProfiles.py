@@ -1,7 +1,10 @@
 import mysql.connector
 import json
 import sys
-sys.path.insert(0, 'python-scripts')
+import os
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
 from nr_source.nr_source_filling import create_persons
 from nr_instagram.profiles.create_descriptions import create_json
 from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM, DATABASE_SOURCE
@@ -273,7 +276,7 @@ def generate_profiles(nb_users, instance, gender, ethnicity, json_file_path):
 
 if __name__ == '__main__':
     
-    generate_profiles(nb_users=5, instance=19, gender=0, ethnicity=0, json_file_path='python-scripts/nr_instagram/descriptions.json')
+    generate_profiles(nb_users=5, instance=3, gender=0, ethnicity=0, json_file_path='python-scripts/nr_instagram/profiles/descriptions.json')
     #generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=2, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=0, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')
     # generate_profiles(nb_users=40, instance=1, gender=1, ethnicity=1, json_file_path='python-scripts/nr_source/descriptions.json')

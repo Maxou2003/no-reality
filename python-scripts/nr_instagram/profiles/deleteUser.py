@@ -1,6 +1,11 @@
-import mysql.connector
 import sys
-sys.path.insert(0, 'python-scripts')
+import os
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if root_path not in sys.path:
+    sys.path.insert(0, root_path)
+
+
+import mysql.connector
 from nr_instagram.posts.deletePost import delete_post
 from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
 
@@ -91,5 +96,4 @@ def delete_user_from_nr_instagram(user_id):
             conn.close()
 
 if __name__ == "__main__":
-    for i in range(331,500):
-        delete_user_from_nr_instagram(i)
+    delete_user_from_nr_instagram(11)
