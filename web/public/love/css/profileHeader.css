@@ -57,6 +57,10 @@
     font-size: 15px;
 }
 
+.profile_container {
+    padding: 0px 18% 20px 18%;
+    color: #626262;
+}
 
 .profile_row {
     display: flex;
