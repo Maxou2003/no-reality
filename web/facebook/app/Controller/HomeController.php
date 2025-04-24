@@ -27,6 +27,12 @@ class HomeController
         $suggestions = $UserRepository->getSuggestions();
         $template = $this->twig->load('home.twig');
 
-        echo $template->render(['suggestions' => $suggestions, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'suggestions' => $suggestions,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
+        ]);
     }
 }

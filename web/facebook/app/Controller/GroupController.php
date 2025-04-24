@@ -26,11 +26,18 @@ class GroupController
 
         $group = $GroupRepository->getGroup($group_slug);
         $members = $GroupRepository->getGroupMembers($group->group_id);
-        //$posts = $GroupRepository->getPosts($group_slug, false);
         $posts_pictures = $GroupRepository->getAllPostsPictures($group_slug);
 
         $template = $this->twig->load('groupPage.twig');
-        echo $template->render(['group' => $group, 'posts_pictures' => $posts_pictures, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'group' => $group,
+            'posts_pictures' => $posts_pictures,
+            'members' => $members,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
+        ]);
     }
 
     public function groupExplorer()
@@ -43,7 +50,14 @@ class GroupController
         $otherSuggestions = $GroupRepository->getGroupSuggestions(4, 4);
 
         $template = $this->twig->load('groupExplorer.twig');
-        echo $template->render(['suggestions' => $suggestions, 'otherSuggestions' => $otherSuggestions, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'suggestions' => $suggestions,
+            'otherSuggestions' => $otherSuggestions,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
+        ]);
     }
     public function announcements()
     {
@@ -58,7 +72,15 @@ class GroupController
         $posts_pictures = $GroupRepository->getAllPostsPictures($group_slug);
 
         $template = $this->twig->load('groupAnnouncement.twig');
-        echo $template->render(['group' => $group, 'posts_pictures' => $posts_pictures, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'group' => $group,
+            'posts_pictures' => $posts_pictures,
+            'members' => $members,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
+        ]);
     }
     public function members()
     {
@@ -72,7 +94,14 @@ class GroupController
         $members = $GroupRepository->getGroupMembers($group->group_id);
 
         $template = $this->twig->load('groupMembers.twig');
-        echo $template->render(['group' => $group, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'group' => $group,
+            'members' => $members,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
+        ]);
     }
     public function groupUser()
     {
@@ -108,7 +137,8 @@ class GroupController
                 'members' => $members,
                 'URL' => URL,
                 'POST_IMG_PATH' => POST_IMG_PATH,
-                'PROFILE_IMG_PATH' => PROFILE_IMG_PATH
+                'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+                'BANNER_IMG_PATH' => BANNER_IMG_PATH
             ]);
         }
     }
@@ -125,7 +155,15 @@ class GroupController
         $posts_pictures = $GroupRepository->getAllPostsPictures($group_slug);
 
         $template = $this->twig->load('groupMedia.twig');
-        echo $template->render(['group' => $group, 'posts_pictures' => $posts_pictures, 'members' => $members, 'URL' => URL, 'POST_IMG_PATH' => POST_IMG_PATH, 'PROFILE_IMG_PATH' => PROFILE_IMG_PATH]);
+        echo $template->render([
+            'group' => $group,
+            'posts_pictures' => $posts_pictures,
+            'members' => $members,
+            'URL' => URL,
+            'POST_IMG_PATH' => POST_IMG_PATH,
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
+        ]);
     }
     public function about()
     {
@@ -148,7 +186,8 @@ class GroupController
             'activity' => $activity,
             'URL' => URL,
             'POST_IMG_PATH' => POST_IMG_PATH,
-            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH
+            'PROFILE_IMG_PATH' => PROFILE_IMG_PATH,
+            'BANNER_IMG_PATH' => BANNER_IMG_PATH
         ]);
     }
 }
