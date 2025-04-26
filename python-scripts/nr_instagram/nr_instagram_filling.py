@@ -16,7 +16,7 @@ from nr_instagram.posts.database import Database
 import os
 import shutil
 import mysql.connector
-from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM
+from config import HOST, USER, PASSWORD, DATABASE_INSTAGRAM, PEXEL_API_KEY
 
 
 def create_direcory(instance_name):
@@ -92,8 +92,7 @@ if __name__ == "__main__":
     It creates the instance in the database and generates the people and posts.\n
     It also generates the followings and identifications for the posts.\n
     """
-    DATABASE_NAME = "nr_instagram"
-    PEXEL_API_KEY = "0NMkYhKereL0Ne2PfmTECpAF7SFgy9vGzlWMY2ieB1ByvDGUpKzS3mJn"
+    DATABASE_NAME = DATABASE_INSTAGRAM
     POST_FILE = "python-scripts/nr_instagram/posts/posts.json"
     DESCRIPTION_FILE = "python-scripts/nr_instagram/profiles/descriptions.json"
 
