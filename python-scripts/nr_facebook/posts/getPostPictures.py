@@ -11,7 +11,7 @@ def download_images_with_api(searchContent, api_key, max, pictures_dir, starting
     :param max: int - Maximum number of images to download\n
     :param pictures_dir: str - Directory to save downloaded images\n
     :param starting_index: int - Starting index of images\n
-    :return: int - Total number of images downloaded\n
+    :return: list - Path of all downloaded images\n
     """
     total_downloaded = 0
     per_page = 10
